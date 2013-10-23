@@ -49,7 +49,7 @@ describe Api::V1::DeleteDatasController do
         expect(payee2.reload.is_delete).to be_false
       end
 
-      it "delete the category data" do
+      it "delete the currency data" do
         user1 = Fabricate(:user)
         user2 = Fabricate(:user)
         device = Fabricate(:device, user_id: user1.id)

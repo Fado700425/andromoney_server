@@ -5,6 +5,10 @@ class CreateRecords < ActiveRecord::Migration
       t.float :amount
       t.integer :category_id
       t.integer :subcategory_id
+      t.string  :category_hash_key
+      t.string  :subcategory_hash_key
+
+
       t.datetime :date
       t.boolean :in_payment
       t.boolean :out_payment

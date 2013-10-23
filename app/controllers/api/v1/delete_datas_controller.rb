@@ -1,13 +1,12 @@
 class Api::V1::DeleteDatasController < ApplicationController
 
   def destroy
-    
     user = User.find_by(email: params[:id])
     if user
       delete_all_data(user,params)
       render :status=>200, :json=>{:message=>"Delete Success"}
     else
-      render :status=>404, :json=>{:message=>"Delete Success"}
+      render :status=>404, :json=>{:message=>"Delete Fail"}
     end
   end
 
