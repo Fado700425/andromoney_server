@@ -1,4 +1,5 @@
 class Api::V1::DeleteDatasController < ApplicationController
+  skip_before_filter  :verify_authenticity_token
 
   def destroy
     user = User.find_by(email: params[:id])

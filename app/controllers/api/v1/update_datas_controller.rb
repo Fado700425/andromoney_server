@@ -1,4 +1,6 @@
 class Api::V1::UpdateDatasController < ApplicationController
+  skip_before_filter  :verify_authenticity_token
+  
   def update
     user = User.find_by(email: params[:id])
     if user

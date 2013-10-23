@@ -1,4 +1,6 @@
 class Api::V1::AddDatasController < ApplicationController
+  skip_before_filter  :verify_authenticity_token
+  
   def create
     user = User.find_by(email: params[:id])
     if user

@@ -16,14 +16,14 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
+
 
 group :development, :test do
   gem 'pry'
   gem 'pry-nav'
   gem 'rspec-rails'
   gem 'pry'
+  gem 'capistrano'
 end
 
 group :test do
