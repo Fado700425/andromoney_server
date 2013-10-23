@@ -21,4 +21,14 @@ end
 
 group :development, :test do
   gem 'pry'
+  gem 'pry-nav'
+  gem 'rspec-rails'
+  gem 'pry'
+end
+
+group :test do
+  gem 'sqlite3'
+  gem 'shoulda-matchers'
+  gem 'fabrication'
+  gem 'faker'
 end
