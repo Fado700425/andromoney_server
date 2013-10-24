@@ -3,12 +3,12 @@ class CreateCategories < ActiveRecord::Migration
     create_table :category_table do |t|
       t.string :category
       t.integer :type
-      t.string :photo
-      t.boolean :hidden
+      t.string :photo_path
+      t.integer :hidden
       t.integer :order_no
       t.string :hash_key
       t.integer :user_id
-      t.boolean :is_delete
+      t.boolean :is_delete, default: false
 
       t.timestamps
     end

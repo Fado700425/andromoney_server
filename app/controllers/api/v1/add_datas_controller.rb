@@ -33,6 +33,8 @@ class Api::V1::AddDatasController < ApplicationController
 
     if params[:category_table]
       params[:category_table].each do |cat_param|
+        cat_param.delete :update_time
+        
         category = Category.new(cat_param)
         category.user = user
         category.save

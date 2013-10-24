@@ -16,12 +16,12 @@ ActiveRecord::Schema.define(version: 20131023140456) do
   create_table "category_table", force: true do |t|
     t.string   "category"
     t.integer  "type"
-    t.string   "photo"
-    t.boolean  "hidden"
+    t.string   "photo_path"
+    t.integer  "hidden"
     t.integer  "order_no"
     t.string   "hash_key"
     t.integer  "user_id"
-    t.boolean  "is_delete"
+    t.boolean  "is_delete",  default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20131023140456) do
   create_table "devices", force: true do |t|
     t.integer  "user_id"
     t.string   "uuid"
-    t.datetime "last_sync_time",  default: '1986-06-08 05:53:20'
+    t.datetime "last_sync_time",  default: '1986-06-08 06:17:08'
     t.datetime "sync_start_time"
   end
 
