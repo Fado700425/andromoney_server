@@ -21,7 +21,7 @@ describe Api::V1::AddDatasController do
     it "create the category data" do
       user1 = Fabricate(:user)
       device = Fabricate(:device, user_id: user1.id)
-      post :create, {body:{user: user1.email, device: device.uuid, categories: [{hash_key: Faker::Lorem.characters(20), category: "BestFood"}]}.to_json}
+      post :create, {body:{user: user1.email, device: device.uuid, category_table: [{hash_key: Faker::Lorem.characters(20), category: "BestFood"}]}.to_json}
       expect(Category.all.size).to eq(1)
     end
 

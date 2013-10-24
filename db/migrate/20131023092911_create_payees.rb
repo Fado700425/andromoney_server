@@ -1,6 +1,6 @@
 class CreatePayees < ActiveRecord::Migration
   def change
-    create_table :payees do |t|
+    create_table :payee_table do |t|
       t.string :payee_name
       t.boolean :hidden
       t.integer :type
@@ -11,6 +11,6 @@ class CreatePayees < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :payees, :hash_key
+    add_index :payee_table, :hash_key
   end
 end

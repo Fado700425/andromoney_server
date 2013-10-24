@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20131023140456) do
 
-  create_table "categories", force: true do |t|
+  create_table "category_table", force: true do |t|
     t.string   "category"
     t.integer  "type"
     t.string   "photo"
@@ -26,9 +26,9 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.datetime "updated_at"
   end
 
-  add_index "categories", ["hash_key"], name: "index_categories_on_hash_key", using: :btree
+  add_index "category_table", ["hash_key"], name: "index_category_table_on_hash_key", using: :btree
 
-  create_table "currencies", force: true do |t|
+  create_table "currency_table", force: true do |t|
     t.string   "currency_code"
     t.float    "rate"
     t.string   "currency_remark"
@@ -41,19 +41,19 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.datetime "updated_at"
   end
 
-  add_index "currencies", ["currency_code"], name: "index_currencies_on_currency_code", using: :btree
+  add_index "currency_table", ["currency_code"], name: "index_currency_table_on_currency_code", using: :btree
 
   create_table "devices", force: true do |t|
     t.integer  "user_id"
     t.string   "uuid"
-    t.datetime "last_sync_time",  default: '1986-06-08 01:41:47'
+    t.datetime "last_sync_time",  default: '1986-06-08 05:53:20'
     t.datetime "sync_start_time"
   end
 
   add_index "devices", ["user_id"], name: "index_devices_on_user_id", using: :btree
   add_index "devices", ["uuid"], name: "index_devices_on_uuid", using: :btree
 
-  create_table "payees", force: true do |t|
+  create_table "payee_table", force: true do |t|
     t.string   "payee_name"
     t.boolean  "hidden"
     t.integer  "type"
@@ -65,9 +65,9 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.datetime "updated_at"
   end
 
-  add_index "payees", ["hash_key"], name: "index_payees_on_hash_key", using: :btree
+  add_index "payee_table", ["hash_key"], name: "index_payee_table_on_hash_key", using: :btree
 
-  create_table "payments", force: true do |t|
+  create_table "payment_table", force: true do |t|
     t.integer  "kind"
     t.string   "payment_name"
     t.float    "total"
@@ -82,9 +82,9 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.datetime "updated_at"
   end
 
-  add_index "payments", ["hash_key"], name: "index_payments_on_hash_key", using: :btree
+  add_index "payment_table", ["hash_key"], name: "index_payment_table_on_hash_key", using: :btree
 
-  create_table "periods", force: true do |t|
+  create_table "period_table", force: true do |t|
     t.datetime "start_date"
     t.datetime "end_date"
     t.datetime "update_date"
@@ -98,9 +98,9 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.datetime "updated_at"
   end
 
-  add_index "periods", ["hash_key"], name: "index_periods_on_hash_key", using: :btree
+  add_index "period_table", ["hash_key"], name: "index_period_table_on_hash_key", using: :btree
 
-  create_table "prefs", force: true do |t|
+  create_table "pref_table", force: true do |t|
     t.string   "key"
     t.string   "value"
     t.integer  "user_id"
@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.datetime "updated_at"
   end
 
-  create_table "projects", force: true do |t|
+  create_table "project_table", force: true do |t|
     t.string   "project_name"
     t.boolean  "hidden"
     t.integer  "order_no"
@@ -120,9 +120,9 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.datetime "updated_at"
   end
 
-  add_index "projects", ["hash_key"], name: "index_projects_on_hash_key", using: :btree
+  add_index "project_table", ["hash_key"], name: "index_project_table_on_hash_key", using: :btree
 
-  create_table "records", force: true do |t|
+  create_table "record_table", force: true do |t|
     t.string   "project_name"
     t.float    "amount"
     t.integer  "category_id"
@@ -149,10 +149,10 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.datetime "updated_at"
   end
 
-  add_index "records", ["hash_key"], name: "index_records_on_hash_key", using: :btree
-  add_index "records", ["user_id"], name: "index_records_on_user_id", using: :btree
+  add_index "record_table", ["hash_key"], name: "index_record_table_on_hash_key", using: :btree
+  add_index "record_table", ["user_id"], name: "index_record_table_on_user_id", using: :btree
 
-  create_table "subcategories", force: true do |t|
+  create_table "subcategory_table", force: true do |t|
     t.integer  "category_id"
     t.string   "subcategory"
     t.boolean  "hidden"

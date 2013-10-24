@@ -1,6 +1,6 @@
 class CreatePeriods < ActiveRecord::Migration
   def change
-    create_table :periods do |t|
+    create_table :period_table do |t|
       t.datetime :start_date
       t.datetime :end_date
       t.datetime :update_date
@@ -13,6 +13,6 @@ class CreatePeriods < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :periods,:hash_key
+    add_index :period_table,:hash_key
   end
 end

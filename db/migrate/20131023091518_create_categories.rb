@@ -1,6 +1,6 @@
 class CreateCategories < ActiveRecord::Migration
   def change
-    create_table :categories do |t|
+    create_table :category_table do |t|
       t.string :category
       t.integer :type
       t.string :photo
@@ -12,6 +12,6 @@ class CreateCategories < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :categories, :hash_key
+    add_index :category_table, :hash_key
   end
 end

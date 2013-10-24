@@ -1,6 +1,6 @@
 class CreatePayments < ActiveRecord::Migration
   def change
-    create_table :payments do |t|
+    create_table :payment_table do |t|
       t.integer :kind
       t.string :payment_name
       t.float :total
@@ -14,6 +14,6 @@ class CreatePayments < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :payments,:hash_key
+    add_index :payment_table,:hash_key
   end
 end

@@ -1,6 +1,6 @@
 class CreatePrefs < ActiveRecord::Migration
   def change
-    create_table :prefs do |t|
+    create_table :pref_table do |t|
       t.string :key
       t.string :value
       t.integer :user_id

@@ -1,6 +1,6 @@
 class CreateCurrencies < ActiveRecord::Migration
   def change
-    create_table :currencies do |t|
+    create_table :currency_table do |t|
       t.string :currency_code
       t.float :rate
       t.string :currency_remark
@@ -12,6 +12,6 @@ class CreateCurrencies < ActiveRecord::Migration
       
       t.timestamps
     end
-    add_index :currencies, :currency_code
+    add_index :currency_table, :currency_code
   end
 end

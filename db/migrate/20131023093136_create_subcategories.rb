@@ -1,6 +1,6 @@
 class CreateSubcategories < ActiveRecord::Migration
   def change
-    create_table :subcategories do |t|
+    create_table :subcategory_table do |t|
       t.integer :category_id
       t.string :subcategory
       t.boolean :hidden

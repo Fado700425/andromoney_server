@@ -1,6 +1,6 @@
 class CreateRecords < ActiveRecord::Migration
   def change
-    create_table :records do |t|
+    create_table :record_table do |t|
       t.string :project_name
       t.float :amount
       t.integer :category_id
@@ -30,7 +30,7 @@ class CreateRecords < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :records,:hash_key
-    add_index :records,:user_id
+    add_index :record_table,:hash_key
+    add_index :record_table,:user_id
   end
 end
