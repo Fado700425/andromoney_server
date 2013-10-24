@@ -43,9 +43,7 @@ AndromoneyServer::Application.configure do
   # config.force_ssl = true
 
   # Set to :debug to see everything in the log.
-  # config.log_level = :info
-  config.active_support.deprecation = :log
-  Rails.logger.info("PARAMS: #{params.inspect}")
+  config.log_level = :info
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
