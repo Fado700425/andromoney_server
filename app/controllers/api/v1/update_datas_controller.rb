@@ -27,6 +27,7 @@ class Api::V1::UpdateDatasController < ApplicationController
     if params[:category_table]
       params[:category_table].each do |cat_param|
         cat = Category.find_by(hash_key: cat_param[:hash_key], user_id: user.id)
+        cat_param[:update_time] = DateTime.parse(cat_param[:update_time])
         cat.update_attributes(cat_param) if cat
       end
     end
