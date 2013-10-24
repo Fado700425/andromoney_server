@@ -6,6 +6,7 @@ AndromoneyServer::Application.routes.draw do
       resources :add_datas, only: [:create]
       resources :get_device_add_datas, only: [:index]
       resources :get_device_update_datas, only: [:index]
+      resources :get_device_delete_datas, only: [:index]
     end
   end
 end
