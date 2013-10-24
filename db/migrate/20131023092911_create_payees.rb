@@ -2,7 +2,7 @@ class CreatePayees < ActiveRecord::Migration
   def change
     create_table :payee_table do |t|
       t.string :payee_name
-      t.boolean :hidden
+      t.integer :hidden
       t.integer :type
       t.integer :order_no
       t.string :hash_key

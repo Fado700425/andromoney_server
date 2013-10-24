@@ -30,10 +30,10 @@ ActiveRecord::Schema.define(version: 20131023140456) do
 
   create_table "currency_table", force: true do |t|
     t.string   "currency_code"
-    t.float    "rate"
+    t.decimal  "rate",            precision: 10, scale: 0
     t.string   "currency_remark"
     t.integer  "sequence_status"
-    t.string   "pic"
+    t.string   "flag_path"
     t.integer  "order_no"
     t.integer  "user_id"
     t.boolean  "is_delete"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20131023140456) do
   create_table "devices", force: true do |t|
     t.integer  "user_id"
     t.string   "uuid"
-    t.datetime "last_sync_time",  default: '1986-06-08 06:17:08'
+    t.datetime "last_sync_time",  default: '1986-06-08 07:31:55'
     t.datetime "sync_start_time"
   end
 
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20131023140456) do
 
   create_table "payee_table", force: true do |t|
     t.string   "payee_name"
-    t.boolean  "hidden"
+    t.integer  "hidden"
     t.integer  "type"
     t.integer  "order_no"
     t.string   "hash_key"
@@ -70,10 +70,11 @@ ActiveRecord::Schema.define(version: 20131023140456) do
   create_table "payment_table", force: true do |t|
     t.integer  "kind"
     t.string   "payment_name"
-    t.float    "total"
+    t.decimal  "total",         precision: 10, scale: 0
     t.string   "currency_code"
-    t.float    "rate"
-    t.boolean  "hidden"
+    t.decimal  "rate",          precision: 10, scale: 0
+    t.integer  "out_total"
+    t.integer  "hidden"
     t.integer  "order_no"
     t.string   "hash_key"
     t.boolean  "is_delete"
@@ -123,28 +124,26 @@ ActiveRecord::Schema.define(version: 20131023140456) do
   add_index "project_table", ["hash_key"], name: "index_project_table_on_hash_key", using: :btree
 
   create_table "record_table", force: true do |t|
-    t.string   "project_name"
-    t.float    "amount"
-    t.integer  "category_id"
-    t.integer  "subcategory_id"
-    t.string   "category_hash_key"
-    t.string   "subcategory_hash_key"
+    t.decimal  "mount",          precision: 10, scale: 0
+    t.string   "category"
+    t.string   "subcategory"
     t.datetime "date"
-    t.boolean  "in_payment"
-    t.boolean  "out_payment"
-    t.text     "remark"
+    t.string   "in_payment"
+    t.string   "out_payment"
+    t.string   "remark"
     t.string   "currency_code"
-    t.float    "amount_to_main"
-    t.integer  "period_id"
-    t.integer  "payee_id"
-    t.integer  "project_id"
-    t.string   "hash_key"
-    t.boolean  "is_delete",            default: false
-    t.float    "in_amount"
-    t.float    "out_amount"
+    t.decimal  "amount_to_main", precision: 10, scale: 0
+    t.string   "period"
+    t.string   "payee"
+    t.string   "project"
+    t.string   "fee"
+    t.decimal  "in_amount",      precision: 10, scale: 0
+    t.decimal  "out_amount",     precision: 10, scale: 0
     t.string   "in_currency"
     t.string   "out_currency"
     t.integer  "user_id"
+    t.string   "hash_key"
+    t.boolean  "is_delete",                               default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -153,13 +152,12 @@ ActiveRecord::Schema.define(version: 20131023140456) do
   add_index "record_table", ["user_id"], name: "index_record_table_on_user_id", using: :btree
 
   create_table "subcategory_table", force: true do |t|
-    t.integer  "category_id"
+    t.string   "id_category"
     t.string   "subcategory"
-    t.boolean  "hidden"
+    t.integer  "hidden"
     t.integer  "order_no"
     t.string   "hash_key"
-    t.string   "category_hash_key"
-    t.boolean  "is_delete"
+    t.boolean  "is_delete",   default: false
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"

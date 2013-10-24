@@ -39,7 +39,7 @@ class Api::V1::AddDatasController < ApplicationController
             cat_param.delete :update_time
             cat_param[:user_id] = user.id
           end
-          category = Category.create(params[:category_table])
+          Category.create(params[:category_table])
         end
 
         if params[:payees]
@@ -92,10 +92,10 @@ class Api::V1::AddDatasController < ApplicationController
 
         if params[:subcategory_table]
           params[:subcategory_table].each do |subcategory_param|
-            subcategory = Subcategory.new(subcategory_param)
-            subcategory.user = user
-            subcategory.save
+            subcategory_param.delete :update_time
+            subcategory_param[:user_id] = user.id
           end
+          Subcategory.create(params[:subcategory_table])
         end
       end
     rescue
