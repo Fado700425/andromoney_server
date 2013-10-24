@@ -5,6 +5,15 @@ describe Api::V1::GetDeviceAddDatasController do
   describe "get Index" do
 
     context "with valid user data" do
+
+      it "update device last_sync_time" do
+        user1 = Fabricate(:user)
+        record1 = Fabricate(:record, user_id: user1.id)
+        record2 = Fabricate(:record, user_id: user1.id)
+        device = Fabricate(:device, user_id: user1.id, last_sync_time: Time.now - 3.days, sync_start_time: Time.now)
+        get :index, {id: user1.email,device: device.uuid}
+        device.reload.last_sync_time.should > Time.now - 1.minutes
+      end
       
       it "return user need data(record)" do
         user1 = Fabricate(:user)
@@ -82,20 +91,20 @@ describe Api::V1::GetDeviceAddDatasController do
         expect(body["subcategories"].size).to eq(1)
       end
       
-      # it "return status 200 after get" do
-      #   user1 = Fabricate(:user)
-      #   device = Fabricate(:device, user_id: user1.id)
-      #   get :index, {id: user1.email,device: device.uuid}
-      #   response.response_code.should == 200
-      # end
+      it "return status 200 after get" do
+        user1 = Fabricate(:user)
+        device = Fabricate(:device, user_id: user1.id)
+        get :index, {id: user1.email,device: device.uuid}
+        response.response_code.should == 200
+      end
     end
 
-    # context "with invalid user data" do
-    #   it "return status 404" do
-    #     get :index
-    #     response.response_code.should == 404
-    #   end
-    # end
+    context "with invalid user data" do
+      it "return status 404" do
+        get :index
+        response.response_code.should == 404
+      end
+    end
 
   end
 

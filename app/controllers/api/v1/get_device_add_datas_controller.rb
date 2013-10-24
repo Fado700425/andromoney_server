@@ -12,6 +12,7 @@ class Api::V1::GetDeviceAddDatasController < ApplicationController
       prefs = Pref.where(['created_at > ? and user_id = ?', device.last_sync_time, user.id])
       projects = Project.where(['created_at > ? and user_id = ?', device.last_sync_time, user.id])
       subcategories = Subcategory.where(['created_at > ? and user_id = ?', device.last_sync_time, user.id])
+      device.update_attribute(:last_sync_time, Time.now)
       render :status=>200, :json=>{records: records, categories: categories, payees: payees, currencies: currencies, payments: payments,periods: periods,prefs: prefs,projects: projects, subcategories: subcategories}.to_json
     else
       render :status=>404, :json=>{:message=>"get Fail"}
