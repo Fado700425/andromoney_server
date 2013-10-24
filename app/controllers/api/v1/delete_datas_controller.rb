@@ -5,7 +5,7 @@ class Api::V1::DeleteDatasController < ApplicationController
     Rails.logger.info("PARAMS: #{params.inspect}")
     body_params = JSON.parse(params[:body],:symbolize_names => true)
     params = body_params
-    user = User.find_by(email: params[:id])
+    user = User.find_by(email: params[:user])
     user = create_user_if_not_find_in_db(params) unless user
     
     if user && !user.new_record?
@@ -21,8 +21,8 @@ class Api::V1::DeleteDatasController < ApplicationController
   private
 
   def create_user_if_not_find_in_db(params)
-    email = params[:id]
-    user = User.create(email: params[:id])    
+    email = params[:user]
+    user = User.create(email: params[:user])    
   end
 
   def update_device_sync_time(user,params)
