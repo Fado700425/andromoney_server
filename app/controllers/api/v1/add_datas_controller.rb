@@ -92,6 +92,7 @@ class Api::V1::AddDatasController < ApplicationController
 
         if params[:subcategory_table]
           params[:subcategory_table].each do |subcategory_param|
+            subcategory_param[:update_time] = DateTime.parse(subcategory_param[:update_time])
             subcategory_param[:user_id] = user.id
           end
           Subcategory.create(params[:subcategory_table])
