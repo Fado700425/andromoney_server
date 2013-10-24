@@ -1,8 +1,16 @@
 AndromoneyServer::Application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :delete_datas, only: [:destroy]
-      resources :update_datas, only: [:update]
+      resources :delete_datas, only: [] do
+        collection do
+          post 'delete_all'
+        end
+      end
+      resources :update_datas, only: [] do
+        collection do
+          post 'update_all'
+        end
+      end
       resources :add_datas, only: [:create]
       resources :get_device_add_datas, only: [:index]
       resources :get_device_update_datas, only: [:index]

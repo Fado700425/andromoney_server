@@ -1,7 +1,7 @@
 class Api::V1::DeleteDatasController < ApplicationController
   skip_before_filter  :verify_authenticity_token
 
-  def destroy
+  def delete_all
     user = User.find_by(email: params[:id])
     user = create_user_if_not_find_in_db(params) unless user
     
