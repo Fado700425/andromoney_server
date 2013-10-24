@@ -2,7 +2,10 @@ class Api::V1::AddDatasController < ApplicationController
   skip_before_filter  :verify_authenticity_token
   
   def create
-    user = User.find_by(email: params[:id])
+    Rails.logger.info("PARAMS: #{params.inspect}")
+    params = JSON.parse(params[:body],:symbolize_names => true)
+
+    user = User.find_by(email: params[:user])
     if user
       create_all_data(user,params)
       render :status=>200, :json=>{:message=>"Create Success"}
