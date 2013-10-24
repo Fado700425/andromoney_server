@@ -5,6 +5,8 @@ class CreatePrefs < ActiveRecord::Migration
       t.string :value
       t.integer :user_id
       t.boolean :is_delete
+
+      t.timestamps
     end
   end
 end

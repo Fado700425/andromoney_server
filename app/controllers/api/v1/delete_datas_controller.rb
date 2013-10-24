@@ -3,7 +3,10 @@ class Api::V1::DeleteDatasController < ApplicationController
 
   def destroy
     user = User.find_by(email: params[:id])
-    if user
+    user = create_user_if_not_find_in_db(params) unless user
+    
+    if user && !user.new_record?
+      update_device_sync_time(user,params)
       delete_all_data(user,params)
       render :status=>200, :json=>{:message=>"Delete Success"}
     else
@@ -13,6 +16,27 @@ class Api::V1::DeleteDatasController < ApplicationController
 
 
   private
+
+  def create_user_if_not_find_in_db(params)
+    email = params[:id]
+    user = User.create(email: params[:id])    
+  end
+
+  def update_device_sync_time(user,params)
+    if params[:device]
+      device = Device.find_by(user_id: user.id, uuid: params[:device])
+      device = create_user_device(user,params) unless device
+      device.sync_start_time = Time.now
+      device.save
+    end
+  end
+
+  def create_user_device(user,params)
+    device = user.devices.build
+    device.uuid = params[:device]
+    device.save
+    device
+  end
 
   def delete_all_data(user,params)
     if params[:records]

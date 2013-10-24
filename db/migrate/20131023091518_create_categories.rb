@@ -10,7 +10,7 @@ class CreateCategories < ActiveRecord::Migration
       t.integer :user_id
       t.boolean :is_delete
 
-      t.timestamp
+      t.timestamps
     end
     add_index :categories, :hash_key
   end

@@ -10,7 +10,7 @@ class CreateCurrencies < ActiveRecord::Migration
       t.integer :user_id
       t.boolean :is_delete
       
-      t.timestamp
+      t.timestamps
     end
     add_index :currencies, :currency_code
   end

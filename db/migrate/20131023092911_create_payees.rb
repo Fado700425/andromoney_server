@@ -9,7 +9,7 @@ class CreatePayees < ActiveRecord::Migration
       t.boolean :is_delete
       t.integer :user_id
 
-      t.timestamp
+      t.timestamps
     end
     add_index :payees, :hash_key
   end

@@ -14,27 +14,31 @@
 ActiveRecord::Schema.define(version: 20131023140456) do
 
   create_table "categories", force: true do |t|
-    t.string  "category"
-    t.integer "type"
-    t.string  "photo"
-    t.boolean "hidden"
-    t.integer "order_no"
-    t.string  "hash_key"
-    t.integer "user_id"
-    t.boolean "is_delete"
+    t.string   "category"
+    t.integer  "type"
+    t.string   "photo"
+    t.boolean  "hidden"
+    t.integer  "order_no"
+    t.string   "hash_key"
+    t.integer  "user_id"
+    t.boolean  "is_delete"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "categories", ["hash_key"], name: "index_categories_on_hash_key", using: :btree
 
   create_table "currencies", force: true do |t|
-    t.string  "currency_code"
-    t.float   "rate"
-    t.string  "currency_remark"
-    t.integer "sequence_status"
-    t.string  "pic"
-    t.integer "order_no"
-    t.integer "user_id"
-    t.boolean "is_delete"
+    t.string   "currency_code"
+    t.float    "rate"
+    t.string   "currency_remark"
+    t.integer  "sequence_status"
+    t.string   "pic"
+    t.integer  "order_no"
+    t.integer  "user_id"
+    t.boolean  "is_delete"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "currencies", ["currency_code"], name: "index_currencies_on_currency_code", using: :btree
@@ -42,35 +46,40 @@ ActiveRecord::Schema.define(version: 20131023140456) do
   create_table "devices", force: true do |t|
     t.integer  "user_id"
     t.string   "uuid"
-    t.datetime "sync_time"
+    t.datetime "last_sync_time"
+    t.datetime "sync_start_time"
   end
 
   add_index "devices", ["user_id"], name: "index_devices_on_user_id", using: :btree
   add_index "devices", ["uuid"], name: "index_devices_on_uuid", using: :btree
 
   create_table "payees", force: true do |t|
-    t.string  "payee_name"
-    t.boolean "hidden"
-    t.integer "type"
-    t.integer "order_no"
-    t.string  "hash_key"
-    t.boolean "is_delete"
-    t.integer "user_id"
+    t.string   "payee_name"
+    t.boolean  "hidden"
+    t.integer  "type"
+    t.integer  "order_no"
+    t.string   "hash_key"
+    t.boolean  "is_delete"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "payees", ["hash_key"], name: "index_payees_on_hash_key", using: :btree
 
   create_table "payments", force: true do |t|
-    t.integer "kind"
-    t.string  "payment_name"
-    t.float   "total"
-    t.string  "currency_code"
-    t.float   "rate"
-    t.boolean "hidden"
-    t.integer "order_no"
-    t.string  "hash_key"
-    t.boolean "is_delete"
-    t.integer "user_id"
+    t.integer  "kind"
+    t.string   "payment_name"
+    t.float    "total"
+    t.string   "currency_code"
+    t.float    "rate"
+    t.boolean  "hidden"
+    t.integer  "order_no"
+    t.string   "hash_key"
+    t.boolean  "is_delete"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "payments", ["hash_key"], name: "index_payments_on_hash_key", using: :btree
@@ -85,24 +94,30 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.string   "hash_key"
     t.boolean  "is_delete"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "periods", ["hash_key"], name: "index_periods_on_hash_key", using: :btree
 
   create_table "prefs", force: true do |t|
-    t.string  "key"
-    t.string  "value"
-    t.integer "user_id"
-    t.boolean "is_delete"
+    t.string   "key"
+    t.string   "value"
+    t.integer  "user_id"
+    t.boolean  "is_delete"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "projects", force: true do |t|
-    t.string  "project_name"
-    t.boolean "hidden"
-    t.integer "order_no"
-    t.string  "hash_key"
-    t.boolean "is_delete"
-    t.integer "user_id"
+    t.string   "project_name"
+    t.boolean  "hidden"
+    t.integer  "order_no"
+    t.string   "hash_key"
+    t.boolean  "is_delete"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "projects", ["hash_key"], name: "index_projects_on_hash_key", using: :btree
@@ -112,6 +127,8 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.float    "amount"
     t.integer  "category_id"
     t.integer  "subcategory_id"
+    t.string   "category_hash_key"
+    t.string   "subcategory_hash_key"
     t.datetime "date"
     t.boolean  "in_payment"
     t.boolean  "out_payment"
@@ -122,32 +139,38 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.integer  "payee_id"
     t.integer  "project_id"
     t.string   "hash_key"
-    t.boolean  "is_delete",      default: false
+    t.boolean  "is_delete",            default: false
     t.float    "in_amount"
     t.float    "out_amount"
     t.string   "in_currency"
     t.string   "out_currency"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "records", ["hash_key"], name: "index_records_on_hash_key", using: :btree
   add_index "records", ["user_id"], name: "index_records_on_user_id", using: :btree
 
   create_table "subcategories", force: true do |t|
-    t.integer "category_id"
-    t.string  "subcategory"
-    t.boolean "hidden"
-    t.integer "order_no"
-    t.string  "hash_key"
-    t.string  "category_hash_key"
-    t.boolean "is_delete"
-    t.integer "user_id"
+    t.integer  "category_id"
+    t.string   "subcategory"
+    t.boolean  "hidden"
+    t.integer  "order_no"
+    t.string   "hash_key"
+    t.string   "category_hash_key"
+    t.boolean  "is_delete"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"
     t.datetime "sync_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

@@ -27,6 +27,8 @@ class CreateRecords < ActiveRecord::Migration
       t.string :out_currency
       
       t.integer :user_id
+
+      t.timestamps
     end
     add_index :records,:hash_key
     add_index :records,:user_id

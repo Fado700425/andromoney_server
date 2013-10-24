@@ -11,7 +11,7 @@ class CreatePeriods < ActiveRecord::Migration
       t.boolean :is_delete
       t.integer :user_id
 
-      t.timestamp
+      t.timestamps
     end
     add_index :periods,:hash_key
   end

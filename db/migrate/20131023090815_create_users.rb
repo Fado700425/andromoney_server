@@ -5,7 +5,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email
       t.datetime :sync_time
 
-      t.timestamp
+      t.timestamps
     end
   end
 end

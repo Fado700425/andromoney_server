@@ -8,7 +8,7 @@ class CreateProjects < ActiveRecord::Migration
       t.boolean :is_delete
       t.integer :user_id
 
-      t.timestamp
+      t.timestamps
     end
     add_index :projects,:hash_key
   end

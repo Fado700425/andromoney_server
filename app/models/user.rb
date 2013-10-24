@@ -8,4 +8,7 @@ class User < ActiveRecord::Base
   has_many :projects
   has_many :prefs
   has_many :subcategories
+  has_many :devices
+
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create
 end

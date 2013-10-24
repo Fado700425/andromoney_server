@@ -6,6 +6,21 @@ describe Api::V1::DeleteDatasController do
 
     context "with valid input" do
 
+      it "create user or device if do not find in database" do
+        delete :destroy, {id: Faker::Internet.email, device: Faker::Lorem.characters(20), records: [{hash_key: Faker::Lorem.characters(20)},{hash_key: Faker::Lorem.characters(20)}]}
+        expect(User.all.size).to eq(1)
+        expect(User.first.devices.size).to eq(1)
+      end
+
+      it "update device sync_start_time before sync" do
+        user1 = Fabricate(:user)
+        device = Fabricate(:device, user_id: user1.id)
+        record1 = Fabricate(:record, user_id: user1.id)
+        record2 = Fabricate(:record, user_id: user1.id)
+        delete :destroy, {id: user1.email, device: device.uuid, records: [{hash_key: record1.hash_key},{hash_key: record2.hash_key}]}
+        expect(device.reload.sync_start_time).not_to be_nil
+      end
+
       it "delete the record data" do
         user1 = Fabricate(:user)
         device = Fabricate(:device, user_id: user1.id)
