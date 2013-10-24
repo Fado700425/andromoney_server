@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20131023140456) do
 
   create_table "currency_table", force: true do |t|
     t.string   "currency_code"
-    t.decimal  "rate",            precision: 10, scale: 0
+    t.decimal  "rate",            precision: 16, scale: 2
     t.string   "currency_remark"
     t.integer  "sequence_status"
     t.string   "flag_path"
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20131023140456) do
   create_table "devices", force: true do |t|
     t.integer  "user_id"
     t.string   "uuid"
-    t.datetime "last_sync_time",  default: '1986-06-08 07:57:29'
+    t.datetime "last_sync_time",  default: '1986-06-08 12:07:56'
     t.datetime "sync_start_time"
   end
 
@@ -73,9 +73,9 @@ ActiveRecord::Schema.define(version: 20131023140456) do
   create_table "payment_table", force: true do |t|
     t.integer  "kind"
     t.string   "payment_name"
-    t.decimal  "total",         precision: 10, scale: 0
+    t.decimal  "total",         precision: 16, scale: 2
     t.string   "currency_code"
-    t.decimal  "rate",          precision: 10, scale: 0
+    t.decimal  "rate",          precision: 16, scale: 2
     t.integer  "out_total"
     t.integer  "hidden"
     t.integer  "order_no"
@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 20131023140456) do
   add_index "project_table", ["hash_key"], name: "index_project_table_on_hash_key", using: :btree
 
   create_table "record_table", force: true do |t|
-    t.decimal  "mount",          precision: 10, scale: 0
+    t.decimal  "mount",          precision: 16, scale: 2
     t.string   "category"
     t.string   "subcategory"
     t.datetime "date"
@@ -139,12 +139,12 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.string   "out_payment"
     t.string   "remark"
     t.string   "currency_code"
-    t.decimal  "amount_to_main", precision: 10, scale: 0
+    t.decimal  "amount_to_main", precision: 16, scale: 2
     t.string   "period"
     t.string   "payee"
     t.string   "project"
     t.string   "fee"
-    t.decimal  "in_amount",      precision: 10, scale: 0
+    t.decimal  "in_amount",      precision: 16, scale: 2
     t.decimal  "out_amount",     precision: 10, scale: 0
     t.string   "in_currency"
     t.string   "out_currency"

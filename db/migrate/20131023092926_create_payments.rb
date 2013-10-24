@@ -3,9 +3,9 @@ class CreatePayments < ActiveRecord::Migration
     create_table :payment_table do |t|
       t.integer :kind
       t.string :payment_name
-      t.decimal :total
+      t.decimal :total, :precision => 16, :scale => 2
       t.string :currency_code
-      t.decimal :rate
+      t.decimal :rate, :precision => 16, :scale => 2
       t.integer :out_total
       t.integer :hidden
       t.integer :order_no

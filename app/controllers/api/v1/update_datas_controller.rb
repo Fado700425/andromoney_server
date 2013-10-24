@@ -8,7 +8,10 @@ class Api::V1::UpdateDatasController < ApplicationController
 
     user = User.find_by(email: params[:user])
     if user
-      update_all_data(user,params)
+      unless update_all_data(user,params)
+        render :status=>404, :json=>{:message=>"Update Fail"}
+        return
+      end
       render :status=>200, :json=>{:message=>"Update Success"}
     else
       render :status=>404, :json=>{:message=>"Update Fail"}
@@ -17,61 +20,30 @@ class Api::V1::UpdateDatasController < ApplicationController
 
   private
 
+  def update_datas(params,class_name,key,user)
+    params.each do |param|
+      data = eval(class_name.classify).find_by(key => param[key], user_id: user.id)
+      param[:update_time] = DateTime.parse(param[:update_time]) if param[:update_time]
+      data.update_attributes(param) if data
+    end
+  end
+
   def update_all_data(user,params)
-    if params[:record_table]
-      params[:record_table].each do |record_param|
-        record = Record.find_by(hash_key: record_param[:hash_key], user_id: user.id)
-        record.update_attributes(record_param) if record
+    begin
+      ActiveRecord::Base.transaction do
+        update_datas(params[:record_table],"record",:hash_key,user) if params[:record_table]
+        update_datas(params[:category_table],"category",:hash_key,user) if params[:category_table]
+        update_datas(params[:payee_table],"payee",:hash_key,user) if params[:payee_table]
+        update_datas(params[:currency_table],"currency",:currency_code,user) if params[:currency_table]
+        update_datas(params[:payment_table],"payment",:hash_key,user) if params[:payment_table]
+        update_datas(params[:period_table],"period",:hash_key,user) if params[:period_table]
+        update_datas(params[:pref_table],"pref",:key,user) if params[:pref_table]
+        update_datas(params[:project_table],"project",:hash_key,user) if params[:project_table]
+        update_datas(params[:subcategory_table],"subcategory",:hash_key,user) if params[:subcategory_table]
       end
+    rescue
+      return false
     end
-    if params[:category_table]
-      params[:category_table].each do |cat_param|
-        cat = Category.find_by(hash_key: cat_param[:hash_key], user_id: user.id)
-        cat_param[:update_time] = DateTime.parse(cat_param[:update_time])
-        cat.update_attributes(cat_param) if cat
-      end
-    end
-    if params[:payee_table]
-      params[:payee_table].each do |payee_param|
-        payee = Payee.find_by(hash_key: payee_param[:hash_key], user_id: user.id)
-        payee.update_attributes(payee_param) if payee
-      end
-    end
-    if params[:currency_table]
-      params[:currency_table].each do |currency_param|
-        currency = Currency.find_by(currency_code: currency_param[:currency_code], user_id: user.id)
-        currency.update_attributes(currency_param) if currency
-      end
-    end
-    if params[:payment_table]
-      params[:payment_table].each do |payment_param|
-        payment = Payment.find_by(hash_key: payment_param[:hash_key], user_id: user.id)
-        payment.update_attributes(payment_param) if payment
-      end
-    end
-    if params[:period_table]
-      params[:period_table].each do |period_param|
-        period = Period.find_by(hash_key: period_param[:hash_key], user_id: user.id)
-        period.update_attributes(period_param) if period
-      end
-    end
-    if params[:pref_table]
-      params[:pref_table].each do |pref_param|
-        pref = Pref.find_by(key: pref_param[:key], user_id: user.id)
-        pref.update_attributes(pref_param) if pref
-      end
-    end
-    if params[:project_table]
-      params[:project_table].each do |project_param|
-        project = Project.find_by(hash_key: project_param[:hash_key], user_id: user.id)
-        project.update_attributes(project_param) if project
-      end
-    end
-    if params[:subcategory_table]
-      params[:subcategory_table].each do |subcategory_param|
-        subcategory = Subcategory.find_by(hash_key: subcategory_param[:hash_key], user_id: user.id)
-        subcategory.update_attributes(subcategory_param) if subcategory
-      end
-    end
+    return true
   end
 end
