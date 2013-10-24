@@ -12,7 +12,7 @@ class Api::V1::AddDatasController < ApplicationController
     body_params = JSON.parse(params[:body],:symbolize_names => true)
     user = User.find_by(email: body_params[:user])
     if user
-      create_all_data(user,body_params)
+      return unless create_all_data(user,body_params)
       render :status=>200, :json=>{:message=>"Create Success"}
     else
       render :status=>404, :json=>{:message=>"Create Fail"}
@@ -100,7 +100,7 @@ class Api::V1::AddDatasController < ApplicationController
       end
     rescue
       render :status=>404, :json=>{:message=>"Create Fail"}
-      return
+      return false
     end
 
   end
