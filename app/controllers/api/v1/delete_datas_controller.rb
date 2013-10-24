@@ -3,6 +3,8 @@ class Api::V1::DeleteDatasController < ApplicationController
 
   def delete_all
     Rails.logger.info("PARAMS: #{params.inspect}")
+    body_params = JSON.parse(params[:body],:symbolize_names => true)
+    params = body_params
     user = User.find_by(email: params[:id])
     user = create_user_if_not_find_in_db(params) unless user
     
