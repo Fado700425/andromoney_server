@@ -36,7 +36,7 @@ class Api::V1::AddDatasController < ApplicationController
 
         if params[:category_table]
           params[:category_table].each do |cat_param|
-            cat_param[:update] = DateTime.parse(cat_param[:update])
+            cat_param[:update_time] = DateTime.parse(cat_param[:update_time])
             cat_param[:user_id] = user.id
           end
           Category.create(params[:category_table])
