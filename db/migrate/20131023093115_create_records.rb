@@ -25,6 +25,7 @@ class CreateRecords < ActiveRecord::Migration
       t.integer :user_id
       t.string :hash_key
       t.boolean :is_delete, default: false
+      t.datetime :update_time
 
       t.timestamps
     end

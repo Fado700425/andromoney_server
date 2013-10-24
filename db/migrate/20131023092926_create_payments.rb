@@ -12,6 +12,7 @@ class CreatePayments < ActiveRecord::Migration
       t.string :hash_key
       t.boolean :is_delete
       t.integer :user_id
+      t.datetime :update_time
 
       t.timestamps
     end

@@ -9,6 +9,7 @@ class CreateSubcategories < ActiveRecord::Migration
       t.string :hash_key
       t.boolean :is_delete, default: false
       t.integer :user_id
+      t.datetime :update_time
 
       t.timestamps
     end

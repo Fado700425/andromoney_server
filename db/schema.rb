@@ -21,7 +21,8 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.integer  "order_no"
     t.string   "hash_key"
     t.integer  "user_id"
-    t.boolean  "is_delete",  default: false
+    t.boolean  "is_delete",   default: false
+    t.datetime "update_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -37,6 +38,7 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.integer  "order_no"
     t.integer  "user_id"
     t.boolean  "is_delete"
+    t.datetime "update_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -46,7 +48,7 @@ ActiveRecord::Schema.define(version: 20131023140456) do
   create_table "devices", force: true do |t|
     t.integer  "user_id"
     t.string   "uuid"
-    t.datetime "last_sync_time",  default: '1986-06-08 07:31:55'
+    t.datetime "last_sync_time",  default: '1986-06-08 07:57:29'
     t.datetime "sync_start_time"
   end
 
@@ -61,6 +63,7 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.string   "hash_key"
     t.boolean  "is_delete"
     t.integer  "user_id"
+    t.datetime "update_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -79,6 +82,7 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.string   "hash_key"
     t.boolean  "is_delete"
     t.integer  "user_id"
+    t.datetime "update_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -95,6 +99,7 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.string   "hash_key"
     t.boolean  "is_delete"
     t.integer  "user_id"
+    t.datetime "update_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -106,6 +111,7 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.string   "value"
     t.integer  "user_id"
     t.boolean  "is_delete"
+    t.datetime "update_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -117,6 +123,7 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.string   "hash_key"
     t.boolean  "is_delete"
     t.integer  "user_id"
+    t.datetime "update_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -144,6 +151,7 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.integer  "user_id"
     t.string   "hash_key"
     t.boolean  "is_delete",                               default: false
+    t.datetime "update_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -159,6 +167,7 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.string   "hash_key"
     t.boolean  "is_delete",   default: false
     t.integer  "user_id"
+    t.datetime "update_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

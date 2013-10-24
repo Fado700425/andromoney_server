@@ -9,6 +9,7 @@ class CreateCategories < ActiveRecord::Migration
       t.string :hash_key
       t.integer :user_id
       t.boolean :is_delete, default: false
+      t.datetime :update_time
 
       t.timestamps
     end

@@ -9,6 +9,7 @@ class CreateCurrencies < ActiveRecord::Migration
       t.integer :order_no
       t.integer :user_id
       t.boolean :is_delete
+      t.datetime :update_time
       
       t.timestamps
     end

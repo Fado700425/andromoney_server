@@ -26,8 +26,8 @@ class Api::V1::AddDatasController < ApplicationController
     begin
       ActiveRecord::Base.transaction do
     
-        if params[:records]
-          params[:records].each do |record_param|
+        if params[:record_table]
+          params[:record_table].each do |record_param|
             record = Record.new(record_param)
             record.user = user
             record.save
@@ -36,54 +36,53 @@ class Api::V1::AddDatasController < ApplicationController
 
         if params[:category_table]
           params[:category_table].each do |cat_param|
-            cat_param.delete :update_time
             cat_param[:user_id] = user.id
           end
           Category.create(params[:category_table])
         end
 
-        if params[:payees]
-          params[:payees].each do |payee_param|
+        if params[:payee_table]
+          params[:payee_table].each do |payee_param|
             payee = Payee.new(payee_param)
             payee.user = user
             payee.save
           end
         end
 
-        if params[:currencies]
-          params[:currencies].each do |currency_param|
+        if params[:currency_table]
+          params[:currency_table].each do |currency_param|
             currency = Currency.new(currency_param)
             currency.user = user
             currency.save
           end
         end
 
-        if params[:payments]
-          params[:payments].each do |payment_param|
+        if params[:payment_table]
+          params[:payment_table].each do |payment_param|
             payment = Payment.new(payment_param)
             payment.user = user
             payment.save
           end
         end
 
-        if params[:periods]
-          params[:periods].each do |period_param|
+        if params[:period_table]
+          params[:period_table].each do |period_param|
             period = Period.new(period_param)
             period.user = user
             period.save
           end
         end
 
-        if params[:prefs]
-          params[:prefs].each do |pref_param|
+        if params[:pref_table]
+          params[:pref_table].each do |pref_param|
             pref = Pref.new(pref_param)
             pref.user = user
             pref.save
           end
         end
 
-        if params[:projects]
-          params[:projects].each do |project_param|
+        if params[:project_table]
+          params[:project_table].each do |project_param|
             project = Project.new(project_param)
             project.user = user
             project.save
@@ -92,7 +91,6 @@ class Api::V1::AddDatasController < ApplicationController
 
         if params[:subcategory_table]
           params[:subcategory_table].each do |subcategory_param|
-            subcategory_param.delete :update_time
             subcategory_param[:user_id] = user.id
           end
           Subcategory.create(params[:subcategory_table])
@@ -102,6 +100,6 @@ class Api::V1::AddDatasController < ApplicationController
       render :status=>404, :json=>{:message=>"Create Fail"}
       return false
     end
-
+    return true
   end
 end
