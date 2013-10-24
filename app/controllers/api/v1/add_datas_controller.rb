@@ -90,8 +90,8 @@ class Api::V1::AddDatasController < ApplicationController
           end
         end
 
-        if params[:subcategories]
-          params[:subcategories].each do |subcategory_param|
+        if params[:subcategory_table]
+          params[:subcategory_table].each do |subcategory_param|
             subcategory = Subcategory.new(subcategory_param)
             subcategory.user = user
             subcategory.save
