@@ -4,8 +4,8 @@ class CreatePeriods < ActiveRecord::Migration
       t.datetime :start_date
       t.datetime :end_date
       t.datetime :update_date
-      t.integer :peroid_type
-      t.integer :preriod_num
+      t.integer :period_type
+      t.integer :period_num
       t.integer :order_no
       t.string :hash_key
       t.boolean :is_delete

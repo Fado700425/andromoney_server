@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20131023140456) do
   create_table "devices", force: true do |t|
     t.integer  "user_id"
     t.string   "uuid"
-    t.datetime "last_sync_time",  default: '1986-06-08 12:07:56'
+    t.datetime "last_sync_time",  default: '1986-06-10 00:39:41'
     t.datetime "sync_start_time"
   end
 
@@ -93,8 +93,8 @@ ActiveRecord::Schema.define(version: 20131023140456) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.datetime "update_date"
-    t.integer  "peroid_type"
-    t.integer  "preriod_num"
+    t.integer  "period_type"
+    t.integer  "period_num"
     t.integer  "order_no"
     t.string   "hash_key"
     t.boolean  "is_delete"
