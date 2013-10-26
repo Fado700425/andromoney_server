@@ -4,7 +4,7 @@ class CreateRecords < ActiveRecord::Migration
       
       t.decimal :mount,:precision => 16, :scale => 2
       t.string  :category
-      t.string  :subcategory
+      t.string  :sub_category
 
       t.datetime :date
       t.string :in_payment
