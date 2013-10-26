@@ -1,5 +1,6 @@
 class Api::V1::UsersController < Api::V1::ApiController
-  
+  skip_before_filter  :verify_authenticity_token
+
   def create
     Rails.logger.info("PARAMS: #{params.inspect}")
     params = deal_params
