@@ -11,6 +11,11 @@ AndromoneyServer::Application.routes.draw do
           post 'update_all'
         end
       end
+      resources :users, only: [:create] do
+        collection do
+          get 'is_user_register'
+        end
+      end
       resources :add_datas, only: [:create]
       resources :get_device_add_datas, only: [:index]
       resources :get_device_update_datas, only: [:index]

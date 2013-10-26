@@ -6,11 +6,11 @@ describe Api::V1::DeleteDatasController do
 
     context "with valid input" do
 
-      it "create user or device if do not find in database" do
-        post :delete_all, body: {user: Faker::Internet.email, device: Faker::Lorem.characters(20), record_table: [{hash_key: Faker::Lorem.characters(20)},{hash_key: Faker::Lorem.characters(20)}]}.to_json
-        expect(User.all.size).to eq(1)
-        expect(User.first.devices.size).to eq(1)
-      end
+      # it "create user or device if do not find in database" do
+      #   post :delete_all, body: {user: Faker::Internet.email, device: Faker::Lorem.characters(20), record_table: [{hash_key: Faker::Lorem.characters(20)},{hash_key: Faker::Lorem.characters(20)}]}.to_json
+      #   expect(User.all.size).to eq(1)
+      #   expect(User.first.devices.size).to eq(1)
+      # end
 
       it "update device sync_start_time before sync" do
         user1 = Fabricate(:user)

@@ -1,18 +1,11 @@
-class Api::V1::DeleteDatasController < ApplicationController
+class Api::V1::DeleteDatasController < Api::V1::ApiController
   skip_before_filter  :verify_authenticity_token
 
   def delete_all
     Rails.logger.info("PARAMS: #{params.inspect}")
     
-    unless params[:body]
-      render :status=>404, :json=>{:message=>"Create Fail"}
-      return
-    end
-
-    body_params = JSON.parse(params[:body],:symbolize_names => true)
-    params = body_params
+    params = deal_params
     user = User.find_by(email: params[:user])
-    user = create_user_if_not_find_in_db(params) unless user
     
     if user && !user.new_record?
       update_device_sync_time(user,params)
@@ -28,11 +21,6 @@ class Api::V1::DeleteDatasController < ApplicationController
 
 
   private
-
-  def create_user_if_not_find_in_db(params)
-    email = params[:user]
-    user = User.create(email: params[:user])    
-  end
 
   def update_device_sync_time(user,params)
     if params[:device]
