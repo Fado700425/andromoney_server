@@ -9,7 +9,7 @@ class Api::V1::GetDeviceUpdateDatasController < ApplicationController
     if user && device
       sync_time = DateTime.parse(params[:sync_time])
       model = eval(table_mapping[params[:table]])
-      datas = model.where(['updated_at > ? and user_id = ?', sync_time, user.id])
+      datas = model.where(['updated_at > ? and user_id = ?', sync_time, user.id]).api_select
       render :status=>200, :json=> datas.to_json
     else
       render :status=>404, :json=>{:message=>"get Fail"}
