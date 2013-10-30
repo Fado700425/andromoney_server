@@ -7,7 +7,7 @@ class Api::V1::GetDeviceAddDatasController < ApplicationController
     device = Device.find_by(user_id: user.id, uuid: params[:device]) if user
     if user && device
       sync_time = DateTime.parse(params[:sync_time])
-      model = eval(table_mapping[params[:table_name]])
+      model = eval(table_mapping[params[:table]])
       datas = model.where(['created_at > ? and user_id = ?', sync_time, user.id])
       render :status=>200, :json=> datas.to_json
     else
