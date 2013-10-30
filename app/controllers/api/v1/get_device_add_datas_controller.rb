@@ -1,19 +1,15 @@
 class Api::V1::GetDeviceAddDatasController < ApplicationController
   def index
+
+    table_mapping =  {"record_table" => "Record", "category_table" => "Category", "payee_table" => "Payee", "currency_table" => "Currency", "payment_table" => "Payment", "period_table" => "Period", "pref_table" => "Pref", "project_table" => "Project", "subcategory_table" => "Subcategory"}
+
     user = User.find_by(email: params[:user])
     device = Device.find_by(user_id: user.id, uuid: params[:device]) if user
     if user && device
-      records = Record.where(['created_at > ? and user_id = ?', device.last_sync_time, user.id])
-      categories = Category.where(['created_at > ? and user_id = ?', device.last_sync_time, user.id])
-      payees = Payee.where(['created_at > ? and user_id = ?', device.last_sync_time, user.id])
-      currencies = Currency.where(['created_at > ? and user_id = ?', device.last_sync_time, user.id])
-      payments = Payment.where(['created_at > ? and user_id = ?', device.last_sync_time, user.id])
-      periods = Period.where(['created_at > ? and user_id = ?', device.last_sync_time, user.id])
-      prefs = Pref.where(['created_at > ? and user_id = ?', device.last_sync_time, user.id])
-      projects = Project.where(['created_at > ? and user_id = ?', device.last_sync_time, user.id])
-      subcategories = Subcategory.where(['created_at > ? and user_id = ?', device.last_sync_time, user.id])
-      device.update_attribute(:last_sync_time, Time.now)
-      render :status=>200, :json=>{records: records, categories: categories, payees: payees, currencies: currencies, payments: payments,periods: periods,prefs: prefs,projects: projects, subcategories: subcategories}.to_json
+      sync_time = DateTime.parse(params[:sync_time])
+      model = eval(table_mapping[params[:table_name]])
+      datas = model.where(['created_at > ? and user_id = ?', sync_time, user.id])
+      render :status=>200, :json=> datas.to_json
     else
       render :status=>404, :json=>{:message=>"get Fail"}
     end
