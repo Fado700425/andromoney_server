@@ -77,11 +77,11 @@ describe Api::V1::UpdateDatasController do
         user1 = Fabricate(:user)
         user2 = Fabricate(:user)
         device = Fabricate(:device, user_id: user1.id)
-        period1 = Fabricate(:period, user_id: user1.id, preriod_num: 2)
-        period2 = Fabricate(:period, user_id: user2.id, preriod_num: 2)
-        post :update_all, body: {user: user1.email, device: device.uuid, period_table: [{hash_key: period1.hash_key, preriod_num: 1},{hash_key: period2.hash_key, preriod_num: 1}]}.to_json
-        expect(period1.reload.preriod_num).to eq(1)
-        expect(period2.reload.preriod_num).to eq(2)
+        period1 = Fabricate(:period, user_id: user1.id, period_num: 2)
+        period2 = Fabricate(:period, user_id: user2.id, period_num: 2)
+        post :update_all, body: {user: user1.email, device: device.uuid, period_table: [{hash_key: period1.hash_key, period_num: 1},{hash_key: period2.hash_key, period_num: 1}]}.to_json
+        expect(period1.reload.period_num).to eq(1)
+        expect(period2.reload.period_num).to eq(2)
       end
 
       it "update the pref data" do

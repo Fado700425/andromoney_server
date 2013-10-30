@@ -49,7 +49,7 @@ describe Api::V1::AddDatasController do
     it "create the period data" do
       user1 = Fabricate(:user)
       device = Fabricate(:device, user_id: user1.id)
-      post :create, {body: {user: user1.email, device: device.uuid, period_table: [{hash_key: Faker::Lorem.characters(20), preriod_num: 1}]}.to_json}
+      post :create, {body: {user: user1.email, device: device.uuid, period_table: [{hash_key: Faker::Lorem.characters(20), period_num: 1}]}.to_json}
       expect(Period.all.size).to eq(1)
     end
 

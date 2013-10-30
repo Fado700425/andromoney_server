@@ -63,10 +63,10 @@ describe Api::V1::GetDeviceUpdateDatasController do
 
       it "return user need data(period)" do
         user1 = Fabricate(:user)
-        period1 = Fabricate(:period, user_id: user1.id, preriod_num: 2, updated_at: Time.now - 3.days)
-        period2 = Fabricate(:period, user_id: user1.id, preriod_num: 2, updated_at: Time.now - 3.days)
+        period1 = Fabricate(:period, user_id: user1.id, period_num: 2, updated_at: Time.now - 3.days)
+        period2 = Fabricate(:period, user_id: user1.id, period_num: 2, updated_at: Time.now - 3.days)
         device = Fabricate(:device, user_id: user1.id, last_sync_time: Time.now - 3.days, sync_start_time: Time.now)
-        period2.update_attribute(:preriod_num, 3)
+        period2.update_attribute(:period_num, 3)
         get :index, {id: user1.email,device: device.uuid}
         body = ActiveSupport::JSON.decode(response.body)
         expect(body["periods"].size).to eq(1)
