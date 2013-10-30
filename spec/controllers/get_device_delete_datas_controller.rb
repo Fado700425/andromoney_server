@@ -14,7 +14,7 @@ describe Api::V1::GetDeviceDeleteDatasController do
         record1.update_attribute(:project_name, "Some Value")
         record2.update_attribute(:project_name, "Some Value")
         record2.update_attribute(:is_delete, true)
-        get :index, {id: user1.email,device: device.uuid}
+        get :index, {user: user1.email,device: device.uuid}
         body = ActiveSupport::JSON.decode(response.body)
         expect(body["records"].size).to eq(1)
       end
@@ -27,7 +27,7 @@ describe Api::V1::GetDeviceDeleteDatasController do
         category1.update_attribute(:category, "Some Value")
         category2.update_attribute(:category, "Some Value")
         category2.update_attribute(:is_delete, true)
-        get :index, {id: user1.email,device: device.uuid}
+        get :index, {user: user1.email,device: device.uuid}
         body = ActiveSupport::JSON.decode(response.body)
         expect(body["categories"].size).to eq(1)
       end
@@ -40,7 +40,7 @@ describe Api::V1::GetDeviceDeleteDatasController do
         payee1.update_attribute(:payee_name, "Some Value")
         payee2.update_attribute(:payee_name, "Some Value")
         payee2.update_attribute(:is_delete, true)
-        get :index, {id: user1.email,device: device.uuid}
+        get :index, {user: user1.email,device: device.uuid}
         body = ActiveSupport::JSON.decode(response.body)
         expect(body["payees"].size).to eq(1)
       end
@@ -53,7 +53,7 @@ describe Api::V1::GetDeviceDeleteDatasController do
         currency1.update_attribute(:rate, 3.672)
         currency2.update_attribute(:rate, 3.672)
         currency2.update_attribute(:is_delete, true)
-        get :index, {id: user1.email,device: device.uuid}
+        get :index, {user: user1.email,device: device.uuid}
         body = ActiveSupport::JSON.decode(response.body)
         expect(body["currencies"].size).to eq(1)
       end
@@ -66,7 +66,7 @@ describe Api::V1::GetDeviceDeleteDatasController do
         payment1.update_attribute(:payment_name, "Some Value")
         payment2.update_attribute(:payment_name, "Some Value")
         payment2.update_attribute(:is_delete, true)
-        get :index, {id: user1.email,device: device.uuid}
+        get :index, {user: user1.email,device: device.uuid}
         body = ActiveSupport::JSON.decode(response.body)
         expect(body["payments"].size).to eq(1)
       end
@@ -92,7 +92,7 @@ describe Api::V1::GetDeviceDeleteDatasController do
         pref1.update_attribute(:value, "b")
         pref2.update_attribute(:value, "b")
         pref2.update_attribute(:is_delete, true)
-        get :index, {id: user1.email,device: device.uuid}
+        get :index, {user: user1.email,device: device.uuid}
         body = ActiveSupport::JSON.decode(response.body)
         expect(body["prefs"].size).to eq(1)
       end
@@ -105,7 +105,7 @@ describe Api::V1::GetDeviceDeleteDatasController do
         project1.update_attribute(:project_name, "b")
         project2.update_attribute(:project_name, "b")
         project2.update_attribute(:is_delete, true)
-        get :index, {id: user1.email,device: device.uuid}
+        get :index, {user: user1.email,device: device.uuid}
         body = ActiveSupport::JSON.decode(response.body)
         expect(body["projects"].size).to eq(1)
       end
@@ -118,7 +118,7 @@ describe Api::V1::GetDeviceDeleteDatasController do
         subcategory1.update_attribute(:subcategory, "b")
         subcategory2.update_attribute(:subcategory, "b")
         subcategory2.update_attribute(:is_delete, true)
-        get :index, {id: user1.email,device: device.uuid}
+        get :index, {user: user1.email,device: device.uuid}
         body = ActiveSupport::JSON.decode(response.body)
         expect(body["subcategories"].size).to eq(1)
       end
@@ -131,7 +131,7 @@ describe Api::V1::GetDeviceDeleteDatasController do
         subcategory1.update_attribute(:subcategory, "b")
         subcategory2.update_attribute(:subcategory, "b")
         subcategory2.update_attribute(:is_delete, true)
-        get :index, {id: user1.email,device: device.uuid}
+        get :index, {user: user1.email,device: device.uuid}
         response.response_code.should == 200
       end
     end

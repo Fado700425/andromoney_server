@@ -1,6 +1,6 @@
 class Api::V1::GetDeviceDeleteDatasController < ApplicationController
   def index
-    user = User.find_by(email: params[:id])
+    user = User.find_by(email: params[:user])
     device = Device.find_by(user_id: user.id, uuid: params[:device]) if user
     if user && device
       records = Record.where(['updated_at > ? and user_id = ? and is_delete = ?', device.last_sync_time, user.id,true]).select("hash_key")
