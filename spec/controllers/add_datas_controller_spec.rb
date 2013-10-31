@@ -18,6 +18,24 @@ describe Api::V1::AddDatasController do
       expect(Record.first.user_id).to eq(user1.id)
     end
 
+    context "record already created" do
+
+      it "update the data if update_time is newer" do
+        user1 = Fabricate(:user)
+        device = Fabricate(:device, user_id: user1.id)
+        record1 = Fabricate(:record, user_id: user1.id, amount_to_main: 1.1, update_time: Time.now - 1.hour)
+        post :create, {body:{user: user1.email,device: device.uuid, record_table: [{hash_key: record1.hash_key, amount_to_main: 50.5, update_time: Time.now}]}.to_json}
+        expect(record1.reload.amount_to_main).to eq(50.5)
+      end
+      it "do not update the data if the update_time it out of date" do
+        user1 = Fabricate(:user)
+        device = Fabricate(:device, user_id: user1.id)
+        record1 = Fabricate(:record, user_id: user1.id, amount_to_main: 1.1, update_time: Time.now - 1.hour)
+        post :create, {body:{user: user1.email,device: device.uuid, record_table: [{hash_key: record1.hash_key, amount_to_main: 50.5, update_time: Time.now - 2.hours}]}.to_json}
+        expect(record1.reload.amount_to_main).to eq(1.1)
+      end
+    end
+
     it "create the category data" do
       user1 = Fabricate(:user)
       device = Fabricate(:device, user_id: user1.id)
