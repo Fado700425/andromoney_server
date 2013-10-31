@@ -31,6 +31,17 @@ describe Api::V1::DeleteDatasController do
         expect(record2.reload.is_delete).to be_true
       end
 
+      it "update the delete record data updated_at field" do
+        user1 = Fabricate(:user)
+        device = Fabricate(:device, user_id: user1.id)
+        record1 = Fabricate(:record, user_id: user1.id, updated_at: Time.now - 2.hours, update_time: Time.now - 2.hours)
+        record2 = Fabricate(:record, user_id: user1.id)
+        post :delete_all, body: {user: user1.email, device: device.uuid, record_table: [{hash_key: record1.hash_key},{hash_key: record2.hash_key}]}.to_json
+        
+        expect(record1.reload.updated_at > Time.now - 1.hour).to be_true
+        expect(record1.reload.update_time > Time.now - 1.hour).to be_true
+      end
+
       it "do not delete the record data which not belong to the user" do
         user1 = Fabricate(:user)
         user2 = Fabricate(:user)
