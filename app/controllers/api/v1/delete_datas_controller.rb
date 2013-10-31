@@ -38,45 +38,27 @@ class Api::V1::DeleteDatasController < Api::V1::ApiController
     device
   end
 
+  def delete_datas(params,class_name,key,user)
+    params.each do |param|
+      data = eval(class_name.classify).find_by(key => param[key], user_id: user.id)
+      param[:update_time] = DateTime.parse(param[:update_time]) if param[:update_time]
+      param[:is_delete] = true
+      data.update_attributes(param) if data
+    end
+  end
+
   def delete_all_data(user,params)
     begin
       ActiveRecord::Base.transaction do
-        if params[:record_table]
-          records = Record.where(hash_key: params[:record_table].map{|p| p[:hash_key]})
-          Record.where(id: records.map(&:id), user_id: user.id).update_all(is_delete: true)
-        end
-        if params[:category_table]
-          categories = Category.where(hash_key: params[:category_table].map{|p| p[:hash_key]})
-          Category.where(id: categories.map(&:id), user_id: user.id).update_all(is_delete: true)
-        end
-        if params[:payee_table]
-          payees = Payee.where(hash_key: params[:payee_table].map{|p| p[:hash_key]})
-          Payee.where(id: payees.map(&:id), user_id: user.id).update_all(is_delete: true)
-        end
-        if params[:currency_table]
-          currencies = Currency.where(currency_code: params[:currency_table].map{|p| p[:currency_code]})
-          Currency.where(id: currencies.map(&:id), user_id: user.id).update_all(is_delete: true)
-        end
-        if params[:payment_table]
-          payments = Payment.where(hash_key: params[:payment_table].map{|p| p[:hash_key]})
-          Payment.where(id: payments.map(&:id), user_id: user.id).update_all(is_delete: true)
-        end
-        if params[:period_table]
-          periods = Period.where(hash_key: params[:period_table].map{|p| p[:hash_key]})
-          Period.where(id: periods.map(&:id), user_id: user.id).update_all(is_delete: true)
-        end
-        if params[:pref_table]
-          prefs = Pref.where(key: params[:pref_table].map{|p| p[:key]})
-          Pref.where(id: prefs.map(&:id), user_id: user.id).update_all(is_delete: true)
-        end
-        if params[:project_table]
-          projects = Project.where(hash_key: params[:project_table].map{|p| p[:hash_key]})
-          Project.where(id: projects.map(&:id), user_id: user.id).update_all(is_delete: true)
-        end
-        if params[:subcategory_table]
-          subcategories = Subcategory.where(hash_key: params[:subcategory_table].map{|p| p[:hash_key]})
-          Subcategory.where(id: subcategories.map(&:id), user_id: user.id).update_all(is_delete: true)
-        end
+        delete_datas(params[:record_table],"record",:hash_key,user) if params[:record_table]
+        delete_datas(params[:category_table],"category",:hash_key,user) if params[:category_table]
+        delete_datas(params[:payee_table],"payee",:hash_key,user) if params[:payee_table]
+        delete_datas(params[:currency_table],"currency",:currency_code,user) if params[:currency_table]
+        delete_datas(params[:payment_table],"payment",:hash_key,user) if params[:payment_table]
+        delete_datas(params[:period_table],"period",:hash_key,user) if params[:period_table]
+        delete_datas(params[:pref_table],"pref",:key,user) if params[:pref_table]
+        delete_datas(params[:project_table],"project",:hash_key,user) if params[:project_table]
+        delete_datas(params[:subcategory_table],"subcategory",:hash_key,user) if params[:subcategory_table]
       end
     rescue
       return false
