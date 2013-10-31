@@ -3,6 +3,6 @@ class Pref < ActiveRecord::Base
   belongs_to :user
   validates_uniqueness_of :key, scope: [ :user_id ]
 
-  scope :api_select, -> { select("id,key,value,update_time"
+  scope :api_select, -> { where(is_delete: false).select("id,key,value,update_time"
                         ) }
 end
