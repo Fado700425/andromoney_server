@@ -16,6 +16,14 @@ AndromoneyServer::Application.routes.draw do
           get 'is_user_register'
         end
       end
+
+      resources :sync, only: []  do
+        collection do
+          post 'start'
+          post 'end'
+        end
+      end
+
       resources :add_datas, only: [:create]
       resources :get_device_add_datas, only: [:index]
       resources :get_device_update_datas, only: [:index]
