@@ -3,7 +3,7 @@ class Api::V1::UpdateDatasController < ApplicationController
   
   def update_all
     
-    body_params = JSON.parse(params[:body],:symbolize_names => true)
+    body_params = JSON.parse(params[:body].to_json,:symbolize_names => true)
     params = body_params
 
     user = User.find_by(email: params[:user])

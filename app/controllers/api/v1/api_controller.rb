@@ -6,7 +6,7 @@ class Api::V1::ApiController < ApplicationController
       return
     end
 
-    body_params = JSON.parse(params[:body],:symbolize_names => true)
+    body_params = JSON.parse(params[:body].to_json,:symbolize_names => true)
     body_params
   end
 end

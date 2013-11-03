@@ -9,7 +9,7 @@ class Api::V1::AddDatasController < ApplicationController
       return
     end
     
-    body_params = JSON.parse(params[:body],:symbolize_names => true)
+    body_params = JSON.parse(params[:body].to_json,:symbolize_names => true)
     user = User.find_by(email: body_params[:user])
     if user
       return unless create_all_data(user,body_params)
