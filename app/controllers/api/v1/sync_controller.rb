@@ -1,6 +1,6 @@
 class Api::V1::SyncController < Api::V1::ApiController
   skip_before_filter  :verify_authenticity_token
-  
+
   def start
     params = deal_params
     user = User.find_by(email: params[:user])
@@ -16,7 +16,7 @@ class Api::V1::SyncController < Api::V1::ApiController
         device.is_syncing = true
         device.save
         user.save
-        render :status=>200, :json=>{:message=>"Sync Start Success"}
+        render :status=>200, :json=>{:message=>"Sync Start Success", :sync_start_time => user.sync_time}
       end
     else
       render :status=>404, :json=>{:message=>"Start Fail, make sure db has user and device"}
@@ -35,7 +35,7 @@ class Api::V1::SyncController < Api::V1::ApiController
         device.is_syncing = false
         device.last_sync_time = Time.now
         device.save
-        render :status=>200, :json=>{:message=>"Sync End Success"}
+        render :status=>200, :json=>{:message=>"Sync End Success", :sync_end_time => device.last_sync_time}
       else
         render :status=>403, :json=>{:message=>"User or Device is not syncing"}
       end
