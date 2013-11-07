@@ -13,7 +13,7 @@ class Api::V1::GetDeviceDeleteDatasController < ApplicationController
       when "currency_table"
         datas = model.where(['updated_at > ? and user_id = ? and is_delete = ?', sync_time, user.id,true]).select("currency_code")
       when "pref_table"
-        datas = model.where(['updated_at > ? and user_id = ? and is_delete = ?', sync_time, user.id,true]).select("key")
+        datas = model.where(['updated_at > ? and user_id = ? and is_delete = ?', sync_time, user.id,true]).select("pref_table.key")
       else
         datas = model.where(['updated_at > ? and user_id = ? and is_delete = ?', sync_time, user.id,true]).select("hash_key")
       end
