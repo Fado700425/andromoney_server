@@ -8,7 +8,6 @@ class Api::V1::DeleteDatasController < Api::V1::ApiController
     user = User.find_by(email: params[:user])
     
     if user && !user.new_record?
-      update_device_sync_time(user,params)
       unless delete_all_data(user,params)
         render :status=>404, :json=>{:message=>"Create Fail"}
         return
@@ -21,22 +20,6 @@ class Api::V1::DeleteDatasController < Api::V1::ApiController
 
 
   private
-
-  def update_device_sync_time(user,params)
-    if params[:device]
-      device = Device.find_by(user_id: user.id, uuid: params[:device])
-      device = create_user_device(user,params) unless device
-      device.sync_start_time = Time.now
-      device.save
-    end
-  end
-
-  def create_user_device(user,params)
-    device = user.devices.build
-    device.uuid = params[:device]
-    device.save
-    device
-  end
 
   def delete_datas(params,class_name,key,user)
     datas = eval(class_name.classify).where(key => params.map{|p| p[key]}).select('id')
