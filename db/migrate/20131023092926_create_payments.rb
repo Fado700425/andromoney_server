@@ -5,7 +5,7 @@ class CreatePayments < ActiveRecord::Migration
       t.string :payment_name
       t.decimal :total, :precision => 16, :scale => 2
       t.string :currency_code
-      t.decimal :rate, :precision => 16, :scale => 2
+      t.decimal :rate, :precision => 16, :scale => 6
       t.integer :out_total
       t.integer :hidden
       t.integer :order_no

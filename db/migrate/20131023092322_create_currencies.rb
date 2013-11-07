@@ -2,7 +2,7 @@ class CreateCurrencies < ActiveRecord::Migration
   def change
     create_table :currency_table do |t|
       t.string :currency_code
-      t.decimal :rate, :precision => 16, :scale => 2
+      t.decimal :rate, :precision => 16, :scale => 6
       t.string :currency_remark
       t.integer :sequence_status
       t.string :flag_path
