@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131102130847) do
+ActiveRecord::Schema.define(version: 20131107122355) do
 
   create_table "category_table", force: true do |t|
     t.string   "category"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 20131102130847) do
 
   create_table "project_table", force: true do |t|
     t.string   "project_name"
-    t.boolean  "hidden"
+    t.integer  "hidden"
     t.integer  "order_no"
     t.string   "hash_key"
     t.boolean  "is_delete"
