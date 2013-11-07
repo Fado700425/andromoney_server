@@ -6,7 +6,7 @@ class CreatePayees < ActiveRecord::Migration
       t.integer :type
       t.integer :order_no
       t.string :hash_key
-      t.boolean :is_delete
+      t.boolean :is_delete, default: false
       t.integer :user_id
       t.datetime :update_time
 

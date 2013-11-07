@@ -8,7 +8,7 @@ class CreateCurrencies < ActiveRecord::Migration
       t.string :flag_path
       t.integer :order_no
       t.integer :user_id
-      t.boolean :is_delete
+      t.boolean :is_delete, default: false
       t.datetime :update_time
       
       t.timestamps
