@@ -9,7 +9,7 @@ class Api::V1::UsersController < Api::V1::ApiController
       device = create_user_device(user,params)
       render :status=>200, :json=>{:message=>"Register Success"}
     else
-      if User.find_by(email: params[:user])
+      if user = User.find_by(email: params[:user])
         device = create_user_device(user,params)
         render :status=>304, :json=>{:message=>"Already Registered"}
       else

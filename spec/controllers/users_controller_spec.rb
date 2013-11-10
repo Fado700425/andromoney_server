@@ -43,7 +43,7 @@ describe Api::V1::UsersController do
         end
         it "do not create device if device in db" do
           user1 = Fabricate(:user)
-          device = Fabricate(:device)
+          device = Fabricate(:device, user_id: user1.id)
           post :create, body: {user: user1.email, device: device.uuid}
           expect(Device.all.size).to eq(1)
         end
