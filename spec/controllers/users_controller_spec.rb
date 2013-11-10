@@ -29,10 +29,25 @@ describe Api::V1::UsersController do
         post :create, body: {user: Faker::Internet.email, device: "testid"}
         expect(response.status).to eq(200)
       end
-      it "return status code 304 if deplicate user" do
-        user1 = Fabricate(:user)
-        post :create, body: {user: user1.email, device: "testid"}
-        expect(response.status).to eq(304)
+
+      context "already have user in db" do
+        it "return status code 304" do
+          user1 = Fabricate(:user)
+          post :create, body: {user: user1.email, device: "testid"}
+          expect(response.status).to eq(304)
+        end
+        it "create device if no device in db" do
+          user1 = Fabricate(:user)
+          post :create, body: {user: user1.email, device: "testid"}
+          expect(Device.all.size).to eq(1)
+        end
+        it "do not create device if device in db" do
+          user1 = Fabricate(:user)
+          device = Fabricate(:device)
+          post :create, body: {user: user1.email, device: device.uuid}
+          expect(Device.all.size).to eq(1)
+        end
+
       end
     end
     context "with invalid input" do
