@@ -31,5 +31,6 @@ class CreateRecords < ActiveRecord::Migration
     end
     add_index :record_table,:hash_key
     add_index :record_table,:user_id
+    add_index :record_table,:currency_code
   end
 end

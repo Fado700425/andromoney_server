@@ -15,5 +15,6 @@ class CreatePeriods < ActiveRecord::Migration
       t.timestamps
     end
     add_index :period_table,:hash_key
+    add_index :period_table,:user_id
   end
 end

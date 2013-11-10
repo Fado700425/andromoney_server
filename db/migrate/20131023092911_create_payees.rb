@@ -13,5 +13,6 @@ class CreatePayees < ActiveRecord::Migration
       t.timestamps
     end
     add_index :payee_table, :hash_key
+    add_index :payee_table, :user_id
   end
 end

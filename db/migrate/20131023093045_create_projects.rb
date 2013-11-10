@@ -12,5 +12,6 @@ class CreateProjects < ActiveRecord::Migration
       t.timestamps
     end
     add_index :project_table,:hash_key
+    add_index :project_table,:user_id
   end
 end

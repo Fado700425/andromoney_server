@@ -17,5 +17,7 @@ class CreatePayments < ActiveRecord::Migration
       t.timestamps
     end
     add_index :payment_table,:hash_key
+    add_index :payment_table,:user_id
+    add_index :payment_table,:currency_code
   end
 end

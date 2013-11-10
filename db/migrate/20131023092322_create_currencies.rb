@@ -14,5 +14,6 @@ class CreateCurrencies < ActiveRecord::Migration
       t.timestamps
     end
     add_index :currency_table, :currency_code
+    add_index :currency_table, :user_id
   end
 end

@@ -9,5 +9,7 @@ class CreatePrefs < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :pref_table,:key
+    add_index :pref_table,:user_id
   end
 end

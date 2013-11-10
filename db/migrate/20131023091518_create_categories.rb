@@ -14,5 +14,6 @@ class CreateCategories < ActiveRecord::Migration
       t.timestamps
     end
     add_index :category_table, :hash_key
+    add_index :category_table, :user_id
   end
 end

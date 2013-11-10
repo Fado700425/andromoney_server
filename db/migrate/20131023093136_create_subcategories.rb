@@ -13,5 +13,7 @@ class CreateSubcategories < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :subcategory_table,:hash_key
+    add_index :subcategory_table,:user_id
   end
 end
