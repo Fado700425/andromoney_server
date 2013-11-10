@@ -4,4 +4,13 @@ class Period < ActiveRecord::Base
   validates_uniqueness_of :hash_key, scope: [ :user_id ]
   scope :api_select, -> { where(is_delete: false).select("id,start_date,end_date,update_date,period_type,period_num,order_no,hash_key,update_time"
                         ) }
+
+  def as_json(options)
+    json = super(:only => [:id,:period_type,:period_num,:order_no,:hash_key,:update_time])
+    (start_date) ? json.merge!(start_date: start_date.strftime("%Y%m%d")) : json.merge!(start_date: nil)
+    (end_date) ? json.merge!(end_date: start_date.strftime("%Y%m%d")) : json.merge!(end_date: nil)
+    (update_date) ? json.merge!(update_date: start_date.strftime("%Y%m%d")) : json.merge!(update_date: nil)
+    json
+  end
+
 end
