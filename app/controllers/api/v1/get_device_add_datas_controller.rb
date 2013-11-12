@@ -8,7 +8,7 @@ class Api::V1::GetDeviceAddDatasController < ApplicationController
     if user && device
       sync_time = DateTime.parse(params[:sync_time])
       model = eval(table_mapping[params[:table]])
-      datas = model.where(['created_at > ? and user_id = ?', sync_time, user.id]).api_select
+      datas = model.where(['created_at > ? and user_id = ?', sync_time, user.id]).api_select.paginate(:page => params[:page], :per_page => 500)
       render :status=>200, :json=> datas.to_json
     else
       render :status=>404, :json=>{:message=>"get Fail"}

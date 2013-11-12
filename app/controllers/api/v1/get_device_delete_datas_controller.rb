@@ -11,11 +11,11 @@ class Api::V1::GetDeviceDeleteDatasController < ApplicationController
 
       case params[:table]
       when "currency_table"
-        datas = model.where(['updated_at > ? and user_id = ? and is_delete = ?', sync_time, user.id,true]).select("currency_code")
+        datas = model.where(['updated_at > ? and user_id = ? and is_delete = ?', sync_time, user.id,true]).select("currency_code").paginate(:page => params[:page], :per_page => 500)
       when "pref_table"
-        datas = model.where(['updated_at > ? and user_id = ? and is_delete = ?', sync_time, user.id,true]).select("pref_table.key")
+        datas = model.where(['updated_at > ? and user_id = ? and is_delete = ?', sync_time, user.id,true]).select("pref_table.key").paginate(:page => params[:page], :per_page => 500)
       else
-        datas = model.where(['updated_at > ? and user_id = ? and is_delete = ?', sync_time, user.id,true]).select("hash_key")
+        datas = model.where(['updated_at > ? and user_id = ? and is_delete = ?', sync_time, user.id,true]).select("hash_key").paginate(:page => params[:page], :per_page => 500)
       end
       
       render :status=>200, :json=> datas.to_json

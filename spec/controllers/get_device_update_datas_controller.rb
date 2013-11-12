@@ -9,7 +9,7 @@ describe Api::V1::GetDeviceUpdateDatasController do
       it "return user need data(record)" do
         user1 = Fabricate(:user)
         record1 = Fabricate(:record, user_id: user1.id, updated_at: Time.now - 3.days)
-        record2 = Fabricate(:record, user_id: user1.id, updated_at: Time.now - 3.days)
+        record2 = Fabricate(:record, user_id: user1.id, updated_at: Time.now - 3.days, date: Time.now - 1.hours)
         device = Fabricate(:device, user_id: user1.id, last_sync_time: Time.now - 3.days, sync_start_time: Time.now)
         record2.update_attribute(:project, "Some Value")
         get :index, {user: user1.email,device: device.uuid, table: "record_table", sync_time: Time.now - 1.hours}
