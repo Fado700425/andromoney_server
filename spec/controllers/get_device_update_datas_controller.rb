@@ -14,7 +14,7 @@ describe Api::V1::GetDeviceUpdateDatasController do
         record2.update_attribute(:project, "Some Value")
         get :index, {user: user1.email,device: device.uuid, table: "record_table", sync_time: Time.now - 1.hours}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(category)" do
@@ -25,7 +25,7 @@ describe Api::V1::GetDeviceUpdateDatasController do
         category2.update_attribute(:category, "Some Value")
         get :index, {user: user1.email,device: device.uuid, table: "category_table", sync_time: Time.now - 2.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(payee)" do
@@ -36,7 +36,7 @@ describe Api::V1::GetDeviceUpdateDatasController do
         payee2.update_attribute(:payee_name, "Some Value")
         get :index, {user: user1.email,device: device.uuid, table: "payee_table", sync_time: Time.now - 2.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(currency)" do
@@ -47,7 +47,7 @@ describe Api::V1::GetDeviceUpdateDatasController do
         currency2.update_attribute(:rate, 3.672)
         get :index, {user: user1.email,device: device.uuid, table: "currency_table", sync_time: Time.now - 2.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(payment)" do
@@ -58,7 +58,7 @@ describe Api::V1::GetDeviceUpdateDatasController do
         payment2.update_attribute(:payment_name, "Some Value")
         get :index, {user: user1.email,device: device.uuid, table: "payment_table", sync_time: Time.now - 2.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(period)" do
@@ -69,7 +69,7 @@ describe Api::V1::GetDeviceUpdateDatasController do
         period2.update_attribute(:period_num, 3)
         get :index, {user: user1.email,device: device.uuid, table: "period_table", sync_time: Time.now - 2.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(pref)" do
@@ -80,7 +80,7 @@ describe Api::V1::GetDeviceUpdateDatasController do
         pref2.update_attribute(:value, "b")
         get :index, {user: user1.email,device: device.uuid, table: "pref_table", sync_time: Time.now - 2.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(project)" do
@@ -91,7 +91,7 @@ describe Api::V1::GetDeviceUpdateDatasController do
         project2.update_attribute(:project_name, "b")
         get :index, {user: user1.email,device: device.uuid, table: "project_table", sync_time: Time.now - 2.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(subcategory)" do
@@ -102,7 +102,7 @@ describe Api::V1::GetDeviceUpdateDatasController do
         subcategory2.update_attribute(:subcategory, "b")
         get :index, {user: user1.email,device: device.uuid, table: "subcategory_table", sync_time: Time.now - 2.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
       
       it "return status 200 after get" do

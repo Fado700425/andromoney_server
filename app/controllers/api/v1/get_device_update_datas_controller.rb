@@ -11,7 +11,7 @@ class Api::V1::GetDeviceUpdateDatasController < ApplicationController
       sync_time = DateTime.parse(params[:sync_time])
       model = eval(table_mapping[params[:table]])
       datas = model.where(['updated_at > ? and user_id = ?', sync_time, user.id]).api_select.paginate(:page => params[:page], :per_page => per_page)
-      render :status=>200, :json=> datas.to_json
+      render :status=>200, :json=> {total_pages: datas.total_pages, datas: datas}.to_json
     else
       render :status=>404, :json=>{:message=>"get Fail"}
     end

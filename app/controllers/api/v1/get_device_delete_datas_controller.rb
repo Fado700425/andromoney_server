@@ -19,7 +19,7 @@ class Api::V1::GetDeviceDeleteDatasController < ApplicationController
         datas = model.where(['updated_at > ? and user_id = ? and is_delete = ?', sync_time, user.id,true]).select("hash_key").paginate(:page => params[:page], :per_page => per_page)
       end
       
-      render :status=>200, :json=> datas.to_json
+      render :status=>200, :json=> {total_pages: datas.total_pages, datas: datas}.to_json
     else
       render :status=>404, :json=>{:message=>"get Fail"}
     end

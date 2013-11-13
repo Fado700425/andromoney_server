@@ -16,7 +16,7 @@ describe Api::V1::GetDeviceDeleteDatasController do
         record2.update_attribute(:is_delete, true)
         get :index, {user: user1.email,device: device.uuid, table: "record_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(category)" do
@@ -29,7 +29,7 @@ describe Api::V1::GetDeviceDeleteDatasController do
         category2.update_attribute(:is_delete, true)
         get :index, {user: user1.email,device: device.uuid, table: "category_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(payee)" do
@@ -42,7 +42,7 @@ describe Api::V1::GetDeviceDeleteDatasController do
         payee2.update_attribute(:is_delete, true)
         get :index, {user: user1.email,device: device.uuid, table: "payee_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(currency)" do
@@ -55,7 +55,7 @@ describe Api::V1::GetDeviceDeleteDatasController do
         currency2.update_attribute(:is_delete, true)
         get :index, {user: user1.email,device: device.uuid, table: "currency_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(payment)" do
@@ -68,7 +68,7 @@ describe Api::V1::GetDeviceDeleteDatasController do
         payment2.update_attribute(:is_delete, true)
         get :index, {user: user1.email,device: device.uuid, table: "payment_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(period)" do
@@ -81,7 +81,7 @@ describe Api::V1::GetDeviceDeleteDatasController do
         period2.update_attribute(:is_delete, true)
         get :index, {user: user1.email,device: device.uuid, table: "period_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(pref)" do
@@ -94,7 +94,7 @@ describe Api::V1::GetDeviceDeleteDatasController do
         pref2.update_attribute(:is_delete, true)
         get :index, {user: user1.email,device: device.uuid, table: "pref_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(project)" do
@@ -107,7 +107,7 @@ describe Api::V1::GetDeviceDeleteDatasController do
         project2.update_attribute(:is_delete, true)
         get :index, {user: user1.email,device: device.uuid, table: "project_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(subcategory)" do
@@ -120,7 +120,7 @@ describe Api::V1::GetDeviceDeleteDatasController do
         subcategory2.update_attribute(:is_delete, true)
         get :index, {user: user1.email,device: device.uuid, table: "subcategory_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
       
       it "return status 200 after get" do

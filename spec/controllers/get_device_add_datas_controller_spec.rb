@@ -13,7 +13,7 @@ describe Api::V1::GetDeviceAddDatasController do
         device = Fabricate(:device, user_id: user1.id, last_sync_time: Time.now - 3.days, sync_start_time: Time.now)
         get :index, {user: user1.email,device: device.uuid, table: "record_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(2)
+        expect(body["datas"].size).to eq(2)
       end
 
       it "return user need data(category)" do
@@ -22,7 +22,7 @@ describe Api::V1::GetDeviceAddDatasController do
         device = Fabricate(:device, user_id: user1.id, last_sync_time: Time.now - 3.days, sync_start_time: Time.now)
         get :index, {user: user1.email,device: device.uuid, table: "category_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(payee)" do
@@ -31,7 +31,7 @@ describe Api::V1::GetDeviceAddDatasController do
         device = Fabricate(:device, user_id: user1.id, last_sync_time: Time.now - 3.days, sync_start_time: Time.now)
         get :index, {user: user1.email,device: device.uuid, table: "payee_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(currency)" do
@@ -40,7 +40,7 @@ describe Api::V1::GetDeviceAddDatasController do
         device = Fabricate(:device, user_id: user1.id, last_sync_time: Time.now - 3.days, sync_start_time: Time.now)
         get :index, {user: user1.email,device: device.uuid, table: "currency_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(payment)" do
@@ -49,7 +49,7 @@ describe Api::V1::GetDeviceAddDatasController do
         device = Fabricate(:device, user_id: user1.id, last_sync_time: Time.now - 3.days, sync_start_time: Time.now)
         get :index, {user: user1.email,device: device.uuid, table: "payment_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(period)" do
@@ -58,7 +58,7 @@ describe Api::V1::GetDeviceAddDatasController do
         device = Fabricate(:device, user_id: user1.id, last_sync_time: Time.now - 3.days, sync_start_time: Time.now)
         get :index, {user: user1.email,device: device.uuid, table: "period_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(pref)" do
@@ -67,7 +67,7 @@ describe Api::V1::GetDeviceAddDatasController do
         device = Fabricate(:device, user_id: user1.id, last_sync_time: Time.now - 3.days, sync_start_time: Time.now)
         get :index, {user: user1.email,device: device.uuid, table: "pref_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(project)" do
@@ -76,7 +76,7 @@ describe Api::V1::GetDeviceAddDatasController do
         device = Fabricate(:device, user_id: user1.id, last_sync_time: Time.now - 3.days, sync_start_time: Time.now)
         get :index, {user: user1.email,device: device.uuid, table: "project_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
 
       it "return user need data(subcategory)" do
@@ -85,7 +85,7 @@ describe Api::V1::GetDeviceAddDatasController do
         device = Fabricate(:device, user_id: user1.id, last_sync_time: Time.now - 3.days, sync_start_time: Time.now)
         get :index, {user: user1.email,device: device.uuid, table: "subcategory_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
       
       it "return status 200 after get" do
@@ -94,7 +94,7 @@ describe Api::V1::GetDeviceAddDatasController do
         device = Fabricate(:device, user_id: user1.id, last_sync_time: Time.now - 3.days, sync_start_time: Time.now)
         get :index, {user: user1.email,device: device.uuid, table: "subcategory_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
-        expect(body.size).to eq(1)
+        expect(body["datas"].size).to eq(1)
       end
     end
 
