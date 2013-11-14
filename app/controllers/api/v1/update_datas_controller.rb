@@ -24,6 +24,7 @@ class Api::V1::UpdateDatasController < ApplicationController
     params.each do |param|
       data = eval(class_name.classify).find_by(key => param[key], user_id: user.id)
       param[:update_time] = DateTime.parse(param[:update_time]) if param[:update_time]
+      param[:is_delete] = false
       data.update_attributes(param) if (data && data.update_time < param[:update_time])
     end
   end

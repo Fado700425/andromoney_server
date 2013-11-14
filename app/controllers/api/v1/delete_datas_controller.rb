@@ -22,8 +22,11 @@ class Api::V1::DeleteDatasController < Api::V1::ApiController
   private
 
   def delete_datas(params,class_name,key,user)
-    datas = eval(class_name.classify).where(key => params.map{|p| p[key]}).select('id')
-    eval(class_name.classify).where(id: datas.map(&:id),user_id: user.id).update_all(is_delete: true, updated_at: Time.now,update_time: Time.now)
+    params.each do |param|
+      data = eval(class_name.classify).find_by(key => param[key], user_id: user.id)
+      param[:update_time] = DateTime.parse(param[:update_time]) if param[:update_time]
+      data.update_attributes(is_delete: true, update_time: param[:update_time]) if (data && data.update_time < param[:update_time])
+    end
   end
 
   def delete_all_data(user,params)
