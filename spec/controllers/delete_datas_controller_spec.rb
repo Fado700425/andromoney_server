@@ -16,6 +16,15 @@ describe Api::V1::DeleteDatasController do
         expect(record2.reload.is_delete).to be_true
       end
 
+      it "set the deleted record data device uuid" do
+        user1 = Fabricate(:user)
+        device = Fabricate(:device, user_id: user1.id)
+        record1 = Fabricate(:record, user_id: user1.id, update_time: Time.now - 1.hour)
+        record2 = Fabricate(:record, user_id: user1.id, update_time: Time.now - 1.hour)
+        post :delete_all, body: {user: user1.email, device: device.uuid, record_table: [{hash_key: record1.hash_key, update_time: Time.now},{hash_key: record2.hash_key, update_time: Time.now}]}
+        expect(record1.reload.device_uuid).to eq(device.uuid)
+      end
+
       it "update the delete record data updated_at field" do
         user1 = Fabricate(:user)
         device = Fabricate(:device, user_id: user1.id)

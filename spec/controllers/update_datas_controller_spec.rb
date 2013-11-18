@@ -30,6 +30,15 @@ describe Api::V1::UpdateDatasController do
           expect(record2.reload.amount_to_main).to eq(50.5)
         end
 
+        it "update the record data device_id" do
+          user1 = Fabricate(:user)
+          device = Fabricate(:device, user_id: user1.id)
+          record1 = Fabricate(:record, user_id: user1.id, amount_to_main: 25, update_time: Time.now - 1.hour)
+          record2 = Fabricate(:record, user_id: user1.id, amount_to_main: 25, update_time: Time.now - 1.hour)
+          post :update_all, body: {user: user1.email,device: device.uuid, record_table: [{hash_key: record1.hash_key, amount_to_main: 50.5,update_time: Time.now},{hash_key: record2.hash_key, amount_to_main: 50.5,update_time: Time.now}]}
+          expect(record1.reload.device_uuid).to eq(device.uuid)
+        end
+
         it "do not update the record data which not belong to the user" do
           user1 = Fabricate(:user)
           user2 = Fabricate(:user)

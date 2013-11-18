@@ -20,27 +20,29 @@ class Api::V1::UpdateDatasController < ApplicationController
 
   private
 
-  def update_datas(params,class_name,key,user)
+  def update_datas(params,class_name,key,user,device_uuid)
     params.each do |param|
       data = eval(class_name.classify).find_by(key => param[key], user_id: user.id)
       param[:update_time] = DateTime.parse(param[:update_time]) if param[:update_time]
       param[:is_delete] = false
+      param[:device_uuid] = device_uuid
       data.update_attributes(param) if (data && data.update_time < param[:update_time])
     end
   end
 
   def update_all_data(user,params)
+    device_uuid = params[:device]
     begin
       ActiveRecord::Base.transaction do
-        update_datas(params[:record_table],"record",:hash_key,user) if params[:record_table]
-        update_datas(params[:category_table],"category",:hash_key,user) if params[:category_table]
-        update_datas(params[:payee_table],"payee",:hash_key,user) if params[:payee_table]
-        update_datas(params[:currency_table],"currency",:currency_code,user) if params[:currency_table]
-        update_datas(params[:payment_table],"payment",:hash_key,user) if params[:payment_table]
-        update_datas(params[:period_table],"period",:hash_key,user) if params[:period_table]
-        update_datas(params[:pref_table],"pref",:key,user) if params[:pref_table]
-        update_datas(params[:project_table],"project",:hash_key,user) if params[:project_table]
-        update_datas(params[:subcategory_table],"subcategory",:hash_key,user) if params[:subcategory_table]
+        update_datas(params[:record_table],"record",:hash_key,user,device_uuid) if params[:record_table]
+        update_datas(params[:category_table],"category",:hash_key,user,device_uuid) if params[:category_table]
+        update_datas(params[:payee_table],"payee",:hash_key,user,device_uuid) if params[:payee_table]
+        update_datas(params[:currency_table],"currency",:currency_code,user,device_uuid) if params[:currency_table]
+        update_datas(params[:payment_table],"payment",:hash_key,user,device_uuid) if params[:payment_table]
+        update_datas(params[:period_table],"period",:hash_key,user,device_uuid) if params[:period_table]
+        update_datas(params[:pref_table],"pref",:key,user,device_uuid) if params[:pref_table]
+        update_datas(params[:project_table],"project",:hash_key,user,device_uuid) if params[:project_table]
+        update_datas(params[:subcategory_table],"subcategory",:hash_key,user,device_uuid) if params[:subcategory_table]
       end
     rescue
       return false
