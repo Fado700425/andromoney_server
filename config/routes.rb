@@ -20,7 +20,6 @@ AndromoneyServer::Application.routes.draw do
       resources :sync, only: []  do
         collection do
           post 'start'
-          post 'end'
         end
       end
 
