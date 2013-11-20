@@ -14,15 +14,15 @@
 ActiveRecord::Schema.define(version: 20131118041232) do
 
   create_table "category_table", force: true do |t|
-    t.string   "category"
-    t.integer  "type"
-    t.string   "photo_path"
-    t.integer  "hidden"
+    t.string   "category",                    null: false
+    t.integer  "type",                        null: false
+    t.string   "photo_path",                  null: false
+    t.integer  "hidden",                      null: false
     t.integer  "order_no"
-    t.string   "hash_key"
+    t.string   "hash_key",                    null: false
     t.integer  "user_id"
     t.boolean  "is_delete",   default: false
-    t.datetime "update_time"
+    t.datetime "update_time",                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "device_uuid"
@@ -34,14 +34,14 @@ ActiveRecord::Schema.define(version: 20131118041232) do
 
   create_table "currency_table", force: true do |t|
     t.string   "currency_code"
-    t.decimal  "rate",            precision: 16, scale: 6
+    t.decimal  "rate",            precision: 16, scale: 6,                 null: false
     t.string   "currency_remark"
-    t.integer  "sequence_status"
-    t.string   "flag_path"
+    t.integer  "sequence_status",                                          null: false
+    t.string   "flag_path",                                                null: false
     t.integer  "order_no"
     t.integer  "user_id"
     t.boolean  "is_delete",                                default: false
-    t.datetime "update_time"
+    t.datetime "update_time",                                              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "device_uuid"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20131118041232) do
   create_table "devices", force: true do |t|
     t.integer  "user_id"
     t.string   "uuid"
-    t.datetime "last_sync_time",  default: '1986-07-03 05:40:37'
+    t.datetime "last_sync_time",  default: '1986-07-05 05:22:33'
     t.datetime "sync_start_time"
     t.boolean  "is_syncing",      default: false
   end
@@ -63,14 +63,14 @@ ActiveRecord::Schema.define(version: 20131118041232) do
   add_index "devices", ["uuid"], name: "index_devices_on_uuid", using: :btree
 
   create_table "payee_table", force: true do |t|
-    t.string   "payee_name"
-    t.integer  "hidden"
+    t.string   "payee_name",                  null: false
+    t.integer  "hidden",                      null: false
     t.integer  "type"
     t.integer  "order_no"
-    t.string   "hash_key"
+    t.string   "hash_key",                    null: false
     t.boolean  "is_delete",   default: false
     t.integer  "user_id"
-    t.datetime "update_time"
+    t.datetime "update_time",                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "device_uuid"
@@ -81,18 +81,18 @@ ActiveRecord::Schema.define(version: 20131118041232) do
   add_index "payee_table", ["user_id"], name: "index_payee_table_on_user_id", using: :btree
 
   create_table "payment_table", force: true do |t|
-    t.integer  "kind"
-    t.string   "payment_name"
-    t.decimal  "total",         precision: 16, scale: 2
+    t.integer  "kind",                                                   null: false
+    t.string   "payment_name",                                           null: false
+    t.decimal  "total",         precision: 16, scale: 2,                 null: false
     t.string   "currency_code"
     t.decimal  "rate",          precision: 16, scale: 6
     t.integer  "out_total"
-    t.integer  "hidden"
+    t.integer  "hidden",                                                 null: false
     t.integer  "order_no"
-    t.string   "hash_key"
+    t.string   "hash_key",                                               null: false
     t.boolean  "is_delete",                              default: false
     t.integer  "user_id"
-    t.datetime "update_time"
+    t.datetime "update_time",                                            null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "device_uuid"
@@ -104,16 +104,16 @@ ActiveRecord::Schema.define(version: 20131118041232) do
   add_index "payment_table", ["user_id"], name: "index_payment_table_on_user_id", using: :btree
 
   create_table "period_table", force: true do |t|
-    t.datetime "start_date"
+    t.datetime "start_date",                  null: false
     t.datetime "end_date"
     t.datetime "update_date"
-    t.integer  "period_type"
-    t.integer  "period_num"
+    t.integer  "period_type",                 null: false
+    t.integer  "period_num",                  null: false
     t.integer  "order_no"
-    t.string   "hash_key"
+    t.string   "hash_key",                    null: false
     t.boolean  "is_delete",   default: false
     t.integer  "user_id"
-    t.datetime "update_time"
+    t.datetime "update_time",                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "device_uuid"
@@ -124,11 +124,11 @@ ActiveRecord::Schema.define(version: 20131118041232) do
   add_index "period_table", ["user_id"], name: "index_period_table_on_user_id", using: :btree
 
   create_table "pref_table", force: true do |t|
-    t.string   "key"
+    t.string   "key",                         null: false
     t.string   "value"
     t.integer  "user_id"
     t.boolean  "is_delete",   default: false
-    t.datetime "update_time"
+    t.datetime "update_time",                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "device_uuid"
@@ -139,13 +139,13 @@ ActiveRecord::Schema.define(version: 20131118041232) do
   add_index "pref_table", ["user_id"], name: "index_pref_table_on_user_id", using: :btree
 
   create_table "project_table", force: true do |t|
-    t.string   "project_name"
-    t.integer  "hidden"
+    t.string   "project_name",                 null: false
+    t.integer  "hidden",                       null: false
     t.integer  "order_no"
-    t.string   "hash_key"
+    t.string   "hash_key",                     null: false
     t.boolean  "is_delete",    default: false
     t.integer  "user_id"
-    t.datetime "update_time"
+    t.datetime "update_time",                  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "device_uuid"
@@ -189,13 +189,13 @@ ActiveRecord::Schema.define(version: 20131118041232) do
 
   create_table "subcategory_table", force: true do |t|
     t.string   "id_category"
-    t.string   "subcategory"
-    t.integer  "hidden"
+    t.string   "subcategory",                 null: false
+    t.integer  "hidden",                      null: false
     t.integer  "order_no"
-    t.string   "hash_key"
+    t.string   "hash_key",                    null: false
     t.boolean  "is_delete",   default: false
     t.integer  "user_id"
-    t.datetime "update_time"
+    t.datetime "update_time",                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "device_uuid"

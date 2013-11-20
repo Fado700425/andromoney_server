@@ -2,14 +2,14 @@ class CreateCurrencies < ActiveRecord::Migration
   def change
     create_table :currency_table do |t|
       t.string :currency_code
-      t.decimal :rate, :precision => 16, :scale => 6
+      t.decimal :rate, :precision => 16, :scale => 6, null: false
       t.string :currency_remark
-      t.integer :sequence_status
-      t.string :flag_path
+      t.integer :sequence_status, null: false
+      t.string :flag_path, null: false
       t.integer :order_no
       t.integer :user_id
       t.boolean :is_delete, default: false
-      t.datetime :update_time
+      t.datetime :update_time, null: false
       
       t.timestamps
     end
