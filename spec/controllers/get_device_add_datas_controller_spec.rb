@@ -36,6 +36,16 @@ describe Api::V1::GetDeviceAddDatasController do
         expect(body["datas"].size).to eq(2)
       end
 
+      it "return all datas if device last_sync_time is less than Time.new(2000)" do
+        user1 = Fabricate(:user)
+        record1 = Fabricate(:record, user_id: user1.id, device_uuid: Faker::Lorem.characters(20))
+        device = Fabricate(:device, user_id: user1.id, last_sync_time: Time.new(1986), sync_start_time: Time.now)
+        record2 = Fabricate(:record, user_id: user1.id, device_uuid: device.uuid)
+        get :index, {user: user1.email,device: device.uuid, table: "record_table", sync_time: Time.new(2000)}
+        body = ActiveSupport::JSON.decode(response.body)
+        expect(body["datas"].size).to eq(2)
+      end
+
       it "return user need data(category)" do
         user1 = Fabricate(:user)
         category1 = Fabricate(:category, user_id: user1.id,category: "Food", device_uuid: Faker::Lorem.characters(20))

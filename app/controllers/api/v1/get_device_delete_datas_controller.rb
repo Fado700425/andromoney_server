@@ -17,7 +17,7 @@ class Api::V1::GetDeviceDeleteDatasController < ApplicationController
 
   def retreive_datas(sync_time, user, device, params,model)
     per_page = (params[:per_page])? (params[:per_page]) : 500
-    if sync_time < device.last_sync_time
+    if sync_time < device.last_sync_time || sync_time <= Time.new(2000)
       case params[:table]
       when "currency_table"
         datas = model.where(['updated_at > ? and user_id = ? and is_delete = ? ', sync_time, user.id,true]).select("currency_code").paginate(:page => params[:page], :per_page => per_page)

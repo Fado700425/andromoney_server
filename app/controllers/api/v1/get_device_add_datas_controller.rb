@@ -9,7 +9,7 @@ class Api::V1::GetDeviceAddDatasController < ApplicationController
     if user && device
       sync_time = DateTime.parse(params[:sync_time])
       model = eval(table_mapping[params[:table]])
-      if sync_time < device.last_sync_time
+      if (sync_time < device.last_sync_time) || sync_time <= Time.new(2000)
         datas = model.where(['created_at > ? and user_id = ?', sync_time, user.id]).api_select.paginate(:page => params[:page], :per_page => per_page)
       else
         datas = model.where(['created_at > ? and user_id = ? and device_uuid != ?', sync_time, user.id, device.uuid]).api_select.paginate(:page => params[:page], :per_page => per_page)
