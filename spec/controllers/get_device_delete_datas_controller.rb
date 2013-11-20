@@ -22,7 +22,7 @@ describe Api::V1::GetDeviceDeleteDatasController do
       it "only return data where device not equal request device_uuid" do
         user1 = Fabricate(:user)
         record1 = Fabricate(:record, user_id: user1.id, updated_at: Time.now - 3.days)
-        device = Fabricate(:device, user_id: user1.id, last_sync_time: Time.now - 3.days, sync_start_time: Time.now)
+        device = Fabricate(:device, user_id: user1.id, last_sync_time: Time.now - 4.days, sync_start_time: Time.now)
         record2 = Fabricate(:record, user_id: user1.id, updated_at: Time.now - 3.days, device_uuid: device.uuid)
         
         record1.update_attribute(:project, "Some Value")
@@ -32,6 +32,21 @@ describe Api::V1::GetDeviceDeleteDatasController do
         get :index, {user: user1.email,device: device.uuid, table: "record_table", sync_time: Time.now - 3.days}
         body = ActiveSupport::JSON.decode(response.body)
         expect(body["datas"].size).to eq(1)
+      end
+
+      it "return all datas if device last_sync_time is less than post sync_time" do
+        user1 = Fabricate(:user)
+        record1 = Fabricate(:record, user_id: user1.id, updated_at: Time.now - 3.days)
+        device = Fabricate(:device, user_id: user1.id, last_sync_time: Time.now - 3.days, sync_start_time: Time.now)
+        record2 = Fabricate(:record, user_id: user1.id, updated_at: Time.now - 3.days, device_uuid: device.uuid)
+        
+        record1.update_attribute(:project, "Some Value")
+        record1.update_attribute(:is_delete, true)
+        record2.update_attribute(:project, "Some Value")
+        record2.update_attribute(:is_delete, true)
+        get :index, {user: user1.email,device: device.uuid, table: "record_table", sync_time: Time.now - 4.days}
+        body = ActiveSupport::JSON.decode(response.body)
+        expect(body["datas"].size).to eq(2)
       end
 
       it "return user need data(category)" do

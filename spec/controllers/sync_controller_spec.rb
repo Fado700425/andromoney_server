@@ -20,4 +20,14 @@ describe Api::V1::SyncController do
       end
     end
   end
+
+  context "Post end" do
+    it "update the device last_sync_time" do
+      user = Fabricate(:user, is_syncing: true)
+      device = Fabricate(:device, user_id: user.id, is_syncing: true)
+      sync_time = Time.now.utc
+      post :end, {body: {user: user.email,device: device.uuid, sync_time: sync_time}}
+      device.reload.last_sync_time.utc.to_i.should == sync_time.to_i
+    end
+  end
 end
