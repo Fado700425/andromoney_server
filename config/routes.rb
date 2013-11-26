@@ -1,4 +1,11 @@
 AndromoneyServer::Application.routes.draw do
+  get 'home', controller: 'welcome', action: 'index'
+  root to: 'welcome#front'
+
+  resources :records
+  resources :budgets
+  resources :reports
+
   namespace :api do
     namespace :v1 do
       resources :delete_datas, only: [] do

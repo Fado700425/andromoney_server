@@ -1,0 +1,26 @@
+!!! 5
+%html(lang="en-US")
+  %head
+    %title AndroMoney
+    %meta(charset="UTF-8")
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    = csrf_meta_tag
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    = favicon_link_tag "favicon.jpg"
+  %body
+    #wrap
+      %header
+        = render 'shared/header'
+      %section.content.clearfix
+        = render 'shared/messages'
+        = yield
+    #footer
+      .container
+        %p.text-muted.credit
+          Example courtesy
+          %a{:href => "http://martinbean.co.uk"} Martin Bean
+          and
+          = succeed "." do
+            %a{:href => "http://ryanfait.com/sticky-footer/"} Ryan Fait
+
