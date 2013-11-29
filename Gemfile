@@ -28,6 +28,10 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'pry'
   gem 'capistrano'
+  gem 'letter_opener'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'capybara-email'
 end
 
 group :test do

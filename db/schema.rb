@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131118041232) do
+ActiveRecord::Schema.define(version: 20131129012326) do
 
   create_table "category_table", force: true do |t|
     t.string   "category",                    null: false
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20131118041232) do
   create_table "devices", force: true do |t|
     t.integer  "user_id"
     t.string   "uuid"
-    t.datetime "last_sync_time",  default: '1986-07-05 05:22:33'
+    t.datetime "last_sync_time",  default: '1986-07-11 10:56:07'
     t.datetime "sync_start_time"
     t.boolean  "is_syncing",      default: false
   end
@@ -204,6 +204,20 @@ ActiveRecord::Schema.define(version: 20131118041232) do
   add_index "subcategory_table", ["device_uuid"], name: "index_subcategory_table_on_device_uuid", using: :btree
   add_index "subcategory_table", ["hash_key"], name: "index_subcategory_table_on_hash_key", using: :btree
   add_index "subcategory_table", ["user_id"], name: "index_subcategory_table_on_user_id", using: :btree
+
+  create_table "user_share_payment_relations", force: true do |t|
+    t.integer "share_user_id"
+    t.integer "owner_user_id"
+    t.string  "payment_hash_key"
+    t.boolean "is_approved",      default: false
+    t.string  "token"
+  end
+
+  add_index "user_share_payment_relations", ["is_approved"], name: "index_user_share_payment_relations_on_is_approved", using: :btree
+  add_index "user_share_payment_relations", ["owner_user_id"], name: "index_user_share_payment_relations_on_owner_user_id", using: :btree
+  add_index "user_share_payment_relations", ["payment_hash_key"], name: "index_user_share_payment_relations_on_payment_hash_key", using: :btree
+  add_index "user_share_payment_relations", ["share_user_id"], name: "index_user_share_payment_relations_on_share_user_id", using: :btree
+  add_index "user_share_payment_relations", ["token"], name: "index_user_share_payment_relations_on_token", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
