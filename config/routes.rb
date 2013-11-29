@@ -32,7 +32,7 @@ AndromoneyServer::Application.routes.draw do
           post 'start'
           post 'end'
           post 'owner_share_user_payment'
-          delete 'delete_share'
+          post 'delete_share'
           get 'confirm_share'
         end
       end
