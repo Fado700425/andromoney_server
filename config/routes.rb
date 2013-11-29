@@ -1,4 +1,7 @@
+require 'sidekiq/web'
 AndromoneyServer::Application.routes.draw do
+  mount Sidekiq::Web, at: '/sidekiq'
+  
   get 'home', controller: 'welcome', action: 'index'
   root to: 'welcome#front'
 
