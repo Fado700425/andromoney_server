@@ -37,7 +37,7 @@ class Api::V1::SyncController < Api::V1::ApiController
 
     if owner_user && share_user && payment
       relation = UserSharePaymentRelation.create(share_user_id: share_user.id, owner_user_id: owner_user.id, payment_hash_key: payment.hash_key, token: SecureRandom.urlsafe_base64)
-      SharePaymentMailer.share_email(share_user, owner_user, payment, relation).deliver
+      SharePaymentMailer.delay.share_email(share_user, owner_user, payment, relation).deliver
       render :status=>200, :json=>{:message=>"Sync Requeset Success, owner: #{owner_user.email}, share_user: #{share_user.email}"}
     else
       render :status=>404, :json=>{:message=>"Sync Requeset Fail, data not find"}
@@ -49,7 +49,8 @@ class Api::V1::SyncController < Api::V1::ApiController
     share_user = User.find_by(email: params[:body][:share_user])
     payment = Payment.find_by(user_id: owner_user.id, hash_key: params[:body][:payment_hash_key])
     UserSharePaymentRelation.find_by(share_user_id: share_user.id, owner_user_id: owner_user.id, payment_hash_key: payment.hash_key).delete
-    SharePaymentMailer.delete_email(share_user, owner_user, payment).deliver
+    SharePaymentMailer.delay.owner_receive_delete_email(share_user, owner_user, payment).deliver
+    SharePaymentMailer.delay.sharer_receive_delete_email(share_user, owner_user, payment).deliver
     render :status=>200, :json=>{:message=>"Sync Delete Share Success"}
   end
 
