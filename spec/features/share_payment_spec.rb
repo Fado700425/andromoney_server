@@ -11,6 +11,7 @@ feature 'User shares payment' do
     open_email john.email
     current_email.click_link("確認分享")
 
-    save_and_open_page
+    expect(UserSharePaymentRelation.count).to eq(1)
+    expect(UserSharePaymentRelation.first.is_approved).to be_true
   end
 end
