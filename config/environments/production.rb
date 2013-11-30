@@ -101,5 +101,5 @@ AndromoneyServer::Application.configure do
   #   password:             ENV["GMAIL_PASSWORD"],
   #   authentication:       'plain',
   #   enable_starttls_auto: true  }
-  config.action_mailer.default_url_options = { host: 'www.hanchor.com' }
+  config.action_mailer.default_url_options = { host: '106.186.122.183' }
 end
