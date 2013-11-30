@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Api::V1::SyncController do
 
-  context "Post start" do
+  describe "Post start" do
     
     context "with valid inputs" do
       it "return start_sync_time" do
@@ -21,7 +21,7 @@ describe Api::V1::SyncController do
     end
   end
 
-  context "Post end" do
+  describe "Post end" do
     it "update the device last_sync_time" do
       user = Fabricate(:user, is_syncing: true)
       device = Fabricate(:device, user_id: user.id, is_syncing: true)
@@ -32,7 +32,7 @@ describe Api::V1::SyncController do
   end
 
 
-  context "Post owner_share_user_payment" do
+  describe "Post owner_share_user_payment" do
     context "with valid input" do
       it "add sync payment request to data" do
         bob = Fabricate(:user)
@@ -75,7 +75,7 @@ describe Api::V1::SyncController do
     end
   end
 
-  context "Delete delete_share" do
+  describe "Delete delete_share" do
     it "post the share relation" do
       bob = Fabricate(:user)
       john = Fabricate(:user)
@@ -95,7 +95,7 @@ describe Api::V1::SyncController do
     end
   end
 
-  context "Get confirm_share" do
+  describe "Get confirm_share" do
     it "set the approved the share relation" do
       bob = Fabricate(:user)
       john = Fabricate(:user)

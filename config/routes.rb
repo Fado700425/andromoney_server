@@ -33,7 +33,7 @@ AndromoneyServer::Application.routes.draw do
           post 'end'
           post 'owner_share_user_payment'
           post 'delete_share'
-          get 'confirm_share'
+          get  'confirm_share'
         end
       end
 
@@ -41,7 +41,11 @@ AndromoneyServer::Application.routes.draw do
       resources :get_device_add_datas, only: [:index]
       resources :get_device_update_datas, only: [:index]
       resources :get_device_delete_datas, only: [:index]
-      resources :get_share_payment_datas, only: [:index]
+      resources :get_share_payment_datas, only: [:index] do
+        collection do
+          get  'users_who_shared_by_owner'
+        end
+      end
     end
   end
 end
