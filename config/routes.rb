@@ -44,6 +44,7 @@ AndromoneyServer::Application.routes.draw do
       resources :get_share_payment_datas, only: [:index] do
         collection do
           get  'users_who_shared_by_owner'
+          get  'payments_shared_by_others'
         end
       end
     end
