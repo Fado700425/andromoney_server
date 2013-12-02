@@ -19,7 +19,7 @@ class Api::V1::GetSharePaymentDatasController < ApplicationController
     user = User.find_by(email: params[:owner_user])
 
     if user && params[:payment_hash_key]
-      relations = UserSharePaymentRelation.joins(:share).where("owner_user_id is ? and payment_hash_key is ? and is_approved is ?", user.id, params[:payment_hash_key], true).select("users.id,users.email")
+      relations = UserSharePaymentRelation.joins(:share).where(owner_user_id: user.id, payment_hash_key: params[:payment_hash_key], is_approved: true).select("users.id,users.email")
       render :status=>200, :json=> relations
     else
       render :status=>404, :json=>{:message=>"get Fail"}
