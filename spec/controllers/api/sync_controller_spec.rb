@@ -41,6 +41,14 @@ describe Api::V1::SyncController do
         post :owner_share_user_payment, {body: {owner_user: bob.email, share_user: john.email, payment_hash_key: share_payment.hash_key}}
         expect(UserSharePaymentRelation.count).to eq(1)
       end
+      it "do not add sync payment request to data if already have the data" do
+        bob = Fabricate(:user)
+        john = Fabricate(:user)
+        share_payment = Fabricate(:payment, user_id: bob.id)
+        post :owner_share_user_payment, {body: {owner_user: bob.email, share_user: john.email, payment_hash_key: share_payment.hash_key}}
+        post :owner_share_user_payment, {body: {owner_user: bob.email, share_user: john.email, payment_hash_key: share_payment.hash_key}}
+        expect(UserSharePaymentRelation.count).to eq(1)
+      end
       it "sync request should not be approved" do
         bob = Fabricate(:user)
         john = Fabricate(:user)
@@ -48,7 +56,7 @@ describe Api::V1::SyncController do
         post :owner_share_user_payment, {body: {owner_user: bob.email, share_user: john.email, payment_hash_key: share_payment.hash_key}}
         expect(UserSharePaymentRelation.first.is_approved).to be_false
       end
-      it "sync request should not be approved" do
+      it "sync request should have unique invite token" do
         bob = Fabricate(:user)
         john = Fabricate(:user)
         share_payment = Fabricate(:payment, user_id: bob.id)
