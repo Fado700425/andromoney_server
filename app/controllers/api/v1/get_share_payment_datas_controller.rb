@@ -25,10 +25,14 @@ class Api::V1::GetSharePaymentDatasController < ApplicationController
 
   def payments_shared_by_others
     user = User.find_by(email: params[:user])
-    relations = UserSharePaymentRelation.where(share_user_id: user.id).map{|relation| "(payment_table.user_id = '#{relation.owner_user_id}' and payment_table.hash_key = '#{relation.payment_hash_key}')"} if user
 
-    if user && relations.present?
-      payments = Payment.joins(:user).where(relations.join(" or ")).select("payment_table.id,users.email, payment_table.kind, payment_table.payment_name, total, currency_code,rate, out_total, hidden, order_no, hash_key,payment_table.update_time ")
+    if user
+      relations = UserSharePaymentRelation.where(share_user_id: user.id).map{|relation| "(payment_table.user_id = '#{relation.owner_user_id}' and payment_table.hash_key = '#{relation.payment_hash_key}')"}
+      if relations.present?
+        payments = Payment.joins(:user).where(relations.join(" or ")).select("payment_table.id,users.email, payment_table.kind, payment_table.payment_name, total, currency_code,rate, out_total, hidden, order_no, hash_key,payment_table.update_time ")
+      else
+        payments = []
+      end
       render :status=>200, :json=> payments
     else
       render :status=>404, :json=>{:message=>"get Fail"}
