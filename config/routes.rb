@@ -3,6 +3,7 @@ AndromoneyServer::Application.routes.draw do
   mount Sidekiq::Web, at: '/sidekiq'
   
   get 'home', controller: 'welcome', action: 'index'
+  get 'download', controller: 'welcome', action: 'download'
   root to: 'welcome#front'
 
   resources :records

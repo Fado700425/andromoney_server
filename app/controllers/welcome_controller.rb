@@ -4,4 +4,7 @@ class WelcomeController < ApplicationController
 
   def front
   end
+
+  def download
+  end
 end
