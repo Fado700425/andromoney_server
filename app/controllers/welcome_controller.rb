@@ -7,4 +7,7 @@ class WelcomeController < ApplicationController
 
   def download
   end
+
+  def about
+  end
 end
