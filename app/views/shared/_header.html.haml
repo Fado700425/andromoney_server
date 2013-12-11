@@ -6,13 +6,16 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      = link_to "Andromoney", root_path, class: "navbar-brand"
+      = link_to root_path, class: "navbar-brand" do
+        = image_tag "icon.png", width: "40px"
+        Andromoney
     .collapse.navbar-collapse
       %ul.nav.navbar-nav
-        %li.active
+        %li
           = link_to "首頁", root_path
+        %li
+          = link_to "軟體下載", root_path
         %li
           = link_to "用戶登入", home_path
         %li
           %a{:href => "#about"} 關於
-        %li

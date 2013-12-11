@@ -37,6 +37,7 @@ group :development, :test do
   gem 'capybara'
   gem 'launchy'
   gem 'capybara-email'
+  gem 'guard-livereload'
 end
 
 group :test do
