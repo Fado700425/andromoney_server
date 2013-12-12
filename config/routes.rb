@@ -5,6 +5,7 @@ AndromoneyServer::Application.routes.draw do
   get 'home', controller: 'welcome', action: 'index'
   get 'download', controller: 'welcome', action: 'download'
   get 'about', controller: "welcome", action: 'about'
+  get 'pricing', controller: "welcome", action: 'pricing'
   root to: 'welcome#front'
 
   resources :records
