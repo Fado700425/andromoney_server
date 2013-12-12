@@ -1,0 +1,71 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    :css
+      body {
+        background-color: #EFEFEF;
+        color: #2E2F30;
+        text-align: center;
+        font-family: arial, sans-serif;
+      }
+
+      div.dialog {
+        margin: 4em auto 0 auto;
+        border: 1px solid #CCC;
+        border-right-color: #999;
+        border-left-color: #999;
+        border-bottom-color: #BBB;
+        border-bottom: #ED8611 solid 4px;
+        border-top-left-radius: 9px;
+        border-top-right-radius: 9px;
+        background-color: white;
+        padding: 7px 4em 0 4em;
+      }
+
+      h1 {
+        font-size: 100%;
+        color: #730E15;
+        line-height: 1.5em;
+      }
+
+      body > p {
+        width: 100%;
+        margin: 0 auto 1em;
+        padding: 1em 0;
+        background-color: #F7F7F7;
+        border: 1px solid #CCC;
+        border-right-color: #999;
+        border-bottom-color: #999;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        border-top-color: #DADADA;
+        color: #666;
+        box-shadow:0 3px 8px rgba(50, 50, 50, 0.17);
+      }
+      .text-danger{
+        color: #a94442;
+      }
+      .text-success {
+      color: #3c763d;
+      }
+  %body
+    .dialog
+      = link_to "http://www.andromoney.com", class: "navbar-brand" do
+        = image_tag URI.join(root_url, image_path("icon.png")), width: "50px"
+        Andromoney
+      %br
+      %p
+        你好，歡迎使用 Andromoney 的服務
+        %br
+        %span.text-danger
+          = @owner_user.email
+        想分享
+        %span.text-danger
+          #{@payment.payment_name}
+        帳戶資料給你
+        %br/
+      %p
+        若想接受分享，請點"確認分享"，謝謝！
+        %br
+        = link_to "確認分享", share_confirm_url(token: @relation.token,locale: "zh")

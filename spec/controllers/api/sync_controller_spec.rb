@@ -89,7 +89,7 @@ describe Api::V1::SyncController do
       john = Fabricate(:user)
       share_payment = Fabricate(:payment, user_id: bob.id)
       Fabricate(:user_share_payment_relation, share_user_id: john.id, owner_user_id: bob.id, payment_hash_key: share_payment.hash_key, token: SecureRandom.urlsafe_base64)
-      post :delete_share, {body: {owner_user: bob.email, share_user: john.email, payment_hash_key: share_payment.hash_key}}
+      post :delete_share, {body: {owner_user: bob.email, share_user: john.email, payment_hash_key: share_payment.hash_key, locale: "en"}}
       expect(UserSharePaymentRelation.count).to eq(0)
     end
     it "send email to share user and owner user" do
@@ -98,7 +98,7 @@ describe Api::V1::SyncController do
       john = Fabricate(:user)
       share_payment = Fabricate(:payment, user_id: bob.id)
       Fabricate(:user_share_payment_relation, share_user_id: john.id, owner_user_id: bob.id, payment_hash_key: share_payment.hash_key, token: SecureRandom.urlsafe_base64)
-      post :delete_share, {body: {owner_user: bob.email, share_user: john.email, payment_hash_key: share_payment.hash_key}}
+      post :delete_share, {body: {owner_user: bob.email, share_user: john.email, payment_hash_key: share_payment.hash_key, locale: "en"}}
       ActionMailer::Base.deliveries.should_not be_empty
     end
   end

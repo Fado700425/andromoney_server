@@ -1,0 +1,4 @@
+zh:
+  share_email: "想跟你分享帳戶資料!"
+  owner_delete_email: "已取消你分享給 %{email} 的帳戶資料"
+  sharer_receive_delete_email: "%{email} 已取消跟你分享帳戶資料"
