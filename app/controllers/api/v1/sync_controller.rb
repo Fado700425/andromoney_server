@@ -1,5 +1,6 @@
 class Api::V1::SyncController < Api::V1::ApiController
   skip_before_filter  :verify_authenticity_token
+  layout 'api'
 
   def start
     params = deal_params
@@ -56,13 +57,12 @@ class Api::V1::SyncController < Api::V1::ApiController
   end
 
   def confirm_share
-    relation = UserSharePaymentRelation.find_by(token: params[:token])
-    if relation
-      relation.is_approved = true
-      relation.save
-      render :status=>200, :json=>{:message=>"Confrim share Success"}
+    @relation = UserSharePaymentRelation.find_by(token: params[:token])
+    if @relation
+      @relation.is_approved = true
+      @relation.save
     else
-      render :status=>404, :json=>{:message=>"Confrim share Fail"}
+      render :status=>404, :file => "#{Rails.root}/public/404"
     end
   end
 

@@ -12,6 +12,8 @@ AndromoneyServer::Application.routes.draw do
   resources :budgets
   resources :reports
 
+  get 'share_confirm', controller: 'api/v1/sync', action: 'confirm_share'
+
   namespace :api do
     namespace :v1 do
       resources :delete_datas, only: [] do

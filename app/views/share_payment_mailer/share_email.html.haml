@@ -12,4 +12,4 @@
       %br/
     %p
       若想接受分享，請點以下的連結，謝謝！
-      = link_to "確認分享", confirm_share_api_v1_sync_index_url(token: @relation.token)
+      = link_to "確認分享", share_confirm_url(token: @relation.token)
