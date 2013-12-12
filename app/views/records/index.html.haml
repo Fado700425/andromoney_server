@@ -1,0 +1,29 @@
+.row.row-offcanvas.row-offcanvas-right
+  = render 'shared/sidebar'
+
+  .col-xs-12.col-sm-9
+    %ul#tabs.nav.nav-tabs{"data-tabs" => "tabs"}
+      %li.active
+        %a{"data-toggle" => "tab", :href => "#red"} 全部
+      %li
+        %a{"data-toggle" => "tab", :href => "#red"} 支出
+      %li
+        %a{"data-toggle" => "tab", :href => "#orange"} 收入
+      %li
+        %a{"data-toggle" => "tab", :href => "#yellow"} 轉帳
+      %li
+        %a{"data-toggle" => "tab", :href => "#green"} 借貸
+
+    #my-tab-content.tab-content
+      #red.tab-pane.active
+        %h1 Red
+        %p red red red red red red
+      #orange.tab-pane
+        %h1 Orange
+        %p orange orange orange orange orange
+      #yellow.tab-pane
+        %h1 Yellow
+        %p yellow yellow yellow yellow yellow
+      #green.tab-pane
+        %h1 Green
+        %p green green green green green

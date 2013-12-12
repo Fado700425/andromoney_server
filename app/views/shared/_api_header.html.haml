@@ -1,0 +1,11 @@
+.navbar.navbar-inverse.navbar-fixed-top{:role => "navigation"}
+  .container
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to "http://www.andromoney.com", class: "navbar-brand" do
+        = image_tag "icon.png", width: "40px"
+        Andromoney

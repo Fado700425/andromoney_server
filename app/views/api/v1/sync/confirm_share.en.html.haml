@@ -1,0 +1,9 @@
+.congration.text-center
+  Congratulations!
+  %br 
+  You've accepted to receive the account data
+  %span.text-success
+    #{@relation.payment.payment_name}
+  which is shared by 
+  %span.text-danger
+    #{@relation.owner.email}

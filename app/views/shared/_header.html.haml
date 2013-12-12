@@ -1,0 +1,25 @@
+.navbar.navbar-inverse.navbar-fixed-top{:role => "navigation"}
+  .container
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to root_path, class: "navbar-brand" do
+        = image_tag "icon.png", width: "40px"
+        Andromoney
+    .collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        %li
+          = link_to "首頁", root_path
+        %li
+          = link_to "軟體下載", download_path
+        %li
+          = link_to "價格方案", pricing_path
+        %li
+          = link_to "關於", about_path
+      .pull-right
+        %ul.nav.navbar-nav
+          %li
+            = link_to "用戶登入", home_path

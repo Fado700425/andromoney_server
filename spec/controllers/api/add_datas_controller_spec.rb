@@ -53,63 +53,63 @@ describe Api::V1::AddDatasController do
     it "create the category data" do
       user1 = Fabricate(:user)
       device = Fabricate(:device, user_id: user1.id)
-      post :create, {body:{user: user1.email, device: device.uuid, category_table: [{hash_key: Faker::Lorem.characters(20), category: "BestFood"}]}}
+      post :create, {body:{user: user1.email, device: device.uuid, category_table: [{hash_key: Faker::Lorem.characters(20), category: "BestFood", type: 1, photo_path: "ttt/a.jpg", hidden: 1, update_time: Time.now}]}}
       expect(Category.all.size).to eq(1)
     end
 
     it "create the payee data" do
       user1 = Fabricate(:user)
       device = Fabricate(:device, user_id: user1.id)
-      post :create, {body:{user: user1.email, device: device.uuid, payee_table: [{hash_key: Faker::Lorem.characters(20),payee_name: "Mary"}]}}
+      post :create, {body:{user: user1.email, device: device.uuid, payee_table: [{hash_key: Faker::Lorem.characters(20),payee_name: "Mary",hidden: 1,type: 1,order_no: 1, update_time: Time.now}]}}
       expect(Payee.all.size).to eq(1)
     end
 
     it "create the currency data" do
       user1 = Fabricate(:user)
       device = Fabricate(:device, user_id: user1.id)
-      post :create, {body: {user: user1.email, device: device.uuid, currency_table: [{currency_code: Faker::Lorem.characters(3), rate: 3.9}]}}
+      post :create, {body: {user: user1.email, device: device.uuid, currency_table: [{currency_code: Faker::Lorem.characters(3), rate: 3.9,sequence_status:3,flag_path: Faker::Lorem.characters(20),update_time: Time.now}]}}
       expect(Currency.all.size).to eq(1)
     end
 
     it "create the payment data" do
       user1 = Fabricate(:user)
       device = Fabricate(:device, user_id: user1.id)
-      post :create, {body: {user: user1.email, device: device.uuid, payment_table: [{hash_key: Faker::Lorem.characters(20), payment_name: "Bank"}]}}
+      post :create, {body: {user: user1.email, device: device.uuid, payment_table: [{hash_key: Faker::Lorem.characters(20), payment_name: "Bank",kind: 1,total: 100,hidden: false,update_time: Time.now}]}}
       expect(Payment.all.size).to eq(1)
     end
 
     it "create the period data" do
       user1 = Fabricate(:user)
       device = Fabricate(:device, user_id: user1.id)
-      post :create, {body: {user: user1.email, device: device.uuid, period_table: [{hash_key: Faker::Lorem.characters(20), period_num: 1}]}}
+      post :create, {body: {user: user1.email, device: device.uuid, period_table: [{hash_key: Faker::Lorem.characters(20), period_num: 1, start_date: Time.now, period_type: 1, period_num: 1, update_time: Time.now}]}}
       expect(Period.all.size).to eq(1)
     end
 
     it "create the pref data" do
       user1 = Fabricate(:user)
       device = Fabricate(:device, user_id: user1.id)
-      post :create, {body: {user: user1.email, device: device.uuid, pref_table: [{key: Faker::Lorem.characters(20),value: "b"}]}}
+      post :create, {body: {user: user1.email, device: device.uuid, pref_table: [{key: Faker::Lorem.characters(20),value: "b", update_time: Time.now}]}}
       expect(Pref.all.size).to eq(1)
     end
 
     it "create the project data" do
       user1 = Fabricate(:user)
       device = Fabricate(:device, user_id: user1.id)
-      post :create,{body: {user: user1.email, device: device.uuid, project_table: [{hash_key: Faker::Lorem.characters(20), project_name: "Fat"}]}}
+      post :create,{body: {user: user1.email, device: device.uuid, project_table: [{hash_key: Faker::Lorem.characters(20), project_name: "Fat",hidden: 1,update_time: Time.now}]}}
       expect(Project.all.size).to eq(1)
     end
 
     it "create the subcategory data" do
       user1 = Fabricate(:user)
       device = Fabricate(:device, user_id: user1.id)
-      post :create, {body: {user: user1.email, device: device.uuid, subcategory_table: [{hash_key: Faker::Lorem.characters(20), subcategory: "shoe"}]}}
+      post :create, {body: {user: user1.email, device: device.uuid, subcategory_table: [{hash_key: Faker::Lorem.characters(20), subcategory: "shoe",hidden: 1,update_time: Time.now}]}}
       expect(Subcategory.all.size).to eq(1)
     end
 
     it "return status 200 after update" do
       user1 = Fabricate(:user)
       device = Fabricate(:device, user_id: user1.id)
-      post :create, {body: {user: user1.email, device: device.uuid, subcategory_table: [{hash_key: Faker::Lorem.characters(20), subcategory: "shoe"}]}}
+      post :create, {body: {user: user1.email, device: device.uuid, subcategory_table: [{hash_key: Faker::Lorem.characters(20), subcategory: "shoe",hidden: 1,update_time: Time.now}]}}
       response.response_code.should == 200
     end
 

@@ -3,10 +3,18 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 gem 'mysql2'
 
+gem 'bootstrap-sass-rails'
+
+gem 'haml-rails'
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
+gem "figaro"
+
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'
 
 gem 'will_paginate'
 
@@ -25,6 +33,11 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'pry'
   gem 'capistrano'
+  gem 'letter_opener'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'capybara-email'
+  gem 'guard-livereload'
 end
 
 group :test do
@@ -32,4 +45,8 @@ group :test do
   gem 'shoulda-matchers'
   gem 'fabrication'
   gem 'faker'
+  gem 'vcr'
+  gem 'webmock', '1.15.0'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end

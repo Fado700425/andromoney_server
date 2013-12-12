@@ -1,0 +1,11 @@
+#sidebar.col-xs-6.col-sm-3.sidebar-offcanvas{:role => "navigation"}
+  .list-group
+  %a.list-group-item{:href => "#"} 財務概況
+  = link_to "記帳", new_record_path, class: "list-group-item"
+  = link_to "明細", records_path, class: "list-group-item"
+  = link_to "報表", reports_path, class: "list-group-item"
+  %a.list-group-item{:href => "#"} 帳戶
+  %a.list-group-item{:href => "#"} 基金
+  = link_to "預算", budgets_path, class: "list-group-item"
+  %a.list-group-item{:href => "#"} 匯入匯出
+  %a.list-group-item{:href => "#"} 設定

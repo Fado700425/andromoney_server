@@ -1,0 +1,22 @@
+!!! 5
+%html(lang="en-US")
+  %head
+    %title AndroMoney
+    %meta(charset="UTF-8")
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    = csrf_meta_tag
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    = favicon_link_tag "icon.png"
+  %body
+    #wrap
+      %header
+        = render 'shared/header'
+      %section.content.clearfix
+        = render 'shared/messages'
+        = yield
+    #footer
+      .container
+        %a{:href => "mailto:service@andromoney.com?Subject=Contact%20AndroMoney", :target => "_top"} contact us
+        %a{:href => "support/"} Support
+        %p.copyright © 2013 AndroMoney

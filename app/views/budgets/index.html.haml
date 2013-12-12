@@ -1,0 +1,15 @@
+.row.row-offcanvas.row-offcanvas-right
+  = render 'shared/sidebar'
+  
+  總預算
+  .progress
+    .progress-bar{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "60", :role => "progressbar", :style => "width: 60%;"}
+      %span.sr-only 60% Complete
+  %span.left.total_money 2045371.00
+  %span.total_balance.left.cutlong
+    %span 余额:
+    %span.total_balance_money -3456214.00
+  %input#setTotalBudget.btn1.left{:type => "button", :value => "设置"}
+    %input#getBudgetId.btn2.left{:type => "button", :value => "清空"}
+
+  
