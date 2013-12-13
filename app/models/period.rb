@@ -6,7 +6,7 @@ class Period < ActiveRecord::Base
                         ) }
 
   def as_json(options)
-    json = super(:only => [:id,:period_type,:period_num,:order_no,:hash_key,:update_time])
+    json = super(:only => [:id,:period_type,:period_num,:order_no,:hash_key,:update_time,:is_delete])
     (start_date) ? json.merge!(start_date: start_date.strftime("%Y%m%d")) : json.merge!(start_date: nil) if attributes.include? "start_date"
     (end_date) ? json.merge!(end_date: end_date.strftime("%Y%m%d")) : json.merge!(end_date: nil) if attributes.include? "end_date"
     (update_date) ? json.merge!(update_date: update_date.strftime("%Y%m%d")) : json.merge!(update_date: nil) if attributes.include? "update_date"
