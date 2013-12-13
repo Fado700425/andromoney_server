@@ -13,7 +13,7 @@ class Payment < ActiveRecord::Base
     records = Record.where("user_id = ? and (in_payment = ? or out_payment = ?) and updated_at > ?", user_id, hash_key, hash_key, last_sync_time).paginate(:page => page, :per_page => per_page)
     categories = Category.where("user_id = ? and hash_key in (?)", user_id, records.map(&:category))
     subcategories = Subcategory.where("user_id = ? and hash_key in (?)", user_id, records.map(&:sub_category))
-    currencies = Currency.where("user_id = ? and currency_code in (?)", user_id, records.map(&:currency_code))
+    currencies = Currency.where("user_id = ? and (currency_code in (?) or sequence_status = 0)", user_id, records.map(&:currency_code))
     payees = Payee.where("user_id = ? and hash_key in (?)", user_id, records.map(&:payee))
     projects = Project.where("user_id = ? and hash_key in (?)", user_id, records.map(&:project))
     periods = Period.where("user_id = ? and hash_key in (?)", user_id, records.map(&:period))
