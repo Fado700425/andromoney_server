@@ -71,6 +71,14 @@ describe Api::V1::SyncController do
         post :owner_share_user_payment, {body: {owner_user: bob.email, share_user: john.email, payment_hash_key: share_payment.hash_key}}
         ActionMailer::Base.deliveries.should_not be_empty
       end
+
+      it "send out sync payment request email to share user who not register" do
+        ActionMailer::Base.deliveries.clear
+        bob = Fabricate(:user)
+        share_payment = Fabricate(:payment, user_id: bob.id)
+        post :owner_share_user_payment, {body: {owner_user: bob.email, share_user: "test@gmail.com", payment_hash_key: share_payment.hash_key}}
+        ActionMailer::Base.deliveries.should_not be_empty
+      end
     end
     context "with invalid input" do
       it "render error message" do

@@ -33,10 +33,11 @@ class Api::V1::SyncController < Api::V1::ApiController
 
   def owner_share_user_payment
     owner_user = User.find_by(email: params[:body][:owner_user])
-    share_user = User.find_by(email: params[:body][:share_user])
     payment = Payment.find_by(user_id: owner_user.id, hash_key: params[:body][:payment_hash_key]) if owner_user
 
-    if owner_user && share_user && payment
+    if owner_user && payment
+      share_user = User.find_by(email: params[:body][:share_user])
+      share_user = User.create(email: params[:body][:share_user]) unless share_user
       relation = UserSharePaymentRelation.find_by(share_user_id: share_user.id, owner_user_id: owner_user.id, payment_hash_key: payment.hash_key)
       relation = UserSharePaymentRelation.create(share_user_id: share_user.id, owner_user_id: owner_user.id, payment_hash_key: payment.hash_key, token: SecureRandom.urlsafe_base64) unless relation
       SharePaymentMailer.delay.share_email(share_user, owner_user, payment, relation, params[:body][:locale])

@@ -8,6 +8,8 @@ AndromoneyServer::Application.routes.draw do
   # get 'pricing', controller: "welcome", action: 'pricing'
   # root to: 'welcome#front'
 
+  root to: redirect("http://www.andromoney.com")
+
   # resources :records
   # resources :budgets
   # resources :reports
