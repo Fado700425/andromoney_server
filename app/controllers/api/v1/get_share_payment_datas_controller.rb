@@ -27,13 +27,16 @@ class Api::V1::GetSharePaymentDatasController < ApplicationController
     user = User.find_by(email: params[:user])
 
     if user
-      relations = UserSharePaymentRelation.where(share_user_id: user.id).map{|relation| "(payment_table.user_id = '#{relation.owner_user_id}' and payment_table.hash_key = '#{relation.payment_hash_key}')"}
-      if relations.present?
-        payments = Payment.joins(:user).where(relations.join(" or ")).select("payment_table.id,users.email, payment_table.kind, payment_table.payment_name, total, currency_code,rate, out_total, hidden, order_no, hash_key,payment_table.update_time ")
-      else
-        payments = []
-      end
-      render :status=>200, :json=> payments
+      # relations = UserSharePaymentRelation.where(share_user_id: user.id).map{|relation| "(payment_table.user_id = '#{relation.owner_user_id}' and payment_table.hash_key = '#{relation.payment_hash_key}')"}
+      # UserSharePaymentRelation.joins(:owner).joins().where(share_user_id: user.id)
+      # if relations.present?
+      #   payments = Payment.joins(:user).where(relations.join(" or ")).select("payment_table.id,users.email, payment_table.kind, payment_table.payment_name, total, currency_code,rate, out_total, hidden, order_no, hash_key,payment_table.update_time ")
+      #   binding.pry
+      # else
+      #   payments = []
+      # end
+      relation = UserSharePaymentRelation.joins(:owner).joins("INNER JOIN payment_table ON payment_table.hash_key = user_share_payment_relations.payment_hash_key and payment_table.user_id = user_share_payment_relations.owner_user_id").where(share_user_id: user.id).select("payment_table.id,users.email, permission,payment_table.kind, payment_table.payment_name, total, currency_code,rate, out_total, hidden, order_no, hash_key,payment_table.update_time ")
+      render :status=>200, :json=> relation
     else
       render :status=>404, :json=>{:message=>"get Fail"}
     end
