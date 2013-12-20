@@ -14,9 +14,13 @@ set :deploy_to, "/home/apps/andromoney_server"
 set :deploy_via, :remote_cache
 set :use_sudo, false
 
-role :web, "106.186.22.13"
-role :app, "106.186.22.13"
-role :db,  "106.186.22.13", :primary => true
+role :web, "106.186.122.183"
+role :app, "106.186.122.183"
+role :db,  "106.186.122.183", :primary => true
+
+# role :web, "106.186.22.13"
+# role :app, "106.186.22.13"
+# role :db,  "106.186.22.13", :primary => true
 
 namespace :deploy do
 

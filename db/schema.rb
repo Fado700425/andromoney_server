@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131129012326) do
+ActiveRecord::Schema.define(version: 20131220061455) do
 
   create_table "category_table", force: true do |t|
     t.string   "category",                    null: false
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20131129012326) do
   create_table "devices", force: true do |t|
     t.integer  "user_id"
     t.string   "uuid"
-    t.datetime "last_sync_time",  default: '1986-07-18 06:17:27'
+    t.datetime "last_sync_time",  default: '1986-07-11 10:56:07'
     t.datetime "sync_start_time"
     t.boolean  "is_syncing",      default: false
   end
@@ -211,6 +211,7 @@ ActiveRecord::Schema.define(version: 20131129012326) do
     t.string  "payment_hash_key"
     t.boolean "is_approved",      default: false
     t.string  "token"
+    t.integer "permission"
   end
 
   add_index "user_share_payment_relations", ["is_approved"], name: "index_user_share_payment_relations_on_is_approved", using: :btree

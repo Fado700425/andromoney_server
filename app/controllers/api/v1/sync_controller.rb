@@ -39,7 +39,8 @@ class Api::V1::SyncController < Api::V1::ApiController
       share_user = User.find_by(email: params[:body][:share_user])
       share_user = User.create(email: params[:body][:share_user]) unless share_user
       relation = UserSharePaymentRelation.find_by(share_user_id: share_user.id, owner_user_id: owner_user.id, payment_hash_key: payment.hash_key)
-      relation = UserSharePaymentRelation.create(share_user_id: share_user.id, owner_user_id: owner_user.id, payment_hash_key: payment.hash_key, token: SecureRandom.urlsafe_base64) unless relation
+      permission = params[:body][:permission] || UserSharePaymentRelation::READ
+      relation = UserSharePaymentRelation.create(share_user_id: share_user.id, owner_user_id: owner_user.id, payment_hash_key: payment.hash_key, token: SecureRandom.urlsafe_base64, permission: permission) unless relation
       SharePaymentMailer.delay.share_email(share_user, owner_user, payment, relation, params[:body][:locale])
       render :status=>200, :json=>{:message=>"Sync Requeset Success, owner: #{owner_user.email}, share_user: #{share_user.email}"}
     else

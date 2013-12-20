@@ -63,6 +63,20 @@ describe Api::V1::SyncController do
         post :owner_share_user_payment, {body: {owner_user: bob.email, share_user: john.email, payment_hash_key: share_payment.hash_key}}
         expect(UserSharePaymentRelation.first.token).to be_present
       end
+      it "share relation permission default should be READ" do
+        bob = Fabricate(:user)
+        john = Fabricate(:user)
+        share_payment = Fabricate(:payment, user_id: bob.id)
+        post :owner_share_user_payment, {body: {owner_user: bob.email, share_user: john.email, payment_hash_key: share_payment.hash_key}}
+        expect(UserSharePaymentRelation.first.permission).to eq(UserSharePaymentRelation::READ)
+      end
+      it "set share relation permission" do
+        bob = Fabricate(:user)
+        john = Fabricate(:user)
+        share_payment = Fabricate(:payment, user_id: bob.id)
+        post :owner_share_user_payment, {body: {owner_user: bob.email, share_user: john.email, payment_hash_key: share_payment.hash_key, permission: UserSharePaymentRelation::WRITE}}
+        expect(UserSharePaymentRelation.first.permission).to eq(UserSharePaymentRelation::WRITE)
+      end
       it "send out sync payment request email to user" do
         ActionMailer::Base.deliveries.clear
         bob = Fabricate(:user)
