@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131220061455) do
+ActiveRecord::Schema.define(version: 20131222032312) do
 
   create_table "category_table", force: true do |t|
     t.string   "category",                    null: false
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20131220061455) do
   create_table "devices", force: true do |t|
     t.integer  "user_id"
     t.string   "uuid"
-    t.datetime "last_sync_time",  default: '1986-07-11 10:56:07'
+    t.datetime "last_sync_time",  default: '1986-08-06 03:32:17'
     t.datetime "sync_start_time"
     t.boolean  "is_syncing",      default: false
   end
@@ -206,12 +206,14 @@ ActiveRecord::Schema.define(version: 20131220061455) do
   add_index "subcategory_table", ["user_id"], name: "index_subcategory_table_on_user_id", using: :btree
 
   create_table "user_share_payment_relations", force: true do |t|
-    t.integer "share_user_id"
-    t.integer "owner_user_id"
-    t.string  "payment_hash_key"
-    t.boolean "is_approved",      default: false
-    t.string  "token"
-    t.integer "permission"
+    t.integer  "share_user_id",                    null: false
+    t.integer  "owner_user_id",                    null: false
+    t.string   "payment_hash_key",                 null: false
+    t.boolean  "is_approved",      default: false
+    t.string   "token"
+    t.integer  "permission",                       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "user_share_payment_relations", ["is_approved"], name: "index_user_share_payment_relations_on_is_approved", using: :btree
