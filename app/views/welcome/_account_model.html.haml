@@ -1,0 +1,9 @@
+#myModal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %a.close{"data-dismiss" => "modal"} &times;
+        %h4= t('notify.notify')
+      .modal-body
+        %p
+          = t('notify.message')

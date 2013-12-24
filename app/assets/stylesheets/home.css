@@ -1,0 +1,37 @@
+.outgoSum {
+background: #FFF8E3;
+height: 30px;
+line-height: 30px;
+border: 1px solid #E1C9B3;
+color: #AC7B50;
+font-weight: bold;
+width: 190px;
+}
+
+.sumTitle {
+width: 50px;
+border-right: 1px solid #F5E4D4;
+text-align: center;
+}
+
+.sumMoney {
+padding-left: 10px;
+}
+
+.left {
+float: left;
+display: inline;
+}
+
+.budgetSum {
+height: 30px;
+line-height: 30px;
+width: 190px;
+}
+
+.budgetSum p {
+color: #fff;
+font-weight: bold;
+}
+
+

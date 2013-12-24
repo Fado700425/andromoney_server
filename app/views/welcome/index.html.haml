@@ -1,16 +1,142 @@
+%script{:src => "https://www.google.com/jsapi", :type => "text/javascript"}
+:javascript
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChartLine);
+  function drawChartLine() {
+    var data = google.visualization.arrayToDataTable([
+      ['Year', 'Sales', 'Expenses'],
+      ['2004',  1000,      400],
+      ['2005',  1170,      460],
+      ['2006',  660,       1120],
+      ['2007',  1030,      540]
+    ]);
+
+    var options = {
+      title: 'Company Performance',
+      hAxis: {title: 'Year', titleTextStyle: {color: 'red'}}
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+  }
+:javascript
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Task', 'Hours per Day'],
+      ['Work',     11],
+      ['Eat',      2],
+      ['Commute',  2],
+      ['Watch TV', 2],
+      ['Sleep',    7]
+    ]);
+
+    var options = {
+      title: 'My Daily Activities'
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    chart.draw(data, options);
+  }
+:javascript
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Task', 'Hours per Day'],
+      ['Work',     11],
+      ['Eat',      2],
+      ['Commute',  2],
+      ['Watch TV', 2],
+      ['Sleep',    7]
+    ]);
+
+    var options = {
+      title: 'My Daily Activities',
+      pieHole: 0.4,
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+    chart.draw(data, options);
+  }
 .row.row-offcanvas.row-offcanvas-right
   = render 'shared/sidebar'
 
   .col-xs-12.col-sm-9
-    %p.pull-right.visible-xs
-      %button.btn.btn-primary.btn-xs{"data-toggle" => "offcanvas", :type => "button"} Toggle nav
-    .jumbotron
-      %h3 帳戶走勢
-      %p This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.
-    .jumbotron
-      %h3 支出
-      %p This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.
-    .jumbotron
-      %h3 預算
-      %p This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.
+    .panel.panel-info
+      .panel-heading
+        %h3.panel-title 帳戶走勢
+      .panel-body
+        .col-sm-3
+          .content_chart1
+            %p 
+              %table.statTable
+                %tbody
+                  %tr
+                    %td 本日支出
+                    %td
+                      %span#info_today.redMoney.cutlong ￥50.00
+                  %tr
+                    %td 本月支出
+                    %td
+                      %span#info_month.redMoney.cutlong ￥1550.00
+                  %tr
+                    %td 本年支出
+                    %td
+                      %span#info_year.redMoney.cutlong ￥11639218.00
+            = link_to "帳戶總覽","","data-toggle" => "modal", 'data-target' => "#myModal", id: "order_modal_link", class: "btn btn-md btn-warning"
+        .col-sm-6
+          #chart_div{:style => "width: 900px; height: 200px;"}
     
+  .col-xs-12.col-sm-9
+    .panel.panel-info
+      .panel-heading
+        %h3.panel-title 支出
+      .panel-body
+        .col-sm-3
+          .content_chart1
+            %p 
+              .outgoSum
+                %p.sumTitle.left 金额
+                %p.sumMoney.left ￥1550.00
+        .col-sm-6
+          #piechart{:style => "width: 900px; height: 200px;"}
+  
+  .col-xs-12.col-sm-9
+    .panel.panel-info
+      .panel-heading
+        %h3.panel-title 預算
+      .panel-body
+        .col-sm-3
+          .content_chart3
+            #monthBudgetContent
+              %div{:style => "padding:10px 0px;font-weight: bold;"} 本月预算
+              .budgetSum{:style => "background-color: rgb(225, 135, 132); background-position: initial initial; background-repeat: initial initial;"}
+                %p.sumTitle.left 超支
+                %p.sumMoney ￥650.00
+              %p
+                .totalBudget
+                  %p.left 总预算
+                  %p ￥900.00
+              %p
+                .totalOutgo
+                  %p.left.p2 总支出
+                  %p.totalOutgo_money ￥1550.00
+            #lastMonthBudgetContet
+              %div{:style => "padding:20px 0px 10px;font-weight: bold;"} 上月预算
+              .budgetSum{:style => "background-color: rgb(225, 135, 132); background-position: initial initial; background-repeat: initial initial;"}
+                %p.sumTitle.left 超支
+                %p.sumMoney{:style => "font-size: 10px;"} ￥3456214.00
+              %p
+                .totalBudget
+                  %p.left 总预算
+                  %p.totalBudget_money ￥2045371.00
+              %p
+                .totalOutgo
+                  %p.left.p2 总支出
+                  %p.totalOutgo_money ￥5501585.00
+        .col-sm-6
+          #donutchart{:style => "width: 900px; height: 500px;"}
+
+= render "account_model"
