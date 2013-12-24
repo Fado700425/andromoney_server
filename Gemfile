@@ -4,6 +4,8 @@ gem 'rails', '4.0.0'
 gem 'mysql2'
 
 gem 'bootstrap-sass-rails'
+gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails',
+                              :git => 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
 
 gem 'haml-rails'
 gem 'sass-rails', '~> 4.0.0'
