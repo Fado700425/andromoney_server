@@ -2,17 +2,17 @@ require 'sidekiq/web'
 AndromoneyServer::Application.routes.draw do
   mount Sidekiq::Web, at: '/sidekiq'
   
-  # get 'home', controller: 'welcome', action: 'index'
-  # get 'download', controller: 'welcome', action: 'download'
-  # get 'about', controller: "welcome", action: 'about'
-  # get 'pricing', controller: "welcome", action: 'pricing'
-  # root to: 'welcome#front'
+  get 'home', controller: 'welcome', action: 'index'
+  get 'download', controller: 'welcome', action: 'download'
+  get 'about', controller: "welcome", action: 'about'
+  get 'pricing', controller: "welcome", action: 'pricing'
+  root to: 'welcome#front'
 
-  root to: redirect("http://www.andromoney.com")
+  # root to: redirect("http://www.andromoney.com")
 
-  # resources :records
-  # resources :budgets
-  # resources :reports
+  resources :records
+  resources :budgets
+  resources :reports
 
   get 'share_confirm', controller: 'api/v1/sync', action: 'confirm_share'
 
