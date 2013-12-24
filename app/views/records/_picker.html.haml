@@ -40,4 +40,9 @@
       %li.divider{:role => "presentation"}
       %li{:role => "presentation"}
         %a{:href => "http://twitter.com/fat", :role => "menuitem", :tabindex => "-1"} Separated link
-= link_to "查詢", "", class: "btn btn-default"  
+= link_to "查詢", "", class: "btn btn-default"
+
+:javascript
+  $(document).ready(function(){
+    $('[data-behaviour~=datepicker]').datepicker();
+  })
