@@ -265,7 +265,7 @@ DEPENDENCIES
   database_cleaner
   fabrication
   faker
-  fancybox2-rails (~> 0.2.4)
+  fancybox2-rails
   figaro
   guard-livereload
   haml-rails

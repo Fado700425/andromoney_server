@@ -12,9 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require fancybox
 //= require twitter/bootstrap
 //= require bootstrap-datepicker
-//= require fancybox
 //= require_tree .
 
 
