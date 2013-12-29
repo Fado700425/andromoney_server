@@ -7,6 +7,8 @@ gem 'bootstrap-sass-rails'
 gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails',
                               :git => 'git://github.com/Nerian/bootstrap-datepicker-rails.git'
 
+gem 'fancybox2-rails', '~> 0.2.4'
+
 gem 'haml-rails'
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'

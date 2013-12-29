@@ -14,4 +14,21 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require bootstrap-datepicker
+//= require fancybox
 //= require_tree .
+
+
+$(document).ready(function() {
+  $("a.fancybox").fancybox();
+});
+
+$(function(){
+    $("a[rel='group']").fancybox({
+            'transitionIn': 'elastic',
+            'transitionOut': 'elastic',
+            'titlePosition': 'over',
+            'titleFormat': function(title, currentArray, currentIndex, currentOpts) {
+                return '<span id="fancybox-title-over">Image ' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
+            }
+    });
+});

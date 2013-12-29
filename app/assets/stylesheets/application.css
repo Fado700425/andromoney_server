@@ -11,5 +11,6 @@
  *= require_self
  *= require twitter/bootstrap
  *= require bootstrap-datepicker
+ *= require fancybox
  *= require_tree .
  */
