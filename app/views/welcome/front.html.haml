@@ -1,57 +1,61 @@
+%link{:href => "http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css", :rel => "stylesheet"}
+#blueimp-gallery.blueimp-gallery
+  / The container for the modal slides
+  .slides
+  / Controls for the borderless lightbox
+  %h3.title
+  %a.prev ‹
+  %a.next ›
+  %a.close ×
+  %a.play-pause
+  %ol.indicator
+  / The modal dialog, which will be used to wrap the lightbox content
+  .modal.fade
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"aria-hidden" => "true", :type => "button"} &times;
+          %h4.modal-title
+        .modal-body.next
+        .modal-footer
+          %button.btn.btn-default.pull-left.prev{:type => "button"}
+            %i.glyphicon.glyphicon-chevron-left
+            Previous
+          %button.btn.btn-primary.next{:type => "button"}
+            Next
+            %i.glyphicon.glyphicon-chevron-right
+
 #myCarousel.carousel.slide{"data-ride" => "carousel"}
-  / Indicators
-  %ol.carousel-indicators
-    %li{"data-slide-to" => "0", "data-target" => "#myCarousel"}
-    %li{"data-slide-to" => "1", "data-target" => "#myCarousel"}
-    %li.active{"data-slide-to" => "2", "data-target" => "#myCarousel"}
   .carousel-inner
-    .item
-      .container
-        .carousel-caption
-          %h1 支援多重平台
-          %p
-            不論是 Android, iPhone 甚至是電腦都可以使用, 立即下載 AndroMoney, 體驗完善的記帳服務！
-          %p
-            %a.btn.btn-lg.btn-primary{:href => "#", :role => "button"} 軟體下載
-    .item
-      .container
-        .carousel-caption
-          %h1 了解自己財務狀況
-          %p
-            在這薪水不若物價房價攀升的年代
-            %br
-            記錄自己的每一筆消費。千萬不要入不敷出, 要開源更要懂得節流。
-
     .item.active
-      .container
-        .carousel-caption
-          %h1 購物, 旅遊, 出差, 刷卡
-          %p 多帳戶及專案管理功能, 讓你可以記錄下你的生活
+      .carousel-caption
+        = image_tag "icon.png"
+        %h1 支援多重平台
+        %p
+          不論是 Android, iPhone 甚至是電腦都可以使用, 立即下載 AndroMoney, 體驗完善的記帳服務！
+        %p
+          %a.btn.btn-lg.btn-primary{:href => "#", :role => "button"} 軟體下載
 
-  %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel"}
-    %span.glyphicon.glyphicon-chevron-left
-  %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel"}
-    %span.glyphicon.glyphicon-chevron-right
 
 .container.marketing
   / Three columns of text below the carousel
   .row
     .col-lg-4
-      %img.img-circle{:alt => "140x140", "data-src" => "holder.js/140x140", :src => "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAAFjUlEQVR4Xu3XSUtcaxCH8XJKHFEUERcqTuBGnFFRwa/uHCckKiGCU5aituI8G+qFFuNCrJuy7+26z1nFpLpO6l8/33O6IJPJPAsXCXwwgQLAfDApylICgAGCKQHAmOKiGDAYMCUAGFNcFAMGA6YEAGOKi2LAYMCUAGBMcVEMGAyYEgCMKS6KAYMBUwKAMcVFMWAwYEoAMKa4KAYMBkwJAMYUF8WAwYApAcCY4qIYMBgwJQAYU1wUAwYDpgQAY4qLYsBgwJQAYExxUQwYDJgSAIwpLooBgwFTAoAxxUUxYDBgSgAwprgoBgwGTAkAxhQXxYDBgCkBwJjiohgwGDAlABhTXBQDBgOmBABjiotiwGDAlABgTHFRDBgMmBIAjCkuigGDAVMCgDHFRTFgMGBKADCmuCgGDAZMCQDGFBfFgMGAKQHAmOKiGDAYMCUAGFNcFAMGA6YEAGOKi2LAYMCUAGBMcVEMGAyYEgCMKS6KAYMBUwKAMcVFMWAwYEoAMKa4KAYMBkwJ5D2Yvb09+fXrl4yMjEhpaekfw2cyGfnx44eUl5dLX1+fFBQUyPPzs2xubsrR0VH6ua2tTZqbmz8cWq7v9+H/WI4K8xbM6empKIjd3d0U1djYmJSVlb3EpjCmpqbk4eFBvnz5IuPj41JYWCjfv3+Xw8NDKSkpSf+mdd3d3dLQ0PBu5Lm+X472b75N3oKZnp6Wu7u7l4EVxOsTZnt7W/b399O/698rqMfHR9HPKZyJiYkETgHV1NRIV1eXrK+vS1FRkfT398vFxYX8/PlTvn79Kr29vTI7O+t6v8HBQfOy/gsfyFswejroI+Xbt29yfX2dTpAsGP15bm4uPWrOzs7k6uoqAbm/v0+LLy4uTj9nAenP+vm1tTU5OTmR2tpaubm5SZ/r7OyUlpaWdBp530/h5tuVt2CyQSsYPQ1eg1ldXU1QJicnZWlpSW5vb19OFEVRV1eX3mkUgZ44+sjSEygL6unpKbWvrq6WoaGhP3bqeT8FmG9XODD6rrGysiIVFRXS1NQkOzs7ogA6Ojqkvr4+nTz6mHn9iMqeMPobry+1+hm9hoeHpaqq6l0wf3s/wOQ4gbe/8cfHx+nR8vZSDHoKZR9J+mc9mfQE0m9Ro6OjCdbMzEw6efRSYD09Pe+C+Zv7ccLkGIvebmFhQS4vL18eSbr07MuwIlleXk4A9LTQd5z5+fn0btLY2Cjn5+cJTXt7u7S2tsrGxoYcHBxIZWVlqtFeb79Bed7vX4jrr2+Z948kPSH0feXtt6TX7zgKRh9B+hutuBYXFxOG7HvKwMBAwqO4tEZfiBXO1tbWywuyfnvSy+t++fjCq/PnPZh/8iujWPQE0UtPk8++cn2/z5znfwnmMwON3hsw0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3u43z049tXeoahsAAAAASUVORK5CYII=", :style => "width: 140px; height: 140px;"}
-        %h2 記錄生活消費
-        %p 不論是Android 或是 iPhone 用戶都可以透過AndroMoney手機APP, 輕鬆地記錄下每一筆花費，轉帳，收入與支出
+      = image_tag("invoice.png")
+      %h2 記錄生活消費
+      %p 不論是Android 或是 iPhone 用戶都可以透過AndroMoney手機APP, 輕鬆地記錄下每一筆花費，轉帳，收入與支出
 
     / /.col-lg-4
     .col-lg-4
-      %img.img-circle{:alt => "140x140", "data-src" => "holder.js/140x140", :src => "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAAFjUlEQVR4Xu3XSUtcaxCH8XJKHFEUERcqTuBGnFFRwa/uHCckKiGCU5aituI8G+qFFuNCrJuy7+26z1nFpLpO6l8/33O6IJPJPAsXCXwwgQLAfDApylICgAGCKQHAmOKiGDAYMCUAGFNcFAMGA6YEAGOKi2LAYMCUAGBMcVEMGAyYEgCMKS6KAYMBUwKAMcVFMWAwYEoAMKa4KAYMBkwJAMYUF8WAwYApAcCY4qIYMBgwJQAYU1wUAwYDpgQAY4qLYsBgwJQAYExxUQwYDJgSAIwpLooBgwFTAoAxxUUxYDBgSgAwprgoBgwGTAkAxhQXxYDBgCkBwJjiohgwGDAlABhTXBQDBgOmBABjiotiwGDAlABgTHFRDBgMmBIAjCkuigGDAVMCgDHFRTFgMGBKADCmuCgGDAZMCQDGFBfFgMGAKQHAmOKiGDAYMCUAGFNcFAMGA6YEAGOKi2LAYMCUAGBMcVEMGAyYEgCMKS6KAYMBUwKAMcVFMWAwYEoAMKa4KAYMBkwJ5D2Yvb09+fXrl4yMjEhpaekfw2cyGfnx44eUl5dLX1+fFBQUyPPzs2xubsrR0VH6ua2tTZqbmz8cWq7v9+H/WI4K8xbM6empKIjd3d0U1djYmJSVlb3EpjCmpqbk4eFBvnz5IuPj41JYWCjfv3+Xw8NDKSkpSf+mdd3d3dLQ0PBu5Lm+X472b75N3oKZnp6Wu7u7l4EVxOsTZnt7W/b399O/698rqMfHR9HPKZyJiYkETgHV1NRIV1eXrK+vS1FRkfT398vFxYX8/PlTvn79Kr29vTI7O+t6v8HBQfOy/gsfyFswejroI+Xbt29yfX2dTpAsGP15bm4uPWrOzs7k6uoqAbm/v0+LLy4uTj9nAenP+vm1tTU5OTmR2tpaubm5SZ/r7OyUlpaWdBp530/h5tuVt2CyQSsYPQ1eg1ldXU1QJicnZWlpSW5vb19OFEVRV1eX3mkUgZ44+sjSEygL6unpKbWvrq6WoaGhP3bqeT8FmG9XODD6rrGysiIVFRXS1NQkOzs7ogA6Ojqkvr4+nTz6mHn9iMqeMPobry+1+hm9hoeHpaqq6l0wf3s/wOQ4gbe/8cfHx+nR8vZSDHoKZR9J+mc9mfQE0m9Ro6OjCdbMzEw6efRSYD09Pe+C+Zv7ccLkGIvebmFhQS4vL18eSbr07MuwIlleXk4A9LTQd5z5+fn0btLY2Cjn5+cJTXt7u7S2tsrGxoYcHBxIZWVlqtFeb79Bed7vX4jrr2+Z948kPSH0feXtt6TX7zgKRh9B+hutuBYXFxOG7HvKwMBAwqO4tEZfiBXO1tbWywuyfnvSy+t++fjCq/PnPZh/8iujWPQE0UtPk8++cn2/z5znfwnmMwON3hsw0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3u43z049tXeoahsAAAAASUVORK5CYII=", :style => "width: 140px; height: 140px;"}
-        %h2 即時消費分析
-        %p 找出最高消費，平均花費，以利使用者分析花費支出，並可以動態繪製統計圖，圓餅圖(花費分佈)，趨勢圖(花費趨勢)之功能，對圖表進行互動式操作。
+      = image_tag("stock.png")
+      %h2 即時消費分析
+      %p 找出最高消費，平均花費，以利使用者分析花費支出，並可以動態繪製統計圖，圓餅圖(花費分佈)，趨勢圖(花費趨勢)之功能，對圖表進行互動式操作。
 
     / /.col-lg-4
     .col-lg-4
-      %img.img-circle{:alt => "140x140", "data-src" => "holder.js/140x140", :src => "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAAFjUlEQVR4Xu3XSUtcaxCH8XJKHFEUERcqTuBGnFFRwa/uHCckKiGCU5aituI8G+qFFuNCrJuy7+26z1nFpLpO6l8/33O6IJPJPAsXCXwwgQLAfDApylICgAGCKQHAmOKiGDAYMCUAGFNcFAMGA6YEAGOKi2LAYMCUAGBMcVEMGAyYEgCMKS6KAYMBUwKAMcVFMWAwYEoAMKa4KAYMBkwJAMYUF8WAwYApAcCY4qIYMBgwJQAYU1wUAwYDpgQAY4qLYsBgwJQAYExxUQwYDJgSAIwpLooBgwFTAoAxxUUxYDBgSgAwprgoBgwGTAkAxhQXxYDBgCkBwJjiohgwGDAlABhTXBQDBgOmBABjiotiwGDAlABgTHFRDBgMmBIAjCkuigGDAVMCgDHFRTFgMGBKADCmuCgGDAZMCQDGFBfFgMGAKQHAmOKiGDAYMCUAGFNcFAMGA6YEAGOKi2LAYMCUAGBMcVEMGAyYEgCMKS6KAYMBUwKAMcVFMWAwYEoAMKa4KAYMBkwJ5D2Yvb09+fXrl4yMjEhpaekfw2cyGfnx44eUl5dLX1+fFBQUyPPzs2xubsrR0VH6ua2tTZqbmz8cWq7v9+H/WI4K8xbM6empKIjd3d0U1djYmJSVlb3EpjCmpqbk4eFBvnz5IuPj41JYWCjfv3+Xw8NDKSkpSf+mdd3d3dLQ0PBu5Lm+X472b75N3oKZnp6Wu7u7l4EVxOsTZnt7W/b399O/698rqMfHR9HPKZyJiYkETgHV1NRIV1eXrK+vS1FRkfT398vFxYX8/PlTvn79Kr29vTI7O+t6v8HBQfOy/gsfyFswejroI+Xbt29yfX2dTpAsGP15bm4uPWrOzs7k6uoqAbm/v0+LLy4uTj9nAenP+vm1tTU5OTmR2tpaubm5SZ/r7OyUlpaWdBp530/h5tuVt2CyQSsYPQ1eg1ldXU1QJicnZWlpSW5vb19OFEVRV1eX3mkUgZ44+sjSEygL6unpKbWvrq6WoaGhP3bqeT8FmG9XODD6rrGysiIVFRXS1NQkOzs7ogA6Ojqkvr4+nTz6mHn9iMqeMPobry+1+hm9hoeHpaqq6l0wf3s/wOQ4gbe/8cfHx+nR8vZSDHoKZR9J+mc9mfQE0m9Ro6OjCdbMzEw6efRSYD09Pe+C+Zv7ccLkGIvebmFhQS4vL18eSbr07MuwIlleXk4A9LTQd5z5+fn0btLY2Cjn5+cJTXt7u7S2tsrGxoYcHBxIZWVlqtFeb79Bed7vX4jrr2+Z948kPSH0feXtt6TX7zgKRh9B+hutuBYXFxOG7HvKwMBAwqO4tEZfiBXO1tbWywuyfnvSy+t++fjCq/PnPZh/8iujWPQE0UtPk8++cn2/z5znfwnmMwON3hsw0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3g4w0TfsPB9gnAON3u43z049tXeoahsAAAAASUVORK5CYII=", :style => "width: 140px; height: 140px;"}
-        %h2 掌握資產狀況
-        %p 提供多帳戶功能，可以設定不同的戶頭，也可透過專案管理，可以了解自己在每個項目的花費流向，確實掌握自己資產
+      = image_tag("coins.png")
+      %h2 掌握資產狀況
+      %p 提供多帳戶功能，可以設定不同的戶頭，也可透過專案管理，可以了解自己在每個項目的花費流向，確實掌握自己資產
     / /.col-lg-4
   / /.row
   / START THE FEATURETTES
@@ -71,11 +75,22 @@
           2.功能強大，不論單純的記帳，或者想要管理不同的帳戶、類別，甚至是繪成圖表，也都可以輕易的辦到。
 
       .col-md-5
-        = image_tag('android_index.png',class: "featurette-image img-responsive")
+        = link_to image_path('android_index.png'), data: {gallery: ""}, title: "AndroMoney_Index" do
+          = image_tag('android_index.png',class: "featurette-image img-responsive", alt: "AndroMoney_Index")
+    %h3.text-success 更多圖示
+    #links.clearfix
+      = link_to image_path('andromoney_1.png'), data: {gallery: ""}, title: "AndroMoney_1" do
+        = image_tag('andromoney_1.png',class: "featurette-image img-responsive", alt: "AndroMoney_1")
+      = link_to image_path('andromoney_2.png'), data: {gallery: ""}, title: "AndroMoney_2" do
+        = image_tag('andromoney_2.png',class: "featurette-image img-responsive", alt: "AndroMoney_2")
+      = link_to image_path('andromoney_3.png'), data: {gallery: ""}, title: "AndroMoney_3" do
+        = image_tag('andromoney_3.png',class: "featurette-image img-responsive", alt: "AndroMoney_3")
+      = link_to image_path('andromoney_4.png'), data: {gallery: ""}, title: "AndroMoney_4" do
+        = image_tag('andromoney_4.png',class: "featurette-image img-responsive", alt: "AndroMoney_4")
   %hr.featurette-divider
     .row.featurette
       .col-md-5
-        = image_tag('android_index.png',class: "featurette-image img-responsive")
+        = image_tag('CrossPlatform.png',class: "featurette-image img-responsive")
       .col-md-7
         %h2.text-primary
           多平台同步
@@ -93,9 +108,11 @@
         %p.lead 
           常有使用者在使用其它記帳軟體時, 發生資料遺失, 辛苦記帳的資料付諸流水, AndroMoney為保護使用者的資料, 開發備份功能, 也提供使用者將檔案匯出入, 使者不用再煩腦資料問題
       .col-md-5
-        = image_tag('android_index.png',class: "featurette-image img-responsive")
+        = image_tag('shield.png',class: "featurette-image img-responsive")
   %hr.featurette-divider
     .row.featurette
+      .col-md-5
+        = image_tag('thumb_up.png',class: "featurette-image img-responsive")
       .col-md-7
         %h2.text-primary
           品質保證
@@ -140,11 +157,13 @@
           .text-success
             Freegroup 免費資源網路社群 : 
           [Android] AndroMoney 簡單又有質感的快速記帳，還可透過 Excel 匯入匯出！
-      .col-md-5
-        = image_tag('android_index.png',class: "featurette-image img-responsive")
   %hr.featurette-divider
     / /END THE FEATURETTES
     / FOOTER
     %footer
       %p.pull-right
         %a{:href => "#"} 回到頂端
+
+  %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"}
+  %script{:src => "http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"}
+  %script{:src => "js/bootstrap-image-gallery.min.js"}

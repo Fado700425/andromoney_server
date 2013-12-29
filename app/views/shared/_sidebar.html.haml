@@ -2,9 +2,5 @@
   = link_to "財務概況", home_path, class: "list-group-item"
   = link_to "明細", records_path, class: "list-group-item"
   = link_to "報表", reports_path, class: "list-group-item"
-  %a.list-group-item{:href => "#"} 帳戶
-  = link_to "預算", budgets_path, class: "list-group-item"
-  %a.list-group-item{:href => "#"} 匯入匯出
-  %a.list-group-item{:href => "#"} 設定
-  
-  %fieldset{:style => "height: 900px;"}
+  = link_to "帳戶", accounts_path, class: "list-group-item"
+  = link_to "預算", budgets_path, class: "list-group-item"  

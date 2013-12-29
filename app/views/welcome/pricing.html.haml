@@ -1,36 +1,37 @@
 .row.plans.text-center
-  .col-md-2.col-md-offset-3
-    .normal-plan
-      %h5.plan-name 手機用
-      %h1.plan-price $ 9
-      %span.muted per month
-      %ul.list-unstyled.plan-features
-        %li 5 GB Disk Space
-        %li 3 Subdomains
-        %li 10 MySQL Databases
-        %li Unlimited Bandwidth
-        %li Email Support
-      %a.btn.btn-block.btn-large.btn-success{:href => "#"} Choose Plan
-  .col-md-2.preferred-plan
-    %h5.plan-name Premium
-    %h1.plan-price $49
-    %span.muted per month
-    %ul.list-unstyled.plan-features
-      %li 50 GB Disk Space
-      %li 50 Subdomains
-      %li 100 MySQL Databases
-      %li Unlimited Bandwidth
-      %li Chat Support
-    %a.btn.btn-block.btn-large.btn-success{:href => "#"} Choose Plan
-  .col-md-2
-    .normal-plan
-      %h5.plan-name Enterprise
-      %h1.plan-price $99
-      %span.muted per month
-      %ul.list-unstyled.plan-features
-        %li 250 GB Disk Space
-        %li 1000 Subdomains
-        %li 1000 MySQL Databases
-        %li Unlimited Bandwidth
-        %li Phone Support
-      %a.btn.btn-block.btn-large.btn-success{:href => "#"} Choose Plan
+  .col-md-4.col-md-offset-4
+    .preferred-plan
+      %h3.plan-name 免費試用
+      %h1.plan-price.text-danger $0
+      %table.table.table-striped
+        %tbody
+          %tr
+            %td 單筆記帳
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td 預算管理
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td 消費類別管理
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td 多帳戶功能
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td 不同貨幣
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td 統計圖表分析
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td 多平台同步
+            %td
+              %span.glyphicon.glyphicon-ok
+
+      = link_to "開始試用", home_path, class: "btn btn-block btn-large btn-success"

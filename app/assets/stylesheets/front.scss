@@ -1,3 +1,18 @@
+#links {
+  img{
+    width: 100px;
+    float: left;
+    margin: 5px 10px 0 10px;
+  }
+}
+#myCarousel{
+  background-color: #777;
+  .item img{
+    width: auto;
+    min-width: 0px;
+  }
+}
+
 
 /* Sticky footer styles
 -------------------------------------------------- */

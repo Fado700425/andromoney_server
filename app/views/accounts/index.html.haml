@@ -1,0 +1,85 @@
+.row.row-offcanvas.row-offcanvas-right
+  = render 'shared/sidebar'
+
+  .col-sm-9
+    .col-sm-1
+      %ul.nav.nav-pills.nav-stacked{"data-tabs" => "tabs"}
+        %li.active
+          %a{"data-toggle" => "tab", :href => "#all"} 全部
+        %li
+          %a{"data-toggle" => "tab", :href => "#expand"} 支出
+        %li
+          %a{"data-toggle" => "tab", :href => "#orange"} 收入
+        %li
+          %a{"data-toggle" => "tab", :href => "#yellow"} 轉帳
+        %li
+          %a{"data-toggle" => "tab", :href => "#green"} 借貸
+    .col-sm-11
+      #my-tab-content.tab-content
+        #all.tab-pane.active
+          %table.table.table-striped
+            %thead
+              %tr
+                %th 
+                %th 時間
+                %th 金額
+                %th 類別
+            %tbody
+              %tr
+                %td 1
+                %td 2013/12/23
+                %td.text-danger NT$ 100
+                %td 食
+              %tr
+                %td 2
+                %td 2013/12/23
+                %td.text-danger NT$ 50
+                %td 衣
+              %tr
+                %td 3
+                %td 2013/12/23
+                %td.text-danger NT$ 3999
+                %td 住
+        #expand.tab-pane
+          帳戶: 支出
+          %br
+          時間: 2013/12/23 ~ 2013/12/23
+          %table.table.table-striped
+            %thead
+              %tr
+                %th 
+                %th 時間
+                %th 金額
+                %th 類別
+            %tbody
+              %tr
+                %td 1
+                %td 2013/12/23
+                %td.text-danger NT$ 100
+                %td 食
+              %tr
+                %td 2
+                %td 2013/12/23
+                %td.text-danger NT$ 50
+                %td 衣
+              %tr
+                %td 3
+                %td 2013/12/23
+                %td.text-danger NT$ 3999
+                %td 住
+      .pull-right
+        %ul.pagination
+          %li
+            %a{:href => "#"} &laquo;
+          %li
+            %a{:href => "#"} 1
+          %li
+            %a{:href => "#"} 2
+          %li
+            %a{:href => "#"} 3
+          %li
+            %a{:href => "#"} 4
+          %li
+            %a{:href => "#"} 5
+          %li
+            %a{:href => "#"} &raquo;

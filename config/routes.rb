@@ -2,7 +2,6 @@ require 'sidekiq/web'
 AndromoneyServer::Application.routes.draw do
   mount Sidekiq::Web, at: '/sidekiq'
   
-  get 'home', controller: 'welcome', action: 'index'
   get 'download', controller: 'welcome', action: 'download'
   get 'about', controller: "welcome", action: 'about'
   get 'pricing', controller: "welcome", action: 'pricing'
@@ -13,6 +12,13 @@ AndromoneyServer::Application.routes.draw do
   resources :records
   resources :budgets
   resources :reports
+  resources :accounts do
+    member do
+      get 'message'
+    end
+  end
+  get 'home', controller: 'accounts', action: 'info'
+
 
   get 'share_confirm', controller: 'api/v1/sync', action: 'confirm_share'
 

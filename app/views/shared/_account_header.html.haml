@@ -1,0 +1,22 @@
+.navbar.navbar-inverse.navbar-fixed-top{:role => "navigation"}
+  .navbar-header
+    %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+      %span.sr-only Toggle navigation
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+    = link_to root_path, class: "navbar-brand" do
+      = image_tag "icon.png", width: "40px"
+      Andromoney
+      %span.text-danger.small Beta
+  .collapse.navbar-collapse
+    .pull-right
+      %ul.nav.navbar-nav
+        %li
+          = link_to "Steven@gmail.com", ""
+        %li
+          = link_to message_account_path(1) do
+            訊息
+            %span.badge.badge-warning 4
+        %li
+          = link_to "登出", ""
