@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131222032312) do
+ActiveRecord::Schema.define(version: 20140101140709) do
 
   create_table "category_table", force: true do |t|
     t.string   "category",                    null: false
@@ -228,7 +228,14 @@ ActiveRecord::Schema.define(version: 20131222032312) do
     t.datetime "sync_time"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_syncing", default: false
+    t.boolean  "is_syncing",    default: false
+    t.string   "uid"
+    t.string   "provider"
+    t.string   "refresh_token"
+    t.string   "access_token"
+    t.datetime "expires"
   end
+
+  add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
 
 end

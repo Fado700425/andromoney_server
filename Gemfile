@@ -9,6 +9,8 @@ gem 'bootstrap-datepicker-rails', :require => 'bootstrap-datepicker-rails',
 
 gem 'fancybox-rails', :github => 'greinacker/fancybox-rails', :branch => 'rails4'
 
+gem 'omniauth-google-oauth2'
+
 gem 'haml-rails'
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'

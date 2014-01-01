@@ -1,7 +1,10 @@
 require 'sidekiq/web'
 AndromoneyServer::Application.routes.draw do
   mount Sidekiq::Web, at: '/sidekiq'
-  
+
+  get "/auth/google_login/callback" => "sessions#create"
+  get "/signout" => "sessions#destroy", :as => :signout
+
   get 'download', controller: 'welcome', action: 'download'
   get 'about', controller: "welcome", action: 'about'
   get 'pricing', controller: "welcome", action: 'pricing'
