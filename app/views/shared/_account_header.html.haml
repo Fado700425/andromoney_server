@@ -17,6 +17,12 @@
         %li
           = link_to message_account_path(1) do
             訊息
-            %span.badge.badge-warning 4
+            - if(current_user.messages.not_read.size == 0)
+              %span.badge.badge-success
+                = current_user.messages.not_read.size
+            - else
+              %span.badge.badge-warning
+                = current_user.messages.not_read.size
+
         %li
           = link_to "登出", signout_path

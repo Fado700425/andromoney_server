@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140101140709) do
+ActiveRecord::Schema.define(version: 20140102024801) do
 
   create_table "category_table", force: true do |t|
     t.string   "category",                    null: false
@@ -61,6 +61,16 @@ ActiveRecord::Schema.define(version: 20140101140709) do
 
   add_index "devices", ["user_id"], name: "index_devices_on_user_id", using: :btree
   add_index "devices", ["uuid"], name: "index_devices_on_uuid", using: :btree
+
+  create_table "messages", force: true do |t|
+    t.integer  "user_id"
+    t.text     "context"
+    t.boolean  "is_read",    default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "payee_table", force: true do |t|
     t.string   "payee_name",                  null: false

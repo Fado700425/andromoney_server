@@ -6,34 +6,18 @@
       .panel-heading
         %h3.panel-title 個人訊息
       .panel-body
-        %h1
-          %small
-            2013年12月
         %ul
-          %li
-            %span.text-success
-              12/3
-            正式使用 AndroMoney
-          %li
-            %span.text-success
-              12/3
-            更新程式版本
-    .pull-right
-      %ul.pagination
-        %li
-          %a{:href => "#"} &laquo;
-        %li
-          %a{:href => "#"} 1
-        %li
-          %a{:href => "#"} 2
-        %li
-          %a{:href => "#"} 3
-        %li
-          %a{:href => "#"} 4
-        %li
-          %a{:href => "#"} 5
-        %li
-          %a{:href => "#"} &raquo;
-        
+          - @messages.each do |m|
+            %li
+              %span.text-success
+                = m.created_at.strftime("%Y/%m/%d")
+              = m.context
+              - if m.is_read
+                %span.text-muted
+                  (已讀)
+              - else
+                %span.text-danger
+                  (未讀)
+          
 
   
