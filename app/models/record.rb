@@ -7,6 +7,36 @@ class Record < ActiveRecord::Base
                               payee,project,fee,in_amount,out_amount,in_currency,out_currency,hash_key,update_time"
                         ) }
 
+  scope :month_from_now, ->(num) { where("date > ? AND  date < ?", (Time.now + num.month).beginning_of_month, (Time.now + num.month).end_of_month) }
+
+  def record_category
+    Category.find_by(user_id: user_id, hash_key: category)
+  end
+
+  def record_subcategory
+    Subcategory.find_by(user_id: user_id, hash_key: sub_category)
+  end
+
+  def record_project
+    Project.find_by(user_id: user_id, hash_key: project)
+  end
+
+  def record_payee
+    Payee.find_by(user_id: user_id, hash_key: payee)
+  end
+
+  def record_period
+    Period.find_by(user_id: user_id, hash_key: period)
+  end
+
+  def record_out_payment
+    Payment.find_by(user_id: user_id, hash_key: out_payment)
+  end
+
+  def record_in_payment
+    Payment.find_by(user_id: user_id, hash_key: in_payment)
+  end
+
   def as_json(options)
     json = super(:only => [:id,:mount,:category,:sub_category, :in_payment,:out_payment,:remark,:currency_code,:amount_to_main,:period,
                               :payee,:project,:fee,:in_amount,:out_amount,:in_currency,:out_currency,:hash_key,:update_time, :is_delete])

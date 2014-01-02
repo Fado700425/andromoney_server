@@ -1,0 +1,27 @@
+%td
+  = image_tag record.record_category.photo_path, width: "40px"
+  = "[#{record.record_category.category}]#{record.record_subcategory.subcategory}"
+%td= record.mount
+%td= record.date.strftime("%Y/%m/%d")
+%td
+  - if( record.record_out_payment && record.record_in_payment)
+    = "#{record.record_in_payment.payment_name} » #{record.record_out_payment.payment_name}"
+  - elsif record.record_out_payment
+    = record.record_out_payment.payment_name
+  - elsif
+    = record.record_in_payment.payment_name
+  = "(每天)" if record.record_period && record.record_period.period_type == 0
+  = "(每周)" if record.record_period && record.record_period.period_type == 1
+  = "(每月)" if record.record_period && record.record_period.period_type == 2
+  = "(每年)" if record.record_period && record.record_period.period_type == 3
+%td
+  = record.record_project.project_name if record.record_project
+%td
+  = record.record_payee.payee_name if record.record_payee
+%td
+  = record.remark
+%td
+  %button.btn.btn-xs.btn-success.btn-edit{"data-btn" => "edit", "data-userid" => "1"}
+    = link_to "","data-toggle" => "modal", 'data-target' => "#myModal", id: "record_modal_link",data: {remark: record.remark, record_id: record.id} do
+      %span.glyphicon.glyphicon-pencil
+      修改

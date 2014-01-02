@@ -12,9 +12,13 @@ AndromoneyServer::Application.routes.draw do
 
   # root to: redirect("http://www.andromoney.com")
 
-  resources :records
+  resources :records do
+    collection do
+      post 'edit_remark'
+    end
+  end
   resources :budgets
-  resources :reports
+  resources :reports 
   resources :accounts do
     member do
       get 'message'

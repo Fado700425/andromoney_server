@@ -33,3 +33,10 @@
 .badge-inverse:hover {
   background-color: #1a1a1a;
 }
+
+.table thead th {
+  background: #6dba89;
+  color: #fff;
+  text-transform: uppercase;
+  border: 0 !important;
+}
