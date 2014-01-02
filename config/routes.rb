@@ -3,6 +3,7 @@ AndromoneyServer::Application.routes.draw do
   mount Sidekiq::Web, at: '/sidekiq'
 
   get "/auth/google_login/callback" => "sessions#create"
+  get 'auth/failure', to: redirect('/')
   get "/signout" => "sessions#destroy", :as => :signout
 
   get 'download', controller: 'welcome', action: 'download'
