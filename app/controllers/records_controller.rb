@@ -8,9 +8,9 @@ class RecordsController < ApplicationController
   def index
     
     if params[:month_from_now]
-      @records = Record.month_from_now(params[:month_from_now].to_i)
+      @records = current_user.records.month_from_now(params[:month_from_now].to_i)
     else
-      @records = Record.month_from_now(0)
+      @records = current_user.records.month_from_now(0)
     end
 
   end
