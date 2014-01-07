@@ -23,4 +23,10 @@ class RecordsController < ApplicationController
     end
     redirect_to records_path(month_from_now: params[:month_from_now])
   end
+
+  def destroy
+    Record.delete(params[:id])
+    flash[:notice] = "delete success"
+    redirect_to records_path(month_from_now: params[:month_from_now])
+  end
 end

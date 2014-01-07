@@ -7,6 +7,10 @@
   color: white;
 }
 
+.btn-danger.btn-remove a{
+  color: white;
+}
+
 .date_picker{
   margin: 5px;
 }
