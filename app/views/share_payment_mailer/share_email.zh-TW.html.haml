@@ -64,8 +64,8 @@
         %span.text-danger
           #{@payment.payment_name}
         帳戶資料給你
-        %br/
-      %p
+        %br
+      
         若想接受分享，請點"確認分享"，謝謝！
         %br
         = link_to "確認分享", share_confirm_url(token: @relation.token,locale: "zh")

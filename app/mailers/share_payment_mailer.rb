@@ -7,7 +7,7 @@ class SharePaymentMailer < ActionMailer::Base
     @payment = payment
     @relation = relation
     I18n.with_locale(set_locale(locale)) do
-      mail(to: @share_user.email, subject: "#{@owner_user.email}  " + t('share_email'))
+      mail(to: @share_user.email, subject: "#{@owner_user.email}  " + t(:share_email, :account => @payment.payment_name))
     end
   end
 

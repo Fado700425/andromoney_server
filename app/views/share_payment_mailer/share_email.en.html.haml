@@ -68,8 +68,8 @@
         %span.text-danger
           #{@payment.payment_name}
         with you!
-        %br/
-      %p
+        %br
+      
         if you want to accept the share account, please to click the "Accept" link, thanks
         %br
         = link_to "Accept", share_confirm_url(token: @relation.token,locale: "en")
