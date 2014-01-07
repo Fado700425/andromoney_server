@@ -26,6 +26,6 @@
       %span.glyphicon.glyphicon-pencil
       修改
   %button.btn.btn-xs.btn-danger.btn-remove
-    = link_to record, method: :delete, data: { confirm: 'Are you sure?' } do
+    = link_to record_path(record, month_from_now: params[:month_from_now]), method: :delete, data: { confirm: 'Are you sure?' } do
       %span.glyphicon.glyphicon-remove
 
