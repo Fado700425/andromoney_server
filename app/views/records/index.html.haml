@@ -3,7 +3,11 @@
 
   .col-xs-12.col-sm-10
     .row
-      .module.no-padding
+      = link_to new_record_path, class: "btn btn-primary btn-lg" do
+        %span.glyphicon.glyphicon-plus
+        新增一筆        
+    .row  
+      .module
         .module-header
           %h4= I18n.l(Date.current + params[:month_from_now].to_i.month, format: :month)
         .module-content.table-responsive
