@@ -22,11 +22,17 @@
         .input-group
           %span.input-group-addon
             %span.glyphicon.glyphicon-pencil
-          %input.form-control{:name => "ML_note", :placeholder => "輸入備註...", :type => "text"}
+          = f.text_field(:remark, {placeholder: "輸入備註...", class: ".form-control"})
           %span.input-group-addon
             %span.glyphicon.glyphicon-user
           .input-group-btn.usergroup
             = current_user.email
+        = f.hidden_field :category
+        = f.hidden_field :sub_category
+        = f.hidden_field :project
+        = f.hidden_field :payee
+        = f.hidden_field :in_payment
+        = f.hidden_field :out_payment
         %br
       / %form{:action => "#"}
         / .input-group
