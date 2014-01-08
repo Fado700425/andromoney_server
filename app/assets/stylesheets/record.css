@@ -1,3 +1,7 @@
+.table.table-bordered{
+    cursor:pointer;
+}
+
 .record_modal_footer{
   margin-top: 15px;
   text-align: right;
@@ -15,11 +19,9 @@
   margin: 5px;
 }
 
-.btn {
+.add_new.btn {
   border-radius: 0;
   border: 0;
-  color: #2b3035;
-  background: #e8e8e8;
   font-family: "Open Sans", sans-serif;
   font-weight: normal;
 }

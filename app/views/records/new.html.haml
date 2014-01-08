@@ -6,27 +6,18 @@
       %li.active
         %a{"data-toggle" => "tab", :href => "#incomeTab"} 支出
       %li
-        %a{"data-toggle" => "tab", :href => "#orange"} 收入
-      %li
-        %a{"data-toggle" => "tab", :href => "#yellow"} 轉帳
+        %a{"data-toggle" => "tab", :href => "#expenseTab"} 收入
+
     .row
-      = form_for record_path(@record, month_from_now: params[:month_from_now]) do |f|
+      = form_for records_path(@record, month_from_now: params[:month_from_now]) do |f|
         .input-group
           %span.input-group-addon
             = image_tag("currency_sign_dollar.png", width: "15px")
-          = f.text_field(:mount, {placeholder: "金額", class: ".form-control"})
+          = f.text_field(:mount, {placeholder: "金額", class: "form-control"})
           %span.input-group-addon
             %span.glyphicon.glyphicon-calendar
           = f.text_field(:date, {id: "datepicker", class: "form-control", data: {behaviour: "datepicker"}, value: Time.now.strftime("%m/%d/%Y")})
         %br
-        .input-group
-          %span.input-group-addon
-            %span.glyphicon.glyphicon-pencil
-          = f.text_field(:remark, {placeholder: "輸入備註...", class: ".form-control"})
-          %span.input-group-addon
-            %span.glyphicon.glyphicon-user
-          .input-group-btn.usergroup
-            = current_user.email
         = f.hidden_field :category
         = f.hidden_field :sub_category
         = f.hidden_field :project
@@ -34,30 +25,28 @@
         = f.hidden_field :in_payment
         = f.hidden_field :out_payment
         %br
-      / %form{:action => "#"}
-        / .input-group
-        /   %span.input-group-addon
-        /     = image_tag("currency_sign_dollar.png", width: "15px")
-        /   %input.form-control{:name => "ML_value", :placeholder => "金額", :type => "text"}
-        /     %span.input-group-addon
-        /       %span.glyphicon.glyphicon-calendar
-        /     %input#datepicker.form-control{"data-behaviour" => "datepicker", :type => "text", :placeholder => "01/02/2014"}
-        / %br
-        / .input-group
-        /   %span.input-group-addon
-        /     %span.glyphicon.glyphicon-pencil
-        /   %input.form-control{:name => "ML_note", :placeholder => "輸入備註...", :type => "text"}
-        /     %span.input-group-addon
-        /       %span.glyphicon.glyphicon-user
-        /     .input-group-btn.usergroup
-        /       %button.btn.btn-default.dropdown-toggle.btn-value{"data-toggle" => "dropdown", :type => "button"}
-        /         = current_user.email
-        / %br
+
       %h4 主類別
       #my-tab-content.tab-content
-        #incomeTab.mltab-type.tab-pane.fade{"data-type" => "income"}
+        #incomeTab.mltab-type.tab-pane.active.in{"data-type" => "income"}
           %table.table.table-bordered
-            %tbody
+            %tbody.main_category
+              %tr
+                %td.active
+                  .category
+                    = image_tag "category_icon/basketball.png", width: "40px"
+                    %br
+                      Salary
+                %td
+                  .category
+                    = image_tag "category_icon/basketball.png", width: "40px"
+                    %br
+                      Salary
+                %td
+                  .category
+                    = image_tag "category_icon/basketball.png", width: "40px"
+                    %br
+                      Salary
               %tr
                 %td
                   .category
@@ -74,25 +63,9 @@
                     = image_tag "category_icon/basketball.png", width: "40px"
                     %br
                       Salary
-              %tr
-                %td
-                  .category
-                    = image_tag "category_icon/basketball.png", width: "40px"
-                    %br
-                      Salary
-                %td
-                  .category
-                    = image_tag "category_icon/basketball.png", width: "40px"
-                    %br
-                      Salary
-                %td
-                  .category
-                    = image_tag "category_icon/basketball.png", width: "40px"
-                    %br
-                      Salary
-        #expenseTab.mltab-type.tab-pane.fade.active.in{"data-type" => "expense"}
+        #expenseTab.mltab-type.tab-pane{"data-type" => "expense"}
           %table.table.table-bordered.category-table
-            %tbody
+            %tbody.main_category
               %tr
                 %td
                   .category
@@ -141,18 +114,12 @@
                     = image_tag "category_icon/basketball.png", width: "40px"
                     %br
                       Salary
-        #orange.tab-pane
-          %h1 Orange
-          %p orange orange orange orange orange
-        #yellow.tab-pane
-          %h1 Yellow
-          %p yellow yellow yellow yellow yellow
 
       %h4 子類別
       %table.table.table-bordered.category-table
-        %tbody
+        %tbody.sub_category
           %tr
-            %td
+            %td.active
               .category
                 = image_tag "category_icon/basketball.png", width: "40px"
                 %br
@@ -200,15 +167,105 @@
                 %br
                   Salary      
       %h4 商家
-      = link_to new_record_path, class: "btn btn-primary btn-lg" do
+      = link_to "", "data-toggle" => "modal", 'data-target' => "#myStoreModal", class: "btn btn-primary btn-lg" do
         星巴客
       %h4 專案
-      = link_to new_record_path, class: "btn btn-primary btn-lg" do
+      = link_to "", "data-toggle" => "modal", 'data-target' => "#myProjectModal", class: "btn btn-primary btn-lg" do
         選擇專案
       %br
       %br
+      .input-group
       %h4 填寫備註
       = text_area_tag :remark, nil, class: 'form-control'
       .pull-right
         %br
         = submit_tag "確定", class: "btn btn-primary btn-lg"
+
+#myStoreModal.modal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %a.close{"data-dismiss" => "modal"} &times;
+        %h4 選擇商家
+      .modal-body
+        %table.table.table-bordered.category-table
+          %tbody.sub_category
+            %tr
+              %td.active
+                .category
+                  = image_tag "category_icon/basketball.png", width: "40px"
+                  %br
+                    Salary
+              %td
+                .category
+                  = image_tag "category_icon/basketball.png", width: "40px"
+                  %br
+                    Salary
+              %td
+                .category
+                  = image_tag "category_icon/basketball.png", width: "40px"
+                  %br
+                    Salary
+            %tr
+              %td
+                .category
+                  = image_tag "category_icon/basketball.png", width: "40px"
+                  %br
+                    Salary
+              %td
+                .category
+                  = image_tag "category_icon/basketball.png", width: "40px"
+                  %br
+                    Salary
+              %td
+                .category
+                  = image_tag "category_icon/basketball.png", width: "40px"
+                  %br
+                    Salary
+
+#myProjectModal.modal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %a.close{"data-dismiss" => "modal"} &times;
+        %h4 選擇專案
+      .modal-body
+        %table.table.table-bordered.category-table
+          %tbody.sub_category
+            %tr
+              %td.active
+                .category
+                  = image_tag "category_icon/basketball.png", width: "40px"
+                  %br
+                    Salary
+              %td
+                .category
+                  = image_tag "category_icon/basketball.png", width: "40px"
+                  %br
+                    Salary
+              %td
+                .category
+                  = image_tag "category_icon/basketball.png", width: "40px"
+                  %br
+                    Salary
+            %tr
+              %td
+                .category
+                  = image_tag "category_icon/basketball.png", width: "40px"
+                  %br
+                    Salary
+              %td
+                .category
+                  = image_tag "category_icon/basketball.png", width: "40px"
+                  %br
+                    Salary
+              %td
+                .category
+                  = image_tag "category_icon/basketball.png", width: "40px"
+                  %br
+                    Salary
+
+:javascript
+  $(document).ready(function(){
+    $('[data-behaviour~=datepicker]').datepicker();
+  })
