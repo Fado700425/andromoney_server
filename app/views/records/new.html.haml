@@ -10,25 +10,43 @@
       %li
         %a{"data-toggle" => "tab", :href => "#yellow"} 轉帳
     .row
-      %form{:action => "#"}
+      = form_for record_path(@record, month_from_now: params[:month_from_now]) do |f|
         .input-group
           %span.input-group-addon
             = image_tag("currency_sign_dollar.png", width: "15px")
-          %input.form-control{:name => "ML_value", :placeholder => "金額", :type => "text"}
-            %span.input-group-addon
-              %span.glyphicon.glyphicon-calendar
-            %input#datepicker.form-control{"data-behaviour" => "datepicker", :type => "text", :placeholder => "01/02/2014"}
+          = f.text_field(:mount, {placeholder: "金額", class: ".form-control"})
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-calendar
+          = f.text_field(:date, {id: "datepicker", class: "form-control", data: {behaviour: "datepicker"}, value: Time.now.strftime("%m/%d/%Y")})
         %br
         .input-group
           %span.input-group-addon
             %span.glyphicon.glyphicon-pencil
           %input.form-control{:name => "ML_note", :placeholder => "輸入備註...", :type => "text"}
-            %span.input-group-addon
-              %span.glyphicon.glyphicon-user
-            .input-group-btn.usergroup
-              %button.btn.btn-default.dropdown-toggle.btn-value{"data-toggle" => "dropdown", :type => "button"}
-                = current_user.email
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-user
+          .input-group-btn.usergroup
+            = current_user.email
         %br
+      / %form{:action => "#"}
+        / .input-group
+        /   %span.input-group-addon
+        /     = image_tag("currency_sign_dollar.png", width: "15px")
+        /   %input.form-control{:name => "ML_value", :placeholder => "金額", :type => "text"}
+        /     %span.input-group-addon
+        /       %span.glyphicon.glyphicon-calendar
+        /     %input#datepicker.form-control{"data-behaviour" => "datepicker", :type => "text", :placeholder => "01/02/2014"}
+        / %br
+        / .input-group
+        /   %span.input-group-addon
+        /     %span.glyphicon.glyphicon-pencil
+        /   %input.form-control{:name => "ML_note", :placeholder => "輸入備註...", :type => "text"}
+        /     %span.input-group-addon
+        /       %span.glyphicon.glyphicon-user
+        /     .input-group-btn.usergroup
+        /       %button.btn.btn-default.dropdown-toggle.btn-value{"data-toggle" => "dropdown", :type => "button"}
+        /         = current_user.email
+        / %br
       %h4 主類別
       #my-tab-content.tab-content
         #incomeTab.mltab-type.tab-pane.fade{"data-type" => "income"}

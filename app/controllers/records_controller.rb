@@ -3,6 +3,17 @@ class RecordsController < ApplicationController
   layout 'account'
 
   def new
+    @record = Record.new
+  end
+
+  def create
+    @record = Record.new(record_param)
+    if @record.save
+      flash[:notice] = "Create success"      
+    else
+      flash[:error] = "Create fail!"
+    end
+    redirect_to records_path(month_from_now: params[:month_from_now])
   end
 
   def index
@@ -28,5 +39,10 @@ class RecordsController < ApplicationController
     Record.delete(params[:id])
     flash[:notice] = "delete success"
     redirect_to records_path(month_from_now: params[:month_from_now])
+  end
+
+private
+  def record_param
+    params.require(:news).permit(:title,:content,:pic,:sort,:sort_en,:is_tw,:is_en,:release_date)
   end
 end

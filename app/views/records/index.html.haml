@@ -3,7 +3,7 @@
 
   .col-xs-12.col-sm-10
     .row
-      = link_to new_record_path, class: "btn btn-primary btn-lg" do
+      = link_to new_record_path(month_from_now: params[:month_from_now]), class: "btn btn-primary btn-lg" do
         %span.glyphicon.glyphicon-plus
         新增一筆        
     .row  
