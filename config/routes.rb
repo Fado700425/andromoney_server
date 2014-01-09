@@ -25,6 +25,12 @@ AndromoneyServer::Application.routes.draw do
       get 'message'
     end
   end
+  resources :categories do
+    collection do
+      get 'expense_subcategories'
+      get 'income_subcategories'
+    end
+  end
   # get 'home', controller: 'accounts', action: 'info'
   get 'home', controller: 'records', action: 'index'
 

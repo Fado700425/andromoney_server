@@ -1,3 +1,7 @@
+tbody.account tr td, tbody.income_main_category tr td, tbody.expense_main_category tr td,  tbody.income_category tr td, tbody.expense_category tr td{
+  width: 33%;
+}
+
 .table.table-bordered{
     cursor:pointer;
 }
