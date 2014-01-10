@@ -9,9 +9,9 @@ AndromoneyServer::Application.routes.draw do
   get 'download', controller: 'welcome', action: 'download'
   get 'about', controller: "welcome", action: 'about'
   get 'pricing', controller: "welcome", action: 'pricing'
-  root to: 'welcome#front'
-
-  # root to: redirect("http://www.andromoney.com")
+  
+  get "/" => 'welcome#front',  constraints: {subdomain: 'web'}
+  root to: redirect("http://www.andromoney.com")
 
   resources :records do
     collection do
