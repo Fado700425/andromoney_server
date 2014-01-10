@@ -1,0 +1,175 @@
+.row.row-offcanvas.row-offcanvas-right
+  = render 'shared/sidebar'
+
+  .col-xs-12.col-sm-10
+    %a.btn.btn-primary.btn-lg{"data-toggle" => "modal", href: "#myModal"}
+      %span.glyphicon.glyphicon-plus
+      新增一筆
+
+    .ml-pad15
+
+    .row
+      .module.no-padding
+        .module-header
+          %h4 2014 1月
+        .module-content.table-responsive
+          %table#list-transaction.table.table-striped
+            %thead
+              %tr
+                %th 類別
+                %th 金額
+                %th 日期
+                %th 支出/收入/轉帳
+                %th 備註
+                %th
+            %tbody
+              - @records.each do |record|
+                %tr.item-transactions{"data-transaction" => "4"}
+                  %td
+                    = image_tag "category_icon/basketball.png", width: "40px"
+                    娛樂
+                  %td 1,222
+                  %td 今日
+                  %td 支出
+                  %td
+                  %td.text-right
+                    %button.btn.btn-xs.btn-success.btn-edit{"data-btn" => "edit", "data-userid" => "1"}
+                      %span.glyphicon.glyphicon-pencil
+                      修改
+                    %button.btn.btn-xs.btn-danger{"data-btn" => "remove", "data-userid" => "1"}
+                      %span.glyphicon.glyphicon-remove
+    .row
+      .btn-group.col-lg-3.ml-nav
+        %a.btn.btn-primary.btn-lg{:href => "?startDate=2013-12-01&amp;endDate=2013-12-31", :type => "button"} «上個月
+        %a.btn.btn-primary.btn-lg{:href => "?startDate=2014-02-01&amp;endDate=2014-02-28", :type => "button"} 下個月»
+
+#myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :style => "display: none;", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+        %h4.modal-title 新增一筆
+      .modal-body
+        %form{:action => "#"}
+          .input-group
+            %span.input-group-addon
+              = image_tag("currency_sign_dollar.png", width: "15px")
+            %input.form-control{:name => "ML_value", :placeholder => "金額", :type => "text"}
+              %span.input-group-addon
+                %span.glyphicon.glyphicon-calendar
+              %input#datepicker.form-control{"data-behaviour" => "datepicker", :type => "text", :placeholder => "01/02/2014"}
+          %br
+            .input-group
+              %span.input-group-addon
+                %span.glyphicon.glyphicon-pencil
+              %input.form-control{:name => "ML_note", :placeholder => "輸入備註...", :type => "text"}
+                %span.input-group-addon
+                  %span.glyphicon.glyphicon-user
+                .input-group-btn.usergroup
+                  %button.btn.btn-default.dropdown-toggle.btn-value{"data-toggle" => "dropdown", :type => "button"}
+                    = current_user.email
+            %br
+              .module-content
+                %ul.nav.nav-tabs.ml-nav-tabs
+                  %li
+                    %a.btn.btn-primary.btn-lg{"data-toggle" => "tab", :href => "#incomeTab"}
+                      收入
+                  %li.active
+                    %a.btn.btn-orange.btn-lg.active{"data-toggle" => "tab", :href => "#expenseTab"}
+                      支出
+                #myTabContent.tab-content.ml-tabs-contents
+                  #incomeTab.mltab-type.tab-pane.fade{"data-type" => "income"}
+                    %table.table.table-bordered
+                      %tbody
+                        %tr
+                          %td
+                            .category
+                              = image_tag "category_icon/basketball.png", width: "40px"
+                              %br
+                                Salary
+                          %td
+                            .category
+                              = image_tag "category_icon/basketball.png", width: "40px"
+                              %br
+                                Salary
+                          %td
+                            .category
+                              = image_tag "category_icon/basketball.png", width: "40px"
+                              %br
+                                Salary
+                        %tr
+                          %td
+                            .category
+                              = image_tag "category_icon/basketball.png", width: "40px"
+                              %br
+                                Salary
+                          %td
+                            .category
+                              = image_tag "category_icon/basketball.png", width: "40px"
+                              %br
+                                Salary
+                          %td
+                            .category
+                              = image_tag "category_icon/basketball.png", width: "40px"
+                              %br
+                                Salary
+                  #expenseTab.mltab-type.tab-pane.fade.active.in{"data-type" => "expense"}
+                    %table.table.table-bordered.category-table
+                      %tbody
+                        %tr
+                          %td
+                            .category
+                              = image_tag "category_icon/basketball.png", width: "40px"
+                              %br
+                                Salary
+                          %td
+                            .category
+                              = image_tag "category_icon/basketball.png", width: "40px"
+                              %br
+                                Salary
+                          %td
+                            .category
+                              = image_tag "category_icon/basketball.png", width: "40px"
+                              %br
+                                Salary
+                        %tr
+                          %td
+                            .category
+                              = image_tag "category_icon/basketball.png", width: "40px"
+                              %br
+                                Salary
+                          %td
+                            .category
+                              = image_tag "category_icon/basketball.png", width: "40px"
+                              %br
+                                Salary
+                          %td
+                            .category
+                              = image_tag "category_icon/basketball.png", width: "40px"
+                              %br
+                                Salary
+                        %tr
+                          %td
+                            .category
+                              = image_tag "category_icon/basketball.png", width: "40px"
+                              %br
+                                Salary
+                          %td
+                            .category
+                              = image_tag "category_icon/basketball.png", width: "40px"
+                              %br
+                                Salary
+                          %td
+                            .category
+                              = image_tag "category_icon/basketball.png", width: "40px"
+                              %br
+                                Salary
+
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 取消
+        .btn-group
+          %button.btn.btn-success.submitAdd{:type => "button"} 存入
+  :javascript
+  $(document).ready(function(){
+    $('[data-behaviour~=datepicker]').datepicker();
+  })

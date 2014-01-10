@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131222032312) do
+ActiveRecord::Schema.define(version: 20140110035850) do
 
   create_table "category_table", force: true do |t|
     t.string   "category",                    null: false
@@ -54,13 +54,23 @@ ActiveRecord::Schema.define(version: 20131222032312) do
   create_table "devices", force: true do |t|
     t.integer  "user_id"
     t.string   "uuid"
-    t.datetime "last_sync_time",  default: '1986-08-06 03:32:17'
+    t.datetime "last_sync_time",  default: '1986-08-23 00:57:02'
     t.datetime "sync_start_time"
     t.boolean  "is_syncing",      default: false
   end
 
   add_index "devices", ["user_id"], name: "index_devices_on_user_id", using: :btree
   add_index "devices", ["uuid"], name: "index_devices_on_uuid", using: :btree
+
+  create_table "messages", force: true do |t|
+    t.integer  "user_id"
+    t.text     "context"
+    t.boolean  "is_read",    default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "payee_table", force: true do |t|
     t.string   "payee_name",                  null: false
@@ -162,7 +172,7 @@ ActiveRecord::Schema.define(version: 20131222032312) do
     t.datetime "date"
     t.string   "in_payment"
     t.string   "out_payment"
-    t.string   "remark"
+    t.text     "remark"
     t.string   "currency_code"
     t.decimal  "amount_to_main", precision: 16, scale: 2
     t.string   "period"
@@ -228,7 +238,14 @@ ActiveRecord::Schema.define(version: 20131222032312) do
     t.datetime "sync_time"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_syncing", default: false
+    t.boolean  "is_syncing",    default: false
+    t.string   "uid"
+    t.string   "provider"
+    t.string   "refresh_token"
+    t.string   "access_token"
+    t.datetime "expires"
   end
+
+  add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
 
 end

@@ -9,6 +9,8 @@
       = link_to root_path, class: "navbar-brand" do
         = image_tag "icon.png", width: "40px"
         Andromoney
+        %span.text-danger.small Beta
+
     .collapse.navbar-collapse
       %ul.nav.navbar-nav
         %li
@@ -21,5 +23,11 @@
           = link_to "關於", about_path
       .pull-right
         %ul.nav.navbar-nav
-          %li
-            = link_to "用戶登入", home_path
+          - if current_user
+            %li
+              = link_to current_user.email, home_path
+            %li
+              = link_to "登出", signout_path
+          - else
+            %li
+              = link_to "用戶登入", "/auth/google_login"

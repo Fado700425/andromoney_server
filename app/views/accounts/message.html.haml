@@ -1,0 +1,23 @@
+.row.row-offcanvas.row-offcanvas-right
+  = render 'shared/sidebar'
+
+  .col-sm-9
+    .panel.panel-info
+      .panel-heading
+        %h3.panel-title 個人訊息
+      .panel-body
+        %ul
+          - @messages.each do |m|
+            %li
+              %span.text-success
+                = m.created_at.strftime("%Y/%m/%d")
+              = m.context
+              - if m.is_read
+                %span.text-muted
+                  (已讀)
+              - else
+                %span.text-danger
+                  (未讀)
+          
+
+  

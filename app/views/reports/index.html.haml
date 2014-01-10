@@ -23,4 +23,54 @@
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
         chart.draw(data, options);
       }
+    :javascript
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChartLine);
+      function drawChartLine() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses'],
+          ['2004',  1000,      400],
+          ['2005',  1170,      460],
+          ['2006',  660,       1120],
+          ['2007',  1030,      540]
+        ]);
+
+        var options = {
+          title: 'Company Performance',
+          hAxis: {title: 'Year', titleTextStyle: {color: 'red'}}
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    .chart_picker
+      .btn-group.btn-group-lg
+        %button.btn.btn-default.active{:type => "button"} 圓餅圖
+        %button.btn.btn-default{:type => "button"} 長條圖
+    .account_picker
+      .btn-group.btn-group-lg
+        %button.btn.btn-default.active{:type => "button"} 現金
+        %button.btn.btn-default{:type => "button"} 信用卡
+        %button.btn.btn-default{:type => "button"} 銀行
+    .type_picker
+      .btn-group.btn-group-lg
+        %button.btn.btn-default.active{:type => "button"} 支出
+        %button.btn.btn-default{:type => "button"} 收入
+        %button.btn.btn-default{:type => "button"} 轉帳
+    .category_picker
+      .btn-group.btn-group-lg
+        %button.btn.btn-default.active{:type => "button"} 食
+        %button.btn.btn-default{:type => "button"} 衣
+        %button.btn.btn-default{:type => "button"} 住
+    日期: 
+    %input{"data-behaviour" => "datepicker", :type => "text"}
+    = "~"
+    %input{"data-behaviour" => "datepicker", :type => "text"}
+    = link_to "查詢", "", class: "btn btn-default"
     #piechart{:style => "width: 900px; height: 500px;"}
+    #chart_div{:style => "width: 900px; height: 500px;"}
+
+:javascript
+  $(document).ready(function(){
+    $('[data-behaviour~=datepicker]').datepicker();
+  })

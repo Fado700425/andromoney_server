@@ -1,0 +1,13 @@
+- subcategories.each_with_index do |category_group, i|
+  %tr
+    - category_group.each_with_index do |category,j|
+      - if(i==0 && j==0)
+        %td{data: {subcategory_id: category.hash_key, category_name: category.subcategory}, class: "active"}
+          .category
+            = category.subcategory
+      - else
+        %td{data: {subcategory_id: category.hash_key, category_name: category.subcategory}}
+          .category
+            = category.subcategory
+    - (1..3-category_group.size).each do |i|
+      %td

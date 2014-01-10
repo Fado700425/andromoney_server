@@ -1,0 +1,107 @@
+tbody.account tr td, tbody.income_main_category tr td, tbody.expense_main_category tr td,  tbody.income_category tr td, tbody.expense_category tr td{
+  width: 33%;
+}
+
+td.record-remark{
+  width: 20%;
+}
+
+.table.table-bordered{
+    cursor:pointer;
+}
+
+.record_modal_footer{
+  margin-top: 15px;
+  text-align: right;
+}
+
+.btn-success.btn-edit a{
+  color: white;
+}
+
+.btn-danger.btn-remove a{
+  color: white;
+}
+
+.date_picker{
+  margin: 5px;
+}
+
+.add_new.btn {
+  border-radius: 0;
+  border: 0;
+  font-family: "Open Sans", sans-serif;
+  font-weight: normal;
+}
+
+
+.module .module-header {
+  background: #59636d;
+  color: #fff;
+  padding: 15px 20px;
+}
+
+.module-content .nav-tabs li a.btn-orange {
+background-color: #E68A72;
+}
+
+.nav-tabs > li.active > a.btn-orange {
+background: #E68A72;
+}
+
+.module-content .nav-tabs li a.btn-primary {
+background-color: #5bb2d3;
+}
+
+.nav-tabs > li.active > a.btn-primary {
+background: #5bb2d3;
+}
+
+.nav-tabs li.active a {
+-moz-box-shadow: inset 0 3px 4px rgba(0, 0, 0, 0.4);
+-webkit-box-shadow: inset 0 3px 4px rgba(0, 0, 0, 0.4);
+box-shadow: inset 0 3px 4px rgba(0, 0, 0, 0.4);
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+border: 0;
+background: #6dba89;
+color: #fff;
+}
+
+.nav-tabs > li > a {
+border-radius: 0;
+border: 0;
+background: #2b3035;
+color: #fff;
+margin-right: 0;
+}
+
+.btn-primary {
+border-color: #6dba89;
+color: #fff;
+background: #6dba89;
+}
+
+
+.ml-nav-tabs > li {
+width: 50%;
+}
+
+.nav-tabs > li {
+margin-bottom: 0;
+}
+
+
+
+.category{
+  text-align: center;
+}
+.table tr.item-transactions td {
+vertical-align: middle;
+}
+
+
+.ml-nav {
+left: 37.5%;
+}

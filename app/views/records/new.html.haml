@@ -1,38 +1,172 @@
 .row.row-offcanvas.row-offcanvas-right
   = render 'shared/sidebar'
 
-  .col-xs-12.col-sm-9
-    %ul#tabs.nav.nav-tabs{"data-tabs" => "tabs"}
-      %li.active
-        %a{"data-toggle" => "tab", :href => "#red"} 支出
-      %li
-        %a{"data-toggle" => "tab", :href => "#orange"} 收入
-      %li
-        %a{"data-toggle" => "tab", :href => "#yellow"} 轉帳
-      %li
-        %a{"data-toggle" => "tab", :href => "#green"} 借貸
+  .row
+    .col-xs-12.col-sm-9
+      %ul#tabs.nav.nav-tabs{"data-tabs" => "tabs"}
+        %li.active
+          %a{id: "expenseLink","data-toggle" => "tab", :href => "#expenseTab"} 支出
+        %li
+          %a{id: "incomeLink","data-toggle" => "tab", :href => "#incomeTab"} 收入
 
-    #my-tab-content.tab-content
-      #red.tab-pane.active
-        %form.form-horizontal{:role => "form"}
-          .form-group
-            %label.col-sm-2.control-label{:for => "inputEmail3"} 金額
-            .col-sm-10
-              %input#inputEmail3.form-control{:type => "email"}
-          .form-group
-            %label.col-sm-2.control-label{:for => "inputPassword3"} 類別
-            .col-sm-10
-              %input#inputPassword3.form-control{ :type => "password"}
-          .form-group
-            .col-sm-offset-2.col-sm-10
-              %button.btn.btn-default{:type => "submit"} 記一筆
-              
-      #orange.tab-pane
-        %h1 Orange
-        %p orange orange orange orange orange
-      #yellow.tab-pane
-        %h1 Yellow
-        %p yellow yellow yellow yellow yellow
-      #green.tab-pane
-        %h1 Green
-        %p green green green green green
+      .row
+        = form_for @record, url: records_path(@record, month_from_now: params[:month_from_now]) do |f|
+          .input-group
+            %span.input-group-addon
+              = image_tag("currency_sign_dollar.png", width: "15px")
+              金額
+            = f.number_field(:mount, class: "form-control", :step => 'any')
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-calendar
+              日期
+            = f.text_field(:date, {id: "datepicker", class: "form-control", data: {behaviour: "datepicker"}, value: Time.now.strftime("%Y/%m/%d")})
+          .input-group
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-book
+              帳戶
+            = f.text_field(:out_payment, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myPaymentModal", value: @payments[0][0].payment_name})
+            
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-book
+              商家
+            = f.text_field(:payee, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myStoreModal"})
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-book
+              專案
+            = f.text_field(:project, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myProjectModal"})
+
+          %br
+          = f.hidden_field :category, value: @expense_category[0][0].hash_key
+          = f.hidden_field :sub_category, value: @subcategories[0][0].hash_key
+          %h4 主類別
+          #my-tab-content.tab-content
+            #expenseTab.mltab-type.tab-pane.active.in{"data-type" => "income"}
+              %table.table.table-bordered
+                %tbody.expense_main_category
+                  - @expense_category.each_with_index do |category_group,i|
+                    %tr
+                      - category_group.each_with_index do |category,j|
+                        - if(i==0 && j==0)
+                          %td{data: {category_id: category.hash_key, category_name: category.category}, class: "active"}
+                            .category
+                              = image_tag category.photo_path, width: "40px"
+                              %br
+                              = category.category
+                        - else
+                          %td{data: {category_id: category.hash_key, category_name: category.category}}
+                            .category
+                              = image_tag category.photo_path, width: "40px"
+                              %br
+                              = category.category
+                      - (1..3-category_group.size).each do |i|
+                        %td
+              %h4 子類別
+              %table.table.table-bordered.category-table
+                %tbody.sub_category.expense_category
+                  = render 'subcategories', subcategories: @subcategories
+
+            #incomeTab.mltab-type.tab-pane{"data-type" => "expense"}
+              %table.table.table-bordered.category-table
+                %tbody.income_main_category
+                  - @income_category.each_with_index do |category_group,i|
+                    %tr
+                      - category_group.each_with_index do |category,j|
+                        - if(i==0 && j==0)
+                          %td{data: {category_id: category.hash_key, category_name: category.category}, class: "active"}
+                            .category
+                              = image_tag category.photo_path, width: "40px"
+                              %br
+                              = category.category
+                        - else
+                          %td{data: {category_id: category.hash_key, category_name: category.category}}
+                            .category
+                              = image_tag category.photo_path, width: "40px"
+                              %br
+                              = category.category
+                      - (1..3-category_group.size).each do |i|
+                        %td
+              %h4 子類別
+              %table.table.table-bordered.category-table
+                %tbody.sub_category.income_category
+                  = render 'subcategories', subcategories: @income_subcategories
+
+          %h4 填寫備註
+          = f.text_area :remark, class: 'form-control'
+          .pull-right
+            %br
+            = f.submit "確定", class: "btn btn-primary btn-lg"
+
+#myPaymentModal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %a.close{"data-dismiss" => "modal"} &times;
+        %h4 選擇帳戶
+      .modal-body
+        %table.table.table-bordered.category-table
+          %tbody.account
+            - @payments.each_with_index do |payment_group,i|
+              %tr
+                - payment_group.each_with_index do |payment,j|
+                  - if(i==0 && j==0)
+                    %td{data: {payment_id: payment.id, payment_name: payment.payment_name}, class: "active"}
+                      .category
+                        - icon_path = ["payment_icon/cash.png","payment_icon/card.png","payment_icon/bank.png"]
+                        = image_tag icon_path[payment.kind], width: "40px"
+                        %br
+                        = payment.payment_name
+                  - else
+                    %td{data: {payment_id: payment.id, payment_name: payment.payment_name}}
+                      .category
+                        - icon_path = ["payment_icon/cash.png","payment_icon/card.png","payment_icon/bank.png"]
+                        = image_tag icon_path[payment.kind], width: "40px"
+                        %br
+                        = payment.payment_name
+
+
+#myStoreModal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %a.close{"data-dismiss" => "modal"} &times;
+        %h4 選擇商家
+      .modal-body
+        %table.table.table-bordered.category-table
+          %tbody.payee
+            - @payees.each do |payee_group|
+              %tr
+                - payee_group.each do |payee|  
+                  %td{data: {payee_id: payee.id, payee_name: payee.payee_name}}
+                    .category
+                      = image_tag "payee_icon/payee.png", width: "40px"
+                      %br
+                      = payee.payee_name
+        .record_modal_footer
+          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button",id: "payee-dismiss"} 取消
+
+#myProjectModal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %a.close{"data-dismiss" => "modal"} &times;
+        %h4 選擇專案
+      .modal-body
+        %table.table.table-bordered.category-table
+          %tbody.project
+            - @projects.each do |project_group|
+              %tr
+                - project_group.each do |project|  
+                  %td{data: {project_id: project.id, project_name: project.project_name}}
+                    .category
+                      = image_tag "project.png", width: "40px"
+                      %br
+                      = project.project_name
+        .record_modal_footer
+          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button", id: "project-dismiss"} 取消
+
+:javascript
+  $(document).ready(function(){
+    $('[data-behaviour~=datepicker]').datepicker({
+    format: "yyyy/mm/dd"
+  });
+  })

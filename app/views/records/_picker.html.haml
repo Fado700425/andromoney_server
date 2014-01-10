@@ -1,0 +1,48 @@
+.date_picker
+  %br
+  按日期選擇:
+  %input{"data-behaviour" => "datepicker", :type => "text"}
+  = "~"
+  %input{"data-behaviour" => "datepicker", :type => "text"}
+  %br
+  按月份選擇:
+  %ul.list-inline
+    %li= link_to "本月", "", class: "btn btn-md btn-warning"
+    %li= link_to "1月", "", class: "btn btn-md btn-warning"
+    %li= link_to "2月", "", class: "btn btn-md btn-warning"
+    %li= link_to "3月", "", class: "btn btn-md btn-warning"
+    %li= link_to "4月", "", class: "btn btn-md btn-warning"
+    %li= link_to "5月", "", class: "btn btn-md btn-warning"
+    %li= link_to "6月", "", class: "btn btn-md btn-warning"
+    %li= link_to "7月", "", class: "btn btn-md btn-warning"
+    %li= link_to "8月", "", class: "btn btn-md btn-warning"
+    %li= link_to "9月", "", class: "btn btn-md btn-warning"
+    %li= link_to "10月", "", class: "btn btn-md btn-warning"
+    %li= link_to "11月", "", class: "btn btn-md btn-warning"
+    %li= link_to "12月", "", class: "btn btn-md btn-warning"
+.money_picker
+  金額: 
+  %input{"data-behaviour" => "datepicker", :type => "text"}
+  %input{"data-behaviour" => "datepicker", :type => "text"}
+.account_pciker
+  帳戶:
+  %dropdown
+    %a#drop4{"data-toggle" => "dropdown", :href => "#", :role => "button"}
+      Dropdown
+      %b.caret
+    %ul#menu1.dropdown-menu{"aria-labelledby" => "drop4", :role => "menu"}
+      %li{:role => "presentation"}
+        %a{:href => "http://twitter.com/fat", :role => "menuitem", :tabindex => "-1"} Action
+      %li{:role => "presentation"}
+        %a{:href => "http://twitter.com/fat", :role => "menuitem", :tabindex => "-1"} Another action
+      %li{:role => "presentation"}
+        %a{:href => "http://twitter.com/fat", :role => "menuitem", :tabindex => "-1"} Something else here
+      %li.divider{:role => "presentation"}
+      %li{:role => "presentation"}
+        %a{:href => "http://twitter.com/fat", :role => "menuitem", :tabindex => "-1"} Separated link
+= link_to "查詢", "", class: "btn btn-default"
+
+:javascript
+  $(document).ready(function(){
+    $('[data-behaviour~=datepicker]').datepicker();
+  })

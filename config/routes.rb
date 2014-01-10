@@ -1,18 +1,40 @@
 require 'sidekiq/web'
 AndromoneyServer::Application.routes.draw do
   mount Sidekiq::Web, at: '/sidekiq'
-  
-  # get 'home', controller: 'welcome', action: 'index'
-  # get 'download', controller: 'welcome', action: 'download'
-  # get 'about', controller: "welcome", action: 'about'
-  # get 'pricing', controller: "welcome", action: 'pricing'
-  # root to: 'welcome#front'
 
+  get "/auth/google_login/callback" => "sessions#create"
+  get 'auth/failure', to: redirect('/')
+  get "/signout" => "sessions#destroy", :as => :signout
+
+  get 'download', controller: 'welcome', action: 'download'
+  get 'about', controller: "welcome", action: 'about'
+  get 'pricing', controller: "welcome", action: 'pricing'
+  
+  get "/" => 'welcome#front',  constraints: {subdomain: 'web'}
   root to: redirect("http://www.andromoney.com")
 
-  # resources :records
-  # resources :budgets
-  # resources :reports
+  resources :records do
+    collection do
+      post 'edit_remark'
+    end
+  end
+  resources :budgets
+  resources :reports
+  resources :payments
+  resources :accounts do
+    member do
+      get 'message'
+    end
+  end
+  resources :categories do
+    collection do
+      get 'expense_subcategories'
+      get 'income_subcategories'
+    end
+  end
+  # get 'home', controller: 'accounts', action: 'info'
+  get 'home', controller: 'records', action: 'index'
+
 
   get 'share_confirm', controller: 'api/v1/sync', action: 'confirm_share'
 

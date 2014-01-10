@@ -1,29 +1,54 @@
 .row.row-offcanvas.row-offcanvas-right
   = render 'shared/sidebar'
 
-  .col-xs-12.col-sm-9
-    %ul#tabs.nav.nav-tabs{"data-tabs" => "tabs"}
-      %li.active
-        %a{"data-toggle" => "tab", :href => "#red"} 全部
-      %li
-        %a{"data-toggle" => "tab", :href => "#red"} 支出
-      %li
-        %a{"data-toggle" => "tab", :href => "#orange"} 收入
-      %li
-        %a{"data-toggle" => "tab", :href => "#yellow"} 轉帳
-      %li
-        %a{"data-toggle" => "tab", :href => "#green"} 借貸
+  .col-xs-12.col-sm-10
+    .row
+      = link_to new_record_path(month_from_now: params[:month_from_now]), class: "btn btn-primary btn-lg add_new" do
+        %span.glyphicon.glyphicon-plus
+        新增一筆        
+    .row  
+      .module
+        .module-header
+          %h4= I18n.l(Date.current + params[:month_from_now].to_i.month, format: :month)
+        .module-content.table-responsive
+          %table.table.table-striped
+            %thead
+              %tr
+                %th 類別
+                %th 金額
+                %th 日期
+                %th 帳戶
+                %th 專案
+                %th 商家
+                %th 備註
+                %th
+            %tbody
+              - @records.each do |record|
+                - if( record.record_out_payment && record.record_in_payment)
+                  %tr.item-transactions.success
+                    = render 'record', record: record
+                - elsif record.record_out_payment
+                  %tr.item-transactions.warning
+                    = render 'record', record: record
+                - elsif record.record_in_payment
+                  %tr.item-transactions.danger
+                    = render 'record', record: record
+    .row
+      .btn-group.col-lg-3.ml-nav
+        = link_to "«上個月", home_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
+        = link_to "下個月»", home_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
 
-    #my-tab-content.tab-content
-      #red.tab-pane.active
-        %h1 Red
-        %p red red red red red red
-      #orange.tab-pane
-        %h1 Orange
-        %p orange orange orange orange orange
-      #yellow.tab-pane
-        %h1 Yellow
-        %p yellow yellow yellow yellow yellow
-      #green.tab-pane
-        %h1 Green
-        %p green green green green green
+
+#myModal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %a.close{"data-dismiss" => "modal"} &times;
+        %h4 修改備註
+      .modal-body
+        = form_tag edit_remark_records_path(month_from_now: params[:month_from_now]) do
+          = text_area_tag :remark, nil, class: 'form-control'
+          = hidden_field_tag :record_id, ""
+          .record_modal_footer
+            %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 取消
+            = submit_tag "確定", class: "btn btn-success"
