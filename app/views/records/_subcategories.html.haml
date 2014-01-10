@@ -2,7 +2,7 @@
   %tr
     - category_group.each_with_index do |category,j|
       - if(i==0 && j==0)
-        %td{data: {subcategory_id: category.hash_key, category_name: category.subcategory}, class: "active"}
+        %td{data: {subcategory_id: category.hash_key, category_name: category.subcategory}, class: "warning"}
           .category
             = category.subcategory
       - else

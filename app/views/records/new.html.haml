@@ -47,7 +47,7 @@
                     %tr
                       - category_group.each_with_index do |category,j|
                         - if(i==0 && j==0)
-                          %td{data: {category_id: category.hash_key, category_name: category.category}, class: "active"}
+                          %td{data: {category_id: category.hash_key, category_name: category.category}, class: "warning"}
                             .category
                               = image_tag category.photo_path, width: "40px"
                               %br
@@ -72,7 +72,7 @@
                     %tr
                       - category_group.each_with_index do |category,j|
                         - if(i==0 && j==0)
-                          %td{data: {category_id: category.hash_key, category_name: category.category}, class: "active"}
+                          %td{data: {category_id: category.hash_key, category_name: category.category}, class: "warning"}
                             .category
                               = image_tag category.photo_path, width: "40px"
                               %br
@@ -109,7 +109,7 @@
               %tr
                 - payment_group.each_with_index do |payment,j|
                   - if(i==0 && j==0)
-                    %td{data: {payment_id: payment.id, payment_name: payment.payment_name}, class: "active"}
+                    %td{data: {payment_id: payment.id, payment_name: payment.payment_name}, class: "warning"}
                       .category
                         - icon_path = ["payment_icon/cash.png","payment_icon/card.png","payment_icon/bank.png"]
                         = image_tag icon_path[payment.kind], width: "40px"
