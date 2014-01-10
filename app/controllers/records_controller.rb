@@ -61,6 +61,7 @@ class RecordsController < ApplicationController
     if record
       record.remark = params[:remark]
       record.update_time = DateTime.now.utc
+      record.uuid = "computer"
       record.save
     end
     redirect_to records_path(month_from_now: params[:month_from_now])
