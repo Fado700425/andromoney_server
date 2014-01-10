@@ -60,6 +60,7 @@ class RecordsController < ApplicationController
     record = Record.find_by(user_id: current_user.id, id: params[:record_id])
     if record
       record.remark = params[:remark]
+      record.update_time = DateTime.now.utc
       record.save
     end
     redirect_to records_path(month_from_now: params[:month_from_now])
