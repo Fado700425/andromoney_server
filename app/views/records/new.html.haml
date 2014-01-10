@@ -1,99 +1,100 @@
 .row.row-offcanvas.row-offcanvas-right
   = render 'shared/sidebar'
 
-  .col-xs-12.col-sm-9
-    %ul#tabs.nav.nav-tabs{"data-tabs" => "tabs"}
-      %li.active
-        %a{id: "expenseLink","data-toggle" => "tab", :href => "#expenseTab"} 支出
-      %li
-        %a{id: "incomeLink","data-toggle" => "tab", :href => "#incomeTab"} 收入
+  .row
+    .col-xs-12.col-sm-9
+      %ul#tabs.nav.nav-tabs{"data-tabs" => "tabs"}
+        %li.active
+          %a{id: "expenseLink","data-toggle" => "tab", :href => "#expenseTab"} 支出
+        %li
+          %a{id: "incomeLink","data-toggle" => "tab", :href => "#incomeTab"} 收入
 
-    .row
-      = form_for @record, url: records_path(@record, month_from_now: params[:month_from_now]) do |f|
-        .input-group
-          %span.input-group-addon
-            = image_tag("currency_sign_dollar.png", width: "15px")
-            金額
-          = f.number_field(:mount, class: "form-control", :step => 'any')
-          %span.input-group-addon
-            %span.glyphicon.glyphicon-calendar
-            日期
-          = f.text_field(:date, {id: "datepicker", class: "form-control", data: {behaviour: "datepicker"}, value: Time.now.strftime("%Y/%m/%d")})
-        .input-group
-          %span.input-group-addon
-            %span.glyphicon.glyphicon-book
-            帳戶
-          = f.text_field(:out_payment, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myPaymentModal", value: @payments[0][0].payment_name})
-          
-          %span.input-group-addon
-            %span.glyphicon.glyphicon-book
-            商家
-          = f.text_field(:payee, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myStoreModal"})
-          %span.input-group-addon
-            %span.glyphicon.glyphicon-book
-            專案
-          = f.text_field(:project, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myProjectModal"})
+      .row
+        = form_for @record, url: records_path(@record, month_from_now: params[:month_from_now]) do |f|
+          .input-group
+            %span.input-group-addon
+              = image_tag("currency_sign_dollar.png", width: "15px")
+              金額
+            = f.number_field(:mount, class: "form-control", :step => 'any')
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-calendar
+              日期
+            = f.text_field(:date, {id: "datepicker", class: "form-control", data: {behaviour: "datepicker"}, value: Time.now.strftime("%Y/%m/%d")})
+          .input-group
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-book
+              帳戶
+            = f.text_field(:out_payment, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myPaymentModal", value: @payments[0][0].payment_name})
+            
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-book
+              商家
+            = f.text_field(:payee, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myStoreModal"})
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-book
+              專案
+            = f.text_field(:project, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myProjectModal"})
 
-        %br
-        = f.hidden_field :category, value: @expense_category[0][0].hash_key
-        = f.hidden_field :sub_category, value: @subcategories[0][0].hash_key
-        %h4 主類別
-        #my-tab-content.tab-content
-          #expenseTab.mltab-type.tab-pane.active.in{"data-type" => "income"}
-            %table.table.table-bordered
-              %tbody.expense_main_category
-                - @expense_category.each_with_index do |category_group,i|
-                  %tr
-                    - category_group.each_with_index do |category,j|
-                      - if(i==0 && j==0)
-                        %td{data: {category_id: category.hash_key, category_name: category.category}, class: "active"}
-                          .category
-                            = image_tag category.photo_path, width: "40px"
-                            %br
-                            = category.category
-                      - else
-                        %td{data: {category_id: category.hash_key, category_name: category.category}}
-                          .category
-                            = image_tag category.photo_path, width: "40px"
-                            %br
-                            = category.category
-                    - (1..3-category_group.size).each do |i|
-                      %td
-            %h4 子類別
-            %table.table.table-bordered.category-table
-              %tbody.sub_category.expense_category
-                = render 'subcategories', subcategories: @subcategories
-
-          #incomeTab.mltab-type.tab-pane{"data-type" => "expense"}
-            %table.table.table-bordered.category-table
-              %tbody.income_main_category
-                - @income_category.each_with_index do |category_group,i|
-                  %tr
-                    - category_group.each_with_index do |category,j|
-                      - if(i==0 && j==0)
-                        %td{data: {category_id: category.hash_key, category_name: category.category}, class: "active"}
-                          .category
-                            = image_tag category.photo_path, width: "40px"
-                            %br
-                            = category.category
-                      - else
-                        %td{data: {category_id: category.hash_key, category_name: category.category}}
-                          .category
-                            = image_tag category.photo_path, width: "40px"
-                            %br
-                            = category.category
-                    - (1..3-category_group.size).each do |i|
-                      %td
-            %h4 子類別
-            %table.table.table-bordered.category-table
-              %tbody.sub_category.income_category
-                = render 'subcategories', subcategories: @income_subcategories
-
-        %h4 填寫備註
-        = f.text_area :remark, class: 'form-control'
-        .pull-right
           %br
-          = f.submit "確定", class: "btn btn-primary btn-lg"
+          = f.hidden_field :category, value: @expense_category[0][0].hash_key
+          = f.hidden_field :sub_category, value: @subcategories[0][0].hash_key
+          %h4 主類別
+          #my-tab-content.tab-content
+            #expenseTab.mltab-type.tab-pane.active.in{"data-type" => "income"}
+              %table.table.table-bordered
+                %tbody.expense_main_category
+                  - @expense_category.each_with_index do |category_group,i|
+                    %tr
+                      - category_group.each_with_index do |category,j|
+                        - if(i==0 && j==0)
+                          %td{data: {category_id: category.hash_key, category_name: category.category}, class: "active"}
+                            .category
+                              = image_tag category.photo_path, width: "40px"
+                              %br
+                              = category.category
+                        - else
+                          %td{data: {category_id: category.hash_key, category_name: category.category}}
+                            .category
+                              = image_tag category.photo_path, width: "40px"
+                              %br
+                              = category.category
+                      - (1..3-category_group.size).each do |i|
+                        %td
+              %h4 子類別
+              %table.table.table-bordered.category-table
+                %tbody.sub_category.expense_category
+                  = render 'subcategories', subcategories: @subcategories
+
+            #incomeTab.mltab-type.tab-pane{"data-type" => "expense"}
+              %table.table.table-bordered.category-table
+                %tbody.income_main_category
+                  - @income_category.each_with_index do |category_group,i|
+                    %tr
+                      - category_group.each_with_index do |category,j|
+                        - if(i==0 && j==0)
+                          %td{data: {category_id: category.hash_key, category_name: category.category}, class: "active"}
+                            .category
+                              = image_tag category.photo_path, width: "40px"
+                              %br
+                              = category.category
+                        - else
+                          %td{data: {category_id: category.hash_key, category_name: category.category}}
+                            .category
+                              = image_tag category.photo_path, width: "40px"
+                              %br
+                              = category.category
+                      - (1..3-category_group.size).each do |i|
+                        %td
+              %h4 子類別
+              %table.table.table-bordered.category-table
+                %tbody.sub_category.income_category
+                  = render 'subcategories', subcategories: @income_subcategories
+
+          %h4 填寫備註
+          = f.text_area :remark, class: 'form-control'
+          .pull-right
+            %br
+            = f.submit "確定", class: "btn btn-primary btn-lg"
 
 #myPaymentModal.modal.fade
   .modal-dialog

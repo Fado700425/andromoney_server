@@ -61,9 +61,9 @@ private
     Payee.create(payee_name: "星巴克",hidden: 0, type: 0, order_no: 1000, hash_key: "3", user_id: user.id, update_time: "1999-12-31 16:00:00", device_uuid: "computer")
     Payee.create(payee_name: "7-Eleven",hidden: 0,type: 0, order_no: 1000, hash_key: "4", user_id: user.id, update_time: "1999-12-31 16:00:00", device_uuid: "computer")
 
-    Payment.create(kind: 0, payment_name: "現金", total: 0.00, currency_code: 'USD', rate: 1.000000, hidden: 0 , order_no: 1000, hash_key: "1", user_id: user.id, update_time: "1999-12-31 16:00:00", device_uuid: "computer")
-    Payment.create(kind: 1, payment_name: "信用卡", total: 0.00, currency_code: 'USD', rate: 1.000000, hidden: 0 , order_no: 1000, hash_key: "2", user_id: user.id, update_time: "1999-12-31 16:00:00", device_uuid: "computer")
-    Payment.create(kind: 2, payment_name: "銀行", total: 0.00, currency_code: 'USD', rate: 1.000000, hidden: 0 , order_no: 1000, hash_key: "3", user_id: user.id, update_time: "1999-12-31 16:00:00", device_uuid: "computer")
+    Payment.create(kind: 0, payment_name: "現金", total: 0.00, currency_code: 'TWD', rate: 1.000000, hidden: 0 , order_no: 1000, hash_key: "1", user_id: user.id, update_time: "1999-12-31 16:00:00", device_uuid: "computer")
+    Payment.create(kind: 1, payment_name: "信用卡", total: 0.00, currency_code: 'TWD', rate: 1.000000, hidden: 0 , order_no: 1000, hash_key: "2", user_id: user.id, update_time: "1999-12-31 16:00:00", device_uuid: "computer")
+    Payment.create(kind: 2, payment_name: "銀行", total: 0.00, currency_code: 'TWD', rate: 1.000000, hidden: 0 , order_no: 1000, hash_key: "3", user_id: user.id, update_time: "1999-12-31 16:00:00", device_uuid: "computer")
 
     Project.create(project_name: "商業", hidden: 0, order_no: 1000, hash_key: "1", user_id: user.id, update_time: "1999-12-31 16:00:00", device_uuid: "computer")
     Project.create(project_name: "個人", hidden: 0, order_no: 1000, hash_key: "2", user_id: user.id, update_time: "1999-12-31 16:00:00", device_uuid: "computer")

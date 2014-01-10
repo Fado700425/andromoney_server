@@ -19,7 +19,8 @@ AndromoneyServer::Application.routes.draw do
     end
   end
   resources :budgets
-  resources :reports 
+  resources :reports
+  resources :payments
   resources :accounts do
     member do
       get 'message'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140102024801) do
+ActiveRecord::Schema.define(version: 20140110035850) do
 
   create_table "category_table", force: true do |t|
     t.string   "category",                    null: false
@@ -172,7 +172,7 @@ ActiveRecord::Schema.define(version: 20140102024801) do
     t.datetime "date"
     t.string   "in_payment"
     t.string   "out_payment"
-    t.string   "remark"
+    t.text     "remark"
     t.string   "currency_code"
     t.decimal  "amount_to_main", precision: 16, scale: 2
     t.string   "period"

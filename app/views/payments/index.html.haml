@@ -1,0 +1,35 @@
+.row.row-offcanvas.row-offcanvas-right
+  = render 'shared/sidebar'
+
+  .col-xs-12.col-sm-10   
+    .row  
+      .module
+        .module-header
+          %h4 帳戶管理
+        .module-content.table-responsive
+          %table.table.table-striped
+            %thead
+              %tr
+                %th 類別
+                %th 名稱
+                %th
+            %tbody
+              - @payments.each do |payment|
+                %tr
+                  - icon_path = ["payment_icon/cash.png","payment_icon/card.png","payment_icon/bank.png"]
+                        
+                  %td= image_tag icon_path[payment.kind], width: "40px"
+                  %td= payment.payment_name
+                  %td
+                    %button.btn.btn-xs.btn-success.btn-edit
+                      = link_to "","data-toggle" => "modal", 'data-target' => "#myModal", id: "record_modal_link" do
+                        %span.glyphicon.glyphicon-pencil
+                        修改
+                    %button.btn.btn-xs.btn-danger.btn-remove
+                      = link_to payment_path(payment), method: :delete, data: { confirm: 'Are you sure?' } do
+                        %span.glyphicon.glyphicon-remove
+    .row
+      = link_to new_record_path(month_from_now: params[:month_from_now]), class: "btn btn-primary btn-lg add_new" do
+        %span.glyphicon.glyphicon-plus
+        新增一筆     
+                

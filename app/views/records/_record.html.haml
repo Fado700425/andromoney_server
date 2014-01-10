@@ -1,7 +1,10 @@
 %td
   = image_tag record.record_category.photo_path, width: "40px"
   = "[#{record.record_category.category}]#{record.record_subcategory.subcategory}"
-%td= record.mount
+%td
+  = record.currency_code
+  %span
+    = record.mount
 %td= record.date.strftime("%Y/%m/%d")
 %td
   - if( record.record_out_payment && record.record_in_payment)
@@ -18,7 +21,7 @@
   = record.record_project.project_name if record.record_project
 %td
   = record.record_payee.payee_name if record.record_payee
-%td
+%td.record-remark
   = record.remark
 %td
   %button.btn.btn-xs.btn-success.btn-edit

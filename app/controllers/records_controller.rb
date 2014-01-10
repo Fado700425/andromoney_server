@@ -15,12 +15,29 @@ class RecordsController < ApplicationController
 
   def create
     @record = Record.new(record_param)
-    @record.out_payment = Payment.find_by(payment_name: @record.out_payment).hash_key if @record.out_payment
-    @record.in_payment = Payment.find_by(payment_name: @record.in_payment).hash_key if @record.in_payment
+    @record.user_id = current_user.id
+
+    if @record.out_payment
+      payment = Payment.find_by(payment_name: @record.out_payment)
+      @record.out_payment = payment.hash_key
+      init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT")
+      @record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
+      @record.amount_to_main = @record.calculate_record_amount(current_user.get_main_currency)
+    end
+
+    if @record.in_payment  
+      payment = Payment.find_by(payment_name: @record.in_payment) 
+      @record.in_payment = payment.hash_key if @record.in_payment
+      init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT")
+      @record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
+      @record.amount_to_main = @record.calculate_record_amount(current_user.get_main_currency)
+    end
+    
     @record.project = Project.find_by(project_name: @record.project).hash_key if @record.project.present?
     @record.payee = Payee.find_by(payee_name: @record.payee).hash_key if @record.payee.present?
     @record.hash_key = SecureRandom.urlsafe_base64
-    @record.user_id = current_user.id
+    @record.device_uuid = "computer"
+    @record.update_time = DateTime.now.utc
     if @record.save
       flash[:notice] = "Create success"      
     else

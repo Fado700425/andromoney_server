@@ -2,6 +2,10 @@ tbody.account tr td, tbody.income_main_category tr td, tbody.expense_main_catego
   width: 33%;
 }
 
+td.record-remark{
+  width: 20%;
+}
+
 .table.table-bordered{
     cursor:pointer;
 }
