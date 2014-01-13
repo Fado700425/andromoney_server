@@ -52,7 +52,7 @@
             %br
             %br
             %p.lead 
-              = link_to(image_tag('badge_android.png'),"")
+              = link_to(image_tag('badge_android.png'),"https://play.google.com/store/apps/details?id=com.kpmoney.android")
 
           
       #iphone.tab-pane.fade
@@ -93,7 +93,7 @@
                   %td
                     %span.glyphicon.glyphicon-ok
             %p.lead 
-              = link_to(image_tag('badge_ios.png'),"")
+              = link_to(image_tag('badge_ios.png'),"https://itunes.apple.com/tw/app/andromoney-lite/id715504756?mt=8")
       #web.tab-pane.fade
         .row.featurette
           .col-md-3.col-md-offset-3
@@ -132,4 +132,4 @@
                   %td
                     %span.glyphicon.glyphicon-ok
             %p.lead 
-              = link_to("立即登入#{image_tag('icon.png')}".html_safe,"")
+              = link_to("立即登入#{image_tag('icon.png')}".html_safe,"/auth/google_login")
