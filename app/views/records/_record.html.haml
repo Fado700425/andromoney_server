@@ -25,7 +25,7 @@
   = record.remark
 %td
   %button.btn.btn-xs.btn-success.btn-edit
-    = link_to "","data-toggle" => "modal", 'data-target' => "#myModal", id: "record_modal_link",data: {remark: record.remark, record_id: record.id} do
+    = link_to edit_record_path(record) do
       %span.glyphicon.glyphicon-pencil
       修改
   %button.btn.btn-xs.btn-danger.btn-remove

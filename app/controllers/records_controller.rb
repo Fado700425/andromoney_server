@@ -16,32 +16,22 @@ class RecordsController < ApplicationController
   def create
     @record = Record.new(record_param)
     @record.user_id = current_user.id
-
-    if @record.out_payment
-      payment = Payment.find_by(payment_name: @record.out_payment)
-      @record.out_payment = payment.hash_key
-      init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT")
-      @record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
-      @record.amount_to_main = @record.calculate_record_amount(current_user.get_main_currency)
-    end
-
-    if @record.in_payment  
-      payment = Payment.find_by(payment_name: @record.in_payment) 
-      @record.in_payment = payment.hash_key if @record.in_payment
-      init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT")
-      @record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
-      @record.amount_to_main = @record.calculate_record_amount(current_user.get_main_currency)
-    end
-    
-    @record.project = Project.find_by(project_name: @record.project).hash_key if @record.project.present?
-    @record.payee = Payee.find_by(payee_name: @record.payee).hash_key if @record.payee.present?
     @record.hash_key = SecureRandom.urlsafe_base64
-    @record.device_uuid = "computer"
-    @record.update_time = DateTime.now.utc
+    set_record_submit_value(@record)
+
     if @record.save
       flash[:notice] = "Create success"      
     else
       flash[:error] = "Create fail!"
+    end
+    redirect_to records_path(month_from_now: params[:month_from_now])
+  end
+
+  def update
+    record = Record.find(params[:id])
+    if record.update(record_param)
+      set_record_submit_value(record)
+      record.save
     end
     redirect_to records_path(month_from_now: params[:month_from_now])
   end
@@ -56,15 +46,15 @@ class RecordsController < ApplicationController
 
   end
 
-  def edit_remark
-    record = Record.find_by(user_id: current_user.id, id: params[:record_id])
-    if record
-      record.remark = params[:remark]
-      record.update_time = DateTime.now.utc
-      record.device_uuid = "computer"
-      record.save
-    end
-    redirect_to records_path(month_from_now: params[:month_from_now])
+  def edit
+    @record = Record.find(params[:id])
+    @expense_category = Category.where(type: 20, user_id: current_user.id).each_slice(3).to_a
+    @income_category = Category.where("type = 10 and hash_key != 'SYSTEM' and user_id = #{current_user.id}").each_slice(3).to_a
+    @payments = Payment.where(user_id: current_user.id).each_slice(3).to_a
+    @payees = Payee.where(user_id: current_user.id).each_slice(3).to_a
+    @projects = Project.where(user_id: current_user.id).each_slice(3).to_a
+    @subcategories = Subcategory.where(id_category: @record.category, user_id: current_user.id).each_slice(3).to_a
+    @income_subcategories = Subcategory.where(id_category: @record.category, user_id: current_user.id).each_slice(3).to_a
   end
 
   def destroy
@@ -76,5 +66,30 @@ class RecordsController < ApplicationController
 private
   def record_param
     params.require(:record).permit(:mount,:date,:in_payment,:out_payment,:payee,:project,:category,:sub_category,:remark)
+  end
+
+  def set_record_submit_value(record)
+    if record.out_payment
+      payment = Payment.find_by(payment_name: record.out_payment, user_id: current_user.id)
+      record.out_payment = payment.hash_key
+      init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: current_user.id)
+      record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
+      record.amount_to_main = record.calculate_record_amount(current_user.get_main_currency)
+    end
+
+    if record.in_payment
+      payment = Payment.find_by(payment_name: record.in_payment, user_id: current_user.id) 
+      record.in_payment = payment.hash_key if record.in_payment
+      init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: current_user.id)
+      record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
+      record.amount_to_main = record.calculate_record_amount(current_user.get_main_currency)
+    end
+    
+    record.project = Project.find_by(project_name: record.project, user_id: current_user.id).hash_key if record.project.present?
+    record.payee = Payee.find_by(payee_name: record.payee, user_id: current_user.id).hash_key if record.payee.present?
+    
+    record.device_uuid = "computer"
+    record.update_time = DateTime.now.utc
+    
   end
 end

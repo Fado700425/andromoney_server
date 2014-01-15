@@ -38,17 +38,3 @@
         = link_to "«上個月", home_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
         = link_to "下個月»", home_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
 
-
-#myModal.modal.fade
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %a.close{"data-dismiss" => "modal"} &times;
-        %h4 修改備註
-      .modal-body
-        = form_tag edit_remark_records_path(month_from_now: params[:month_from_now]) do
-          = text_area_tag :remark, nil, class: 'form-control'
-          = hidden_field_tag :record_id, ""
-          .record_modal_footer
-            %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} 取消
-            = submit_tag "確定", class: "btn btn-success"

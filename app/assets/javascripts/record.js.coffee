@@ -9,10 +9,6 @@ $ ->
     $('#record_category').val($('tbody.income_main_category td.warning').data('category-id'))
     $('#record_sub_category').val($('tbody.income_category.sub_category td.warning').data('subcategory-id'))
 
-  $('a#record_modal_link').on 'click', (event) ->
-    $('#remark').val($(this).data('remark'))
-    $('#record_id').val($(this).data('record-id'))
-
   $('tbody.expense_main_category tr td').on 'click', (event) ->
     $('tbody.expense_main_category tr td.warning').attr('class','')
     $(this).attr('class','warning')

@@ -11,7 +11,6 @@ class Record < ActiveRecord::Base
 
   def calculate_record_amount(main_currency)
     return nil unless mount
-    binding.pry
     return mount if main_currency.currency_code == record_currency.currency_code
     mount * main_currency.rate / record_currency.rate
   end
