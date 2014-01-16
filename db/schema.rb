@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140110035850) do
+ActiveRecord::Schema.define(version: 20140116025406) do
 
   create_table "category_table", force: true do |t|
     t.string   "category",                    null: false
@@ -180,7 +180,7 @@ ActiveRecord::Schema.define(version: 20140110035850) do
     t.string   "project"
     t.string   "fee"
     t.decimal  "in_amount",      precision: 16, scale: 2
-    t.decimal  "out_amount",     precision: 10, scale: 0
+    t.decimal  "out_amount",     precision: 16, scale: 2
     t.string   "in_currency"
     t.string   "out_currency"
     t.integer  "user_id"

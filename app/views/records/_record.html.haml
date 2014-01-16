@@ -7,7 +7,7 @@
     = record.mount
 %td= record.date.strftime("%Y/%m/%d")
 %td
-  - if( record.record_out_payment && record.record_in_payment)
+  - if( record.out_payment.present? && record.in_payment.present?)
     = "#{record.record_in_payment.payment_name} » #{record.record_out_payment.payment_name}"
   - elsif record.record_out_payment
     = record.record_out_payment.payment_name
@@ -25,9 +25,14 @@
   = record.remark
 %td
   %button.btn.btn-xs.btn-success.btn-edit
-    = link_to edit_record_path(record) do
-      %span.glyphicon.glyphicon-pencil
-      修改
+    - if( record.out_payment.present? && record.in_payment.present?)
+      = link_to record_transfer_edit_path(record) do
+        %span.glyphicon.glyphicon-pencil
+        修改
+    - else
+      = link_to edit_record_path(record) do
+        %span.glyphicon.glyphicon-pencil
+        修改
   %button.btn.btn-xs.btn-danger.btn-remove
     = link_to record_path(record, month_from_now: params[:month_from_now]), method: :delete, data: { confirm: 'Are you sure?' } do
       %span.glyphicon.glyphicon-remove

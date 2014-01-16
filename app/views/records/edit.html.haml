@@ -28,14 +28,14 @@
             %span.input-group-addon
               %span.glyphicon.glyphicon-book
               商家
-            - if @record.payee
+            - if @record.payee.present?
               = f.text_field(:payee, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myStoreModal", value: @record.record_payee.payee_name})
             - else
               = f.text_field(:payee, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myStoreModal"})
             %span.input-group-addon
               %span.glyphicon.glyphicon-book
               專案
-            - if @record.project
+            - if @record.project.present?
               = f.text_field(:project, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myProjectModal", value: @record.record_project.project_name})
             - else
               = f.text_field(:project, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myProjectModal"})

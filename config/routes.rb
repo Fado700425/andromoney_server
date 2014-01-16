@@ -14,7 +14,13 @@ AndromoneyServer::Application.routes.draw do
   get "/" => 'welcome#front',  constraints: {subdomain: 'test'}
   root to: redirect("http://www.andromoney.com")
 
-  resources :records
+  resources :records do
+    get "transfer_edit"
+    patch "transfer_update"
+    collection do
+      post "transfer"
+    end
+  end
   resources :budgets
   resources :reports
   resources :payments
@@ -27,6 +33,7 @@ AndromoneyServer::Application.routes.draw do
     collection do
       get 'expense_subcategories'
       get 'income_subcategories'
+      get 'transfer_subcategories'
     end
   end
   # get 'home', controller: 'accounts', action: 'info'

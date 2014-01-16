@@ -9,10 +9,10 @@ class Record < ActiveRecord::Base
 
   scope :month_from_now, ->(num) { where("date > ? AND  date < ?", (Time.now + num.month).beginning_of_month, (Time.now + num.month).end_of_month) }
 
-  def calculate_record_amount(main_currency)
+  def calculate_record_amount(currency)
     return nil unless mount
-    return mount if main_currency.currency_code == record_currency.currency_code
-    mount * main_currency.rate / record_currency.rate
+    return mount if currency.currency_code == record_currency.currency_code
+    mount * currency.rate / record_currency.rate
   end
 
   def record_currency
