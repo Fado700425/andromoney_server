@@ -117,7 +117,8 @@ private
     record.update_time = DateTime.now.utc
     record.project = Project.find_by(project_name: record.project, user_id: current_user.id).hash_key if record.project.present?
 
-    payment = Payment.find_by(payment_name: record.out_payment, user_id: current_user.id)
+    out_payment_name = record.out_payment.split('(')[0]
+    payment = Payment.find_by(payment_name: out_payment_name, user_id: current_user.id)
     record.out_payment = payment.hash_key
     init_record = Record.find_by(out_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: current_user.id)
     record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
@@ -128,8 +129,11 @@ private
       record.out_amount = record.calculate_record_amount(Currency.find_by(currency_code: record.record_out_payment.currency_code, user_id: current_user.id))
     end
 
-    payment = Payment.find_by(payment_name: record.in_payment, user_id: current_user.id) 
-    record.in_payment = payment.hash_key if record.in_payment
+    if record.in_payment
+      in_payment_name = record.in_payment.split('(')[0]
+      payment = Payment.find_by(payment_name: in_payment_name, user_id: current_user.id) 
+      record.in_payment = payment.hash_key
+    end
 
     if record.currency_code != record.record_in_payment.currency_code
       record.in_currency = record.record_in_payment.currency_code
@@ -141,7 +145,8 @@ private
     record.mount = 0 unless record.mount
 
     if record.out_payment
-      payment = Payment.find_by(payment_name: record.out_payment, user_id: current_user.id)
+      out_payment_name = record.out_payment.split('(')[0]
+      payment = Payment.find_by(payment_name: out_payment_name, user_id: current_user.id)
       record.out_payment = payment.hash_key
       init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: current_user.id)
       record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
@@ -154,7 +159,8 @@ private
     end
 
     if record.in_payment
-      payment = Payment.find_by(payment_name: record.in_payment, user_id: current_user.id) 
+      in_payment_name = record.in_payment.split('(')[0]
+      payment = Payment.find_by(payment_name: in_payment_name, user_id: current_user.id) 
       record.in_payment = payment.hash_key if record.in_payment
       init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: current_user.id)
       record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code

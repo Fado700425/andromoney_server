@@ -21,19 +21,24 @@
                 = image_tag("currency_sign_dollar.png", width: "15px")
                 金額
               = f.number_field(:mount, class: "form-control", :step => 'any')
-              %span.input-group-addon
-                %span.glyphicon.glyphicon-arrow-right
-              = f.number_field(:in_amount, class: "form-control", :step => 'any')
+              - if @record.record_in_payment.currency_code == @record.record_out_payment.currency_code
+                %span.input-group-addon.hide.in_amout
+                  %span.glyphicon.glyphicon-arrow-right
+                = f.number_field(:in_amount, class: "form-control hide in_amout", :step => 'any')
+              - else
+                %span.input-group-addon.in_amout
+                  %span.glyphicon.glyphicon-arrow-right
+                = f.number_field(:in_amount, class: "form-control in_amout", :step => 'any')
               
             %br
             .input-group
               %span.input-group-addon
                 %span.glyphicon.glyphicon-book
                 帳戶
-              = f.text_field(:out_payment, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myInPaymentModal", value: @record.record_in_payment.payment_name, id: "transfer_in_payment"})
+              = f.text_field(:out_payment, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myOutPaymentModal", value: "#{@record.record_out_payment.payment_name}(#{@record.record_out_payment.currency_code})", id: "transfer_out_payment", "currency-code" => @record.record_out_payment.currency_code})
               %span.input-group-addon
                 %span.glyphicon.glyphicon-arrow-right
-              = f.text_field(:in_payment, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myOutPaymentModal", value: @record.record_out_payment.payment_name, id: "transfer_out_payment"})
+              = f.text_field(:in_payment, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myInPaymentModal", value: "#{@record.record_in_payment.payment_name}(#{@record.record_in_payment.currency_code})", id: "transfer_in_payment","currency-code" => @record.record_in_payment.currency_code})
             
             / %br
             / .input-group
@@ -50,7 +55,7 @@
               - if @record.project.present?
                 = f.text_field(:project, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myProjectModal",value: @record.record_project.project_name})
               -else
-                - f.text_field(:project, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myProjectModal"})
+                = f.text_field(:project, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myProjectModal"})
                 
             = f.hidden_field :category, value: @transfer_category[0][0].hash_key, id: "transfer_category"
             = f.hidden_field :sub_category, value: @transfer_subcategories[0][0].hash_key, id: "transfer_sub_category"
@@ -87,7 +92,6 @@
               %br
               = f.submit "確定", class: "btn btn-primary btn-lg"
 
-
 #myInPaymentModal.modal.fade
   .modal-dialog
     .modal-content
@@ -101,19 +105,20 @@
               %tr
                 - payment_group.each_with_index do |payment,j|
                   - if(payment.hash_key == @record.in_payment)
-                    %td{data: {payment_id: payment.id, payment_name: payment.payment_name}, class: "warning"}
+                    %td{data: {payment_id: payment.id, payment_name: "#{payment.payment_name}(#{payment.currency_code})", currency_code: payment.currency_code}, class: "warning"}
                       .category
                         - icon_path = ["payment_icon/cash.png","payment_icon/card.png","payment_icon/bank.png"]
                         = image_tag icon_path[payment.kind], width: "40px"
                         %br
-                        = payment.payment_name
+                        = "#{payment.payment_name}(#{payment.currency_code})"
                   - else
-                    %td{data: {payment_id: payment.id, payment_name: payment.payment_name}}
+                    %td{data: {payment_id: payment.id, payment_name: "#{payment.payment_name}(#{payment.currency_code})",currency_code: payment.currency_code}}
                       .category
                         - icon_path = ["payment_icon/cash.png","payment_icon/card.png","payment_icon/bank.png"]
                         = image_tag icon_path[payment.kind], width: "40px"
                         %br
-                        = payment.payment_name
+                        = "#{payment.payment_name}(#{payment.currency_code})"
+
 
 #myOutPaymentModal.modal.fade
   .modal-dialog
@@ -128,19 +133,20 @@
               %tr
                 - payment_group.each_with_index do |payment,j|
                   - if(payment.hash_key == @record.out_payment)
-                    %td{data: {payment_id: payment.id, payment_name: payment.payment_name}, class: "warning"}
+                    %td{data: {payment_id: payment.id, payment_name: "#{payment.payment_name}(#{payment.currency_code})",currency_code: payment.currency_code}, class: "warning"}
                       .category
                         - icon_path = ["payment_icon/cash.png","payment_icon/card.png","payment_icon/bank.png"]
                         = image_tag icon_path[payment.kind], width: "40px"
                         %br
-                        = payment.payment_name
+                        = "#{payment.payment_name}(#{payment.currency_code})"
                   - else
-                    %td{data: {payment_id: payment.id, payment_name: payment.payment_name}}
+                    %td{data: {payment_id: payment.id, payment_name: "#{payment.payment_name}(#{payment.currency_code})", currency_code: payment.currency_code}}
                       .category
                         - icon_path = ["payment_icon/cash.png","payment_icon/card.png","payment_icon/bank.png"]
                         = image_tag icon_path[payment.kind], width: "40px"
                         %br
-                        = payment.payment_name
+                        = "#{payment.payment_name}(#{payment.currency_code})"
+
 
 #myProjectModal.modal.fade
   .modal-dialog

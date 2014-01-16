@@ -21,9 +21,9 @@
               %span.glyphicon.glyphicon-book
               帳戶
             - if @record.out_payment
-              = f.text_field(:out_payment, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myPaymentModal", value: @record.record_out_payment.payment_name})
+              = f.text_field(:out_payment, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myPaymentModal", value: "#{@record.record_out_payment.payment_name}(#{@record.record_out_payment.currency_code})"})
             - else
-              = f.text_field(:out_payment, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myPaymentModal", value: @record.record_in_payment.payment_name, name: "record[in_payment]"})
+              = f.text_field(:out_payment, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myPaymentModal", value: "#{@record.record_in_payment.payment_name}(#{@record.record_in_payment.currency_code})", name: "record[in_payment]"})
             
             %span.input-group-addon
               %span.glyphicon.glyphicon-book
@@ -114,19 +114,19 @@
               %tr
                 - payment_group.each_with_index do |payment,j|
                   - if(payment.hash_key == (@record.in_payment || @record.out_payment))
-                    %td{data: {payment_id: payment.id, payment_name: payment.payment_name}, class: "warning"}
+                    %td{data: {payment_id: payment.id, payment_name: "#{payment.payment_name}(#{payment.currency_code})"}, class: "warning"}
                       .category
                         - icon_path = ["payment_icon/cash.png","payment_icon/card.png","payment_icon/bank.png"]
                         = image_tag icon_path[payment.kind], width: "40px"
                         %br
-                        = payment.payment_name
+                        = "#{payment.payment_name}(#{payment.currency_code})"
                   - else
-                    %td{data: {payment_id: payment.id, payment_name: payment.payment_name}}
+                    %td{data: {payment_id: payment.id, payment_name: "#{payment.payment_name}(#{payment.currency_code})"}}
                       .category
                         - icon_path = ["payment_icon/cash.png","payment_icon/card.png","payment_icon/bank.png"]
                         = image_tag icon_path[payment.kind], width: "40px"
                         %br
-                        = payment.payment_name
+                        = "#{payment.payment_name}(#{payment.currency_code})"
 
 
 #myStoreModal.modal.fade

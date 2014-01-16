@@ -85,12 +85,23 @@ $ ->
     $(this).attr('class','warning')
     $('#myInPaymentModal').modal('toggle')
     $('#transfer_in_payment').val($(this).data('payment-name'))
+    $('#transfer_in_payment').attr('currency-code',$(this).data('currency-code'))
+    if($('#transfer_in_payment').attr('currency-code') == $('#transfer_out_payment').attr('currency-code'))
+      $('.in_amout').addClass("hide")
+    else
+      $('.in_amout').removeClass("hide")
+
 
   $('tbody.outaccount tr td').on 'click', (event) ->
     $('tbody.outaccount tr td.warning').attr('class','')
     $(this).attr('class','warning')
     $('#myOutPaymentModal').modal('toggle')
     $('#transfer_out_payment').val($(this).data('payment-name'))
+    $('#transfer_out_payment').attr('currency-code',$(this).data('currency-code'))
+    if($('#transfer_in_payment').attr('currency-code') == $('#transfer_out_payment').attr('currency-code'))
+      $('.in_amout').addClass("hide")
+    else
+      $('.in_amout').removeClass("hide")
 
 
 

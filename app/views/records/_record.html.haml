@@ -8,7 +8,7 @@
 %td= record.date.strftime("%Y/%m/%d")
 %td
   - if( record.out_payment.present? && record.in_payment.present?)
-    = "#{record.record_in_payment.payment_name} » #{record.record_out_payment.payment_name}"
+    = "#{record.record_out_payment.payment_name} » #{record.record_in_payment.payment_name}"
   - elsif record.record_out_payment
     = record.record_out_payment.payment_name
   - elsif
