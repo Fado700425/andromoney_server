@@ -3,9 +3,13 @@
 
   .col-xs-12.col-sm-10
     .row
-      = link_to new_record_path(month_from_now: params[:month_from_now]), class: "btn btn-primary btn-lg add_new" do
-        %span.glyphicon.glyphicon-plus
-        新增一筆        
+      .pull-left
+        = link_to new_record_path(month_from_now: params[:month_from_now]), class: "btn btn-primary btn-lg add_new" do
+          %span.glyphicon.glyphicon-plus
+          新增一筆 
+      .btn-group.col-lg-3.ml-nav
+        = link_to "«上個月", home_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
+        = link_to "下個月»", home_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
     .row  
       .module
         .module-header
@@ -34,6 +38,10 @@
                   %tr.item-transactions.danger
                     = render 'record', record: record
     .row
+      .pull-left
+        = link_to new_record_path(month_from_now: params[:month_from_now]), class: "btn btn-primary btn-lg add_new" do
+          %span.glyphicon.glyphicon-plus
+          新增一筆 
       .btn-group.col-lg-3.ml-nav
         = link_to "«上個月", home_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
         = link_to "下個月»", home_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
