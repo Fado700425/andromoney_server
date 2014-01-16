@@ -22,7 +22,7 @@ class RecordsController < ApplicationController
     set_record_submit_value(@record)
 
     if @record.save
-      flash[:notice] = "Create success"      
+      flash[:info] = "Create success"      
     else
       flash[:error] = "Create fail!"
     end
@@ -38,7 +38,7 @@ class RecordsController < ApplicationController
     
 
     if record.save
-      flash[:notice] = "Create success"      
+      flash[:info] = "Create success"      
     else
       flash[:error] = "Create fail!"
     end
@@ -101,7 +101,7 @@ class RecordsController < ApplicationController
 
   def destroy
     Record.delete(params[:id])
-    flash[:notice] = "delete success"
+    flash[:info] = "delete success"
     redirect_to records_path(month_from_now: params[:month_from_now])
   end
 
