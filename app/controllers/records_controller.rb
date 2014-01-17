@@ -79,11 +79,16 @@ class RecordsController < ApplicationController
   end
 
   def index
+
+    if current_user.records.size > 0
     
-    if params[:month_from_now]
-      @records = current_user.records.month_from_now(params[:month_from_now].to_i)
+      if params[:month_from_now]
+        @records = current_user.records.month_from_now(params[:month_from_now].to_i)
+      else
+        @records = current_user.records.month_from_now(0)
+      end
     else
-      @records = current_user.records.month_from_now(0)
+      redirect_to start_use_path
     end
 
   end

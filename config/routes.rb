@@ -14,6 +14,8 @@ AndromoneyServer::Application.routes.draw do
   get "/" => 'welcome#front',  constraints: {subdomain: 'test'}
   root to: redirect("http://www.andromoney.com")
 
+  get 'start_use', controller: 'start', action: 'index'
+
   resources :records do
     get "transfer_edit"
     patch "transfer_update"

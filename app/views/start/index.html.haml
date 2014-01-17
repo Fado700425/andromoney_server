@@ -1,19 +1,20 @@
 %br
 .row.text-center
   .col-xs-10.col-sm-9.col-md-offset-1
+    .page-header
+      %h1
+        請先下載手機端軟體, 並同步後再開始使用 AndroMoney 雲端服務!
     %ul#myTab.nav.nav-tabs.nav-justified
       %li.active
         = link_to "#{image_tag('android-icon.png')}Android".html_safe,"#android", :data => {:toggle=>"tab"}
       %li
         = link_to "#{image_tag('apple-icon.png')}iPhone".html_safe,"#iphone", :data => {:toggle=>"tab"}
-      %li
-        = link_to "#{image_tag('icon-50.png')}AndroMoney 雲端平台".html_safe,"#web", :data => {:toggle=>"tab"}
     %br
     #myTabContent.tab-content
       #android.tab-pane.fade.in.active
         .row.featurette
           .col-md-3.col-md-offset-3
-            = image_tag('android_index.png',class: "featurette-image img-responsive")
+            = link_to(image_tag('android_index.png',class: "featurette-image img-responsive"),"https://play.google.com/store/apps/details?id=com.kpmoney.android")
           .col-md-5
             %h2.text-danger
               榮獲Google Play 優質效率排行工具之理財推薦APP
@@ -58,7 +59,7 @@
       #iphone.tab-pane.fade
         .row.featurette
           .col-md-3.col-md-offset-3
-            = image_tag('android_index.png',class: "featurette-image img-responsive")
+            = link_to(image_tag('android_index.png',class: "featurette-image img-responsive"),"https://play.google.com/store/apps/details?id=com.kpmoney.android")
           .col-md-5
             %h2.text-danger
               iPhone 必備APP
@@ -94,42 +95,3 @@
                     %span.glyphicon.glyphicon-ok
             %p.lead 
               = link_to(image_tag('badge_ios.png'),"https://itunes.apple.com/tw/app/andromoney-lite/id715504756?mt=8")
-      #web.tab-pane.fade
-        .row.featurette
-          .col-md-3.col-md-offset-3
-            = image_tag('android_index.png',class: "featurette-image img-responsive")
-          .col-md-5
-            %h2.text-danger
-              最完善的雲端記帳服務
-            %table.table.table-striped
-              %tbody
-                %tr
-                  %td 單筆記帳
-                  %td
-                    %span.glyphicon.glyphicon-ok
-                %tr
-                  %td 預算管理
-                  %td
-                    %span.glyphicon.glyphicon-ok
-                %tr
-                  %td 消費類別管理
-                  %td
-                    %span.glyphicon.glyphicon-ok
-                %tr
-                  %td 多帳戶功能
-                  %td
-                    %span.glyphicon.glyphicon-ok
-                %tr
-                  %td 不同貨幣
-                  %td
-                    %span.glyphicon.glyphicon-ok
-                %tr
-                  %td 統計圖表分析
-                  %td
-                    %span.glyphicon.glyphicon-ok
-                %tr
-                  %td 多平台同步
-                  %td
-                    %span.glyphicon.glyphicon-ok
-            %p.lead 
-              = link_to("立即登入#{image_tag('icon.png')}".html_safe,"/auth/google_login")

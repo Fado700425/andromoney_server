@@ -16,13 +16,14 @@ class SessionsController < ApplicationController
     end
     
     if user.save
-      if @new_user
-        user.messages.create(context: "恭喜你開始使用 AndroMoney!")
-        create_user_basic_datas(user)
-      end
       session[:user_id] = user.id
       flash[:info] = "Signed in!"
-      redirect_to home_path, :notice => notice
+      if @new_user || user.records.size == 0
+        user.messages.create(context: "恭喜你開始使用 AndroMoney!") if @new_user
+        redirect_to start_use_path
+      else
+        redirect_to home_path, :notice => notice
+      end
     else
       raise "Failed to login"
     end

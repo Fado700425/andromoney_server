@@ -1,5 +1,5 @@
 .row.row-offcanvas.row-offcanvas-right
-  = render 'shared/sidebar'
+  = render 'shared/sidebar' if current_user.records.size > 0
 
   .col-sm-9
     .panel.panel-info
