@@ -33,6 +33,7 @@ AndromoneyServer::Application.routes.draw do
   end
   resources :categories do
     collection do
+      get 'index_table_expense_subcategories'
       get 'expense_subcategories'
       get 'income_subcategories'
       get 'transfer_subcategories'

@@ -1,0 +1,7 @@
+.table.table-striped #category-index{
+    cursor:pointer;
+}
+
+.selected{
+  background-color: #BACA45;
+}
