@@ -1,85 +1,54 @@
 .row.row-offcanvas.row-offcanvas-right
   = render 'shared/sidebar'
 
-  .col-sm-9
-    .col-sm-1
-      %ul.nav.nav-pills.nav-stacked{"data-tabs" => "tabs"}
-        %li.active
-          %a{"data-toggle" => "tab", :href => "#all"} 全部
-        %li
-          %a{"data-toggle" => "tab", :href => "#expand"} 支出
-        %li
-          %a{"data-toggle" => "tab", :href => "#orange"} 收入
-        %li
-          %a{"data-toggle" => "tab", :href => "#yellow"} 轉帳
-        %li
-          %a{"data-toggle" => "tab", :href => "#green"} 借貸
-    .col-sm-11
-      #my-tab-content.tab-content
-        #all.tab-pane.active
+  .row
+    .col-xs-12.col-sm-10
+      .panel.panel-info
+        .panel-heading
+          %h3.panel-title 帳戶總覽
+        .panel-body
+          .col-sm-3
+            .content_chart1
+              %p 
+                %table.statTable
+                  %tbody
+                    %tr
+                      %td 總資產
+                      %td
+                        %span#info_today.redMoney.cutlong ￥50.00
+                    %tr
+                      %td 總負債
+                      %td
+                        %span#info_month.redMoney.cutlong ￥1550.00
+                    %tr
+                      %td 結餘
+                      %td
+                        %span#info_year.redMoney.cutlong ￥11639218.00
+      .row
+        .module-content.table-responsive
           %table.table.table-striped
             %thead
               %tr
-                %th 
-                %th 時間
-                %th 金額
-                %th 類別
+                %th 帳戶
+                %th 初始金額
+                %th 收入
+                %th 支出
+                %th 帳戶結餘
+                %th
             %tbody
               %tr
-                %td 1
-                %td 2013/12/23
-                %td.text-danger NT$ 100
-                %td 食
-              %tr
-                %td 2
-                %td 2013/12/23
-                %td.text-danger NT$ 50
-                %td 衣
-              %tr
-                %td 3
-                %td 2013/12/23
-                %td.text-danger NT$ 3999
-                %td 住
-        #expand.tab-pane
-          帳戶: 支出
-          %br
-          時間: 2013/12/23 ~ 2013/12/23
-          %table.table.table-striped
-            %thead
-              %tr
-                %th 
-                %th 時間
-                %th 金額
-                %th 類別
-            %tbody
-              %tr
-                %td 1
-                %td 2013/12/23
-                %td.text-danger NT$ 100
-                %td 食
-              %tr
-                %td 2
-                %td 2013/12/23
-                %td.text-danger NT$ 50
-                %td 衣
-              %tr
-                %td 3
-                %td 2013/12/23
-                %td.text-danger NT$ 3999
-                %td 住
-      .pull-right
-        %ul.pagination
-          %li
-            %a{:href => "#"} &laquo;
-          %li
-            %a{:href => "#"} 1
-          %li
-            %a{:href => "#"} 2
-          %li
-            %a{:href => "#"} 3
-          %li
-            %a{:href => "#"} 4
-          %li
-            %a{:href => "#"} 5
-          %li
-            %a{:href => "#"} &raquo;
+                %td 類別
+                %td 金額
+                %td 日期
+                %td 帳戶
+                %td 專案
+                %td
+                  %button.btn.btn-xs.btn-success.btn-edit
+                    = link_to "" do
+                      %span.glyphicon.glyphicon-pencil
+                      修改
+                  %button.btn.btn-xs.btn-danger.btn-remove
+                    = link_to "", method: :delete, data: { confirm: 'Are you sure?' } do
+                      %span.glyphicon.glyphicon-remove
+
+          

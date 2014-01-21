@@ -1,35 +1,118 @@
+- icon_path = ["payment_icon/cash.png","payment_icon/card.png","payment_icon/bank.png"]
+- type = ["現金","卡片","銀行"]
 .row.row-offcanvas.row-offcanvas-right
   = render 'shared/sidebar'
 
-  .col-xs-12.col-sm-10   
-    .row  
-      .module
-        .module-header
-          %h4 帳戶管理
+  .row
+    .col-xs-12.col-sm-10
+      = link_to "#a","data-toggle" => "modal", 'data-target' => "#myNewAccountModal", class: "btn btn-primary btn-lg add_new" do
+        %span.glyphicon.glyphicon-plus
+        新增帳戶
+      .row
+        .panel.panel-success
+          .panel-heading
+            %h3.panel-title 帳戶總覽
+          .panel-body
+            .col-sm-3
+              .content_chart1
+                %p 
+                  %table.statTable
+                    %tbody
+                      %tr
+                        %td 總資產
+                        %td
+                          %span#info_today.redMoney.cutlong ￥50.00
+                      %tr
+                        %td 總負債
+                        %td
+                          %span#info_month.redMoney.cutlong ￥1550.00
+                      %tr
+                        %td 結餘
+                        %td
+                          %span#info_year.redMoney.cutlong ￥11639218.00
+      .row
         .module-content.table-responsive
           %table.table.table-striped
             %thead
               %tr
-                %th 類別
-                %th 名稱
+                %th 帳戶類別
+                %th 帳戶名稱
+                %th 初始金額
+                %th 收入
+                %th 支出
+                %th 帳戶結餘
                 %th
             %tbody
               - @payments.each do |payment|
                 %tr
-                  - icon_path = ["payment_icon/cash.png","payment_icon/card.png","payment_icon/bank.png"]
-                        
-                  %td= image_tag icon_path[payment.kind], width: "40px"
-                  %td= payment.payment_name
                   %td
-                    %button.btn.btn-xs.btn-success.btn-edit
-                      = link_to "","data-toggle" => "modal", 'data-target' => "#myModal", id: "record_modal_link" do
+                    = image_tag icon_path[payment.kind], width: "40px"
+                    = type[payment.kind]
+                  %td= payment.payment_name
+                  %td NT$ 1000000
+                  %td NT$ 500000
+                  %td NT$ 100000
+                  %td NT$ 1000
+                  %td
+                    %button.btn.btn-xs.btn-success.btn-edit.edit_category
+                      = link_to "#a","data-toggle" => "modal", 'data-target' => "#myAccountModal", data:{kind:payment.kind,name: payment.payment_name, initial: 0, payment_id: payment.id} do
                         %span.glyphicon.glyphicon-pencil
                         修改
                     %button.btn.btn-xs.btn-danger.btn-remove
                       = link_to payment_path(payment), method: :delete, data: { confirm: 'Are you sure?' } do
                         %span.glyphicon.glyphicon-remove
-    .row
-      = link_to new_record_path(month_from_now: params[:month_from_now]), class: "btn btn-primary btn-lg add_new" do
-        %span.glyphicon.glyphicon-plus
-        新增一筆     
+
+#myAccountModal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %a.close{"data-dismiss" => "modal"} &times;
+        %h4 修改帳戶
+      .modal-body
+
+        = form_tag payment_path(1), class: "form-horizontal" do
+          .form-group
+            %label.col-sm-2.control-label 類別
+            .col-sm-10
+              = select_tag "payment[kind]", options_for_select([['現金', 0], ['信用卡', 1],['銀行', 2]], 0)
+              = image_tag icon_path[0], id: "payment_modal_pic",width: "40px",data:{pic_0: image_path("payment_icon/cash.png"), pic_1: image_path("payment_icon/card.png"), pic_2: image_path("payment_icon/bank.png")}
+          .form-group
+            %label.col-sm-2.control-label{:for => "payment_payment_name"} 名稱
+            .col-sm-10
+              = text_field_tag "payment[payment_name]","", class: "form-control",placeholder: "請輸入名稱"
+          .form-group
+            %label.col-sm-2.control-label{:for => "payment_payment_name"} 初始金額
+            .col-sm-10
+              = number_field_tag "initial_amount","", class: "form-control",placeholder: "請輸入初始金額"
+          = hidden_field_tag "payment_id"
+          .record_modal_footer
+            = submit_tag "確定", class: "btn btn-primary"
+
+
+#myNewAccountModal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %a.close{"data-dismiss" => "modal"} &times;
+        %h4 新增帳戶
+      .modal-body
+
+        = form_tag payments_path, class: "form-horizontal" do
+          .form-group
+            %label.col-sm-2.control-label 類別
+            .col-sm-10
+              = select_tag "payment[kind]", options_for_select([['現金', 0], ['信用卡', 1],['銀行', 2]], 0)
+              = image_tag icon_path[0], id: "payment_modal_pic",width: "40px",data:{pic_0: image_path("payment_icon/cash.png"), pic_1: image_path("payment_icon/card.png"), pic_2: image_path("payment_icon/bank.png")}
+          .form-group
+            %label.col-sm-2.control-label{:for => "payment_payment_name"} 名稱
+            .col-sm-10
+              = text_field_tag "payment[payment_name]","", class: "form-control",placeholder: "請輸入名稱"
+          .form-group
+            %label.col-sm-2.control-label{:for => "payment_payment_name"} 初始金額
+            .col-sm-10
+              = number_field_tag "initial_amount","", class: "form-control",placeholder: "請輸入初始金額"
+          .record_modal_footer
+            = submit_tag "確定", class: "btn btn-primary"
+
+
                 
