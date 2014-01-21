@@ -1,64 +1,131 @@
 .row.row-offcanvas.row-offcanvas-right
   = render 'shared/sidebar'
   
-  .col-sm-9
-    .panel.panel-info
-      .panel-heading
-        %h3.panel-title 總預算
-      .panel-body
-        .progress.col-sm-3
-          .progress-bar{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "60", :role => "progressbar", :style => "width: 60%;"}
-            %span.sr-only 60% Complete
-        %span.left.total_money.text-info 2045371.00
-        %span.total_balance.left.cutlong
-          %span 余额:
-          %span.total_balance_money.text-danger -3456214.00
-        %input#setTotalBudget.btn1.left{:type => "button", :value => "设置"}
-          %input#getBudgetId.btn2.left{:type => "button", :value => "清空"}
+  .row
+    .col-xs-12.col-sm-10
+      .panel.panel-success
+        .panel-heading
+          %h3.panel-title 預算概覽
+        .panel-body
+          .col-sm-5.col-xs-6
+            %span.text-warning
+              2014-01-21(二)
+            %table.table.table-striped
+              %tbody
+                %tr
+                  %td 預算
+                  %td.text-success NT$ 100
+                %tr
+                  %td 支出
+                  %td.text-danger NT$ 100
+                %tr
+                  %td 結餘
+                  %td NT$ 100
+          .col-sm-5.col-xs-6
+            = image_tag "battery/battery100.png"
 
-    .panel.panel-success
-      .panel-heading
-        %h3.panel-title 子預算
-      .panel-body
-        .child-budget.clearfix
-          .col-sm-1
-            食
-          .progress.col-sm-3
-            .progress-bar{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "60", :role => "progressbar", :style => "width: 60%;"}
-              %span.sr-only 60% Complete
-          .col-sm-8
-            %span.left.total_money.text-info 2045371.00
-            %span.total_balance.left.cutlong
-              %span 余额:
-              %span.total_balance_money.text-danger -3456214.00
-            %input#setTotalBudget.btn1.left{:type => "button", :value => "设置"}
-              %input#getBudgetId.btn2.left{:type => "button", :value => "清空"}
-        .child-budget.clearfix
-          .col-sm-1
-            食
-          .progress.col-sm-3
-            .progress-bar{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "60", :role => "progressbar", :style => "width: 60%;"}
-              %span.sr-only 60% Complete
-          .col-sm-8
-            %span.left.total_money.text-info 2045371.00
-            %span.total_balance.left.cutlong
-              %span 余额:
-              %span.total_balance_money.text-danger -3456214.00
-            %input#setTotalBudget.btn1.left{:type => "button", :value => "设置"}
-              %input#getBudgetId.btn2.left{:type => "button", :value => "清空"}
-        .child-budget.clearfix
-          .col-sm-1
-            食
-          .progress.col-sm-3
-            .progress-bar{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "60", :role => "progressbar", :style => "width: 60%;"}
-              %span.sr-only 60% Complete
-          .col-sm-8
-            %span.left.total_money.text-info 2045371.00
-            %span.total_balance.left.cutlong
-              %span 余额:
-              %span.total_balance_money.text-danger -3456214.00
-            %input#setTotalBudget.btn1.left{:type => "button", :value => "设置"}
-              %input#getBudgetId.btn2.left{:type => "button", :value => "清空"}
-    
 
-  
+      .panel.panel-info
+        .panel-heading
+          %h3.panel-title 預算管理
+        .panel-body
+          .panel.panel-info
+            .panel-body
+              每月預算 NT$ 100
+              = link_to "設定預算", "#a", class: "btn btn-primary", "data-toggle" => "modal", href: "#myBudgetModal"
+          %table.table.table-striped
+            %tbody
+              %tr
+                %td 每年預算
+                %td.text-success NT$ 1200
+              %tr
+                %td 每週預算
+                %td.text-danger NT$ 100
+              %tr
+                %td 每日預算
+                %td NT$ 10
+          .category-budget
+            = check_box "budget", "category", {:checked => "checked"} 
+            針對特定類別設定預算
+          .category-budget-setting
+            %table.table.table-striped
+              %thead
+                %tr
+                  %th 類別
+                  %th 預算
+                  %th 支出
+                  %th 結餘
+                  %th 佔總預算比例
+                  %th 概況
+                  %th
+              %tbody
+                - @expense_category.each do |category|
+                  %tr
+                    %td
+                      = image_tag category.photo_path, width: "50px"
+                      = category.category
+                    %td.text-success NT$ 100000
+                    %td.text-danger NT$ 100
+                    %td NT$ 100
+                    %td 佔75%
+                    %td= image_tag "battery/battery100.png", width: "50px"
+                    %td
+                      %button.btn.btn-xs.btn-success.btn-edit
+                        = link_to "", "data-toggle" => "modal", href: "#myCategoryBudgetModal" do
+                          %span.glyphicon.glyphicon-pencil
+                          修改
+
+
+#myBudgetModal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %a.close{"data-dismiss" => "modal"} &times;
+        %h4 設定每月預算
+      .modal-body
+        = form_tag budgets_path, class: "form-horizontal" do
+          .form-group
+            %label.col-sm-2.control-label 預算金額
+            .col-sm-10
+              = number_field_tag "budget","", class: "form-control",placeholder: "請輸入預算金額"
+          .record_modal_footer
+            = submit_tag "確定", class: "btn btn-primary"
+
+#myCategoryBudgetModal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %a.close{"data-dismiss" => "modal"} &times;
+        %h4 設定類別每月預算
+      .modal-body
+        %h4 總預算: $10000
+        %table.table.table-striped
+          %thead
+            %tr
+              %th 類別
+              %th 目前設定預算
+              %th 本月支出
+              %th 本月結餘
+          %tbody
+            %tr
+              %td
+                = image_tag "category_icon/fish.png"
+                %span.category_name
+                  餐飲食品
+              %td.text-success NT$ 100000
+              %td.text-danger NT$ 100
+              %td NT$ 100
+
+
+        = form_tag budgets_path, class: "form-horizontal" do
+          .form-group
+            %label.col-sm-2.control-label 預算金額
+            .col-sm-10
+              = number_field_tag "budget_amount","", class: "form-control",placeholder: "請輸入預算金額"
+          或
+          .form-group
+            %label.col-sm-2.control-label 佔總預算百分比
+            .col-sm-10
+              = number_field_tag "budget_persent","", class: "form-control",placeholder: "請輸入預算百分比"
+          .record_modal_footer
+            = submit_tag "確定", class: "btn btn-primary"
