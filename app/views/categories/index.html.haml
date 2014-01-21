@@ -9,7 +9,7 @@
         %li
           %a{id: "incomeLink","data-toggle" => "tab", :href => "#incomeTab"} 收入
         %li
-          %a{id: "transferLink","data-toggle" => "tab", :href => "transferTab"} 轉帳
+          %a{id: "transferLink","data-toggle" => "tab", :href => "#transferTab"} 轉帳
 
       .row
         = link_to new_category_path, class: "btn btn-primary btn-lg add_new" do
@@ -18,7 +18,6 @@
       .row
         #my-tab-content.tab-content
           #expenseTab.mltab-type.tab-pane.active.in{"data-type" => "income"}
-            .module-content.table-responsive
             %table.table.table-striped
               %thead
                 %tr
@@ -35,77 +34,59 @@
                       = image_tag category.photo_path, width: "40px"
                     %td
                       %button.btn.btn-xs.btn-success.btn-edit
-                        = link_to "" do
+                        = link_to edit_category_path(category) do
                           %span.glyphicon.glyphicon-pencil
                           修改
                       %button.btn.btn-xs.btn-danger.btn-remove
-                        = link_to "", method: :delete, data: { confirm: 'Are you sure?' } do
+                        = link_to category_path(category), method: :delete, data: { confirm: 'Are you sure?' } do
                           %span.glyphicon.glyphicon-remove
 
           #incomeTab.mltab-type.tab-pane{"data-type" => "expense"}
-            %table.table.table-bordered.category-table
-              %tbody.income_main_category
-                - @income_category.each_with_index do |category_group,i|
-                  %tr
-                    - category_group.each_with_index do |category,j|
-                      - if(i==0 && j==0)
-                        %td{data: {category_id: category.hash_key, category_name: category.category}, class: "warning"}
-                          .category
-                            = image_tag category.photo_path, width: "40px"
-                            %br
-                            = category.category
-                      - else
-                        %td{data: {category_id: category.hash_key, category_name: category.category}}
-                          .category
-                            = image_tag category.photo_path, width: "40px"
-                            %br
-                            = category.category
-                    - (1..3-category_group.size).each do |i|
-                      %td
-            %h4 子類別
-            %table.table.table-bordered.category-table
-              %tbody.sub_category.income_category
+            %table.table.table-striped
+              %thead
+                %tr
+                  %th 類別
+                  %th 名稱
+                  %th 圖片
+                  %th
+              %tbody
+                - @income_category.each_with_index do |category,i|
+                  %tr#category-index{data: {category_id: category.hash_key, category_name: category.category}}
+                    %td 支出
+                    %td #{category.category}
+                    %td
+                      = image_tag category.photo_path, width: "40px"
+                    %td
+                      %button.btn.btn-xs.btn-success.btn-edit
+                        = link_to edit_category_path(category) do
+                          %span.glyphicon.glyphicon-pencil
+                          修改
+                      %button.btn.btn-xs.btn-danger.btn-remove
+                        = link_to category_path(category), method: :delete, data: { confirm: 'Are you sure?' } do
+                          %span.glyphicon.glyphicon-remove
 
           #transferTab.mltab-type.tab-pane{"data-type" => "expense"}
-            %table.table.table-bordered.category-table
-              %tbody.transfer_main_category
-                - @income_category.each_with_index do |category_group,i|
-                  %tr
-                    - category_group.each_with_index do |category,j|
-                      - if(i==0 && j==0)
-                        %td{data: {category_id: category.hash_key, category_name: category.category}, class: "warning"}
-                          .category
-                            = image_tag category.photo_path, width: "40px"
-                            %br
-                            = category.category
-                      - else
-                        %td{data: {category_id: category.hash_key, category_name: category.category}}
-                          .category
-                            = image_tag category.photo_path, width: "40px"
-                            %br
-                            = category.category
-                    - (1..3-category_group.size).each do |i|
-                      %td
-            %h4 子類別
-            %table.table.table-bordered.category-table
-              %tbody.sub_category.transfer_category
+            %table.table.table-striped
+              %thead
+                %tr
+                  %th 類別
+                  %th 名稱
+                  %th 圖片
+                  %th
+              %tbody
+                - @transfer_category.each_with_index do |category,i|
+                  %tr#category-index{data: {category_id: category.hash_key, category_name: category.category}}
+                    %td 支出
+                    %td #{category.category}
+                    %td
+                      = image_tag category.photo_path, width: "40px"
+                    %td
+                      %button.btn.btn-xs.btn-success.btn-edit
+                        = link_to edit_category_path(category) do
+                          %span.glyphicon.glyphicon-pencil
+                          修改
+                      %button.btn.btn-xs.btn-danger.btn-remove
+                        = link_to category_path(category), method: :delete, data: { confirm: 'Are you sure?' } do
+                          %span.glyphicon.glyphicon-remove
 
-
-#myNewCategoryModal.modal.fade
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %a.close{"data-dismiss" => "modal"} &times;
-        %h4 新增主類別
-      .modal-body
-        %table.table.table-bordered.category-table
-          %tbody.project
-            - @images.each_with_index do |image_group,i|
-              %tr
-                - image_group.each_with_index do |image,j|
-                  %td
-                    .category
-                      = image_tag "category_icon/#{image.split('/').last}", width: "50px"
-                - (1..3-image_group.size).each do |i|
-                  %td
 

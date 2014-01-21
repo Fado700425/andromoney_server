@@ -39,6 +39,7 @@ AndromoneyServer::Application.routes.draw do
       get 'transfer_subcategories'
     end
   end
+  resources :subcategories, only: [:destroy]
   # get 'home', controller: 'accounts', action: 'info'
   get 'home', controller: 'records', action: 'index'
 

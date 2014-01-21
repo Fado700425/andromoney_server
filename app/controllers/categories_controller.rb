@@ -13,9 +13,8 @@ class CategoriesController < ApplicationController
 
   def index
     @expense_category = Category.where(type: 20, user_id: current_user.id)
-    @income_category = Category.where("type = 10 and hash_key != 'SYSTEM' and user_id = #{current_user.id}").each_slice(3).to_a
-    @transfer_category = Category.where(type: 30, user_id: current_user.id).each_slice(3).to_a
-    # @expense_subcategories = Subcategory.where(id_category: @expense_category.first[0].hash_key, user_id: current_user.id).each_slice(3).to_a
+    @income_category = Category.where("type = 10 and hash_key != 'SYSTEM' and user_id = #{current_user.id}")
+    @transfer_category = Category.where(type: 30, user_id: current_user.id)
     @images = Dir.glob("app/assets/images/category_icon/*").each_slice(3).to_a
   end
 
@@ -25,7 +24,23 @@ class CategoriesController < ApplicationController
   end
 
   def new
-    @caetgory = Category.new
+    @category = Category.new
     @images = Dir.glob("app/assets/images/category_icon/*").each_slice(8).to_a
+  end
+
+  def edit
+    @category = Category.find(params[:id])
+    @images = Dir.glob("app/assets/images/category_icon/*").each_slice(8).to_a
+    @subcategories = Subcategory.where(id_category: @category.hash_key, user_id: current_user.id)
+  end
+
+  def create
+    binding.pry
+  end
+
+  def destroy
+    binding.pry
+    # delete datas ?
+    # delete subcategory
   end
 end

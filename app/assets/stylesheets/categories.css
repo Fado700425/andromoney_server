@@ -5,3 +5,7 @@
 .selected{
   background-color: #BACA45;
 }
+
+table.table.category_edit_table td{
+  width: 33%;
+}

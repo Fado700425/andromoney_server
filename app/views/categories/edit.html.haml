@@ -1,0 +1,69 @@
+.row.row-offcanvas.row-offcanvas-right
+  = render 'shared/sidebar'
+
+  .row
+    .col-xs-12.col-sm-9
+      %header
+        %h3 新增主類別
+      = form_tag categories_path do
+        %table.table.category_edit_table
+          %thead
+            %tr
+              %th 類別型態
+              %th 類別名稱
+              %th 圖片
+          %tbody
+            %tr
+              %td
+                = select_tag "category[type]", options_for_select([['支出', 20], ['收入', 10],['轉帳', 30]], @category.type)
+              %td
+                = text_field_tag "category[category]", @category.category,placeholder: "請輸入名稱"
+              %td
+                = link_to "","data-toggle" => "modal", href: "#myNewCategoryModal" do
+                  = image_tag @category.photo_path, width: "40px", id: "category_pic"
+                  點擊可換圖片
+                = hidden_field_tag "category[image]", @category.photo_path
+        %table.table.category_edit_table
+          %thead
+            %tr
+              %th 編號
+              %th 子類別名稱
+              %th
+          %tbody
+            - @subcategories.each_with_index do |subcategory,i|
+              %tr
+                %td= i + 1
+                %td= text_field_tag "subcategorys[][subcategory]", subcategory.subcategory,placeholder: "請輸入名稱"
+                %td
+            %tr
+              %td= link_to "增加子類別","#a", class: "btn btn-default", add_id: @subcategories.size + 1, id: "add_subcategory"
+              %td
+              %td
+
+            
+
+        .pull-right
+          = submit_tag "確定修改", class: "btn btn-primary btn-lg"
+
+#myNewCategoryModal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %a.close{"data-dismiss" => "modal"} &times;
+        %h4 選擇類別圖片
+      .modal-body
+        %table.table.table-bordered.category-table
+          %tbody
+            - @images.each_with_index do |image_group,i|
+              %tr
+                - image_group.each_with_index do |image,j|
+                  -if image.split('/').last == @category.photo_path.split('/').last
+                    %td{data:{file: "category_icon/#{image.split('/').last}"}, class: "selected"}
+                      .category
+                        = image_tag "category_icon/#{image.split('/').last}", width: "50px"
+                  - else
+                    %td{data:{file: "category_icon/#{image.split('/').last}"}}
+                      .category
+                        = image_tag "category_icon/#{image.split('/').last}", width: "50px"
+                - (1..8-image_group.size).each do |i|
+                  %td
