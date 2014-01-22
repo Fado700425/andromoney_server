@@ -118,6 +118,7 @@
 
 
         = form_tag budgets_path, class: "form-horizontal" do
+          = hidden_field_tag "total_budget", 10000
           .form-group
             %label.col-sm-2.control-label 預算金額
             .col-sm-10
