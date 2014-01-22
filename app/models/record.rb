@@ -11,6 +11,10 @@ class Record < ActiveRecord::Base
 
   scope :order_by_date, ->{order("date ASC")}
 
+  def category_order_num
+    (category.split("_")[1].to_i*10 + category.split("_")[0].to_i) *1000 + (sub_category.split("_")[1].to_i*10 + sub_category.split("_")[0].to_i)
+  end
+
   def calculate_record_amount(currency)
     return nil unless mount
     return mount if currency.currency_code == record_currency.currency_code

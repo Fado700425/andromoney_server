@@ -88,11 +88,9 @@ class RecordsController < ApplicationController
         @records = current_user.records.month_from_now(0).order_by_date
       end
 
-      if params[:order] == "category"
-        @records = @records.sort{ |x,y|
-          (x.category.split("_")[1].to_i*10 + x.category.split("_")[0].to_i) <=> (y.category.split("_")[1].to_i*10 + y.category.split("_")[0].to_i)
-        }
-      end
+      
+      @records = @records.sort{ |x,y| x.category_order_num <=> y.category_order_num } if params[:order] == "category"
+
 
     else
       redirect_to start_use_path
