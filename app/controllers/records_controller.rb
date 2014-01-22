@@ -83,10 +83,17 @@ class RecordsController < ApplicationController
     if current_user.records.size > 0
     
       if params[:month_from_now]
-        @records = current_user.records.month_from_now(params[:month_from_now].to_i)
+        @records = current_user.records.month_from_now(params[:month_from_now].to_i).order_by_date
       else
-        @records = current_user.records.month_from_now(0)
+        @records = current_user.records.month_from_now(0).order_by_date
       end
+
+      if params[:order] == "category"
+        @records = @records.sort{ |x,y|
+          (x.category.split("_")[1].to_i*10 + x.category.split("_")[0].to_i) <=> (y.category.split("_")[1].to_i*10 + y.category.split("_")[0].to_i)
+        }
+      end
+
     else
       redirect_to start_use_path
     end
