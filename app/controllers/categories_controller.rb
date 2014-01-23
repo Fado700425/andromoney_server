@@ -35,15 +35,40 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    binding.pry
+    category = Category.new(category_param)
+    category.hidden = 0
+    category.order_no = 1000
+    category.hash_key = 
+    category.device_uuid = "computer"
+    category.update_time = DateTime.now.utc
+    category.hash_key = SecureRandom.urlsafe_base64
+    category.user_id = current_user.id
+    if category.save
+      params[:subcategorys].each do |sub|
+        create_sub_category(category,sub["subcategory"])
+      end
+    end
+    flash[:info] = "已成功新增類別！"
+    redirect_to edit_category_path(category)
   end
 
   def update
     category = Category.find(params[:id])
     category.update(category_param)
-    params[:subcategorys]
-    
-    # not finish
+    category.update_time = DateTime.now.utc
+    category.device_uuid = "computer"
+    category.save
+    params[:subcategorys].each do |sub|
+      if sub["subcategory_id"]
+        sub_cat = Subcategory.find(sub["subcategory_id"])
+        sub_cat.update_attribute(:subcategory,sub["subcategory"])
+        sub_cat.update_time = DateTime.now.utc
+        sub_cat.device_uuid = "computer"
+        sub_cat.save
+      else
+        create_sub_category(category,sub["subcategory"])
+      end
+    end
 
     redirect_to edit_category_path(category)
   end
@@ -54,7 +79,19 @@ class CategoriesController < ApplicationController
 
 private
   def category_param
-    params.require(:category).permit(:category,:photo_path)
+    params.require(:category).permit(:category,:photo_path,:type)
+  end
+
+  def create_sub_category category,subcategory
+    sub_cat = Subcategory.new(subcategory: subcategory)
+    sub_cat.id_category = category.hash_key
+    sub_cat.hidden = 0
+    sub_cat.order_no = 1000
+    sub_cat.hash_key = SecureRandom.urlsafe_base64
+    sub_cat.user_id = current_user.id
+    sub_cat.update_time = DateTime.now.utc
+    sub_cat.device_uuid = "computer"
+    sub_cat.save
   end
 
 end

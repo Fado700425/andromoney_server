@@ -9,3 +9,7 @@
 table.table.category_edit_table td{
   width: 33%;
 }
+
+h3.new_cat_title{
+  margin-top: 0px;
+}

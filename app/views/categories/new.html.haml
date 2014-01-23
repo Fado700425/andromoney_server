@@ -4,7 +4,7 @@
   .row
     .col-xs-12.col-sm-9
       %header
-        %h3 新增主類別
+        %h3.new_cat_title 新增主類別
       = form_tag categories_path do
         %table.table
           %thead
@@ -22,7 +22,7 @@
                 = link_to "","data-toggle" => "modal", href: "#myNewCategoryModal" do
                   = image_tag "category_icon/unknown.png", width: "40px", id: "category_pic"
                   點擊可換圖片
-                = hidden_field_tag "category[image]"
+                = hidden_field_tag "category[photo_path]"
         %table.table
           %thead
             %tr
