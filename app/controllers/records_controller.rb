@@ -1,4 +1,5 @@
 class RecordsController < ApplicationController
+  helper_method :sort_column, :sort_direction
 
   layout 'account'
 
@@ -81,15 +82,26 @@ class RecordsController < ApplicationController
   def index
 
     if current_user.records.size > 0
-    
+
       if params[:month_from_now]
-        @records = current_user.records.month_from_now(params[:month_from_now].to_i).order_by_date
+        if params[:sort] == "payment"
+          @records = current_user.records.month_from_now(params[:month_from_now].to_i).order("in_payment,out_payment " + sort_direction)
+        else
+          @records = current_user.records.month_from_now(params[:month_from_now].to_i).order(sort_column + " " + sort_direction)
+        end
       else
-        @records = current_user.records.month_from_now(0).order_by_date
+        if params[:sort] == "payment"
+          @records = current_user.records.month_from_now(0).order("in_payment,out_payment " + sort_direction)
+        else
+          @records = current_user.records.month_from_now(0).order(sort_column + " " + sort_direction)
+        end
       end
 
-      
-      @records = @records.sort{ |x,y| x.category_order_num <=> y.category_order_num } if params[:order] == "category"
+      if params[:sort] == "category" && params[:direction] == "asc"
+        @records = @records.sort{ |x,y| x.category_order_num <=> y.category_order_num }
+      elsif params[:sort] == "category" && params[:direction] == "desc"
+        @records = @records.sort{ |x,y| y.category_order_num <=> x.category_order_num }
+      end
 
 
     else
@@ -116,6 +128,17 @@ class RecordsController < ApplicationController
   end
 
 private
+  
+  def sort_column
+    column_name = Record.column_names.include?(params[:sort]) ? params[:sort] : "date"
+    column_name = "payment" if params[:sort] == "payment"
+    column_name
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
   def record_param
     params.require(:record).permit(:mount,:date,:in_payment,:out_payment,:payee,:project,:category,:sub_category,:remark,:in_amount,:out_amount,:fee)
   end

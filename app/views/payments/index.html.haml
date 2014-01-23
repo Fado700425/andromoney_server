@@ -35,8 +35,7 @@
           %table.table.table-striped
             %thead
               %tr
-                %th 帳戶類別
-                %th 帳戶名稱
+                %th 帳戶
                 %th 初始金額
                 %th 收入
                 %th 支出
@@ -47,8 +46,8 @@
                 %tr
                   %td
                     = image_tag icon_path[payment.kind], width: "40px"
-                    = type[payment.kind]
-                  %td= payment.payment_name
+                    = payment.payment_name
+                    (#{payment.currency_code})
                   %td NT$ 1000000
                   %td NT$ 500000
                   %td NT$ 100000

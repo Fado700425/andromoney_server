@@ -1,3 +1,25 @@
+th .current {
+  padding: 5px 14px 5px 0;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+
+.record_head{
+  border-color: #6dba89;
+  color: #fff;
+  background: #6dba89;
+  text-decoration: underline;
+}
+
+th .asc {
+  background-image: image-url('arrow_up.png');
+}
+
+th .desc {
+  background-image: image-url('arrow_down.png');
+}
+
+
 .record-order .dropdown-menu
 {
     float:right;
@@ -93,7 +115,6 @@ border-color: #6dba89;
 color: #fff;
 background: #6dba89;
 }
-
 
 .ml-nav-tabs > li {
 width: 50%;
