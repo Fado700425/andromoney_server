@@ -38,9 +38,23 @@ class CategoriesController < ApplicationController
     binding.pry
   end
 
+  def update
+    category = Category.find(params[:id])
+    category.update(category_param)
+    params[:subcategorys]
+    
+    # not finish
+
+    redirect_to edit_category_path(category)
+  end
+
   def destroy
     binding.pry
-    # delete datas ?
-    # delete subcategory
   end
+
+private
+  def category_param
+    params.require(:category).permit(:category,:photo_path)
+  end
+
 end

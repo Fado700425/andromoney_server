@@ -11,25 +11,27 @@
       .row
         .panel.panel-success
           .panel-heading
-            %h3.panel-title 帳戶總覽
+            .panel-title
+              帳戶總覽
+              %small.text-danger (含未來記錄)
           .panel-body
             .col-sm-3
               .content_chart1
                 %p 
-                  %table.statTable
+                  %table.table.table-striped
                     %tbody
                       %tr
-                        %td 總資產
+                        %td 總收入(含初始金額)
                         %td
-                          %span#info_today.redMoney.cutlong ￥50.00
+                          %span#total_income.money_info.text-success 0
                       %tr
                         %td 總負債
                         %td
-                          %span#info_month.redMoney.cutlong ￥1550.00
+                          %span#total_expense.money_info.text-danger 0
                       %tr
                         %td 結餘
                         %td
-                          %span#info_year.redMoney.cutlong ￥11639218.00
+                          %span#total_remain.money_info.text-success 0
       .row
         .module-content.table-responsive
           %table.table.table-striped
@@ -39,7 +41,9 @@
                 %th 初始金額
                 %th 收入
                 %th 支出
-                %th 帳戶結餘
+                %th 結餘
+                %th 匯率
+                %th #{current_user.get_main_currency.currency_code}結餘
                 %th
             %tbody
               - @payments.each do |payment|
@@ -48,18 +52,45 @@
                     = image_tag icon_path[payment.kind], width: "40px"
                     = payment.payment_name
                     (#{payment.currency_code})
-                  %td NT$ 1000000
-                  %td NT$ 500000
-                  %td NT$ 100000
-                  %td NT$ 1000
+                  %td
+                    %span.text-success
+                      #{payment.currency_code}
+                      - init_amount = payment.init_amount
+                      %span.init_amount
+                        = init_amount
+                    
+                  %td
+                    %span.text-success
+                      #{payment.currency_code} 
+                      - income = payment.income
+                      = income
+                  %td
+                    %span.text-danger
+                      #{payment.currency_code}
+                      \-
+                      - expense = payment.expense
+                      = expense
+                  %td
+                    %span.text-success
+                      #{payment.currency_code} 
+                      = init_amount + income - expense
+                  %th
+                    1:
+                    - exchange_rate = payment.exchange_rate
+                    = exchange_rate
+                  %td
+                    %span.text-success
+                      #{current_user.get_main_currency.currency_code}
+                      %span.remain
+                        = (init_amount + income - expense) * exchange_rate
                   %td
                     %button.btn.btn-xs.btn-success.btn-edit.edit_category
                       = link_to "#a","data-toggle" => "modal", 'data-target' => "#myAccountModal", data:{kind:payment.kind,name: payment.payment_name, initial: 0, payment_id: payment.id} do
                         %span.glyphicon.glyphicon-pencil
                         修改
-                    %button.btn.btn-xs.btn-danger.btn-remove
-                      = link_to payment_path(payment), method: :delete, data: { confirm: 'Are you sure?' } do
-                        %span.glyphicon.glyphicon-remove
+                    / %button.btn.btn-xs.btn-danger.btn-remove
+                    /   = link_to payment_path(payment), method: :delete, data: { confirm: 'Are you sure?' } do
+                    /     %span.glyphicon.glyphicon-remove
 
 #myAccountModal.modal.fade
   .modal-dialog
@@ -69,7 +100,7 @@
         %h4 修改帳戶
       .modal-body
 
-        = form_tag payment_path(1), class: "form-horizontal" do
+        = form_tag payment_path("edit"),method: "put", class: "form-horizontal" do
           .form-group
             %label.col-sm-2.control-label 類別
             .col-sm-10

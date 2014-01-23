@@ -153,7 +153,7 @@ private
     out_payment_name = record.out_payment.split('(')[0]
     payment = Payment.find_by(payment_name: out_payment_name, user_id: current_user.id)
     record.out_payment = payment.hash_key
-    init_record = Record.find_by(out_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: current_user.id)
+    init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: current_user.id)
     record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
     record.amount_to_main = record.calculate_record_amount(current_user.get_main_currency)
 

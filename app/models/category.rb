@@ -1,6 +1,8 @@
 class Category < ActiveRecord::Base
   self.table_name = "category_table"
   self.inheritance_column = :_type_disabled
+
+  default_scope { where("hidden = 0").order('order_no desc') } 
   
   belongs_to :user
   validates_uniqueness_of :hash_key, scope: [ :user_id ]

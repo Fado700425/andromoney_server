@@ -3,6 +3,8 @@ class Payment < ActiveRecord::Base
   belongs_to :user
   validates_uniqueness_of :hash_key, scope: [ :user_id ]
 
+  default_scope { where("hidden = 0").order('order_no desc') } 
+
   scope :api_select, -> { where(is_delete: false).select("id,kind,payment_name,total,currency_code,rate,out_total,hidden,order_no,hash_key,update_time"
                         ) }
 
@@ -30,5 +32,42 @@ class Payment < ActiveRecord::Base
         subcategory_table: subcategories
       }
     }
+  end
+
+  def init_record
+    record = Record.find_by(in_payment: hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: user_id)
+  end
+
+  def init_amount
+    (init_record)? init_record.mount : 0
+  end
+
+  def income
+    user = User.find(user_id)
+    if currency_code == user.get_main_currency.currency_code
+      sum = Record.where(in_payment: hash_key, user_id: user_id).sum("amount_to_main")
+    else
+      sum1 = Record.where(in_payment: hash_key, user_id: user_id, currency_code: currency_code).sum("mount")
+      sum2 = Record.where("in_payment = '#{hash_key}' and user_id = #{user_id} and currency_code != '#{currency_code}'").sum("in_amount")
+      sum = sum1 + sum2
+    end
+    sum - init_amount
+  end
+
+  def expense
+    user = User.find(user_id)
+    if currency_code == user.get_main_currency.currency_code
+      sum = Record.where(out_payment: hash_key, user_id: user_id).sum("amount_to_main")
+    else
+      sum1 = Record.where(out_payment: hash_key, user_id: user_id, currency_code: currency_code).sum("mount")
+      sum2 = Record.where("in_payment = '#{hash_key}' and user_id = #{user_id} and currency_code != '#{currency_code}'").sum("out_amount")
+      sum1 + sum2
+    end
+  end
+
+  def exchange_rate 
+    payment_currency = Currency.find_by(currency_code: currency_code, user_id: user_id)
+    main_currency = User.find(user_id).get_main_currency
+    main_currency.rate / payment_currency.rate
   end
 end

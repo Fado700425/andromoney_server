@@ -5,7 +5,7 @@
     .col-xs-12.col-sm-9
       %header
         %h3 新增主類別
-      = form_tag categories_path do
+      = form_tag category_path(@category), method: "put" do
         %table.table.category_edit_table
           %thead
             %tr
@@ -15,14 +15,15 @@
           %tbody
             %tr
               %td
-                = select_tag "category[type]", options_for_select([['支出', 20], ['收入', 10],['轉帳', 30]], @category.type)
+                - cate_hash = {20=> '支出', 10=> '收入',30=> '轉帳'}
+                = cate_hash[@category.type]
               %td
                 = text_field_tag "category[category]", @category.category,placeholder: "請輸入名稱"
               %td
                 = link_to "","data-toggle" => "modal", href: "#myNewCategoryModal" do
                   = image_tag @category.photo_path, width: "40px", id: "category_pic"
                   點擊可換圖片
-                = hidden_field_tag "category[image]", @category.photo_path
+                = hidden_field_tag "category[photo_path]", @category.photo_path
         %table.table.category_edit_table
           %thead
             %tr
@@ -34,6 +35,7 @@
               %tr
                 %td= i + 1
                 %td= text_field_tag "subcategorys[][subcategory]", subcategory.subcategory,placeholder: "請輸入名稱"
+                = hidden_field_tag "subcategorys[][subcategory_id]", subcategory.id
                 %td
             %tr
               %td= link_to "增加子類別","#a", class: "btn btn-default", add_id: @subcategories.size + 1, id: "add_subcategory"
