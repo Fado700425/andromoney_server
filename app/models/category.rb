@@ -2,7 +2,9 @@ class Category < ActiveRecord::Base
   self.table_name = "category_table"
   self.inheritance_column = :_type_disabled
 
-  default_scope { where("hidden = 0").order('order_no desc') } 
+  default_scope { order('order_no desc') }
+
+  scope :not_hidden, ->{where("hidden = 0")} 
   
   belongs_to :user
   validates_uniqueness_of :hash_key, scope: [ :user_id ]
