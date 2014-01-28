@@ -10,6 +10,11 @@ class PaymentsController < ApplicationController
     payment = Payment.find(params[:payment_id])
     payment.update(payment_param)
     init  = payment.init_record
+
+    unless init
+      init = Record.new(in_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: current_user.id, currency_code: payment.currency_code, amount_to_main: 0, hash_key: SecureRandom.urlsafe_base64)
+    end
+
     init.mount = params[:initial_amount].to_f
     init.save
     
