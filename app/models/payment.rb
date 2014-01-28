@@ -53,7 +53,7 @@ class Payment < ActiveRecord::Base
 
   def income
     user = User.find(user_id)
-    if currency_code == user.get_main_currency.currency_code
+    if display_currency_code(user) == user.get_main_currency.currency_code
       sum = Record.where(in_payment: hash_key, user_id: user_id).not_delete.sum("amount_to_main")
     else
       sum1 = Record.where(in_payment: hash_key, user_id: user_id, currency_code: currency_code).not_delete.sum("mount")
@@ -65,7 +65,7 @@ class Payment < ActiveRecord::Base
 
   def expense
     user = User.find(user_id)
-    if currency_code == user.get_main_currency.currency_code
+    if display_currency_code(user) == user.get_main_currency.currency_code
       sum = Record.where(out_payment: hash_key, user_id: user_id).not_delete.sum("amount_to_main")
       sum.round(2)
     else
