@@ -61,7 +61,7 @@ class Payment < ActiveRecord::Base
       sum = Record.where(out_payment: hash_key, user_id: user_id).sum("amount_to_main")
     else
       sum1 = Record.where(out_payment: hash_key, user_id: user_id, currency_code: currency_code).sum("mount")
-      sum2 = Record.where("in_payment = '#{hash_key}' and user_id = #{user_id} and currency_code != '#{currency_code}'").sum("out_amount")
+      sum2 = Record.where("out_payment = '#{hash_key}' and user_id = #{user_id} and currency_code != '#{currency_code}'").sum("out_amount")
       sum1 + sum2
     end
   end
