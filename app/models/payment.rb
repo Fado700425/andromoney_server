@@ -36,7 +36,7 @@ class Payment < ActiveRecord::Base
   end
 
   def init_record
-    record = Record.find_by(in_payment: hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: user_id)
+    record = Record.find_by(in_payment: hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: user_id, is_delete: 0)
   end
 
   def init_amount
