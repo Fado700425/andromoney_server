@@ -4,7 +4,7 @@ class Payment < ActiveRecord::Base
   validates_uniqueness_of :hash_key, scope: [ :user_id ]
 
   default_scope { order('order_no desc') } 
-  scope :not_hidden, ->{where("hidden = 0")} 
+  scope :not_hidden, ->{where("hidden = 0 and is_delete = 0")} 
 
   scope :api_select, -> { where(is_delete: false).select("id,kind,payment_name,total,currency_code,rate,out_total,hidden,order_no,hash_key,update_time"
                         ) }

@@ -1,6 +1,6 @@
 $ ->
   $('tbody tr#category-index').on 'click', (event) ->
-    if($(this).data('category-id'))
+    if($(this).data('category-id') && !$(this).hasClass('warning'))
       $('tbody tr#category-index.warning').attr('class','')
       $('tr#subcategory').remove()
       $(this).attr('class','warning')

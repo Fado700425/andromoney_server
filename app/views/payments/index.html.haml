@@ -113,7 +113,7 @@
           .form-group
             %label.col-sm-2.control-label{:for => "payment_payment_name"} 初始金額
             .col-sm-10
-              = number_field_tag "initial_amount","", class: "form-control",placeholder: "請輸入初始金額"
+              = text_field_tag "initial_amount","", class: "form-control",placeholder: "請輸入初始金額"
           = hidden_field_tag "payment_id"
           .record_modal_footer
             = submit_tag "確定", class: "btn btn-primary"
@@ -140,7 +140,7 @@
           .form-group
             %label.col-sm-2.control-label{:for => "payment_payment_name"} 初始金額
             .col-sm-10
-              = number_field_tag "initial_amount","", class: "form-control",placeholder: "請輸入初始金額"
+              = text_field_tag "initial_amount","", class: "form-control",placeholder: "請輸入初始金額"
           .record_modal_footer
             = submit_tag "確定", class: "btn btn-primary"
 

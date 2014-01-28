@@ -13,6 +13,10 @@ class PaymentsController < ApplicationController
     init.mount = params[:initial_amount].to_f
     init.save
     
+    payment.device_uuid = "computer"
+    payment.update_time = DateTime.now.utc
+    payment.save
+    
     redirect_to payments_path
   end
 
