@@ -17,6 +17,8 @@ class PaymentsController < ApplicationController
 
     init.mount = params[:initial_amount].to_f
     init.amount_to_main = init.calculate_record_amount(current_user.get_main_currency)
+    init.device_uuid = "computer"
+    init.update_time = Time.now
     init.save
     
     payment.device_uuid = "computer"

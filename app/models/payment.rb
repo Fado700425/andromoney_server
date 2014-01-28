@@ -35,6 +35,14 @@ class Payment < ActiveRecord::Base
     }
   end
 
+  def display_currency_code(user)
+    if init_record
+      init_record.currency_code
+    else
+      user.get_main_currency.currency_code
+    end
+  end
+
   def init_record
     record = Record.find_by(in_payment: hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: user_id, is_delete: 0)
   end

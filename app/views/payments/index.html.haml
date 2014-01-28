@@ -51,28 +51,28 @@
                   %td
                     = image_tag icon_path[payment.kind], width: "40px"
                     = payment.payment_name
-                    (#{payment.currency_code})
+                    (#{payment.display_currency_code(current_user)})
                   %td
                     %span.text-success
-                      #{payment.currency_code}
+                      #{payment.display_currency_code(current_user)}
                       - init_amount = payment.init_amount
                       %span.init_amount
                         = init_amount
                     
                   %td
                     %span.text-success
-                      #{payment.currency_code} 
+                      #{payment.display_currency_code(current_user)} 
                       - income = payment.income
                       = income
                   %td
                     %span.text-danger
-                      #{payment.currency_code}
+                      #{payment.display_currency_code(current_user)}
                       \-
                       - expense = payment.expense
                       = expense
                   %td
                     %span.text-success
-                      #{payment.currency_code} 
+                      #{payment.display_currency_code(current_user)} 
                       = init_amount + income - expense
                   %th
                     1:
