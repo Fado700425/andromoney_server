@@ -52,23 +52,25 @@ class Payment < ActiveRecord::Base
       sum2 = Record.where("in_payment = '#{hash_key}' and user_id = #{user_id} and currency_code != '#{currency_code}'").sum("in_amount")
       sum = sum1 + sum2
     end
-    sum - init_amount
+    (sum - init_amount).round(2)
   end
 
   def expense
     user = User.find(user_id)
     if currency_code == user.get_main_currency.currency_code
       sum = Record.where(out_payment: hash_key, user_id: user_id).sum("amount_to_main")
+      sum.round(2)
     else
       sum1 = Record.where(out_payment: hash_key, user_id: user_id, currency_code: currency_code).sum("mount")
       sum2 = Record.where("out_payment = '#{hash_key}' and user_id = #{user_id} and currency_code != '#{currency_code}'").sum("out_amount")
-      sum1 + sum2
+      sum = sum1 + sum2
+      sum.round(2)
     end
   end
 
   def exchange_rate 
     payment_currency = Currency.find_by(currency_code: currency_code, user_id: user_id)
     main_currency = User.find(user_id).get_main_currency
-    main_currency.rate / payment_currency.rate
+    (main_currency.rate / payment_currency.rate).round(6)
   end
 end

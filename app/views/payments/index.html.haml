@@ -82,7 +82,7 @@
                     %span.text-success
                       #{current_user.get_main_currency.currency_code}
                       %span.remain
-                        = (init_amount + income - expense) * exchange_rate
+                        = ((init_amount + income - expense) * exchange_rate).round(2)
                   %td
                     %button.btn.btn-xs.btn-success.btn-edit.edit_category
                       = link_to "#a","data-toggle" => "modal", 'data-target' => "#myAccountModal", data:{kind:payment.kind,name: payment.payment_name, initial: 0, payment_id: payment.id} do
