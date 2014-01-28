@@ -56,8 +56,8 @@ class Payment < ActiveRecord::Base
     if display_currency_code(user) == user.get_main_currency.currency_code
       sum = Record.where(in_payment: hash_key, user_id: user_id).not_delete.sum("amount_to_main")
     else
-      sum1 = Record.where(in_payment: hash_key, user_id: user_id, currency_code: currency_code).not_delete.sum("mount")
-      sum2 = Record.where("in_payment = '#{hash_key}' and user_id = #{user_id} and currency_code != '#{currency_code}'").not_delete.sum("in_amount")
+      sum1 = Record.where(in_payment: hash_key, user_id: user_id, currency_code: init_record.currency_code).not_delete.sum("mount")
+      sum2 = Record.where("in_payment = '#{hash_key}' and user_id = #{user_id} and currency_code != '#{init_record.currency_code}'").not_delete.sum("in_amount")
       sum = sum1 + sum2
     end
     (sum - init_amount).round(2)
@@ -69,15 +69,15 @@ class Payment < ActiveRecord::Base
       sum = Record.where(out_payment: hash_key, user_id: user_id).not_delete.sum("amount_to_main")
       sum.round(2)
     else
-      sum1 = Record.where(out_payment: hash_key, user_id: user_id, currency_code: currency_code).not_delete.sum("mount")
-      sum2 = Record.where("out_payment = '#{hash_key}' and user_id = #{user_id} and currency_code != '#{currency_code}'").not_delete.sum("out_amount")
+      sum1 = Record.where(out_payment: hash_key, user_id: user_id, currency_code: init_record.currency_code).not_delete.sum("mount")
+      sum2 = Record.where("out_payment = '#{hash_key}' and user_id = #{user_id} and currency_code != '#{init_record.currency_code}'").not_delete.sum("out_amount")
       sum = sum1 + sum2
       sum.round(2)
     end
   end
 
   def exchange_rate 
-    payment_currency = Currency.find_by(currency_code: currency_code, user_id: user_id)
+    payment_currency = Currency.find_by(currency_code: init_record.currency_code, user_id: user_id)
     main_currency = User.find(user_id).get_main_currency
     (main_currency.rate / payment_currency.rate).round(6)
   end
