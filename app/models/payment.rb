@@ -54,10 +54,10 @@ class Payment < ActiveRecord::Base
   def income
     user = User.find(user_id)
     if currency_code == user.get_main_currency.currency_code
-      sum = Record.where(in_payment: hash_key, user_id: user_id).sum("amount_to_main")
+      sum = Record.where(in_payment: hash_key, user_id: user_id).not_delete.sum("amount_to_main")
     else
-      sum1 = Record.where(in_payment: hash_key, user_id: user_id, currency_code: currency_code).sum("mount")
-      sum2 = Record.where("in_payment = '#{hash_key}' and user_id = #{user_id} and currency_code != '#{currency_code}'").sum("in_amount")
+      sum1 = Record.where(in_payment: hash_key, user_id: user_id, currency_code: currency_code).not_delete.sum("mount")
+      sum2 = Record.where("in_payment = '#{hash_key}' and user_id = #{user_id} and currency_code != '#{currency_code}'").not_delete.sum("in_amount")
       sum = sum1 + sum2
     end
     (sum - init_amount).round(2)
@@ -66,11 +66,11 @@ class Payment < ActiveRecord::Base
   def expense
     user = User.find(user_id)
     if currency_code == user.get_main_currency.currency_code
-      sum = Record.where(out_payment: hash_key, user_id: user_id).sum("amount_to_main")
+      sum = Record.where(out_payment: hash_key, user_id: user_id).not_delete.sum("amount_to_main")
       sum.round(2)
     else
-      sum1 = Record.where(out_payment: hash_key, user_id: user_id, currency_code: currency_code).sum("mount")
-      sum2 = Record.where("out_payment = '#{hash_key}' and user_id = #{user_id} and currency_code != '#{currency_code}'").sum("out_amount")
+      sum1 = Record.where(out_payment: hash_key, user_id: user_id, currency_code: currency_code).not_delete.sum("mount")
+      sum2 = Record.where("out_payment = '#{hash_key}' and user_id = #{user_id} and currency_code != '#{currency_code}'").not_delete.sum("out_amount")
       sum = sum1 + sum2
       sum.round(2)
     end
