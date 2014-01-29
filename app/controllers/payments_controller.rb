@@ -39,13 +39,18 @@ class PaymentsController < ApplicationController
     payment.order_no = 1000
     payment.total = 0
     payment.hidden = 0
-    payment.save
-    init_record = Record.create(in_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: current_user.id, currency_code: payment.currency_code, hash_key: SecureRandom.urlsafe_base64, device_uuid: "computer", date: DateTime.parse('1010-01-01 00:00:00'), update_time: Time.now)
-    init_record.mount = params[:initial_amount].to_f
-    init_record.amount_to_main = init_record.calculate_record_amount(current_user.get_main_currency)
-    init_record.save
+    if payment.save
+      init_record = Record.create(in_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: current_user.id, currency_code: payment.currency_code, hash_key: SecureRandom.urlsafe_base64, device_uuid: "computer", date: DateTime.parse('1010-01-01 00:00:00'), update_time: Time.now)
+      init_record.mount = params[:initial_amount].to_f
+      init_record.amount_to_main = init_record.calculate_record_amount(current_user.get_main_currency)
+      init_record.save
+      flash["success"] = "已成功新增帳戶！"
+    else
+      flash["danger"] = "新增失敗，請填寫正確的訊息及不要重複的專案名稱"
+    end
 
     redirect_to payments_path
+    
   end
 
 private

@@ -35,21 +35,26 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    category = Category.new(category_param)
-    category.hidden = 0
-    category.order_no = 1000
-    category.hash_key = 
-    category.device_uuid = "computer"
-    category.update_time = DateTime.now.utc
-    category.hash_key = SecureRandom.urlsafe_base64
-    category.user_id = current_user.id
-    if category.save
+    @category = Category.new(category_param)
+    @category.hidden = 0
+    @category.order_no = 1000
+    @category.hash_key = 
+    @category.device_uuid = "computer"
+    @category.update_time = DateTime.now.utc
+    @category.hash_key = SecureRandom.urlsafe_base64
+    @category.user_id = current_user.id
+    if @category.save
       params[:subcategorys].each do |sub|
-        create_sub_category(category,sub["subcategory"])
+        create_sub_category(@category,sub["subcategory"])
       end
+      flash["success"] = "已成功新增類別！"
+      redirect_to edit_category_path(@category)
+    else
+      @images = Dir.glob("app/assets/images/category_icon/*").each_slice(8).to_a
+      flash["danger"] = "新增失敗，請填寫正確的訊息及不要重複的類別名稱"
+      render :new
     end
-    flash[:info] = "已成功新增類別！"
-    redirect_to edit_category_path(category)
+    
   end
 
   def update
@@ -58,15 +63,17 @@ class CategoriesController < ApplicationController
     category.update_time = DateTime.now.utc
     category.device_uuid = "computer"
     category.save
-    params[:subcategorys].each do |sub|
-      if sub["subcategory_id"]
-        sub_cat = Subcategory.find(sub["subcategory_id"])
-        sub_cat.update_attribute(:subcategory,sub["subcategory"])
-        sub_cat.update_time = DateTime.now.utc
-        sub_cat.device_uuid = "computer"
-        sub_cat.save
-      else
-        create_sub_category(category,sub["subcategory"])
+    if params[:subcategorys]
+      params[:subcategorys].each do |sub|
+        if sub["subcategory_id"]
+          sub_cat = Subcategory.find(sub["subcategory_id"])
+          sub_cat.update_attribute(:subcategory,sub["subcategory"])
+          sub_cat.update_time = DateTime.now.utc
+          sub_cat.device_uuid = "computer"
+          sub_cat.save
+        else
+          create_sub_category(category,sub["subcategory"])
+        end
       end
     end
 
