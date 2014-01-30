@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   def require_user
     unless current_user
-      flash[:info] = "This is reserved for members, please login or register fisrt!"
+      flash["success"] = "This is reserved for members, please login or register fisrt!"
       redirect_to login_path
     end
   end

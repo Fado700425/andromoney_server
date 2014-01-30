@@ -1,25 +1,25 @@
 class CategoriesController < ApplicationController
   def expense_subcategories
-    @subcategories = Subcategory.where(id_category: params[:cateogry_hash], user_id: current_user.id).each_slice(3).to_a
+    @subcategories = Subcategory.where(id_category: params[:cateogry_hash], user_id: current_user.id).not_hidden.each_slice(3).to_a
   end
 
   def income_subcategories
-    @subcategories = Subcategory.where(id_category: params[:cateogry_hash], user_id: current_user.id).each_slice(3).to_a
+    @subcategories = Subcategory.where(id_category: params[:cateogry_hash], user_id: current_user.id).not_hidden.each_slice(3).to_a
   end
 
   def transfer_subcategories
-    @subcategories = Subcategory.where(id_category: params[:cateogry_hash], user_id: current_user.id).each_slice(3).to_a
+    @subcategories = Subcategory.where(id_category: params[:cateogry_hash], user_id: current_user.id).not_hidden.each_slice(3).to_a
   end
 
   def index
-    @expense_category = Category.where(type: 20, user_id: current_user.id)
-    @income_category = Category.where("type = 10 and hash_key != 'SYSTEM' and user_id = #{current_user.id}")
-    @transfer_category = Category.where(type: 30, user_id: current_user.id)
+    @expense_category = Category.where(type: 20, user_id: current_user.id).not_hidden
+    @income_category = Category.where("type = 10 and hash_key != 'SYSTEM' and user_id = #{current_user.id}").not_hidden
+    @transfer_category = Category.where(type: 30, user_id: current_user.id).not_hidden
     @images = Dir.glob("app/assets/images/category_icon/*").each_slice(3).to_a
   end
 
   def index_table_expense_subcategories
-    @subcategories = Subcategory.where(id_category: params[:cateogry_hash], user_id: current_user.id)
+    @subcategories = Subcategory.where(id_category: params[:cateogry_hash], user_id: current_user.id).not_hidden
     @category = Category.find_by(hash_key: params[:cateogry_hash], user_id: current_user.id)
   end
 
@@ -31,25 +31,30 @@ class CategoriesController < ApplicationController
   def edit
     @category = Category.find(params[:id])
     @images = Dir.glob("app/assets/images/category_icon/*").each_slice(8).to_a
-    @subcategories = Subcategory.where(id_category: @category.hash_key, user_id: current_user.id)
+    @subcategories = Subcategory.where(id_category: @category.hash_key, user_id: current_user.id).not_hidden
   end
 
   def create
-    category = Category.new(category_param)
-    category.hidden = 0
-    category.order_no = 1000
-    category.hash_key = 
-    category.device_uuid = "computer"
-    category.update_time = DateTime.now.utc
-    category.hash_key = SecureRandom.urlsafe_base64
-    category.user_id = current_user.id
-    if category.save
+    @category = Category.new(category_param)
+    @category.hidden = 0
+    @category.order_no = 1000
+    @category.hash_key = 
+    @category.device_uuid = "computer"
+    @category.update_time = DateTime.now.utc
+    @category.hash_key = SecureRandom.urlsafe_base64
+    @category.user_id = current_user.id
+    if @category.save
       params[:subcategorys].each do |sub|
-        create_sub_category(category,sub["subcategory"])
+        create_sub_category(@category,sub["subcategory"])
       end
+      flash["success"] = "已成功新增類別！"
+      redirect_to edit_category_path(@category)
+    else
+      @images = Dir.glob("app/assets/images/category_icon/*").each_slice(8).to_a
+      flash["danger"] = "新增失敗，請填寫正確的訊息及不要重複的類別名稱"
+      redirect_to action: :new, type: params[:category][:type]
     end
-    flash[:info] = "已成功新增類別！"
-    redirect_to edit_category_path(category)
+    
   end
 
   def update
@@ -58,15 +63,17 @@ class CategoriesController < ApplicationController
     category.update_time = DateTime.now.utc
     category.device_uuid = "computer"
     category.save
-    params[:subcategorys].each do |sub|
-      if sub["subcategory_id"]
-        sub_cat = Subcategory.find(sub["subcategory_id"])
-        sub_cat.update_attribute(:subcategory,sub["subcategory"])
-        sub_cat.update_time = DateTime.now.utc
-        sub_cat.device_uuid = "computer"
-        sub_cat.save
-      else
-        create_sub_category(category,sub["subcategory"])
+    if params[:subcategorys]
+      params[:subcategorys].each do |sub|
+        if sub["subcategory_id"]
+          sub_cat = Subcategory.find(sub["subcategory_id"])
+          sub_cat.update_attribute(:subcategory,sub["subcategory"])
+          sub_cat.update_time = DateTime.now.utc
+          sub_cat.device_uuid = "computer"
+          sub_cat.save
+        else
+          create_sub_category(category,sub["subcategory"])
+        end
       end
     end
 

@@ -9,9 +9,9 @@ $ ->
       total_income += remain
     if(remain < 0)
       total_expense += remain
-  $("#total_remain").text(total_remain)
-  $("#total_expense").text(total_expense)
-  $("#total_income").text(total_income)
+  $("#total_remain").text(total_remain.toFixed(2))
+  $("#total_expense").text(total_expense.toFixed(2))
+  $("#total_income").text(total_income.toFixed(2))
 
   $('.edit_category a').on 'click',(event) ->
     kind = $(this).data('kind')

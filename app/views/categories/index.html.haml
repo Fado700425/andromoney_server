@@ -10,14 +10,13 @@
           %a{id: "incomeLink","data-toggle" => "tab", :href => "#incomeTab"} 收入
         %li
           %a{id: "transferLink","data-toggle" => "tab", :href => "#transferTab"} 轉帳
-
-      .row
-        = link_to new_category_path, class: "btn btn-primary btn-lg add_new" do
-          %span.glyphicon.glyphicon-plus
-          新增主類別
       .row
         #my-tab-content.tab-content
           #expenseTab.mltab-type.tab-pane.active.in{"data-type" => "income"}
+            .row
+              = link_to new_category_path(type: 20), class: "btn btn-primary btn-lg add_new" do
+                %span.glyphicon.glyphicon-plus
+                新增主類別
             %table.table.table-striped
               %thead
                 %tr
@@ -42,6 +41,10 @@
                       /     %span.glyphicon.glyphicon-remove
 
           #incomeTab.mltab-type.tab-pane{"data-type" => "expense"}
+            .row
+              = link_to new_category_path(type: 10), class: "btn btn-primary btn-lg add_new" do
+                %span.glyphicon.glyphicon-plus
+                新增主類別
             %table.table.table-striped
               %thead
                 %tr
@@ -61,11 +64,15 @@
                         = link_to edit_category_path(category) do
                           %span.glyphicon.glyphicon-pencil
                           修改
-                      %button.btn.btn-xs.btn-danger.btn-remove
-                        = link_to category_path(category), method: :delete, data: { confirm: 'Are you sure?' } do
-                          %span.glyphicon.glyphicon-remove
+                      / %button.btn.btn-xs.btn-danger.btn-remove
+                      /   = link_to category_path(category), method: :delete, data: { confirm: 'Are you sure?' } do
+                      /     %span.glyphicon.glyphicon-remove
 
           #transferTab.mltab-type.tab-pane{"data-type" => "expense"}
+            .row
+              = link_to new_category_path(type: 30), class: "btn btn-primary btn-lg add_new" do
+                %span.glyphicon.glyphicon-plus
+                新增主類別
             %table.table.table-striped
               %thead
                 %tr
@@ -85,8 +92,8 @@
                         = link_to edit_category_path(category) do
                           %span.glyphicon.glyphicon-pencil
                           修改
-                      %button.btn.btn-xs.btn-danger.btn-remove
-                        = link_to category_path(category), method: :delete, data: { confirm: 'Are you sure?' } do
-                          %span.glyphicon.glyphicon-remove
+                      / %button.btn.btn-xs.btn-danger.btn-remove
+                      /   = link_to category_path(category), method: :delete, data: { confirm: 'Are you sure?' } do
+                      /     %span.glyphicon.glyphicon-remove
 
 

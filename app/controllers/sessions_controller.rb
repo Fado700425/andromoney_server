@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
     
     if user.save
       session[:user_id] = user.id
-      flash[:info] = "Signed in!"
+      flash["success"] = "Signed in!"
       if @new_user || user.records.size == 0
         user.messages.create(context: "恭喜你開始使用 AndroMoney!") if @new_user
         redirect_to start_use_path
@@ -31,7 +31,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    flash[:info] = "Signed out!"
+    flash["success"] = "Signed out!"
     redirect_to root_url
   end
 

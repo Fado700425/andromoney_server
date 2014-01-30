@@ -5,15 +5,15 @@ class RecordsController < ApplicationController
 
   def new
     @record = Record.new
-    @expense_category = Category.where(type: 20, user_id: current_user.id).each_slice(3).to_a
-    @income_category = Category.where("type = 10 and hash_key != 'SYSTEM' and user_id = #{current_user.id}").each_slice(3).to_a
-    @transfer_category = Category.where(type: 30, user_id: current_user.id).each_slice(3).to_a
-    @payments = Payment.where(user_id: current_user.id).each_slice(3).to_a
-    @payees = Payee.where(user_id: current_user.id).each_slice(3).to_a
-    @projects = Project.where(user_id: current_user.id).each_slice(3).to_a
-    @subcategories = Subcategory.where(id_category: @expense_category.first[0].hash_key, user_id: current_user.id).each_slice(3).to_a
-    @income_subcategories = Subcategory.where(id_category: @income_category.first[0].hash_key, user_id: current_user.id).each_slice(3).to_a
-    @transfer_subcategories = Subcategory.where(id_category: @transfer_category.first[0].hash_key, user_id: current_user.id).each_slice(3).to_a
+    @expense_category = Category.where(type: 20, user_id: current_user.id).not_hidden.each_slice(3).to_a
+    @income_category = Category.where("type = 10 and hash_key != 'SYSTEM' and user_id = #{current_user.id}").not_hidden.each_slice(3).to_a
+    @transfer_category = Category.where(type: 30, user_id: current_user.id).not_hidden.each_slice(3).to_a
+    @payments = Payment.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
+    @payees = Payee.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
+    @projects = Project.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
+    @subcategories = Subcategory.where(id_category: @expense_category.first[0].hash_key, user_id: current_user.id).not_hidden.each_slice(3).to_a
+    @income_subcategories = Subcategory.where(id_category: @income_category.first[0].hash_key, user_id: current_user.id).not_hidden.each_slice(3).to_a
+    @transfer_subcategories = Subcategory.where(id_category: @transfer_category.first[0].hash_key, user_id: current_user.id).not_hidden.each_slice(3).to_a
   end
 
   def create
@@ -23,9 +23,9 @@ class RecordsController < ApplicationController
     set_record_submit_value(@record)
 
     if @record.save
-      flash[:info] = "Create success"      
+      flash["success"] = "Create success"      
     else
-      flash[:error] = "Create fail!"
+      flash["danger"] = "Create fail!"
     end
     redirect_to records_path(month_from_now: params[:month_from_now])
   end
@@ -39,9 +39,9 @@ class RecordsController < ApplicationController
     
 
     if record.save
-      flash[:info] = "Create success"      
+      flash["success"] = "Create success"      
     else
-      flash[:error] = "Create fail!"
+      flash["danger"] = "Create fail!"
     end
     redirect_to records_path(month_from_now: params[:month_from_now])
     
@@ -49,10 +49,10 @@ class RecordsController < ApplicationController
 
   def transfer_edit
     @record = Record.find(params[:record_id])
-    @payments = Payment.where(user_id: current_user.id).each_slice(3).to_a
-    @projects = Project.where(user_id: current_user.id).each_slice(3).to_a
-    @transfer_category = Category.where(type: 30, user_id: current_user.id).each_slice(3).to_a
-    @transfer_subcategories = Subcategory.where(id_category: @transfer_category.first[0].hash_key, user_id: current_user.id).each_slice(3).to_a
+    @payments = Payment.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
+    @projects = Project.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
+    @transfer_category = Category.where(type: 30, user_id: current_user.id).not_hidden.each_slice(3).to_a
+    @transfer_subcategories = Subcategory.where(id_category: @transfer_category.first[0].hash_key, user_id: current_user.id).not_hidden.each_slice(3).to_a
   end
 
   def transfer_update
@@ -112,18 +112,23 @@ class RecordsController < ApplicationController
 
   def edit
     @record = Record.find(params[:id])
-    @expense_category = Category.where(type: 20, user_id: current_user.id).each_slice(3).to_a
-    @income_category = Category.where("type = 10 and hash_key != 'SYSTEM' and user_id = #{current_user.id}").each_slice(3).to_a
-    @payments = Payment.where(user_id: current_user.id).each_slice(3).to_a
-    @payees = Payee.where(user_id: current_user.id).each_slice(3).to_a
-    @projects = Project.where(user_id: current_user.id).each_slice(3).to_a
-    @subcategories = Subcategory.where(id_category: @record.category, user_id: current_user.id).each_slice(3).to_a
-    @income_subcategories = Subcategory.where(id_category: @record.category, user_id: current_user.id).each_slice(3).to_a
+    @expense_category = Category.where(type: 20, user_id: current_user.id).not_hidden.each_slice(3).to_a
+    @income_category = Category.where("type = 10 and hash_key != 'SYSTEM' and user_id = #{current_user.id}").not_hidden.each_slice(3).to_a
+    @payments = Payment.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
+    @payees = Payee.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
+    @projects = Project.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
+    @subcategories = Subcategory.where(id_category: @record.category, user_id: current_user.id).not_hidden.each_slice(3).to_a
+    @income_subcategories = Subcategory.where(id_category: @record.category, user_id: current_user.id).not_hidden.each_slice(3).to_a
   end
 
   def destroy
-    Record.delete(params[:id])
-    flash[:info] = "delete success"
+    record = Record.find(params[:id])
+    record.is_delete = true
+    record.device_uuid = "computer"
+    record.update_time = DateTime.now.utc
+    record.save
+
+    flash["success"] = "delete success"
     redirect_to records_path(month_from_now: params[:month_from_now])
   end
 
