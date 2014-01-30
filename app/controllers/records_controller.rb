@@ -81,7 +81,7 @@ class RecordsController < ApplicationController
 
   def index
 
-    if current_user.records.size > 0
+    if current_user.categories.size > 0
 
       if params[:month_from_now]
         if params[:sort] == "payment"
