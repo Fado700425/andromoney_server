@@ -78,8 +78,12 @@ class Payment < ActiveRecord::Base
     end
   end
 
-  def exchange_rate 
-    payment_currency = Currency.find_by(currency_code: init_record.currency_code, user_id: user_id)
+  def exchange_rate
+    if init_record
+      payment_currency = Currency.find_by(currency_code: init_record.currency_code, user_id: user_id)
+    else
+      payment_currency = User.find(user_id).get_main_currency
+    end
     main_currency = User.find(user_id).get_main_currency
     (main_currency.rate / payment_currency.rate).round(6)
   end
