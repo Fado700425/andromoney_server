@@ -52,7 +52,7 @@ class CategoriesController < ApplicationController
     else
       @images = Dir.glob("app/assets/images/category_icon/*").each_slice(8).to_a
       flash["danger"] = "新增失敗，請填寫正確的訊息及不要重複的類別名稱"
-      render :new
+      redirect_to action: :new, type: params[:category][:type]
     end
     
   end

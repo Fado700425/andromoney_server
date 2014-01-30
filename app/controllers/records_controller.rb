@@ -122,7 +122,12 @@ class RecordsController < ApplicationController
   end
 
   def destroy
-    Record.delete(params[:id])
+    record = Record.find(params[:id])
+    record.is_delete = true
+    record.device_uuid = "computer"
+    record.update_time = DateTime.now.utc
+    record.save
+
     flash["success"] = "delete success"
     redirect_to records_path(month_from_now: params[:month_from_now])
   end
