@@ -94,6 +94,13 @@ AndromoneyServer::Application.routes.draw do
           get 'other_tables'
         end
       end
+
+      resources :upload, only:[] do
+        collection do
+          post 'record_table'
+          post 'other_tables'
+        end
+      end
     end
   end
 end
