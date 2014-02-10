@@ -31,7 +31,8 @@ class Api::V1::AddDatasController < ApplicationController
         data = eval(class_name.classify).create(param)
         update_existed_data(param,class_name,key,user,device_uuid) if data.new_record?
       rescue Exception => e
-        puts param
+        logger.info "fail dddddddddddddddd"
+        logger.info param.to_json
         raise
       end
     end
