@@ -1,4 +1,7 @@
 class CategoriesController < ApplicationController
+
+  layout 'account'
+
   def expense_subcategories
     @subcategories = Subcategory.where(id_category: params[:cateogry_hash], user_id: current_user.id).not_hidden.each_slice(3).to_a
   end
