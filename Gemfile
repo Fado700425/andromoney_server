@@ -44,6 +44,7 @@ group :development, :test do
   gem 'launchy'
   gem 'capybara-email'
   gem 'guard-livereload'
+  gem 'capistrano-local-precompile', require: false
 end
 
 group :test do

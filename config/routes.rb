@@ -87,6 +87,20 @@ AndromoneyServer::Application.routes.draw do
           get  'payments_shared_by_others'
         end
       end
+
+      resources :download, only: [] do
+        collection do
+          get 'record_table'
+          get 'other_tables'
+        end
+      end
+
+      resources :upload, only:[] do
+        collection do
+          post 'record_table'
+          post 'other_tables'
+        end
+      end
     end
   end
 end

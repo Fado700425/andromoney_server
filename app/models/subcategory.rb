@@ -6,7 +6,6 @@ class Subcategory < ActiveRecord::Base
   
   validates_uniqueness_of :hash_key, scope: [ :user_id ]
   validates_presence_of :subcategory
-  validates_uniqueness_of :subcategory, scope: [ :user_id ]
   scope :api_select, -> { where(is_delete: false).select("id,id_category,subcategory,hidden,order_no,hash_key,update_time"
                         ) }
 end
