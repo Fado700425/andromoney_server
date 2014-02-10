@@ -1,4 +1,5 @@
 require 'bundler/capistrano'
+require 'capistrano/local_precompile'
 # require 'hoptoad_notifier/capistrano'
 
 set :application, "andromoney_server"
