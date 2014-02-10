@@ -24,11 +24,16 @@ class Api::V1::AddDatasController < ApplicationController
 
   def insert_datas(params,user,class_name,key,device_uuid)
     params.each do |param|
-      param[:update_time] = DateTime.parse(param[:update_time]) if param[:update_time]
-      param[:user_id] = user.id
-      param[:device_uuid] = device_uuid
-      data = eval(class_name.classify).create(param)
-      update_existed_data(param,class_name,key,user,device_uuid) if data.new_record?
+      begin
+        param[:update_time] = DateTime.parse(param[:update_time]) if param[:update_time]
+        param[:user_id] = user.id
+        param[:device_uuid] = device_uuid
+        data = eval(class_name.classify).create(param)
+        update_existed_data(param,class_name,key,user,device_uuid) if data.new_record?
+      rescue Exception => e
+        puts param
+        raise
+      end
     end
   end
 
