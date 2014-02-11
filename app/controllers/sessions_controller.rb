@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
     if user.save
       session[:user_id] = user.id
       flash["success"] = "Signed in!"
-      if @new_user || user.records.size == 0
+      if @new_user || user.categories.size == 0
         user.messages.create(context: "恭喜你開始使用 AndroMoney!") if @new_user
         redirect_to start_use_path
       else
