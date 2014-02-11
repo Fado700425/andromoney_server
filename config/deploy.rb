@@ -26,6 +26,7 @@ role :web, "106.186.22.13"
 role :app, "106.186.22.13"
 role :db,  "106.186.22.13", :primary => true
 
+
 namespace :deploy do
 
   task :copy_config_files, :roles => [:app] do
