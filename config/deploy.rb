@@ -19,6 +19,9 @@ role :web, "106.186.122.183"
 role :app, "106.186.122.183"
 role :db,  "106.186.122.183", :primary => true
 
+set :bundle_cmd, "RAILS_ENV=production bundle"
+
+
 # role :web, "106.186.22.13"
 # role :app, "106.186.22.13"
 # role :db,  "106.186.22.13", :primary => true
