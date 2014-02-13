@@ -121,6 +121,12 @@ private
     end
   end
 
+  def update_existed_data(param,class_name,key,user,device_uuid)
+    data = eval(class_name.classify).find_by(key => param[key],user_id: user.id)
+    param[:device_uuid] = device_uuid
+    data.update_attributes(param) if data.update_time < param[:update_time]
+  end
+
   def update_datas(params,class_name,key,user,device_uuid)
     return unless params
     params.each do |param|
