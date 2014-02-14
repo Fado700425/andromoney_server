@@ -9,9 +9,9 @@ class Api::V1::UploadController < ApplicationController
     if user && device
       begin
         ActiveRecord::Base.transaction do
-          insert_datas(body_params[:insert],user,"record", :hash_key,params[:device]) if body_params[:insert]
-          update_datas(body_params[:update],"record",:hash_key,user,params[:device]) if body_params[:update]
-          delete_datas(body_params[:delete],'record',:hash_key,user,params[:device]) if body_params[:delete]
+          insert_datas(body_params[:insert],user,"record", :hash_key,body_params[:device]) if body_params[:insert]
+          update_datas(body_params[:update],"record",:hash_key,user,body_params[:device]) if body_params[:update]
+          delete_datas(body_params[:delete],'record',:hash_key,user,body_params[:device]) if body_params[:delete]
         end
       rescue
         render :status=>404, :json=>{:message=>"Create Fail"}
