@@ -162,9 +162,9 @@ private
     record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
     record.amount_to_main = record.calculate_record_amount(current_user.get_main_currency)
 
-    if record.currency_code != record.record_out_payment.currency_code
-      record.out_currency = record.record_out_payment.currency_code
-      record.out_amount = record.calculate_record_amount(Currency.find_by(currency_code: record.record_out_payment.currency_code, user_id: current_user.id))
+    if record.currency_code != record.record_out_payment.display_currency_code(current_user)
+      record.out_currency = record.record_out_payment.display_currency_code(current_user)
+      record.out_amount = record.calculate_record_amount(Currency.find_by(currency_code: record.record_out_payment.display_currency_code(current_user), user_id: current_user.id))
     end
 
     if record.in_payment
@@ -173,9 +173,9 @@ private
       record.in_payment = payment.hash_key
     end
 
-    if record.currency_code != record.record_in_payment.currency_code
-      record.in_currency = record.record_in_payment.currency_code
-      record.in_amount = record.calculate_record_amount(Currency.find_by(currency_code: record.record_in_payment.currency_code, user_id: current_user.id)) unless record.in_amount
+    if record.currency_code != record.record_in_payment.display_currency_code(current_user)
+      record.in_currency = record.record_in_payment.display_currency_code(current_user)
+      record.in_amount = record.calculate_record_amount(Currency.find_by(currency_code: record.record_in_payment.display_currency_code(current_user), user_id: current_user.id)) unless record.in_amount
     end
   end
 
@@ -190,9 +190,9 @@ private
       record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
       record.amount_to_main = record.calculate_record_amount(current_user.get_main_currency)
 
-      if record.currency_code != record.record_out_payment.currency_code
-        record.out_currency = record.record_out_payment.currency_code
-        record.out_amount = record.calculate_record_amount(Currency.find_by(currency_code: record.record_out_payment.currency_code, user_id: current_user.id))
+      if record.currency_code != record.record_out_payment.display_currency_code(current_user)
+        record.out_currency = record.record_out_payment.display_currency_code(current_user)
+        record.out_amount = record.calculate_record_amount(Currency.find_by(currency_code: record.record_out_payment.display_currency_code(current_user), user_id: current_user.id))
       end
     end
 
@@ -204,9 +204,9 @@ private
       record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
       record.amount_to_main = record.calculate_record_amount(current_user.get_main_currency)
 
-      if record.currency_code != record.record_in_payment.currency_code
-        record.in_currency = record.record_in_payment.currency_code
-        record.in_amount = record.calculate_record_amount(Currency.find_by(currency_code: record.record_in_payment.currency_code, user_id: current_user.id))
+      if record.currency_code != record.record_in_payment.display_currency_code(current_user)
+        record.in_currency = record.record_in_payment.display_currency_code(current_user)
+        record.in_amount = record.calculate_record_amount(Currency.find_by(currency_code: record.record_in_payment.display_currency_code(current_user), user_id: current_user.id))
       end
     end
     

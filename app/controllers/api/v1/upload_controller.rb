@@ -9,9 +9,9 @@ class Api::V1::UploadController < ApplicationController
     if user && device
       begin
         ActiveRecord::Base.transaction do
-          insert_datas(body_params[:insert],user,"record", :hash_key,params[:device]) if body_params[:insert]
-          update_datas(body_params[:update],"record",:hash_key,user,params[:device]) if body_params[:update]
-          delete_datas(body_params[:delete],'record',:hash_key,user,params[:device]) if body_params[:delete]
+          insert_datas(body_params[:insert],user,"record", :hash_key,body_params[:device]) if body_params[:insert]
+          update_datas(body_params[:update],"record",:hash_key,user,body_params[:device]) if body_params[:update]
+          delete_datas(body_params[:delete],'record',:hash_key,user,body_params[:device]) if body_params[:delete]
         end
       rescue
         render :status=>404, :json=>{:message=>"Create Fail"}
@@ -114,10 +114,17 @@ private
         update_existed_data(param,class_name,key,user,device_uuid) if data.new_record?
       rescue Exception => e
         logger.info "fail dddddddddddddddd"
+        logger.info e.backtrace
         logger.info param.to_json
         raise
       end
     end
+  end
+
+  def update_existed_data(param,class_name,key,user,device_uuid)
+    data = eval(class_name.classify).find_by(key => param[key],user_id: user.id)
+    param[:device_uuid] = device_uuid
+    data.update_attributes(param) if data.update_time < param[:update_time]
   end
 
   def update_datas(params,class_name,key,user,device_uuid)
