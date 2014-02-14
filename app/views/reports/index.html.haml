@@ -98,37 +98,38 @@
         .panel-heading
           %h3.panel-title 篩選
         .panel-body
-          .checkboxs
-            帳戶
-            - @payments.each do |payment|
-              .checkbox-inline
-                = check_box "budget", "category", {:checked => "checked"} 
-                = payment.payment_name
-          .checkboxs
-            專案
-            - @projects.each do |project|
-              .checkbox-inline
-                = check_box "budget", "category", {:checked => "checked"} 
-                = project.project_name
-          .checkboxs
-            商家
-            - @payees.each do |payee|
-              .checkbox-inline
-                = check_box "budget", "category", {:checked => "checked"} 
-                = payee.payee_name
-          .checkboxs
-            類別
-            .radio-inline
-              %input#optionsExpenseRadio{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
-                支出類別
-            .radio-inline
-              %input#optionsIncomeRadio{:name => "optionsRadios", :type => "radio", :value => "option2"}
-                收入類別
-            .category_checkboxs
-              - @expense_categories.each do |category|
+          = form_for "report", url: reports_path, :remote => true do |f|
+            .checkboxs
+              帳戶
+              - @payments.each do |payment|
                 .checkbox-inline
-                  = check_box "budget", "category", {:checked => "checked"} 
-                  = category.category
-          .row
-          = link_to "查詢", "", class: "btn btn-default"
+                  = check_box "payment", payment.hash_key, {:checked => "checked"} 
+                  = payment.payment_name
+            .checkboxs
+              專案
+              - @projects.each do |project|
+                .checkbox-inline
+                  = check_box "project", project.hash_key, {:checked => "checked"} 
+                  = project.project_name
+            .checkboxs
+              商家
+              - @payees.each do |payee|
+                .checkbox-inline
+                  = check_box "payee", payee.hash_key, {:checked => "checked"} 
+                  = payee.payee_name
+            .checkboxs
+              類別
+              .radio-inline
+                %input#optionsExpenseRadio{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
+                  支出類別
+              .radio-inline
+                %input#optionsIncomeRadio{:name => "optionsRadios", :type => "radio", :value => "option2"}
+                  收入類別
+              .category_checkboxs
+                - @expense_categories.each do |category|
+                  .checkbox-inline
+                    = check_box "category", category.hash_key, {:checked => "checked"} 
+                    = category.category
+            .row
+            = f.submit "查詢", class: "btn btn-default"
       

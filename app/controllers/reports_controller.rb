@@ -9,6 +9,19 @@ class ReportsController < ApplicationController
     @expense_categories = Category.where(type: 20, user_id: current_user.id).not_hidden
   end
 
+  def create
+    payments = []
+    categories = []
+    projects = []
+    payees =[]
+
+    params[:payment].select{|key,val| val == "1"}.each{|key,val| payments << key}
+    params[:category].select{|key,val| val == "1"}.each{|key,val| categories << key}
+    params[:project].select{|key,val| val == "1"}.each{|key,val| projects << key}
+    params[:payee].select{|key,val| val == "1"}.each{|key,val| payees << key}
+    binding.pry
+  end
+
   def expense_category
     @expense_categories = Category.where(type: 20, user_id: current_user.id).not_hidden
   end
