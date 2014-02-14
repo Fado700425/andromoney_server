@@ -24,7 +24,12 @@ AndromoneyServer::Application.routes.draw do
     end
   end
   resources :budgets
-  resources :reports
+  resources :reports do
+    collection do
+      get 'expense_category'
+      get 'income_category'
+    end
+  end
   resources :payments
   resources :accounts do
     collection do
