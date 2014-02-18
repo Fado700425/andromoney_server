@@ -11,10 +11,9 @@
   .row
     .col-xs-12.col-sm-10
       .btn-group
-        = link_to "«上個月", home_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
-        .btn.btn-primary.btn-lg
-          February 2014
-        = link_to "下個月»", home_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
+        = link_to "«上個月", reports_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
+        = link_to I18n.l(Date.current + params[:month_from_now].to_i.month, format: :month), reports_path(month_from_now: 0), class: "btn btn-primary btn-lg"
+        = link_to "下個月»", reports_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
       .row
         %ul#tabs.nav.nav-tabs{"data-tabs" => "tabs"}
           %li.report_link.active
@@ -73,6 +72,7 @@
                     = check_box "category", category.hash_key, {:checked => "checked"} 
                     = category.category
             = f.hidden_field "type", value: "category"
+            = hidden_field_tag "month_from_now", params[:month_from_now]
             .row
             = f.submit "查詢", class: "btn btn-default"
       
