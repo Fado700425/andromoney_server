@@ -1,0 +1,47 @@
+var data = google.visualization.arrayToDataTable(<%= raw @trends_array %>);
+
+var options = {
+  title: '月趨勢圖',
+  height: 300,
+  width: 1400
+};
+
+var chart = new google.visualization.LineChart(document.getElementById('chart_div_line'));
+chart.draw(data, options);
+
+
+
+<% if @chart_array.size > 1 %>
+  
+  $('.no_data').addClass("hide");
+  $('#piechart').removeClass("hide");
+  $('#chart_div').removeClass("hide");
+
+  var data2 = google.visualization.arrayToDataTable(<%= raw @chart_array %>);
+
+  var options2 = {
+    title: '帳戶比例',
+    height: 500,
+    width: 900
+  };
+
+  var chart2 = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart2.draw(data2, options2);
+
+
+  var data = google.visualization.arrayToDataTable(<%= raw @chart_array %>);
+
+  var options = {
+    title: '帳戶長條圖',
+    vAxis: {title: '帳戶',  titleTextStyle: {color: 'red'}},
+    height: 500,
+    width: 900
+  };
+
+  var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+  chart.draw(data, options);
+<% else %>
+  $('.no_data').removeClass("hide");
+  $('#piechart').addClass("hide");
+  $('#chart_div').addClass("hide");
+<% end %>
