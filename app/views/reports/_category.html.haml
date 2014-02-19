@@ -1,5 +1,4 @@
 .category_checkboxs
   - categories.each do |category|
-    .checkbox-inline
-      = check_box "budget", "category", {:checked => "checked"} 
-      = category.category
+    = check_box "budget", "category", {:checked => "checked"} 
+    = category.category

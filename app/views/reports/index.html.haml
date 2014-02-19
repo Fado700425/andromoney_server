@@ -41,37 +41,37 @@
           %h3.panel-title 篩選
         .panel-body
           = form_for "report", url: reports_path,html: {id: "report_form"}, :remote => true do |f|
-            .checkboxs
-              帳戶
-              - @payments.each do |payment|
-                .checkbox-inline
-                  = check_box "payment", payment.hash_key, {:checked => "checked"} 
-                  = payment.payment_name
-            .checkboxs
-              專案
-              - @projects.each do |project|
-                .checkbox-inline
-                  = check_box "project", project.hash_key, {:checked => "checked"} 
-                  = project.project_name
-            .checkboxs
-              商家
-              - @payees.each do |payee|
-                .checkbox-inline
-                  = check_box "payee", payee.hash_key, {:checked => "checked"} 
-                  = payee.payee_name
-            .checkboxs
-              類別
-              .radio-inline
-                %input#optionsExpenseRadio{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
-                  支出類別
-              .radio-inline
-                %input#optionsIncomeRadio{:name => "optionsRadios", :type => "radio", :value => "option2"}
-                  收入類別
-              .category_checkboxs
-                - @expense_categories.each do |category|
-                  .checkbox-inline
-                    = check_box "category", category.hash_key, {:checked => "checked"} 
-                    = category.category
+            %table.table
+              %tbody
+                %tr
+                  %td 帳戶
+                  %td
+                    - @payments.each do |payment|
+                      = check_box "payment", payment.hash_key, {:checked => "checked"} 
+                      = payment.payment_name
+                %tr
+                  %td 專案
+                  %td
+                    - @projects.each do |project|
+                      = check_box "project", project.hash_key, {:checked => "checked"} 
+                      = project.project_name
+                %tr
+                  %td 商家
+                  %td
+                    - @payees.each do |payee|
+                      = check_box "payee", payee.hash_key, {:checked => "checked"} 
+                      = payee.payee_name
+                %tr
+                  %td 類別
+                  %td.category_option
+                    %input#optionsExpenseRadio{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
+                      支出類別
+                    %input#optionsIncomeRadio{:name => "optionsRadios", :type => "radio", :value => "option2"}
+                      收入類別
+                    .category_checkboxs
+                      - @expense_categories.each do |category|
+                        = check_box "category", category.hash_key, {:checked => "checked"} 
+                        = category.category
             = f.hidden_field "type", value: "category"
             = hidden_field_tag "month_from_now", params[:month_from_now]
             .row
