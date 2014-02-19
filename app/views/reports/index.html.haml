@@ -15,6 +15,9 @@
         = link_to I18n.l(Date.current + params[:month_from_now].to_i.month, format: :month), reports_path(month_from_now: 0), class: "btn btn-primary btn-lg"
         = link_to "下個月»", reports_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
       .row
+        .col-sm-12.report
+          #chart_div_line
+
         %ul#tabs.nav.nav-tabs{"data-tabs" => "tabs"}
           %li.report_link.active
             %a{id: "categoryLink","data-toggle" => "tab", :href => "#categoryTab", data: {value: "category"}} 類別
@@ -24,16 +27,14 @@
             %a{id: "projectLink","data-toggle" => "tab", :href => "#projectTab", data: {value: "project"}} 專案
           %li.report_link
             %a{id: "payeeLink","data-toggle" => "tab", :href => "#payeeTab", data: {value: "payee"}} 商家
-      .row
-        .col-sm-12.report
-          #chart_div_line
-        .col-sm-6.report
-          #piechart
-        .col-sm-6.report
-          #chart_div
-        .col-sm-12.no_data.hide
-          %p.text-center
-            無資料
+        .row
+          .col-sm-6.report
+            #piechart
+          .col-sm-6.report
+            #chart_div
+          .col-sm-12.no_data.hide
+            %p.text-center
+              無資料
 
       .panel.panel-success
         .panel-heading

@@ -3,7 +3,8 @@ var data = google.visualization.arrayToDataTable(<%= raw @trends_array %>);
 var options = {
   title: '月趨勢圖',
   height: 300,
-  width: 1400
+  width: '100%',
+  chartArea: {left:'5%',top:20}
 };
 
 var chart = new google.visualization.LineChart(document.getElementById('chart_div_line'));
@@ -17,25 +18,29 @@ chart.draw(data, options);
   $('#piechart').removeClass("hide");
   $('#chart_div').removeClass("hide");
 
-  var data2 = google.visualization.arrayToDataTable(<%= raw @chart_array %>);
+  var data2 = google.visualization.arrayToDataTable(<%= raw @pie_array %>);
 
   var options2 = {
     title: '帳戶比例',
-    height: 500,
-    width: 900
+    height: 350,
+    width: '50%',
+    chartArea: {left:'5%',top:20},
+    colors: ['#fecb0a', '#a3c22b', '#319aa8', '#fd8711', '#fa373f', '#f351af' , '#358ad3']
   };
 
   var chart2 = new google.visualization.PieChart(document.getElementById('piechart'));
   chart2.draw(data2, options2);
 
 
-  var data = google.visualization.arrayToDataTable(<%= raw @chart_array %>);
+  var data = google.visualization.arrayToDataTable(<%= raw @chart_array.to_json.html_safe %>);
 
   var options = {
     title: '帳戶長條圖',
-    vAxis: {title: '帳戶',  titleTextStyle: {color: 'red'}},
-    height: 500,
-    width: 900
+    height: 350,
+    width: '50%',
+    chartArea: {top:20},
+    legend: {position: 'none'},
+    colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
   };
 
   var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
