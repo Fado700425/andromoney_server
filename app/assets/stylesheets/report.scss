@@ -18,11 +18,8 @@
     left:       0;
     height:     100%;
     width:      100%;
-    background-image: image-url('loading.gif');
-    background: rgba( 255, 255, 255, .8 ) 
-                image-url('loading.gif')
-                50% 50% 
-                no-repeat;
+    background: image-url('loading.gif');
+ 
 }
 
 /* When the body has the loading class, we turn
