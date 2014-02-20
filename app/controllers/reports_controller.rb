@@ -50,7 +50,7 @@ class ReportsController < ApplicationController
 
     case params[:report][:type]
     when "payment"
-      payments = Payment.where(hash_key: payments).sort_by{|p| -p.balance.abs}
+      payments = Payment.where(hash_key: payments, user_id: current_user.id).sort_by{|p| -p.balance.abs}
 
       @chart_array = [['專案', '總計', { role: "style" }]]
       @pie_array = [['帳戶', '結餘']]
