@@ -49,7 +49,7 @@ AndromoneyServer::Application.routes.draw do
   end
   resources :subcategories, only: [:destroy]
   # get 'home', controller: 'accounts', action: 'info'
-  get 'home', controller: 'records', action: 'index'
+  get 'home', controller: 'reports', action: 'index'
 
 
   get 'share_confirm', controller: 'api/v1/sync', action: 'confirm_share'
