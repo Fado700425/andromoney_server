@@ -12,4 +12,6 @@ $ ->
   $('.report_link a').on 'click', (event) ->
     $('#report_type').val($(this).data('value'))
     $('#report_form').submit()
+    $body = $("body")
+    $body.addClass("loading")
     
