@@ -1,135 +1,80 @@
 %script{:src => "https://www.google.com/jsapi", :type => "text/javascript"}
 :javascript
   google.load("visualization", "1", {packages:["corechart"]});
-  google.setOnLoadCallback(drawChart);
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-      ['Task', 'Hours per Day'],
-      ['Work',     11],
-      ['Eat',      2],
-      ['Commute',  2],
-      ['Watch TV', 2],
-      ['Sleep',    7]
-    ]);
-
-    var options = {
-      title: 'My Daily Activities'
-    };
-
-    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-    chart.draw(data, options);
-  }
   $(function() {
-    $('#projectLink').on('click', function(event) {
-      var data = google.visualization.arrayToDataTable([
-        ['Year', 'Sales', 'Expenses'],
-        ['2004',  1000,      400],
-        ['2005',  1170,      460],
-        ['2006',  660,       1120],
-        ['2007',  1030,      540]
-      ]);
-
-      var options = {
-        title: 'Company Performance',
-        vAxis: {title: 'Year',  titleTextStyle: {color: 'red'}},
-        height: 300,
-        width: 300,
-      };
-
-      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-      chart.draw(data, options);
-    });
+    $('#report_form').submit();
   });
-
-:javascript
-  google.load("visualization", "1", {packages:["corechart"]});
-  google.setOnLoadCallback(drawChart);
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-      ['Year', 'Sales', 'Expenses'],
-      ['2004',  1000,      400],
-      ['2005',  1170,      460],
-      ['2006',  660,       1120],
-      ['2007',  1030,      540]
-    ]);
-
-    var options = {
-      title: 'Company Performance'
-    };
-
-    var chart = new google.visualization.LineChart(document.getElementById('chart_div_line'));
-    chart.draw(data, options);
-  }
-
-
-
 
 .row.row-offcanvas.row-offcanvas-right
   = render 'shared/sidebar'
 
   .row
-    .col-xs-12.col-sm-9
+    .col-xs-12.col-sm-10
       .btn-group
-        = link_to "«上個月", home_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
-        .btn.btn-primary.btn-lg
-          February 2014
-        = link_to "下個月»", home_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
+        = link_to "«上個月", reports_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
+        = link_to I18n.l(Date.current + params[:month_from_now].to_i.month, format: :month), reports_path(month_from_now: 0), class: "btn btn-primary btn-lg"
+        = link_to "下個月»", reports_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
       .row
+        .col-sm-12.report
+          #chart_div_line
+
         %ul#tabs.nav.nav-tabs{"data-tabs" => "tabs"}
-          %li.active
-            %a{id: "paymentLink","data-toggle" => "tab", :href => "#paymentTab"} 帳戶
-          %li
-            %a{id: "projectLink","data-toggle" => "tab", :href => "#projectTab"} 專案
-          %li
-            %a{id: "payeeLink","data-toggle" => "tab", :href => "#payeeTab"} 商家
-          %li
-            %a{id: "categoryLink","data-toggle" => "tab", :href => "#categoryTab"} 類別
-      #my-tab-content.tab-content
-        #paymentTab.mltab-type.tab-pane.active.in
-          #chart_div_line{:style => "width: 900px; height: 500px;"}
-          / #piechart{:style => "width: 900px; height: 400px;"}
-          / #chart_div{:style => "width: 900px; height: 500px;"}
-        #projectTab.mltab-type.tab-pane
-          #chart_div{:style => "width: 900px; height: 500px;"}
-        #payeeTab.mltab-type.tab-pane
-        #categoryTab.mltab-type.tab-pane
+          %li.report_link.active
+            %a{id: "categoryLink","data-toggle" => "tab", :href => "#categoryTab", data: {value: "category"}} 類別
+          %li.report_link
+            %a{id: "paymentLink","data-toggle" => "tab", :href => "#paymentTab", data: {value: "payment"}} 帳戶
+          %li.report_link
+            %a{id: "projectLink","data-toggle" => "tab", :href => "#projectTab", data: {value: "project"}} 專案
+          %li.report_link
+            %a{id: "payeeLink","data-toggle" => "tab", :href => "#payeeTab", data: {value: "payee"}} 商家
+        .row
+          .col-sm-6.report
+            #piechart
+          .col-sm-6.report
+            #chart_div
+          .col-sm-12.no_data.hide
+            %p.text-center
+              無資料
 
       .panel.panel-success
         .panel-heading
           %h3.panel-title 篩選
         .panel-body
-          = form_for "report", url: reports_path, :remote => true do |f|
-            .checkboxs
-              帳戶
-              - @payments.each do |payment|
-                .checkbox-inline
-                  = check_box "payment", payment.hash_key, {:checked => "checked"} 
-                  = payment.payment_name
-            .checkboxs
-              專案
-              - @projects.each do |project|
-                .checkbox-inline
-                  = check_box "project", project.hash_key, {:checked => "checked"} 
-                  = project.project_name
-            .checkboxs
-              商家
-              - @payees.each do |payee|
-                .checkbox-inline
-                  = check_box "payee", payee.hash_key, {:checked => "checked"} 
-                  = payee.payee_name
-            .checkboxs
-              類別
-              .radio-inline
-                %input#optionsExpenseRadio{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
-                  支出類別
-              .radio-inline
-                %input#optionsIncomeRadio{:name => "optionsRadios", :type => "radio", :value => "option2"}
-                  收入類別
-              .category_checkboxs
-                - @expense_categories.each do |category|
-                  .checkbox-inline
-                    = check_box "category", category.hash_key, {:checked => "checked"} 
-                    = category.category
+          = form_for "report", url: reports_path,html: {id: "report_form"}, :remote => true do |f|
+            %table.table
+              %tbody
+                %tr
+                  %td 帳戶
+                  %td
+                    - @payments.each do |payment|
+                      = check_box "payment", payment.hash_key, {:checked => "checked"} 
+                      = payment.payment_name
+                %tr
+                  %td 專案
+                  %td
+                    - @projects.each do |project|
+                      = check_box "project", project.hash_key, {:checked => "checked"} 
+                      = project.project_name
+                %tr
+                  %td 商家
+                  %td
+                    - @payees.each do |payee|
+                      = check_box "payee", payee.hash_key, {:checked => "checked"} 
+                      = payee.payee_name
+                %tr
+                  %td 類別
+                  %td.category_option
+                    %input#optionsExpenseRadio{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
+                      支出類別
+                    %input#optionsIncomeRadio{:name => "optionsRadios", :type => "radio", :value => "option2"}
+                      收入類別
+                    .category_checkboxs
+                      - @expense_categories.each do |category|
+                        = check_box "category", category.hash_key, {:checked => "checked"} 
+                        = category.category
+            = f.hidden_field "type", value: "category"
+            = hidden_field_tag "month_from_now", params[:month_from_now]
             .row
             = f.submit "查詢", class: "btn btn-default"
       
+.loading_modal 

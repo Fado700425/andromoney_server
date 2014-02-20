@@ -1,2 +1,2 @@
-$(".category_checkboxs").children().remove();
-$(".category_checkboxs").append("<%=j(render 'category', categories: @expense_categories) %> ");
+$(".category_checkboxs").remove();
+$(".category_option").append("<%=j(render 'category', categories: @expense_categories) %> ");

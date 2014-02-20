@@ -1,0 +1,58 @@
+var data = google.visualization.arrayToDataTable(<%= raw @trends_array %>);
+
+var options = {
+  title: '月趨勢圖',
+  height: 300,
+  width: '100%',
+  chartArea: {left:'5%',top:20},
+  colors: ['#FA363F', '#A4C22B']
+};
+
+var chart = new google.visualization.AreaChart(document.getElementById('chart_div_line'));
+chart.draw(data, options);
+
+
+
+<% if @chart_array.size > 1 %>
+  
+  $('.no_data').addClass("hide");
+  $('#piechart').removeClass("hide");
+  $('#chart_div').removeClass("hide");
+
+  var data2 = google.visualization.arrayToDataTable(<%= raw @pie_array %>);
+
+  var options2 = {
+    title: '帳戶比例',
+    height: 350,
+    width: '50%',
+    chartArea: {left:'5%',top:20},
+    colors: ['#FA363F', '#A4C22B', '#319AA9', '#FD8710', '#F353AF', '#3489D2' , '#FECB0A', '#7D68AC', '#1BA3AC']
+  };
+
+  var chart2 = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart2.draw(data2, options2);
+
+
+  var data = google.visualization.arrayToDataTable(<%= raw @chart_array.to_json.html_safe %>);
+
+  var options = {
+    title: '帳戶長條圖',
+    height: 350,
+    width: '50%',
+    chartArea: {top:20},
+    legend: {position: 'none'},
+    colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
+  };
+
+  var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+  chart.draw(data, options);
+<% else %>
+  $('.no_data').removeClass("hide");
+  $('#piechart').addClass("hide");
+  $('#chart_div').addClass("hide");
+<% end %>
+
+
+
+$body = $("body");
+$body.removeClass("loading");
