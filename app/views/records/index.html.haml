@@ -8,8 +8,8 @@
           %span.glyphicon.glyphicon-plus
           新增一筆 
       .btn-group.col-lg-3.ml-nav
-        = link_to "«上個月", home_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
-        = link_to "下個月»", home_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
+        = link_to "«上個月", records_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
+        = link_to "下個月»", records_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
     .row  
       .module
         .module-header
@@ -50,6 +50,6 @@
           %span.glyphicon.glyphicon-plus
           新增一筆 
       .btn-group.col-lg-3.ml-nav
-        = link_to "«上個月", home_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
-        = link_to "下個月»", home_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
+        = link_to "«上個月", records_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
+        = link_to "下個月»", records_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
 
