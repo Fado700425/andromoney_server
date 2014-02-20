@@ -45,7 +45,7 @@ class ReportsController < ApplicationController
       @trends_array << array
     end
 
-    colors = ['#fecb0a', '#a3c22b', '#319aa8', '#fd8711', '#fa373f', '#f351af' , '#358ad3', '#fa373f', '#f351af' , '#358ad3']
+    colors = ['#FA363F', '#A4C22B', '#319AA9', '#FD8710', '#F353AF', '#3489D2' , '#FECB0A', '#7D68AC', '#1BA3AC' , '#c1c1c1']
     color_index = 0
 
     case params[:report][:type]
