@@ -44,9 +44,9 @@ class PaymentsController < ApplicationController
       init_record.mount = params[:initial_amount].to_f
       init_record.amount_to_main = init_record.calculate_record_amount(current_user.get_main_currency)
       init_record.save
-      flash["success"] = "已成功新增帳戶！"
+      flash["success"] = t('payment.success_create')
     else
-      flash["danger"] = "新增失敗，請填寫正確的訊息及不要重複的專案名稱"
+      flash["danger"] = t('payment.fail_create')
     end
 
     redirect_to payments_path

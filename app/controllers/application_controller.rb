@@ -11,8 +11,8 @@ class ApplicationController < ActionController::Base
 
   def require_user
     unless current_user
-      flash["success"] = "This is reserved for members, please login or register fisrt!"
-      redirect_to login_path
+      flash["danger"] = t('required_for_login_user')
+      redirect_to root_path
     end
   end
 

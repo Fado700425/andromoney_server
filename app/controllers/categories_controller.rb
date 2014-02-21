@@ -50,11 +50,11 @@ class CategoriesController < ApplicationController
       params[:subcategorys].each do |sub|
         create_sub_category(@category,sub["subcategory"])
       end
-      flash["success"] = "已成功新增類別！"
+      flash["success"] = t('category.success_create')
       redirect_to edit_category_path(@category)
     else
       @images = Dir.glob("app/assets/images/category_icon/*").each_slice(8).to_a
-      flash["danger"] = "新增失敗，請填寫正確的訊息及不要重複的類別名稱"
+      flash["danger"] = t('category.fail_create')
       redirect_to action: :new, type: params[:category][:type]
     end
     

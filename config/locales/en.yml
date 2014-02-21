@@ -2,11 +2,43 @@ en:
   share_email: "wants to share account (%{account}) with you!"
   owner_delete_email: "Cancel sharing account with %{email}"
   sharer_receive_delete_email: "%{email} already cancel to share account with you"
+  required_for_login_user: "This is reserved for members, please login or register fisrt!"
+  welcome_message: "Welcome to use the best accounting software AndroMoney!"
+
+  category:
+    category: "Category"
+    success_create: "Congration, create a new category！"
+    fail_create: "Create fail, please fill in the correct info!"
+
+  payment:
+    success_create: "Congration, create a new account！"
+    fail_create: "Create fail, please fill in the correct info!(account cannot have the same name)"
+
+  record:
+    success_create: "Congration, create a new record!"
+    fail_create: "Create fail, please fill in the correct info! "
+    delete: "Already delete the record!"
 
   record_type:
     income: "Income"
     expense: "Expense"
     transfer: "Transfer"
+
+  report:
+    date: "Date"
+
+  project:
+    project: "Project"
+
+  payee:
+    payee: "Payee"
+
+  total: "Total"
+  balance: "Balance"
+  other: "Other"
+
+  account:
+    account: "Account"
 
   date:
     abbr_day_names:
