@@ -16,7 +16,7 @@
           = link_to current_user.email, home_path
         %li
           = link_to message_account_path(1) do
-            訊息
+            = t('message')
             - if(current_user.messages.not_read.size == 0)
               %span.badge.badge-success
                 = current_user.messages.not_read.size
@@ -25,4 +25,4 @@
                 = current_user.messages.not_read.size
 
         %li
-          = link_to "登出", signout_path
+          = link_to t('logout'), signout_path

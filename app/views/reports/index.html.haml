@@ -11,22 +11,22 @@
   .row
     .col-xs-12.col-sm-10
       .btn-group
-        = link_to "«上個月", reports_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
+        = link_to t('last_month'), reports_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
         = link_to I18n.l(Date.current + params[:month_from_now].to_i.month, format: :month), reports_path(month_from_now: 0), class: "btn btn-primary btn-lg"
-        = link_to "下個月»", reports_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
+        = link_to t('next_month'), reports_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
       .row
         .col-sm-12.report
           #chart_div_line
 
         %ul#tabs.nav.nav-tabs{"data-tabs" => "tabs"}
           %li.report_link.active
-            %a{id: "categoryLink","data-toggle" => "tab", :href => "#categoryTab", data: {value: "category"}} 類別
+            %a{id: "categoryLink","data-toggle" => "tab", :href => "#categoryTab", data: {value: "category"}} #{t('category.category')}
           %li.report_link
-            %a{id: "paymentLink","data-toggle" => "tab", :href => "#paymentTab", data: {value: "payment"}} 帳戶
+            %a{id: "paymentLink","data-toggle" => "tab", :href => "#paymentTab", data: {value: "payment"}} #{t('payment.payment')}
           %li.report_link
-            %a{id: "projectLink","data-toggle" => "tab", :href => "#projectTab", data: {value: "project"}} 專案
+            %a{id: "projectLink","data-toggle" => "tab", :href => "#projectTab", data: {value: "project"}} #{t('project.project')}
           %li.report_link
-            %a{id: "payeeLink","data-toggle" => "tab", :href => "#payeeTab", data: {value: "payee"}} 商家
+            %a{id: "payeeLink","data-toggle" => "tab", :href => "#payeeTab", data: {value: "payee"}} #{t('payee.payee')}
         .row
           .col-sm-6.report
             #piechart
@@ -34,40 +34,40 @@
             #chart_div
           .col-sm-12.no_data.hide
             %p.text-center
-              無資料
+              = t('no_data')
 
       .panel.panel-success
         .panel-heading
-          %h3.panel-title 篩選
+          %h3.panel-title= t('filter')
         .panel-body
           = form_for "report", url: reports_path,html: {id: "report_form"}, :remote => true do |f|
             %table.table
               %tbody
                 %tr
-                  %td 帳戶
+                  %td= t('payment.payment')
                   %td
                     - @payments.each do |payment|
                       = check_box "payment", payment.hash_key, {:checked => "checked"} 
                       = payment.payment_name
                 %tr
-                  %td 專案
+                  %td= t('project.project')
                   %td
                     - @projects.each do |project|
                       = check_box "project", project.hash_key, {:checked => "checked"} 
                       = project.project_name
                 %tr
-                  %td 商家
+                  %td= t('payee.payee')
                   %td
                     - @payees.each do |payee|
                       = check_box "payee", payee.hash_key, {:checked => "checked"} 
                       = payee.payee_name
                 %tr
-                  %td 類別
+                  %td= t('category.category')
                   %td.category_option
                     %input#optionsExpenseRadio{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
-                      支出類別
+                      #{t('category.expense_cat')}
                     %input#optionsIncomeRadio{:name => "optionsRadios", :type => "radio", :value => "option2"}
-                      收入類別
+                      #{t('category.income_cat')}
                     .category_checkboxs
                       - @expense_categories.each do |category|
                         = check_box "category", category.hash_key, {:checked => "checked"} 
@@ -75,6 +75,6 @@
             = f.hidden_field "type", value: "category"
             = hidden_field_tag "month_from_now", params[:month_from_now]
             .row
-            = f.submit "查詢", class: "btn btn-default"
+            = f.submit t('query'), class: "btn btn-default"
       
 .loading_modal 

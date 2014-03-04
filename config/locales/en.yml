@@ -4,15 +4,69 @@ en:
   sharer_receive_delete_email: "%{email} already cancel to share account with you"
   required_for_login_user: "This is reserved for members, please login or register fisrt!"
   welcome_message: "Welcome to use the best accounting software AndroMoney!"
+  edit: "Edit"
+  confirm_edit: "Confirm"
+  confirm_add: "Confirm"
+  name: "Name"
+  confirm_q: "Are you sure to delete?"
+  no_data: "No Data"
+  filter: "Filter"
+  query: "Query"
+  logout: "Logout"
+  message: "Message"
+  home: "Home"
+  download: "Download"
+  price: "Price"
+  about: "About"
+  login: "Login"
+
+  every_day: "(Every Day)"
+  every_week: "(Every Week)"
+  every_month: "(Every Month)"
+  every_year: "(Every Year)"
+
+  last_month: "« Last Month"
+  next_month: "Next Month»"
+
+  sidebar:
+    report: "Report"
+    record: "Record"
 
   category:
     category: "Category"
     success_create: "Congration, create a new category！"
     fail_create: "Create fail, please fill in the correct info!"
+    add: "Add New Category"
+    type: "Type"
+    name: "Name"
+    pic: "Picture"
+    placeholder: "Please fill in category name"
+    pic_notice: "Click to change the picture"
+    choose_pic: "Choose category picture"
+    income_cat: "Income Category"
+    expense_cat: "Expense Category"
+
+  subcategory:
+    subcategory: "Subcategory"
+    add: "Add New Subcategory"
+    num: "Num"
+    name: "Subcategory Name"
 
   payment:
+    payment: "Account"
     success_create: "Congration, create a new account！"
     fail_create: "Create fail, please fill in the correct info!(account cannot have the same name)"
+    add: "Add Account"
+    overview: "Account Overview"
+    include: "(Include Feature Records)"
+    total_income: "Total Income(Include Init Amount)"
+    liability: "Liability"
+    init_amount: "Init Amount"
+    edit: "Edit Account"
+    cash: "Cash"
+    credit_card: "Credit Card"
+    bank: "Bank"
+    amount_placeholder: "Please fill in init amount"
 
   record:
     success_create: "Congration, create a new record!"
@@ -26,6 +80,9 @@ en:
 
   report:
     date: "Date"
+    month_curve: "Month Curve"
+    ratio: "Ratio"
+    bar: "Barchart"
 
   project:
     project: "Project"
@@ -36,6 +93,7 @@ en:
   total: "Total"
   balance: "Balance"
   other: "Other"
+  rate: "Rate"
 
   account:
     account: "Account"

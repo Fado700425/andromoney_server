@@ -5,29 +5,29 @@
     .col-xs-12.col-sm-9
       %ul#tabs.nav.nav-tabs{"data-tabs" => "tabs"}
         %li.active
-          %a{id: "expenseLink","data-toggle" => "tab", :href => "#expenseTab"} 支出
+          %a{id: "expenseLink","data-toggle" => "tab", :href => "#expenseTab"} #{t('record_type.expense')}
         %li
-          %a{id: "incomeLink","data-toggle" => "tab", :href => "#incomeTab"} 收入
+          %a{id: "incomeLink","data-toggle" => "tab", :href => "#incomeTab"} #{t('record_type.income')}
         %li
-          %a{id: "transferLink","data-toggle" => "tab", :href => "#transferTab"} 轉帳
+          %a{id: "transferLink","data-toggle" => "tab", :href => "#transferTab"} #{t('record_type.transfer')}
       .row
         #my-tab-content.tab-content
           #expenseTab.mltab-type.tab-pane.active.in{"data-type" => "income"}
             .row
               = link_to new_category_path(type: 20), class: "btn btn-primary btn-lg add_new" do
                 %span.glyphicon.glyphicon-plus
-                新增主類別
+                = t('category.add')
             %table.table.table-striped
               %thead
                 %tr
-                  %th 類別
-                  %th 名稱
-                  %th 圖片
+                  %th= t('category.type')
+                  %th= t('category.name')
+                  %th= t('category.pic')
                   %th
               %tbody
                 - @expense_category.each_with_index do |category,i|
                   %tr#category-index{data: {category_id: category.hash_key, category_name: category.category}}
-                    %td 支出
+                    %td #{t('record_type.expense')}
                     %td #{category.category}
                     %td
                       = image_tag category.photo_path, width: "40px"
@@ -35,7 +35,7 @@
                       %button.btn.btn-xs.btn-success.btn-edit
                         = link_to edit_category_path(category) do
                           %span.glyphicon.glyphicon-pencil
-                          修改
+                          = t('edit')
                       / %button.btn.btn-xs.btn-danger.btn-remove
                       /   = link_to category_path(category), method: :delete, data: { confirm: 'Are you sure?' } do
                       /     %span.glyphicon.glyphicon-remove
@@ -44,18 +44,18 @@
             .row
               = link_to new_category_path(type: 10), class: "btn btn-primary btn-lg add_new" do
                 %span.glyphicon.glyphicon-plus
-                新增主類別
+                = t('category.add')
             %table.table.table-striped
               %thead
                 %tr
-                  %th 類別
-                  %th 名稱
-                  %th 圖片
+                  %th= t('category.type')
+                  %th= t('category.name')
+                  %th= t('category.pic')
                   %th
               %tbody
                 - @income_category.each_with_index do |category,i|
                   %tr#category-index{data: {category_id: category.hash_key, category_name: category.category}}
-                    %td 支出
+                    %td #{t('record_type.income')}
                     %td #{category.category}
                     %td
                       = image_tag category.photo_path, width: "40px"
@@ -63,7 +63,7 @@
                       %button.btn.btn-xs.btn-success.btn-edit
                         = link_to edit_category_path(category) do
                           %span.glyphicon.glyphicon-pencil
-                          修改
+                          = t('edit')
                       / %button.btn.btn-xs.btn-danger.btn-remove
                       /   = link_to category_path(category), method: :delete, data: { confirm: 'Are you sure?' } do
                       /     %span.glyphicon.glyphicon-remove
@@ -72,18 +72,18 @@
             .row
               = link_to new_category_path(type: 30), class: "btn btn-primary btn-lg add_new" do
                 %span.glyphicon.glyphicon-plus
-                新增主類別
+                = t('category.add')
             %table.table.table-striped
               %thead
                 %tr
-                  %th 類別
-                  %th 名稱
-                  %th 圖片
+                  %th= t('category.type')
+                  %th= t('category.name')
+                  %th= t('category.pic')
                   %th
               %tbody
                 - @transfer_category.each_with_index do |category,i|
                   %tr#category-index{data: {category_id: category.hash_key, category_name: category.category}}
-                    %td 支出
+                    %td #{t('record_type.transfer')}
                     %td #{category.category}
                     %td
                       = image_tag category.photo_path, width: "40px"
@@ -91,7 +91,7 @@
                       %button.btn.btn-xs.btn-success.btn-edit
                         = link_to edit_category_path(category) do
                           %span.glyphicon.glyphicon-pencil
-                          修改
+                          = t('edit')
                       / %button.btn.btn-xs.btn-danger.btn-remove
                       /   = link_to category_path(category), method: :delete, data: { confirm: 'Are you sure?' } do
                       /     %span.glyphicon.glyphicon-remove

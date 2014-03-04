@@ -13,10 +13,10 @@
     = record.record_out_payment.payment_name
   - elsif
     = record.record_in_payment.payment_name
-  = "(每天)" if record.record_period && record.record_period.period_type == 0
-  = "(每周)" if record.record_period && record.record_period.period_type == 1
-  = "(每月)" if record.record_period && record.record_period.period_type == 2
-  = "(每年)" if record.record_period && record.record_period.period_type == 3
+  = t('every_day') if record.record_period && record.record_period.period_type == 0
+  = t('every_week') if record.record_period && record.record_period.period_type == 1
+  = t('every_month') if record.record_period && record.record_period.period_type == 2
+  = t('every_year')  if record.record_period && record.record_period.period_type == 3
 %td
   = record.record_project.project_name if record.record_project
 %td
@@ -28,12 +28,12 @@
     - if( record.out_payment.present? && record.in_payment.present?)
       = link_to record_transfer_edit_path(record) do
         %span.glyphicon.glyphicon-pencil
-        修改
+        #(t('edit'))
     - else
       = link_to edit_record_path(record) do
         %span.glyphicon.glyphicon-pencil
-        修改
+        #(t('edit'))
   %button.btn.btn-xs.btn-danger.btn-remove
-    = link_to record_path(record, month_from_now: params[:month_from_now]), method: :delete, data: { confirm: 'Are you sure?' } do
+    = link_to record_path(record, month_from_now: params[:month_from_now]), method: :delete, data: { confirm: t('confirm_q') } do
       %span.glyphicon.glyphicon-remove
 

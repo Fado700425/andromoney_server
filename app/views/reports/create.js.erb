@@ -1,7 +1,7 @@
 var data = google.visualization.arrayToDataTable(<%= raw @trends_array %>);
 
 var options = {
-  title: '月趨勢圖',
+  title: "<%= t('report.month_curve') %>",
   height: 300,
   width: '100%',
   chartArea: {left:'5%',top:20},
@@ -22,7 +22,7 @@ chart.draw(data, options);
   var data2 = google.visualization.arrayToDataTable(<%= raw @pie_array %>);
 
   var options2 = {
-    title: '帳戶比例',
+    title: "<%= t('report.ratio') %>",
     height: 350,
     width: '50%',
     chartArea: {left:'5%',top:20},
@@ -36,7 +36,7 @@ chart.draw(data, options);
   var data = google.visualization.arrayToDataTable(<%= raw @chart_array.to_json.html_safe %>);
 
   var options = {
-    title: '帳戶長條圖',
+    title: "<%= t('report.bar') %>",
     height: 350,
     width: '50%',
     chartArea: {top:20},

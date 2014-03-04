@@ -4,25 +4,25 @@
   .row
     .col-xs-12.col-sm-9
       %header
-        %h3 新增主類別
+        %h3= t('category.add')
       = form_tag category_path(@category), method: "put" do
         %table.table.category_edit_table
           %thead
             %tr
-              %th 類別型態
-              %th 類別名稱
-              %th 圖片
+              %th= t('category.type')
+              %th= t('category.name')
+              %th= t('category.pic')
           %tbody
             %tr
               %td
-                - cate_hash = {20=> '支出', 10=> '收入',30=> '轉帳'}
+                - cate_hash = {20=> t('record_type.expense'), 10=> t('record_type.income'),30=> t('record_type.transfer')}
                 = cate_hash[@category.type]
               %td
-                = text_field_tag "category[category]", @category.category,placeholder: "請輸入名稱"
+                = text_field_tag "category[category]", @category.category,placeholder: t('category.placeholder')
               %td
                 = link_to "","data-toggle" => "modal", href: "#myNewCategoryModal" do
                   = image_tag @category.photo_path, width: "40px", id: "category_pic"
-                  點擊可換圖片
+                  = t('category.pic_notice')
                 = hidden_field_tag "category[photo_path]", @category.photo_path
         %table.table.category_edit_table
           %thead
@@ -34,25 +34,25 @@
             - @subcategories.each_with_index do |subcategory,i|
               %tr
                 %td= i + 1
-                %td= text_field_tag "subcategorys[][subcategory]", subcategory.subcategory,placeholder: "請輸入名稱"
+                %td= text_field_tag "subcategorys[][subcategory]", subcategory.subcategory,placeholder: t('category.placeholder')
                 = hidden_field_tag "subcategorys[][subcategory_id]", subcategory.id
                 %td
             %tr
-              %td= link_to "增加子類別","#a", class: "btn btn-default", add_id: @subcategories.size + 1, id: "add_subcategory"
+              %td= link_to t('subcategory.add'),"#a", class: "btn btn-default", add_id: @subcategories.size + 1, id: "add_subcategory"
               %td
               %td
 
             
 
         .pull-right
-          = submit_tag "確定修改", class: "btn btn-primary btn-lg"
+          = submit_tag t('confirm_edit'), class: "btn btn-primary btn-lg"
 
 #myNewCategoryModal.modal.fade
   .modal-dialog
     .modal-content
       .modal-header
         %a.close{"data-dismiss" => "modal"} &times;
-        %h4 選擇類別圖片
+        %h4= t('category.choose_pic')
       .modal-body
         %table.table.table-bordered.category-table
           %tbody
