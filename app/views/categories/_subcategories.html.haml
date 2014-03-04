@@ -1,13 +1,13 @@
 - subcategories.each do |subcategory|
   %tr.success#subcategory
-    %td #{category.category}/子類別
+    %td #{category.category}/#{t('subcategory.subcategory')}
     %td= subcategory.subcategory
     %td
     %td
       %button.btn.btn-xs.btn-success.btn-edit
         = link_to edit_category_path(category) do
           %span.glyphicon.glyphicon-pencil
-          修改
+          = t('edit')
       / %button.btn.btn-xs.btn-danger.btn-remove
       /   = link_to subcategory_path(subcategory), method: :delete, data: { confirm: 'Are you sure?' } do
       /     %span.glyphicon.glyphicon-remove

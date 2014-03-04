@@ -4,56 +4,56 @@
   .row
     .col-xs-12.col-sm-9
       %header
-        %h3.new_cat_title 新增主類別
+        %h3.new_cat_title= t('category.add')
       = form_tag categories_path do
         %table.table
           %thead
             %tr
-              %th 類別型態
-              %th 類別名稱
-              %th 圖片
+              %th= t('category.type')
+              %th= t('category.name')
+              %th= t('category.pic')
           %tbody
             %tr
               %td
-                = select_tag "category[type]", options_for_select([['支出', 20], ['收入', 10],['轉帳', 30]], params[:type])
+                = select_tag "category[type]", options_for_select([[t('record_type.expense'), 20], [t('record_type.income'), 10],[t('record_type.transfer'), 30]], params[:type])
               %td
-                = text_field_tag "category[category]", "",placeholder: "請輸入名稱"
+                = text_field_tag "category[category]", "",placeholder: t('category.placeholder')
               %td
                 = link_to "","data-toggle" => "modal", href: "#myNewCategoryModal" do
                   = image_tag "category_icon/unknown.png", width: "40px", id: "category_pic"
-                  點擊可換圖片
+                  = t('category.choose_pic')
                 = hidden_field_tag "category[photo_path]"
         %table.table
           %thead
             %tr
-              %th 編號
-              %th 子類別名稱
+              %th= t('subcategory.num')
+              %th= t('subcategory.name')
               %th
           %tbody
             %tr
               %td 1
-              %td= text_field_tag "subcategorys[][subcategory]", "",placeholder: "請輸入名稱"
+              %td= text_field_tag "subcategorys[][subcategory]", "",placeholder: t('category.placeholder')
               %td
             %tr
               %td 2
-              %td= text_field_tag "subcategorys[][subcategory]", "",placeholder: "請輸入名稱"
+              %td= text_field_tag "subcategorys[][subcategory]", "",placeholder: t('category.placeholder')
               %td 
             %tr
-              %td= link_to "增加子類別","#a", class: "btn btn-default", add_id: 3, id: "add_subcategory"
+              %td= link_to t('subcategory.add'),"#a", class: "btn btn-default", add_id: 3, id: "add_subcategory"
               %td
               %td
 
             
 
         .pull-right
-          = submit_tag "確定新增", class: "btn btn-primary btn-lg"
+          = submit_tag t('confirm_add'), class: "btn btn-primary btn-lg"
 
 #myNewCategoryModal.modal.fade
   .modal-dialog
     .modal-content
       .modal-header
         %a.close{"data-dismiss" => "modal"} &times;
-        %h4 選擇類別圖片
+        %h4= t('category.choose_pic')
       .modal-body
         %table.table.table-bordered.category-table
           %tbody

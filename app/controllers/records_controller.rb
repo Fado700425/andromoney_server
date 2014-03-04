@@ -23,9 +23,9 @@ class RecordsController < ApplicationController
     set_record_submit_value(@record)
 
     if @record.save
-      flash["success"] = "Create success"      
+      flash["success"] = t('record.success_create')     
     else
-      flash["danger"] = "Create fail!"
+      flash["danger"] = t('record.fail_create')
     end
     redirect_to records_path(month_from_now: params[:month_from_now])
   end
@@ -39,9 +39,9 @@ class RecordsController < ApplicationController
     
 
     if record.save
-      flash["success"] = "Create success"      
+      flash["success"] = t('record.success_create')   
     else
-      flash["danger"] = "Create fail!"
+      flash["danger"] = t('record.fail_create')
     end
     redirect_to records_path(month_from_now: params[:month_from_now])
     
@@ -128,7 +128,7 @@ class RecordsController < ApplicationController
     record.update_time = DateTime.now.utc
     record.save
 
-    flash["success"] = "delete success"
+    flash["success"] = t('record.delete')
     redirect_to records_path(month_from_now: params[:month_from_now])
   end
 

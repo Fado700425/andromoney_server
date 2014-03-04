@@ -14,20 +14,20 @@
     .collapse.navbar-collapse
       %ul.nav.navbar-nav
         %li
-          = link_to "首頁", root_path
+          = link_to t('home'), root_path
         %li
-          = link_to "軟體下載", download_path
+          = link_to t('download'), download_path
         %li
-          = link_to "價格方案", pricing_path
+          = link_to t('price'), pricing_path
         %li
-          = link_to "關於", about_path
+          = link_to t('about'), about_path
       .pull-right
         %ul.nav.navbar-nav
           - if current_user
             %li
               = link_to current_user.email, home_path
             %li
-              = link_to "登出", signout_path
+              = link_to t('logout'), signout_path
           - else
             %li
-              = link_to "用戶登入", "/auth/google_login"
+              = link_to t('login'), "/auth/google_login"

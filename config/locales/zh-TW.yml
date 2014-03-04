@@ -2,11 +2,101 @@ zh-TW:
   share_email: "想跟你分享 (%{account}) 帳戶資料!"
   owner_delete_email: "已取消你分享給 %{email} 的帳戶資料"
   sharer_receive_delete_email: "%{email} 已取消跟你分享帳戶資料"
+  required_for_login_user: "你好，請先登入再開始使用，謝謝！"
+  welcome_message: "歡迎你開始使用最好用的記帳軟體 AndroMoney!"
+  edit: "修改"
+  confirm_edit: "確定修改"
+  confirm_add: "確定新增"
+  name: "名稱"
+  confirm_q: "確定要刪除嗎?"
+  no_data: "無資料"
+  filter: "篩選"
+  query: "查詢"
+  logout: "登出"
+  message: "訊息"
+  home: "首頁"
+  download: "軟體下載"
+  price: "價格方案"
+  about: "關於"
+  login: "用戶登入"
+
+  every_day: "(每天)"
+  every_week: "(每周)"
+  every_month: "(每月)"
+  every_year: "(每年)"
+
+  last_month: "«上個月"
+  next_month: "下個月»"
+
+  sidebar:
+    report: "報表"
+    record: "明細"
+
+  category:
+    category: "類別"
+    success_create: "恭喜你，已成功新增類別！"
+    fail_create: "新增失敗，請填寫正確的訊息及不要重複的類別名稱"
+    add: "新增主類別"
+    type: "類別型態"
+    name: "類別名稱"
+    pic: "圖片"
+    placeholder: "請輸入名稱"
+    pic_notice: "點擊可換圖片"
+    choose_pic: "選擇類別圖片"
+    income_cat: "收入類別"
+    expense_cat: "支出類別"
+
+  subcategory:
+    subcategory: "子類別"
+    add: "增加子類別"
+    num: "編號"
+    name: "子類別名稱"
+
+  payment:
+    payment: "帳戶"
+    success_create: "已成功新增帳戶！"
+    fail_create: "新增失敗，請填寫正確的訊息及不要重複的專案名稱"
+    add: "新增帳戶"
+    overview: "帳戶總覽"
+    include: "(含未來記錄)"
+    total_income: "總收入(含初始金額)"
+    liability: "總負債"
+    init_amount: "初始金額"
+    edit: "修改帳戶"
+    cash: "現金"
+    credit_card: "信用卡"
+    bank: "銀行"
+    amount_placeholder: "請輸入初始金額"
+
+  record:
+    success_create: "已成功新增記錄！"
+    fail_create: "新增失敗，請填寫正確的訊息"
+    delete: "已刪除該筆記錄"
 
   record_type:
     income: "收入"
     expense: "支出"
     transfer: "轉帳"
+
+  report:
+    date: "日期"
+    month_curve: "月趨勢圖"
+    ratio: "帳戶比例"
+    bar: "帳戶長條圖"
+
+  project:
+    project: "專案"
+
+  payee:
+    payee: "商家"
+
+  total: "總計"
+  balance: "結餘"
+  other: "其它"
+  rate: "匯率"
+
+  account:
+    account: "帳戶"
 
   date:
     abbr_day_names:

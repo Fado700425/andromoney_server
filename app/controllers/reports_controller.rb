@@ -1,6 +1,7 @@
 class ReportsController < ApplicationController
-
   layout 'account'
+
+  before_action :require_user
 
   def index
     @payments = current_user.payments
@@ -35,7 +36,7 @@ class ReportsController < ApplicationController
       @income_trends[date.strftime("%d").to_i-1] = val.to_f
     end
 
-    @trends_array = [['日期', '支出', '收入']]
+    @trends_array = [[t('report.date'), t('record_type.expense'), t('record_type.income')]]
     @expense_trends.each_with_index do |val, index|
       array = []
       array << ((Time.now + params[:month_from_now].to_i.month).beginning_of_month + index.day).strftime("%m/%d")
@@ -52,11 +53,11 @@ class ReportsController < ApplicationController
     when "payment"
       payments = Payment.where(hash_key: payments, user_id: current_user.id).sort_by{|p| -p.balance.abs}
 
-      @chart_array = [['專案', '總計', { role: "style" }]]
-      @pie_array = [['帳戶', '結餘']]
+      @chart_array = [[t('account.account'), t('total'), { role: "style" }]]
+      @pie_array = [[t('account.account'), t('balance')]]
 
       other_array = []
-      other_array << '其它'
+      other_array << t('other')
       other_balance = 0
 
       payments.each_with_index do |payment, index|
@@ -85,12 +86,12 @@ class ReportsController < ApplicationController
         @chart_array << other_array
       end
     when "project"
-      @chart_array = [['專案', '總計']]
+      @chart_array = [[t('project.project'), t('total')]]
       project_amount = Record.month_from_now(params[:month_from_now].to_i).where("user_id = #{current_user.id}").group(:project).sum(:amount_to_main)
       project_amount = project_amount.sort_by{|key,val| val}
 
       other_array = []
-      other_array << '其它'
+      other_array << t('other')
       other_amount = 0
 
       project_amount.each do |hash_key, amount|
@@ -117,13 +118,13 @@ class ReportsController < ApplicationController
         @chart_array << other_array
       end
     when "payee"
-      @chart_array = [['專案', '總計', { role: "style" }]]
-      @pie_array = [['專案', '總計']]
+      @chart_array = [[t('payee.payee'), t('total'), { role: "style" }]]
+      @pie_array = [[t('payee.payee'), t('total')]]
       payee_amount = Record.month_from_now(params[:month_from_now].to_i).where("user_id = #{current_user.id}").group(:payee).sum(:amount_to_main)
       payee_amount = payee_amount.sort_by{|key,val| val}
 
       other_array = []
-      other_array << '其它'
+      other_array << t('other')
       other_amount = 0
 
       payee_amount.each_with_index do |hash_key, index|
@@ -153,13 +154,13 @@ class ReportsController < ApplicationController
         @chart_array << other_array
       end 
     when "category"
-      @chart_array = [['類別', '總計', { role: "style" }]]
-      @pie_array = [['類別', '總計']]
+      @chart_array = [[t('category.category'), t('total'), { role: "style" }]]
+      @pie_array = [[t('category.category'), t('total')]]
       category_amount = Record.month_from_now(params[:month_from_now].to_i).where("user_id = #{current_user.id}").group(:category).sum(:amount_to_main)
       category_amount = category_amount.sort_by{|key,val| val}
 
       other_array = []
-      other_array << '其它'
+      other_array << t('other')
       other_amount = 0
 
       category_amount.each_with_index do |hash, index|

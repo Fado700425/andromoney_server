@@ -7,13 +7,13 @@
     .col-xs-12.col-sm-10
       = link_to "#a","data-toggle" => "modal", 'data-target' => "#myNewAccountModal", class: "btn btn-primary btn-lg add_new" do
         %span.glyphicon.glyphicon-plus
-        新增帳戶
+        = t('payment.add')
       .row
         .panel.panel-success
           .panel-heading
             .panel-title
-              帳戶總覽
-              %small.text-danger (含未來記錄)
+              = t('payment.overview')
+              %small.text-danger= t('payment.include')
           .panel-body
             .col-sm-3
               .content_chart1
@@ -21,15 +21,15 @@
                   %table.table.table-striped
                     %tbody
                       %tr
-                        %td 總收入(含初始金額)
+                        %td= t('payment.total_income')
                         %td
                           %span#total_income.money_info.text-success 0
                       %tr
-                        %td 總負債
+                        %td= t('payment.liability')
                         %td
                           %span#total_expense.money_info.text-danger 0
                       %tr
-                        %td 結餘
+                        %td= t('balance')
                         %td
                           %span#total_remain.money_info.text-success 0
       .row
@@ -37,12 +37,12 @@
           %table.table.table-striped
             %thead
               %tr
-                %th 帳戶
-                %th 初始金額
-                %th 收入
-                %th 支出
-                %th 結餘
-                %th 匯率
+                %th= t('payment.payment')
+                %th= t('payment.init_amount')
+                %th= t('record_type.income')
+                %th= t('record_type.expense')
+                %th= t('balance')
+                %th= t('rate')
                 %th #{current_user.get_main_currency.currency_code}結餘
                 %th
             %tbody
@@ -97,26 +97,26 @@
     .modal-content
       .modal-header
         %a.close{"data-dismiss" => "modal"} &times;
-        %h4 修改帳戶
+        %h4= t('payment.edit')
       .modal-body
 
         = form_tag payment_path("edit"),method: "put", class: "form-horizontal" do
           .form-group
-            %label.col-sm-2.control-label 類別
+            %label.col-sm-2.control-label= t('category.category')
             .col-sm-10
-              = select_tag "payment[kind]", options_for_select([['現金', 0], ['信用卡', 1],['銀行', 2]], 0)
+              = select_tag "payment[kind]", options_for_select([[t('payment.cash'), 0], [t('payment.credit_card'), 1],[t('payment.bank'), 2]], 0)
               = image_tag icon_path[0], id: "payment_modal_pic",width: "40px",data:{pic_0: image_path("payment_icon/cash.png"), pic_1: image_path("payment_icon/card.png"), pic_2: image_path("payment_icon/bank.png")}
           .form-group
-            %label.col-sm-2.control-label{:for => "payment_payment_name"} 名稱
+            %label.col-sm-2.control-label{:for => "payment_payment_name"} #{t('name')}
             .col-sm-10
-              = text_field_tag "payment[payment_name]","", class: "form-control",placeholder: "請輸入名稱"
+              = text_field_tag "payment[payment_name]","", class: "form-control",placeholder: t('category.placeholder')
           .form-group
-            %label.col-sm-2.control-label{:for => "payment_payment_name"} 初始金額
+            %label.col-sm-2.control-label{:for => "payment_payment_name"} #{t('payment.init_amount')}
             .col-sm-10
-              = text_field_tag "initial_amount","", class: "form-control",placeholder: "請輸入初始金額"
+              = text_field_tag "initial_amount","", class: "form-control",placeholder: t('payment.amount_placeholder')
           = hidden_field_tag "payment_id"
           .record_modal_footer
-            = submit_tag "確定", class: "btn btn-primary"
+            = submit_tag t('confirm_edit'), class: "btn btn-primary"
 
 
 #myNewAccountModal.modal.fade
@@ -124,25 +124,25 @@
     .modal-content
       .modal-header
         %a.close{"data-dismiss" => "modal"} &times;
-        %h4 新增帳戶
+        %h4= t('payment.add')
       .modal-body
 
         = form_tag payments_path, class: "form-horizontal" do
           .form-group
-            %label.col-sm-2.control-label 類別
+            %label.col-sm-2.control-label= t('category.category')
             .col-sm-10
-              = select_tag "payment[kind]", options_for_select([['現金', 0], ['信用卡', 1],['銀行', 2]], 0)
+              = select_tag "payment[kind]", options_for_select([[t('payment.cash'), 0], [t('payment.credit_card'), 1],[t('payment.bank'), 2]], 0)
               = image_tag icon_path[0], id: "payment_modal_pic",width: "40px",data:{pic_0: image_path("payment_icon/cash.png"), pic_1: image_path("payment_icon/card.png"), pic_2: image_path("payment_icon/bank.png")}
           .form-group
-            %label.col-sm-2.control-label{:for => "payment_payment_name"} 名稱
+            %label.col-sm-2.control-label{:for => "payment_payment_name"} #{t('name')}
             .col-sm-10
-              = text_field_tag "payment[payment_name]","", class: "form-control",placeholder: "請輸入名稱"
+              = text_field_tag "payment[payment_name]","", class: "form-control",placeholder: t('category.placeholder')
           .form-group
-            %label.col-sm-2.control-label{:for => "payment_payment_name"} 初始金額
+            %label.col-sm-2.control-label{:for => "payment_payment_name"} #{t('payment.init_amount')}
             .col-sm-10
-              = text_field_tag "initial_amount","", class: "form-control",placeholder: "請輸入初始金額"
+              = text_field_tag "initial_amount","", class: "form-control",placeholder: t('payment.amount_placeholder')
           .record_modal_footer
-            = submit_tag "確定", class: "btn btn-primary"
+            = submit_tag t('confirm_add'), class: "btn btn-primary"
 
 
                 

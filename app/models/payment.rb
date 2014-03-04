@@ -3,7 +3,6 @@ class Payment < ActiveRecord::Base
   belongs_to :user
   validates_uniqueness_of :hash_key, scope: [ :user_id ]
   validates_presence_of :payment_name
-  validates_uniqueness_of :payment_name, scope: [ :user_id ]
 
   default_scope { order('order_no desc') } 
   scope :not_hidden, ->{where("hidden = 0 and is_delete = 0")} 
