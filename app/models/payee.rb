@@ -2,6 +2,7 @@ class Payee < ActiveRecord::Base
   self.table_name = "payee_table"
   self.inheritance_column = :_type_disabled
   validates_uniqueness_of :hash_key, scope: [ :user_id ]
+  validates_presence_of :payee_name
   belongs_to :user
 
   default_scope { order('order_no desc') } 
