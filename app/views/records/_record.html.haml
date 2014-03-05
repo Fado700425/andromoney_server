@@ -28,11 +28,11 @@
     - if( record.out_payment.present? && record.in_payment.present?)
       = link_to record_transfer_edit_path(record) do
         %span.glyphicon.glyphicon-pencil
-        #(t('edit'))
+        #{t('edit')}
     - else
       = link_to edit_record_path(record) do
         %span.glyphicon.glyphicon-pencil
-        #(t('edit'))
+        #{t('edit')}
   %button.btn.btn-xs.btn-danger.btn-remove
     = link_to record_path(record, month_from_now: params[:month_from_now]), method: :delete, data: { confirm: t('confirm_q') } do
       %span.glyphicon.glyphicon-remove

@@ -1,4 +1,5 @@
 en:
+  personal_message: "Personal Message"
   share_email: "wants to share account (%{account}) with you!"
   owner_delete_email: "Cancel sharing account with %{email}"
   sharer_receive_delete_email: "%{email} already cancel to share account with you"
