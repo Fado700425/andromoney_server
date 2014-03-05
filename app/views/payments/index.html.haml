@@ -1,5 +1,4 @@
 - icon_path = ["payment_icon/cash.png","payment_icon/card.png","payment_icon/bank.png"]
-- type = ["現金","卡片","銀行"]
 .row.row-offcanvas.row-offcanvas-right
   = render 'shared/sidebar'
 
@@ -87,7 +86,7 @@
                     %button.btn.btn-xs.btn-success.btn-edit.edit_category
                       = link_to "#a","data-toggle" => "modal", 'data-target' => "#myAccountModal", data:{kind:payment.kind,name: payment.payment_name, initial: 0, payment_id: payment.id} do
                         %span.glyphicon.glyphicon-pencil
-                        修改
+                        = t('edit')
                     / %button.btn.btn-xs.btn-danger.btn-remove
                     /   = link_to payment_path(payment), method: :delete, data: { confirm: 'Are you sure?' } do
                     /     %span.glyphicon.glyphicon-remove

@@ -3,11 +3,9 @@
     .item.active
       .carousel-caption
         = image_tag "icon.png"
-        %h1 支援多重平台
+        = t('feature_multiple_platform').html_safe
         %p
-          不論是 Android, iPhone 甚至是電腦都可以使用, 立即下載 AndroMoney, 體驗完善的記帳服務！
-        %p
-          = link_to "軟體下載", download_path, class: "btn btn-lg btn-primary"
+          = link_to t('download'), download_path, class: "btn btn-lg btn-primary"
 
 
 .container.marketing
@@ -15,42 +13,29 @@
   .row
     .col-lg-4
       = image_tag("invoice.png")
-      %h2 記錄生活消費
-      %p 不論是Android 或是 iPhone 用戶都可以透過AndroMoney手機APP, 輕鬆地記錄下每一筆花費，轉帳，收入與支出
+      = t('feture_record').html_safe
 
     / /.col-lg-4
     .col-lg-4
       = image_tag("stock.png")
-      %h2 即時消費分析
-      %p 找出最高消費，平均花費，以利使用者分析花費支出，並可以動態繪製統計圖，圓餅圖(花費分佈)，趨勢圖(花費趨勢)之功能，對圖表進行互動式操作。
+      = t('feature_analysis').html_safe
 
     / /.col-lg-4
     .col-lg-4
       = image_tag("coins.png")
-      %h2 掌握資產狀況
-      %p 提供多帳戶功能，可以設定不同的戶頭，也可透過專案管理，可以了解自己在每個項目的花費流向，確實掌握自己資產
+      = t('feature_asset').html_safe
     / /.col-lg-4
   / /.row
   / START THE FEATURETTES
   %hr.featurette-divider
     .row.featurette
       .col-md-7
-        %h2.text-primary
-          記帳功能完整
-          .small
-            單筆記帳, 預算管理, 消費類別管理, 多帳戶功能, 不同貨幣, 統計圖表分析
-        %p.lead 
-          AndroMoney 是行動電話上的個人理財服務工具，希望透過這個工具，可以良好的管理個人的財富。
-          %br
-          %br
-          我們軟體的發展方展方向是：
-          1.簡單易用，在操作上是十分直覺的
-          2.功能強大，不論單純的記帳，或者想要管理不同的帳戶、類別，甚至是繪成圖表，也都可以輕易的辦到。
+        = t('feature_track').html_safe
 
       .col-md-5
         = link_to image_path('android_index.png'), data: {gallery: ""}, title: "AndroMoney_Index", rel: "group" do
           = image_tag('android_index.png',class: "featurette-image img-responsive", alt: "AndroMoney_Index")
-    %h3.text-success 更多圖示
+    %h3.text-success #{t('more_pics')}
     #links.clearfix
       = link_to image_path('andromoney_1.png'), data: {gallery: ""}, title: "AndroMoney_1", rel: "group" do
         = image_tag('andromoney_1.png', alt: "AndroMoney_1")
@@ -65,21 +50,11 @@
       .col-md-5
         = image_tag('CrossPlatform.png',class: "featurette-image img-responsive")
       .col-md-7
-        %h2.text-primary
-          多平台同步
-          .small
-            支援 Android, iPhone, Web
-        %p.lead
-          使用者常有多個不同的裝置, 如 Android 手機, iPad 甚至是桌上型電腦, 都可以下載 AndroMoney APP, 或使用 AndroMoeny 雲端服務, 並利用帳戶同步的功能, 達到多平台都可記帳
+        = t('feature_platform').html_safe
   %hr.featurette-divider
     .row.featurette
       .col-md-7
-        %h2.text-primary
-          保護使用者資料
-          .small
-            手機端備份, 雲端備份, 電腦檔案匯出入
-        %p.lead 
-          常有使用者在使用其它記帳軟體時, 發生資料遺失, 辛苦記帳的資料付諸流水, AndroMoney為保護使用者的資料, 開發備份功能, 也提供使用者將檔案匯出入, 使者不用再煩腦資料問題
+        = t('feature_protect').html_safe
       .col-md-5
         = image_tag('shield.png',class: "featurette-image img-responsive")
   %hr.featurette-divider
@@ -88,51 +63,14 @@
         = image_tag('thumb_up.png',class: "featurette-image img-responsive")
       .col-md-7
         %h2.text-primary
-          品質保證
+          = t('quality')
           .small
-            榮獲多方肯定
-        %p.lead 
-          %b.text-danger
-            榮獲Google Play 首頁之效率排行工具之理財APP。
-          %br
-          %b.text-danger
-            入圍App Next 2013應用程式創新大賽之理財工具。
-          %br
-          %b.text-danger
-            Android App達人評測網】精選之─AndroMoney(記帳理財)
-          %br
-          知名網站推薦：
-          %br
-          .text-success
-            PUNAPP :
-          【AndroMoney】雙平台資產管理記帳APP，好評如何得來
-          %br
-          .text-success
-            電腦玩物 : 
-          記帳 AndroMoney 免費記帳軟體貼心好用Android記帳本
-          %br
-          .text-success
-            重灌狂人 : 
-          超好用的記帳 APP] AndroMoney 收支分類清楚、圖表分析、直接匯出 excel…
-          %br
-          .text-success
-            挨踢路人甲 : 
-          相當符合我胃口，所以介紹大家試試。
-          %br
-          .text-success
-            PDA魔王部落 : 
-          讓人眼睛一亮的莫過於 AndroMoney，不僅美工精美，操作起來順手易學，很快地就擄獲魔王的心。
-          %br
-          .text-success
-            Apphome-好玩的app : 
-          聰明記帳幫手-理財、記帳 AndroMoney
-          %br
-          .text-success
-            Freegroup 免費資源網路社群 : 
-          [Android] AndroMoney 簡單又有質感的快速記帳，還可透過 Excel 匯入匯出！
+            = t('recommend')
+        = t('android').html_safe
+        
   %hr.featurette-divider
     / /END THE FEATURETTES
     / FOOTER
     %footer
       %p.pull-right
-        %a{:href => "#"} 回到頂端
+        %a{:href => "#"} #{t('back_to_top')}

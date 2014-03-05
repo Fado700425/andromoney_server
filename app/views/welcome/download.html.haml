@@ -7,7 +7,7 @@
       %li
         = link_to "#{image_tag('apple-icon.png')}iPhone".html_safe,"#iphone", :data => {:toggle=>"tab"}
       %li
-        = link_to "#{image_tag('icon-50.png')}AndroMoney 雲端平台".html_safe,"#web", :data => {:toggle=>"tab"}
+        = link_to "#{image_tag('icon-50.png')}AndroMoney #{t('cloud')}".html_safe,"#web", :data => {:toggle=>"tab"}
     %br
     #myTabContent.tab-content
       #android.tab-pane.fade.in.active
@@ -15,40 +15,7 @@
           .col-md-3.col-md-offset-3
             = image_tag('android_index.png',class: "featurette-image img-responsive")
           .col-md-5
-            %h2.text-danger
-              榮獲Google Play 優質效率排行工具之理財推薦APP
-            %br
-            .pull-left
-              知名網站推薦：
-            %br
-            %br
-            %span.text-success
-              PUNAPP :
-            【AndroMoney】雙平台資產管理記帳APP，好評如何得來
-            %br
-            %span.text-success
-              電腦玩物 : 
-            記帳 AndroMoney 免費記帳軟體貼心好用Android記帳本
-            %br
-            %span.text-success
-              重灌狂人 : 
-            超好用的記帳 APP AndroMoney 收支分類清楚、圖表分析、直接匯出 excel…
-            %br
-            %span.text-success
-              挨踢路人甲 : 
-            相當符合我胃口，所以介紹大家試試。
-            %br
-            %span.text-success
-              PDA魔王部落 : 
-            讓人眼睛一亮的莫過於 AndroMoney，不僅美工精美，操作起來順手易學，很快地就擄獲魔王的心。
-            %br
-            %span.text-success
-              Apphome-好玩的app : 
-            聰明記帳幫手-理財、記帳 AndroMoney
-            %br
-            %span.text-success
-              Freegroup 免費資源網路社群 : 
-            [Android] AndroMoney 簡單又有質感的快速記帳，還可透過 Excel 匯入匯出！
+            = t('android').html_safe
             %br
             %br
             %p.lead 
@@ -60,38 +27,7 @@
           .col-md-3.col-md-offset-3
             = image_tag('android_index.png',class: "featurette-image img-responsive")
           .col-md-5
-            %h2.text-danger
-              iPhone 必備APP
-            %table.table.table-striped
-              %tbody
-                %tr
-                  %td 單筆記帳
-                  %td
-                    %span.glyphicon.glyphicon-ok
-                %tr
-                  %td 預算管理
-                  %td
-                    %span.glyphicon.glyphicon-ok
-                %tr
-                  %td 消費類別管理
-                  %td
-                    %span.glyphicon.glyphicon-ok
-                %tr
-                  %td 多帳戶功能
-                  %td
-                    %span.glyphicon.glyphicon-ok
-                %tr
-                  %td 不同貨幣
-                  %td
-                    %span.glyphicon.glyphicon-ok
-                %tr
-                  %td 統計圖表分析
-                  %td
-                    %span.glyphicon.glyphicon-ok
-                %tr
-                  %td 多平台同步
-                  %td
-                    %span.glyphicon.glyphicon-ok
+            = t('ios').html_safe
             %p.lead 
               = link_to(image_tag('badge_ios.png'),"https://itunes.apple.com/tw/app/andromoney-lite/id715504756?mt=8")
       #web.tab-pane.fade
@@ -99,37 +35,6 @@
           .col-md-3.col-md-offset-3
             = image_tag('android_index.png',class: "featurette-image img-responsive")
           .col-md-5
-            %h2.text-danger
-              最完善的雲端記帳服務
-            %table.table.table-striped
-              %tbody
-                %tr
-                  %td 單筆記帳
-                  %td
-                    %span.glyphicon.glyphicon-ok
-                %tr
-                  %td 預算管理
-                  %td
-                    %span.glyphicon.glyphicon-ok
-                %tr
-                  %td 消費類別管理
-                  %td
-                    %span.glyphicon.glyphicon-ok
-                %tr
-                  %td 多帳戶功能
-                  %td
-                    %span.glyphicon.glyphicon-ok
-                %tr
-                  %td 不同貨幣
-                  %td
-                    %span.glyphicon.glyphicon-ok
-                %tr
-                  %td 統計圖表分析
-                  %td
-                    %span.glyphicon.glyphicon-ok
-                %tr
-                  %td 多平台同步
-                  %td
-                    %span.glyphicon.glyphicon-ok
+            = t('web').html_safe
             %p.lead 
-              = link_to("#{image_tag('icon.png')}立即登入".html_safe,"/auth/google_login")
+              = link_to("#{image_tag('icon.png')}#{t('login')}".html_safe,"/auth/google_login")
