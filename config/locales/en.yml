@@ -19,6 +19,8 @@ en:
   price: "Price"
   about: "About"
   login: "Login"
+  amount: "Amount"
+  note: "Note"
 
   every_day: "(Every Day)"
   every_week: "(Every Week)"
@@ -72,6 +74,7 @@ en:
     success_create: "Congration, create a new record!"
     fail_create: "Create fail, please fill in the correct info! "
     delete: "Already delete the record!"
+    add: "Add"
 
   record_type:
     income: "Income"

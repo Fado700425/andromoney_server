@@ -6,10 +6,10 @@
       .pull-left
         = link_to new_record_path(month_from_now: params[:month_from_now]), class: "btn btn-primary btn-lg add_new" do
           %span.glyphicon.glyphicon-plus
-          新增一筆 
+          = t('record.add') 
       .btn-group.col-lg-3.ml-nav
-        = link_to "«上個月", records_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
-        = link_to "下個月»", records_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
+        = link_to t('last_month'), records_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
+        = link_to t('next_month'), records_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
     .row  
       .module
         .module-header
@@ -19,19 +19,19 @@
             %thead
               %tr
                 %th
-                  = sortable("category","類別") 
+                  = sortable("category",t('category.category')) 
                 %th 
-                  = sortable("mount","金額") 
+                  = sortable("mount",t('amount')) 
                 %th 
-                  = sortable("date","日期")
+                  = sortable("date",t('report.date'))
                 %th 
-                  = sortable("payment","帳戶")
+                  = sortable("payment",t('payment.payment'))
                 %th 
-                  = sortable("project","專案")
+                  = sortable("project",t('project.project'))
                 %th 
-                  = sortable("payee","商家")
+                  = sortable("payee",t('payee.payee'))
                 %th 
-                  = sortable("remark","備註")
+                  = sortable("remark",t('note'))
                 %th
             %tbody
               - @records.each do |record|
@@ -48,8 +48,8 @@
       .pull-left
         = link_to new_record_path(month_from_now: params[:month_from_now]), class: "btn btn-primary btn-lg add_new" do
           %span.glyphicon.glyphicon-plus
-          新增一筆 
+          = t('record.add')  
       .btn-group.col-lg-3.ml-nav
-        = link_to "«上個月", records_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
-        = link_to "下個月»", records_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
+        = link_to t('last_month'), records_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
+        = link_to t('next_month'), records_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
 

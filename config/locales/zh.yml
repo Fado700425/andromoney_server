@@ -19,6 +19,8 @@ zh:
   price: "價格方案"
   about: "關於"
   login: "用戶登入"
+  amount: "金額"
+  note: "備註"
 
   every_day: "(每天)"
   every_week: "(每周)"
@@ -72,6 +74,7 @@ zh:
     success_create: "已成功新增記錄！"
     fail_create: "新增失敗，請填寫正確的訊息"
     delete: "已刪除該筆記錄"
+    add: "新增一筆"
 
   record_type:
     income: "收入"
