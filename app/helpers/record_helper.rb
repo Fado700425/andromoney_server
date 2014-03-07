@@ -7,12 +7,12 @@ module RecordHelper
       if record.out_payment
         render_text = 
         content_tag(:li, class: "active") do
-          link_to "支出", "#expenseTab", id: "expenseLink","data-toggle" => "tab"
+          link_to t('record_type.expense'), "#expenseTab", id: "expenseLink","data-toggle" => "tab"
         end
       else
         render_text = 
         content_tag(:li, class: "active") do
-          link_to "收入", "#incomeTab", id: "incomeLink","data-toggle" => "tab"
+          link_to t('record_type.income'), "#incomeTab", id: "incomeLink","data-toggle" => "tab"
         end 
       end
       render_text

@@ -27,8 +27,8 @@
         %table.table.category_edit_table
           %thead
             %tr
-              %th 編號
-              %th 子類別名稱
+              %th= t('subcategory.num')
+              %th= t('subcategory.name')
               %th
           %tbody
             - @subcategories.each_with_index do |subcategory,i|
