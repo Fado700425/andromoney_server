@@ -9,6 +9,7 @@ en:
   more_pics: "More Pics..."
   start_use: "Start to Use"
   cloud: "Cloud"
+  cancel: "Cancel"
 
   start:
     start_message: "Please download AndroMoney mobile app(Android or iOS), and start to use web service after syncing data!"
@@ -342,6 +343,7 @@ en:
     choose_pic: "Choose category picture"
     income_cat: "Income Category"
     expense_cat: "Expense Category"
+    main_category: "Main Category"
 
   subcategory:
     subcategory: "Subcategory"
@@ -364,6 +366,7 @@ en:
     credit_card: "Credit Card"
     bank: "Bank"
     amount_placeholder: "Please fill in init amount"
+    choose: "Choose Account"
 
   record:
     success_create: "Congration, create a new record!"
@@ -384,9 +387,11 @@ en:
 
   project:
     project: "Project"
+    choose: "Choose Project"
 
   payee:
     payee: "Payee"
+    choose: "Choose Payee"
 
   total: "Total"
   balance: "Balance"

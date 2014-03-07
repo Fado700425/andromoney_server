@@ -9,6 +9,7 @@ zh:
   more_pics: "更多圖示"
   start_use: "開始試用"
   cloud: "雲端平台"
+  cancel: "取消"
 
   start:
     start_message: "請先下載手機端軟體, 並同步後再開始使用 AndroMoney 雲端服務!"
@@ -349,6 +350,7 @@ zh:
     choose_pic: "選擇類別圖片"
     income_cat: "收入類別"
     expense_cat: "支出類別"
+    main_category: "主類別"
 
   subcategory:
     subcategory: "子類別"
@@ -371,6 +373,7 @@ zh:
     credit_card: "信用卡"
     bank: "銀行"
     amount_placeholder: "請輸入初始金額"
+    choose: "選擇帳戶"
 
   record:
     success_create: "已成功新增記錄！"
@@ -391,9 +394,11 @@ zh:
 
   project:
     project: "專案"
+    choose: "選擇專案"
 
   payee:
     payee: "商家"
+    choose: "選擇商家"
 
   total: "總計"
   balance: "結餘"
