@@ -51,6 +51,8 @@ AndromoneyServer::Application.routes.draw do
   # get 'home', controller: 'accounts', action: 'info'
   get 'home', controller: 'reports', action: 'index'
 
+  resources :upgrade, only: [:create, :index]
+
 
   get 'share_confirm', controller: 'api/v1/sync', action: 'confirm_share'
 

@@ -1,0 +1,33 @@
+%script{:src => "https://js.stripe.com/v2/", :type => "text/javascript"}
+:javascript
+  Stripe.setPublishableKey('pk_test_dtpguOx1YYiqkh42MtzTlfT8');
+
+%br
+.row
+  = form_tag upgrade_index_path, class: "form-horizontal", id: "payment-form" do |f|
+    %fieldset.credit_card
+      %span.payment-errors
+      .form-group
+        %label.col-sm-2.control-label Plan
+        .col-sm-3
+          %input#optionsExpenseRadio{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
+            Pro(Monthly)
+          %input#optionsIncomeRadio{:name => "optionsRadios", :type => "radio", :value => "option2"}
+            Pro(No Expiry Date)
+      .form-group
+        %label.col-sm-2.control-label(for="credit-card-number") Credit Card Number
+        .col-sm-3
+          %input.span3#credit-card-number(type="text" data-stripe="number")
+      .form-group
+        %label.col-sm-2.control-label(for="security-code") Security Code
+        .col-sm-3
+          %input.span3#security-code(type="text" data-stripe="cvc")
+      .control-group
+        %label.col-sm-2.control-label Expiration
+        .col-sm-3
+          = select_month(Date.today, {add_month_numbers: true},  class: 'span2', data: {stripe: "exp-month"})
+          = select_year(Date.today.year, {start_year: Date.today.year, end_year: Date.today.year + 4}, class: 'span1', data: {stripe: "exp-year"})
+    %fieldset.actions.control-group
+      .form-group
+        .col-sm-offset-2.col-sm-10
+          = submit_tag 'Submit', class: 'btn btn-large btn-success payment-submit'

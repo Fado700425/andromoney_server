@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140116025406) do
+ActiveRecord::Schema.define(version: 20140308120346) do
 
   create_table "category_table", force: true do |t|
     t.string   "category",                    null: false
@@ -244,6 +244,8 @@ ActiveRecord::Schema.define(version: 20140116025406) do
     t.string   "refresh_token"
     t.string   "access_token"
     t.datetime "expires"
+    t.boolean  "is_pro",        default: false
+    t.datetime "expire_date"
   end
 
   add_index "users", ["uid"], name: "index_users_on_uid", using: :btree

@@ -1,6 +1,120 @@
 .row.plans.text-center
-  .col-md-4.col-md-offset-4
-    .preferred-plan
-      = t('feature_price').html_safe
+  .col-md-2.col-md-offset-3
+    .normal-plan
+      %h3.plan-name Free Trail
+      %h2.plan-price.text-danger $0
+      %table.table.table-striped
+        %tbody
+          %tr
+            %td Expense Track
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td Budget Management
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td Transfer
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td Multiple Accounts
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td Dynamic Report Analysis
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td CSV Import/Export
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td iOS, Android Web Platform Support
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td No Advertisement on Mobile
+            %td
 
       = link_to t('start_use'), "/auth/google_login", class: "btn btn-block btn-large btn-success"
+  .col-md-2
+    .normal-plan
+      %h3.plan-name Pro(Monthly)
+      %h2.plan-price.text-danger $0.99 USD
+      %table.table.table-striped
+        %tbody
+          %tr
+            %td Expense Track
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td Budget Management
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td Transfer
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td Multiple Accounts
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td Dynamic Report Analysis
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td CSV Import/Export
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td iOS, Android Web Platform Support
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr.danger
+            %td No Advertisement on Mobile
+            %td
+              %span.glyphicon.glyphicon-ok
+
+      = link_to "Sign Up", "/auth/google_login?state=buy_pro_month", class: "btn btn-block btn-large btn-success"
+  .col-md-2
+    .normal-plan
+      %h3.plan-name Pro(No Expiry Date)
+      %h2.plan-price.text-danger $0.99 USD
+      %table.table.table-striped
+        %tbody
+          %tr
+            %td Expense Track
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td Budget Management
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td Transfer
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td Multiple Accounts
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td Dynamic Report Analysis
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td CSV Import/Export
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr
+            %td iOS, Android Web Platform Support
+            %td
+              %span.glyphicon.glyphicon-ok
+          %tr.danger
+            %td No Advertisement on Mobile
+            %td
+              %span.glyphicon.glyphicon-ok
+
+      = link_to "Sign Up", "/auth/google_login?state=buy_pro", class: "btn btn-block btn-large btn-success"

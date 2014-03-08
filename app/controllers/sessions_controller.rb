@@ -18,7 +18,9 @@ class SessionsController < ApplicationController
     if user.save
       session[:user_id] = user.id
       flash["success"] = "Signed in!"
-      if @new_user || user.categories.size == 0
+      if params[:state].include? "buy"
+        redirect_to upgrade_index_path(state: params[:state])
+      elsif @new_user || user.categories.size == 0
         user.messages.create(context: t('welcome_message')) if @new_user
         redirect_to start_use_path
       else
