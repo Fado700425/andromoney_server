@@ -5,72 +5,42 @@
         .row
           .col-md-3.col-md-offset-4
             .preferred-plan
-              %h3.plan-name Pro
-              %h2.plan-price.text-danger
-              %table.table.table-striped
-                %tbody
-                  %tr
-                    %td Expense Track
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td Budget Management
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td Transfer
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td Multiple Accounts
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td Dynamic Report Analysis
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td CSV Import/Export
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td iOS, Android Web Platform Support
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr.danger
-                    %td No Advertisement on Mobile
-                    %td
-                      %span.glyphicon.glyphicon-ok.text-success
+              = t('pro').html_safe
         .row
           .col-md-12.col-md-offset-3
-            = form_tag upgrade_index_path, class: "form-horizontal", id: "payment-form" do |f|
+            = form_tag upgrade_index_path(user: params[:user]), class: "form-horizontal", id: "payment-form" do |f|
+              = hidden_field_tag "is_mobile_pro", params[:is_mobile_pro]
+              = hidden_field_tag "locale", params[:locale]
               %fieldset.credit_card
                 %span.payment-errors
                 .form-group
-                  %label.col-sm-2.control-label Plan
+                  %label.col-sm-2.control-label #{t('charge.plan')}
                   .col-sm-4
-                    %input#optionsExpenseRadio{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
-                      Pro(Monthly) $0.99USD
+                    %input#optionsExpenseRadio{:checked => "", :name => "optionsRadios", :type => "radio", :value => "month"}
+                      = t('charge.monthly')
                     %br
-                    %input#optionsIncomeRadio{:name => "optionsRadios", :type => "radio", :value => "option2"}
-                      Pro(Annually) $9.99USD
+                    %input#optionsIncomeRadio{:name => "optionsRadios", :type => "radio", :value => "year"}
+                      = t('charge.annually')
                     %br
-                    %input#optionsIncomeRadio{:name => "optionsRadios", :type => "radio", :value => "option2"}
-                      Pro(No Expiry Date) $14.99USD
+                    %input#optionsIncomeRadio{:name => "optionsRadios", :type => "radio", :value => "no_expire"}
+                      - if params[:is_mobile_pro]
+                        = t('charge.no_expire_pro_user').html_safe
+                      - else
+                        = t('charge.no_expire')
                 .form-group
-                  %label.col-sm-2.control-label(for="credit-card-number") Credit Card Number
+                  %label.col-sm-2.control-label(for="credit-card-number") #{t('charge.credit_card_num')}
                   .col-sm-3
                     %input.span3#credit-card-number(type="text" data-stripe="number")
                 .form-group
-                  %label.col-sm-2.control-label(for="security-code") Security Code
+                  %label.col-sm-2.control-label(for="security-code") #{t('charge.security_code')}
                   .col-sm-3
                     %input.span3#security-code(type="text" data-stripe="cvc")
                 .form-group
-                  %label.col-sm-2.control-label Expiration
+                  %label.col-sm-2.control-label #{t('charge.expiration')}
                   .col-sm-3
                     = select_month(Date.today, {add_month_numbers: true},  class: 'span2', data: {stripe: "exp-month"})
-                    = select_year(Date.today.year, {start_year: Date.today.year, end_year: Date.today.year + 4}, class: 'span1', data: {stripe: "exp-year"})
+                    = select_year(Date.today.year, {start_year: Date.today.year, end_year: Date.today.year + 14}, class: 'span1', data: {stripe: "exp-year"})
               %fieldset.actions.control-group
                 .form-group
                   .col-sm-offset-2.col-sm-10
-                    = submit_tag 'Submit', class: 'btn btn-large btn-success payment-submit'
+                    = submit_tag t('submit'), class: 'btn btn-large btn-success payment-submit'

@@ -10,6 +10,27 @@ en:
   start_use: "Start to Use"
   cloud: "Cloud"
   cancel: "Cancel"
+  submit: "Submit"
+
+  charge:
+    credit_card_num: "Credit Card Number"
+    security_code: "Security Code"
+    expiration: "Expiration"
+    plan: "Plan"
+    monthly: "Pro(Monthly) $0.99USD"
+    annually: "Pro(Annually) $9.99USD"
+    no_expire: "Pro(No Expiry Date) $14.99USD"
+    no_expire_pro_user: |
+      Pro(No Expiry Date)
+      <span class="kill_price">
+        $14.99USD
+      </span>
+      <span class="text-danger">
+        $9.99USD
+      </span>
+      <br />
+      <span class="text-danger">(For mobile pro version only)</span>
+
 
   start:
     start_message: "Please download AndroMoney mobile app(Android or iOS), and start to use web service after syncing data!"
@@ -265,6 +286,63 @@ en:
     </div>
     AndroMoney is a personal finance tool for use on your mobile phone
     <br />
+
+  pro: |
+    <h3 class="plan-name">Pro</h3>
+    <h2 class="plan-price text-danger"></h2>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td>Expense Track</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Budget Management</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Transfer</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Multiple Accounts</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Dynamic Report Analysis</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>CSV Import/Export</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>iOS, Android Web Platform Support</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr class="danger">
+          <td>No Advertisement on Mobile</td>
+          <td>
+            <span class="glyphicon glyphicon-ok text-success"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
 
   about_text: |
     <h1>

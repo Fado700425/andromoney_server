@@ -1,4 +1,8 @@
-
+.kill_price {
+  color: #999;
+  text-decoration: line-through;
+  margin-right: 3px;
+}
 
 .plans .plan-features {
   margin-top: 50px;

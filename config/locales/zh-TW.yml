@@ -10,6 +10,26 @@ zh-TW:
   start_use: "開始試用"
   cloud: "雲端平台"
   cancel: "取消"
+  submit: "確定"
+
+  charge:
+    credit_card_num: "信用卡卡號"
+    security_code: "安全碼"
+    expiration: "信用卡到期日"
+    plan: "方案"
+    monthly: "專業版(每月) $30NTD"
+    annually: "專業版(每年) $300NTD"
+    no_expire: "專業版(永久) $450NTD"
+    no_expire_pro_user: |
+      專業版(永久)
+      <span class="kill_price">
+        $450NTD
+      </span>
+      <span class="text-danger">
+        $300NTD
+      </span>
+      <br />
+      <span class="text-danger">(手機版已是專業用戶享有優惠)</span>
 
   start:
     start_message: "請先下載手機端軟體, 並同步後再開始使用 AndroMoney 雲端服務!"
@@ -271,6 +291,63 @@ zh-TW:
       Freegroup 免費資源網路社群 : 
     </div>
     [Android] AndroMoney 簡單又有質感的快速記帳，還可透過 Excel 匯入匯出！
+
+  pro: |
+    <h3 class="plan-name">專業版</h3>
+    <h2 class="plan-price text-danger"></h2>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td>單筆記帳</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>預算管理</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>消費類別管理</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>多帳戶功能</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>不同貨幣</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>統計圖表分析</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>多平台同步</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr class="danger">
+          <td>手機程式免廣告</td>
+          <td>
+            <span class="glyphicon glyphicon-ok text-success"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
 
   about_text: |
     <h1>
