@@ -85,15 +85,15 @@ class RecordsController < ApplicationController
 
       if params[:month_from_now]
         if params[:sort] == "payment"
-          @records = current_user.records.month_from_now(params[:month_from_now].to_i).order("in_payment,out_payment " + sort_direction)
+          @records = current_user.records.not_delete.month_from_now(params[:month_from_now].to_i).order("in_payment,out_payment " + sort_direction)
         else
-          @records = current_user.records.month_from_now(params[:month_from_now].to_i).order(sort_column + " " + sort_direction)
+          @records = current_user.records.not_delete.month_from_now(params[:month_from_now].to_i).order(sort_column + " " + sort_direction)
         end
       else
         if params[:sort] == "payment"
-          @records = current_user.records.month_from_now(0).order("in_payment,out_payment " + sort_direction)
+          @records = current_user.records.not_delete.month_from_now(0).order("in_payment,out_payment " + sort_direction)
         else
-          @records = current_user.records.month_from_now(0).order(sort_column + " " + sort_direction)
+          @records = current_user.records.not_delete.month_from_now(0).order(sort_column + " " + sort_direction)
         end
       end
 
