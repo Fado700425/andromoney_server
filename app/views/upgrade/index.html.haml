@@ -148,7 +148,7 @@
                     %label.col-sm-2.control-label(for="security-code") Security Code
                     .col-sm-3
                       %input.span3#security-code(type="text" data-stripe="cvc")
-                  .control-group
+                  .form-group
                     %label.col-sm-2.control-label Expiration
                     .col-sm-3
                       = select_month(Date.today, {add_month_numbers: true},  class: 'span2', data: {stripe: "exp-month"})

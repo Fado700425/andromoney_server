@@ -145,4 +145,25 @@ describe Api::V1::SyncController do
     end
   end
 
+  describe "Get is_pro" do
+    it "return false if the ask user is not pro version" do
+      bob = Fabricate(:user, is_pro: false)
+      get :is_pro, user: bob.email
+      body = ActiveSupport::JSON.decode(response.body)
+      expect(body["is_pro"]).to eq(false)
+    end
+
+    it "return true and expire date if the ask user is pro version" do
+      bob = Fabricate(:user, is_pro: true, expire_date: Time.now + 30000.days)
+      get :is_pro, user: bob.email
+      body = ActiveSupport::JSON.decode(response.body)
+      expect(body["is_pro"]).to eq(true)
+      expect(body["expire_date"]).to_not be_nil
+    end
+
+    it "return 404 if not find the user" do
+      get :is_pro, user: "fake@email.com"
+      response.response_code.should == 404
+    end
+  end
 end

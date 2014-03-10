@@ -51,7 +51,11 @@ AndromoneyServer::Application.routes.draw do
   # get 'home', controller: 'accounts', action: 'info'
   get 'home', controller: 'reports', action: 'index'
 
-  resources :upgrade, only: [:create, :index]
+  resources :upgrade, only: [:create, :index] do
+    collection do
+      get 'mobile'
+    end
+  end
 
 
   get 'share_confirm', controller: 'api/v1/sync', action: 'confirm_share'
@@ -81,6 +85,7 @@ AndromoneyServer::Application.routes.draw do
           post 'owner_share_user_payment'
           post 'delete_share'
           get  'confirm_share'
+          get  'is_pro'
         end
       end
 

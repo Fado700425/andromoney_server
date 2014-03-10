@@ -72,4 +72,13 @@ class Api::V1::SyncController < Api::V1::ApiController
     end
   end
 
+  def is_pro
+    user = User.find_by(email: params[:user])
+    if user
+      render :status=>200, :json=>{is_pro: user.is_pro, expire_date: user.expire_date}
+    else
+      render :status=>404, :json=>{:message=>"not find the user!"}
+    end
+  end
+
 end

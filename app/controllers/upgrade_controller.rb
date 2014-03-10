@@ -1,6 +1,7 @@
 class UpgradeController < ApplicationController
 
-  layout 'account'
+  layout 'account', only: [:create, :index]
+  layout 'api', only: [:mobile]
 
   def create
 
@@ -19,4 +20,6 @@ class UpgradeController < ApplicationController
   def index
   end
 
+  def mobile
+  end
 end
