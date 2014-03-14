@@ -11,22 +11,25 @@ zh:
   cloud: "雲端平台"
   cancel: "取消"
   submit: "確定"
+  continue: "回到首頁"
 
   charge:
+    upgrade: "升級至專業版"
+    after_upgrade_message: "感謝你升級至專業版！"
     credit_card_num: "信用卡卡號"
     security_code: "安全碼"
     expiration: "信用卡到期日"
     plan: "方案"
-    monthly: "專業版(每月) $30NTD"
-    annually: "專業版(每年) $300NTD"
-    no_expire: "專業版(永久) $450NTD"
+    monthly: "專業版(每月) $30TWD"
+    annually: "專業版(每年) $300TWD"
+    no_expire: "專業版(永久) $450TWD"
     no_expire_pro_user: |
       專業版(永久)
       <span class="kill_price">
-        $450NTD
+        $450TWD
       </span>
       <span class="text-danger">
-        $300NTD
+        $300TWD
       </span>
       <br />
       <span class="text-danger">(手機版已是專業用戶享有優惠)</span>
@@ -295,6 +298,174 @@ zh:
   pro: |
     <h3 class="plan-name">專業版</h3>
     <h2 class="plan-price text-danger"></h2>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td>單筆記帳</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>預算管理</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>消費類別管理</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>多帳戶功能</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>不同貨幣</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>統計圖表分析</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>多平台同步</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr class="danger">
+          <td>手機程式免廣告</td>
+          <td>
+            <span class="glyphicon glyphicon-ok text-success"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  pro_no_expire: |
+    <h3 class="plan-name">專業版(永久)</h3>
+    <h2 class="plan-price text-danger">$450 TWD</h2>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td>單筆記帳</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>預算管理</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>消費類別管理</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>多帳戶功能</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>不同貨幣</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>統計圖表分析</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>多平台同步</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr class="danger">
+          <td>手機程式免廣告</td>
+          <td>
+            <span class="glyphicon glyphicon-ok text-success"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  pro_annual: |
+    <h3 class="plan-name">專業版(每年)</h3>
+    <h2 class="plan-price text-danger">$300 TWD</h2>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td>單筆記帳</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>預算管理</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>消費類別管理</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>多帳戶功能</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>不同貨幣</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>統計圖表分析</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>多平台同步</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr class="danger">
+          <td>手機程式免廣告</td>
+          <td>
+            <span class="glyphicon glyphicon-ok text-success"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  pro_month: |
+    <h3 class="plan-name">專業版(每月)</h3>
+    <h2 class="plan-price text-danger">$30 TWD</h2>
     <table class="table table-striped">
       <tbody>
         <tr>

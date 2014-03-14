@@ -4,7 +4,7 @@
     = link_to t('sidebar.record'), records_path, class: "list-group-item"
     = link_to t('category.category'), categories_path, class: "list-group-item"
     = link_to t('payment.payment'), payments_path, class: "list-group-item"
-    = link_to "Upgrade Pro Version", upgrade_index_path, class: "list-group-item" unless current_user.is_pro
+    = link_to t('charge.upgrade'), upgrade_index_path, class: "list-group-item" unless current_user.is_pro
     / = link_to "預算", budgets_path, class: "list-group-item"  
     / = link_to "帳戶管理", payments_path, class: "list-group-item"
     / = link_to "商家管理", "", class: "list-group-item"

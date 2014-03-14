@@ -12,148 +12,46 @@
           .row
             .col-md-3.col-md-offset-1
               .normal-plan
-                %h3.plan-name Pro(Monthly)
-                %h2.plan-price.text-danger $0.99 USD
-                %table.table.table-striped
-                  %tbody
-                    %tr
-                      %td Expense Track
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr
-                      %td Budget Management
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr
-                      %td Transfer
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr
-                      %td Multiple Accounts
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr
-                      %td Dynamic Report Analysis
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr
-                      %td CSV Import/Export
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr
-                      %td iOS, Android Web Platform Support
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr.danger
-                      %td No Advertisement on Mobile
-                      %td
-                        %span.glyphicon.glyphicon-ok.text-success
+                = t('pro_month').html_safe
             .col-md-3
               .normal-plan
-                %h3.plan-name Pro(Annually)
-                %h2.plan-price.text-danger $9.99 USD
-                %table.table.table-striped
-                  %tbody
-                    %tr
-                      %td Expense Track
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr
-                      %td Budget Management
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr
-                      %td Transfer
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr
-                      %td Multiple Accounts
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr
-                      %td Dynamic Report Analysis
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr
-                      %td CSV Import/Export
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr
-                      %td iOS, Android Web Platform Support
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr.danger
-                      %td No Advertisement on Mobile
-                      %td
-                        %span.glyphicon.glyphicon-ok.text-success
+                = t('pro_annual').html_safe
             .col-md-3
               .preferred-plan
-                %h3.plan-name Pro(No Expiry Date)
-                %h2.plan-price.text-danger $14.99 USD
-                %table.table.table-striped
-                  %tbody
-                    %tr
-                      %td Expense Track
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr
-                      %td Budget Management
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr
-                      %td Transfer
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr
-                      %td Multiple Accounts
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr
-                      %td Dynamic Report Analysis
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr
-                      %td CSV Import/Export
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr
-                      %td iOS, Android Web Platform Support
-                      %td
-                        %span.glyphicon.glyphicon-ok
-                    %tr.danger
-                      %td No Advertisement on Mobile
-                      %td
-                        %span.glyphicon.glyphicon-ok.text-success
+                = t('pro_no_expire').html_safe
+        
           .row
             .col-md-12
               = form_tag upgrade_index_path, class: "form-horizontal", id: "payment-form" do |f|
                 %fieldset.credit_card
-                  %span.payment-errors
                   .form-group
-                    %label.col-sm-2.control-label Plan
+                    .col-sm-4.col-md-offset-1
+                      %span.payment-errors.text-danger
+                  .form-group
+                    %label.col-sm-2.control-label #{t('charge.plan')}
                     .col-sm-4
-                      %input#optionsExpenseRadio{:checked => "", :name => "optionsRadios", :type => "radio", :value => "option1"}
-                        Pro(Monthly) $0.99USD
+                      %input#optionsExpenseRadio{:checked => "", :name => "optionsRadios", :type => "radio", :value => "month"}
+                        = t('charge.monthly')
                       %br
-                      %input#optionsIncomeRadio{:name => "optionsRadios", :type => "radio", :value => "option2"}
-                        Pro(Annually) $9.99USD
+                      %input#optionsIncomeRadio{:name => "optionsRadios", :type => "radio", :value => "year"}
+                        = t('charge.annually')
                       %br
-                      %input#optionsIncomeRadio{:name => "optionsRadios", :type => "radio", :value => "option2"}
-                        Pro(No Expiry Date) $14.99USD
+                      %input#optionsIncomeRadio{:name => "optionsRadios", :type => "radio", :value => "no_expire"}
+                        = t('charge.no_expire')
                   .form-group
-                    %label.col-sm-2.control-label(for="credit-card-number") Credit Card Number
+                    %label.col-sm-2.control-label(for="credit-card-number") #{t('charge.credit_card_num')}
                     .col-sm-3
                       %input.span3#credit-card-number(type="text" data-stripe="number")
                   .form-group
-                    %label.col-sm-2.control-label(for="security-code") Security Code
+                    %label.col-sm-2.control-label(for="security-code") #{t('charge.security_code')}
                     .col-sm-3
                       %input.span3#security-code(type="text" data-stripe="cvc")
                   .form-group
-                    %label.col-sm-2.control-label Expiration
+                    %label.col-sm-2.control-label #{t('charge.expiration')}
                     .col-sm-3
                       = select_month(Date.today, {add_month_numbers: true},  class: 'span2', data: {stripe: "exp-month"})
-                      = select_year(Date.today.year, {start_year: Date.today.year, end_year: Date.today.year + 4}, class: 'span1', data: {stripe: "exp-year"})
+                      = select_year(Date.today.year, {start_year: Date.today.year, end_year: Date.today.year + 14}, class: 'span1', data: {stripe: "exp-year"})
                 %fieldset.actions.control-group
                   .form-group
                     .col-sm-offset-2.col-sm-10
-                      = submit_tag 'Submit', class: 'btn btn-large btn-success payment-submit'
+                      = submit_tag t('submit'), class: 'btn btn-large btn-success payment-submit'

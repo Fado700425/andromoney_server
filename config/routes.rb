@@ -54,6 +54,7 @@ AndromoneyServer::Application.routes.draw do
   resources :upgrade, only: [:create, :index] do
     collection do
       get 'mobile'
+      post 'mobile_pay'
     end
   end
 
