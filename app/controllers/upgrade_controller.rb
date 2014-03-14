@@ -1,7 +1,7 @@
 class UpgradeController < AccountController
 
   layout 'api', only: [:mobile]
-  
+
   def create
     payment_process params
   end
@@ -13,15 +13,12 @@ class UpgradeController < AccountController
   end
 
   def mobile_pay
-
-
     current_user = User.find_by(email: params[:user])
     if current_user
       payment_process(params)
     else
       redirect_to mobile_upgrade_index_path(params)
     end
-
   end
 
 private
@@ -37,18 +34,35 @@ private
       else
         amount = price[params[:locale]][2]
       end
+
+      charge = Stripe::Charge.create(
+        :amount => amount, # amount in cents, again
+        :currency => currency_code[params[:locale]],
+        :card => params[:stripeToken],
+        :description => "Sign Up Charge for"
+      )
     when "year"
-      amount = price[params[:locale]][1]
+      customer = Stripe::Customer.create(
+        :description => "Year Customer for #{current_user.email}",
+        :card => params[:stripeToken],
+        :email => current_user.email
+      )
+
+      current_user.update_attribute(:customer_id, customer.id)
+      customer.subscriptions.create(:plan => "andromoney_year")
+
     when "month"
-      amount = price[params[:locale]][0]
+      customer = Stripe::Customer.create(
+        :description => "Month Customer for #{current_user.email}",
+        :card => params[:stripeToken],
+        :email => current_user.email
+      )
+
+      current_user.update_attribute(:customer_id, customer.id)
+      customer.subscriptions.create(:plan => "andromoney_month")
+
     end
 
-    charge = Stripe::Charge.create(
-      :amount => amount, # amount in cents, again
-      :currency => currency_code[params[:locale]],
-      :card => params[:stripeToken],
-      :description => "Sign Up Charge for"
-    )
 
     current_user.is_pro = true
 
