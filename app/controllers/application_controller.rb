@@ -24,14 +24,16 @@ class ApplicationController < ActionController::Base
 private
   
   def set_locale
-    if params[:locale] && ["en", "zh-TW","zh"].include?( params[:locale] )
+    if params[:locale] && ["en", "zh-TW","zh","ja"].include?( params[:locale] )
       session[:locale] = params[:locale]
     end
     I18n.locale = session[:locale] || extract_locale_from_accept_language_header
-    ["zh-TW","zh"].include?( I18n.locale.to_s )? @country_id = 1 : @country_id = 2
   end
 
   def extract_locale_from_accept_language_header
-    request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first if request.env['HTTP_ACCEPT_LANGUAGE']
+    if request.env['HTTP_ACCEPT_LANGUAGE']
+      locale = request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+      (["zh-TW","zh","en","ja"].include? locale)? locale : "en"
+    end
   end
 end

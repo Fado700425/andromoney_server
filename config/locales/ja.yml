@@ -1,0 +1,509 @@
+ja:
+  personal_message: "個人訊息"
+  read: "(已讀)"
+  not_read: "(未讀)"
+  email: "聯絡信箱"
+  back_to_top: "回到頂端"
+  quality: "品質保證"
+  recommend: "榮獲多方肯定"
+  more_pics: "更多圖示"
+  start_use: "開始試用"
+  cloud: "雲端平台"
+  cancel: "取消"
+
+  start:
+    start_message: "請先下載手機端軟體, 並同步後再開始使用 AndroMoney 雲端服務!"
+
+  feature_multiple_platform: |
+    <h1>支援多重平台</h1>
+    <p>
+      不論是 Android, iPhone 甚至是電腦都可以使用, 立即下載 AndroMoney, 體驗完善的記帳服務！
+    </p>
+
+  feture_record: |
+    <h2>記錄生活消費</h2>
+    <p>不論是Android 或是 iPhone 用戶都可以透過AndroMoney手機APP, 輕鬆地記錄下每一筆花費，轉帳，收入與支出</p>
+
+  feature_analysis: |
+    <h2>即時消費分析</h2>
+    <p>找出最高消費，平均花費，以利使用者分析花費支出，並可以動態繪製統計圖，圓餅圖(花費分佈)，趨勢圖(花費趨勢)之功能，對圖表進行互動式操作。</p>
+
+  feature_asset: |
+    <h2>掌握資產狀況</h2>
+    <p>提供多帳戶功能，可以設定不同的戶頭，也可透過專案管理，可以了解自己在每個項目的花費流向，確實掌握自己資產</p>
+
+  feature_track: |
+    <h2 class="text-primary">
+      記帳功能完整
+      <div class="small">
+        單筆記帳, 預算管理, 消費類別管理, 多帳戶功能, 不同貨幣, 統計圖表分析
+      </div>
+    </h2>
+    <p class="lead">
+      AndroMoney 是行動電話上的個人理財服務工具，希望透過這個工具，可以良好的管理個人的財富。
+      <br />
+      <br />
+      我們軟體的發展方展方向是：
+      1.簡單易用，在操作上是十分直覺的
+      2.功能強大，不論單純的記帳，或者想要管理不同的帳戶、類別，甚至是繪成圖表，也都可以輕易的辦到。
+    </p>
+
+  feature_protect: |
+    <h2 class="text-primary">
+      保護使用者資料
+      <div class="small">
+        手機端備份, 雲端備份, 電腦檔案匯出入
+      </div>
+    </h2>
+    <p class="lead">
+      常有使用者在使用其它記帳軟體時, 發生資料遺失, 辛苦記帳的資料付諸流水, AndroMoney為保護使用者的資料, 開發備份功能, 也提供使用者將檔案匯出入, 使用者不用再煩腦資料問題
+    </p>
+
+  feature_platform: |
+    <h2 class="text-primary">
+      多平台同步
+      <div class="small">
+        支援 Android, iPhone, Web
+      </div>
+    </h2>
+    <p class="lead">
+      使用者常有多個不同的裝置, 如 Android 手機, iPad 甚至是桌上型電腦, 都可以下載 AndroMoney APP, 或使用 AndroMoeny 雲端服務, 並利用帳戶同步的功能, 達到多平台都可記帳
+    </p>
+
+  feature_price: |
+    <h3 class="plan-name">免費試用</h3>
+    <h1 class="plan-price text-danger">$0</h1>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td>單筆記帳</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>預算管理</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>消費類別管理</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>多帳戶功能</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>不同貨幣</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>統計圖表分析</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>多平台同步</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  web: |
+    <h2 class="text-danger">
+      最完善的雲端記帳服務
+    </h2>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td>單筆記帳</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>預算管理</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>消費類別管理</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>多帳戶功能</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>不同貨幣</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>統計圖表分析</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>多平台同步</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  ios: |
+    <h2 class="text-danger">
+      iPhone 必備APP
+    </h2>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td>單筆記帳</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>預算管理</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>消費類別管理</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>多帳戶功能</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>不同貨幣</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>統計圖表分析</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>多平台同步</td>
+          <td>
+            <span class="glyphicon glyphicon-ok"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  android: |
+    <b class="text-danger">
+      榮獲Google Play 首頁之效率排行工具之理財APP。
+    </b>
+    <br />
+    <b class="text-danger">
+      入圍App Next 2013應用程式創新大賽之理財工具。
+    </b>
+    <br />
+    <b class="text-danger">
+    【Android App達人評測網】精選之─AndroMoney(記帳理財)
+    </b>
+    <br />
+    知名網站推薦：
+    <br />
+    <div class="text-success">
+      PUNAPP :
+    </div>
+    【AndroMoney】雙平台資產管理記帳APP，好評如何得來
+    <br />
+    <div class="text-success">
+      電腦玩物 : 
+    </div>
+    記帳 AndroMoney 免費記帳軟體貼心好用Android記帳本
+    <br />
+    <div class="text-success">
+      重灌狂人 : 
+    </div>
+    超好用的記帳 APP] AndroMoney 收支分類清楚、圖表分析、直接匯出 excel…
+    <br />
+    <div class="text-success">
+      挨踢路人甲 : 
+    </div>
+    相當符合我胃口，所以介紹大家試試。
+    <br />
+    <div class="text-success">
+      PDA魔王部落 : 
+    </div>
+    讓人眼睛一亮的莫過於 AndroMoney，不僅美工精美，操作起來順手易學，很快地就擄獲魔王的心。
+    <br />
+    <div class="text-success">
+      Apphome-好玩的app : 
+    </div>
+    聰明記帳幫手-理財、記帳 AndroMoney
+    <br />
+    <div class="text-success">
+      Freegroup 免費資源網路社群 : 
+    </div>
+    [Android] AndroMoney 簡單又有質感的快速記帳，還可透過 Excel 匯入匯出！
+
+  about_text: |
+    <h1>
+      理財幫手 AndroMoney
+    </h1>
+    <p>
+      <br />
+      AndroMoney 是行動電話上的個人理財服務工具，
+      <br />
+      希望透過這個工具，可以良好的管理個人的財富。
+      <br />
+      <br />
+      我們軟體的發展方展方向是：
+      <br />
+      <span class="text-success">
+        1.簡單易用，在操作上是十分直覺的
+      </span>
+      <br />
+      <span class="text-success">
+        2.功能強大，不論單純的記帳，或者想要管理不同的帳戶、類別，甚至是繪成圖表，也都可以輕易的辦到。
+      </span>
+      <br />
+      <br />
+      將來我們會陸續地加入其它功能，使其更為完整
+      <br />
+      如同軟體的名稱，我們期許AndroMoney 能成為最好用，最受歡迎的個人財務軟體
+      <br />
+      如果有任何使用上的問題，十分歡迎利用 email 跟我們連絡，謝謝！
+    </p>
+
+
+
+
+  share_email: "想跟你分享 (%{account}) 帳戶資料!"
+  owner_delete_email: "已取消你分享給 %{email} 的帳戶資料"
+  sharer_receive_delete_email: "%{email} 已取消跟你分享帳戶資料"
+  required_for_login_user: "你好，請先登入再開始使用，謝謝！"
+  welcome_message: "歡迎你開始使用最好用的記帳軟體 AndroMoney!"
+  edit: "修改"
+  confirm_edit: "確定修改"
+  confirm_add: "確定新增"
+  name: "名稱"
+  confirm_q: "確定要刪除嗎?"
+  no_data: "無資料"
+  filter: "篩選"
+  query: "查詢"
+  logout: "登出"
+  message: "訊息"
+  home: "首頁"
+  download: "軟體下載"
+  price: "價格方案"
+  about: "關於"
+  login: "用戶登入"
+  amount: "金額"
+  note: "備註"
+
+  every_day: "(每天)"
+  every_week: "(每周)"
+  every_month: "(每月)"
+  every_year: "(每年)"
+
+  last_month: "«上個月"
+  next_month: "下個月»"
+
+  sidebar:
+    report: "報表"
+    record: "明細"
+
+  category:
+    category: "類別"
+    success_create: "恭喜你，已成功新增類別！"
+    fail_create: "新增失敗，請填寫正確的訊息及不要重複的類別名稱"
+    add: "新增主類別"
+    type: "類別型態"
+    name: "類別名稱"
+    pic: "圖片"
+    placeholder: "請輸入名稱"
+    pic_notice: "點擊可換圖片"
+    choose_pic: "選擇類別圖片"
+    income_cat: "收入類別"
+    expense_cat: "支出類別"
+    main_category: "主類別"
+
+  subcategory:
+    subcategory: "子類別"
+    add: "增加子類別"
+    num: "編號"
+    name: "子類別名稱"
+
+  payment:
+    payment: "帳戶"
+    success_create: "已成功新增帳戶！"
+    fail_create: "新增失敗，請填寫正確的訊息及不要重複的專案名稱"
+    add: "新增帳戶"
+    overview: "帳戶總覽"
+    include: "(含未來記錄)"
+    total_income: "總收入(含初始金額)"
+    liability: "總負債"
+    init_amount: "初始金額"
+    edit: "修改帳戶"
+    cash: "現金"
+    credit_card: "信用卡"
+    bank: "銀行"
+    amount_placeholder: "請輸入初始金額"
+    choose: "選擇帳戶"
+
+  record:
+    success_create: "已成功新增記錄！"
+    fail_create: "新增失敗，請填寫正確的訊息"
+    delete: "已刪除該筆記錄"
+    add: "新增一筆"
+
+  record_type:
+    income: "收入"
+    expense: "支出"
+    transfer: "轉帳"
+
+  report:
+    date: "日期"
+    month_curve: "月趨勢圖"
+    ratio: "帳戶比例"
+    bar: "帳戶長條圖"
+
+  project:
+    project: "專案"
+    choose: "選擇專案"
+
+  payee:
+    payee: "商家"
+    choose: "選擇商家"
+
+  total: "總計"
+  balance: "結餘"
+  other: "其它"
+  rate: "匯率"
+
+  account:
+    account: "帳戶"
+
+  date:
+    abbr_day_names:
+    - 日
+    - 月
+    - 火
+    - 水
+    - 木
+    - 金
+    - 土
+    abbr_month_names:
+    -
+    - 1月
+    - 2月
+    - 3月
+    - 4月
+    - 5月
+    - 6月
+    - 7月
+    - 8月
+    - 9月
+    - 10月
+    - 11月
+    - 12月
+    day_names:
+    - 日曜日
+    - 月曜日
+    - 火曜日
+    - 水曜日
+    - 木曜日
+    - 金曜日
+    - 土曜日
+    formats:
+      default: ! '%Y/%m/%d'
+      long: ! '%Y年%m月%d日(%a)'
+      short: ! '%m/%d'
+      month: ! '%B %Y'
+    month_names:
+    -
+    - 1月
+    - 2月
+    - 3月
+    - 4月
+    - 5月
+    - 6月
+    - 7月
+    - 8月
+    - 9月
+    - 10月
+    - 11月
+    - 12月
+    order:
+    - :year
+    - :month
+    - :day
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: 約1時間
+        other: 約%{count}時間
+      about_x_months:
+        one: 約1ヶ月
+        other: 約%{count}ヶ月
+      about_x_years:
+        one: 約1年
+        other: 約%{count}年
+      almost_x_years:
+        one: 1年弱
+        other: ! '%{count}年弱'
+      half_a_minute: 30秒前後
+      less_than_x_minutes:
+        one: 1分以内
+        other: ! '%{count}分未満'
+      less_than_x_seconds:
+        one: 1秒以内
+        other: ! '%{count}秒未満'
+      over_x_years:
+        one: 1年以上
+        other: ! '%{count}年以上'
+      x_days:
+        one: 1日
+        other: ! '%{count}日'
+      x_minutes:
+        one: 1分
+        other: ! '%{count}分'
+      x_months:
+        one: 1ヶ月
+        other: ! '%{count}ヶ月'
+      x_seconds:
+        one: 1秒
+        other: ! '%{count}秒'
+    prompts:
+      day: 日
+      hour: 時
+      minute: 分
+      month: 月
+      second: 秒
+      year: 年
