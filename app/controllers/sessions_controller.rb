@@ -16,10 +16,10 @@ class SessionsController < ApplicationController
     end
     
     if user.save
+      user.messages.create(context: t('welcome_message')) if @new_user
       session[:user_id] = user.id
       flash["success"] = "Signed in!"
-      if @new_user || user.categories.size == 0
-        user.messages.create(context: t('welcome_message')) if @new_user
+      if user.categories.size == 0
         redirect_to start_use_path
       else
         redirect_to home_path, :notice => notice
