@@ -3,7 +3,11 @@ class WelcomeController < ApplicationController
   end
 
   def front
-    redirect_to home_path if current_user
+    if current_user && current_user.categories.size == 0 
+      redirect_to start_use_path
+    elsif current_user
+      redirect_to home_path, :notice => notice
+    end
   end
 
   def download
