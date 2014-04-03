@@ -1,118 +1,118 @@
 ja:
-  personal_message: "個人訊息"
-  read: "(已讀)"
-  not_read: "(未讀)"
-  email: "聯絡信箱"
-  back_to_top: "回到頂端"
-  quality: "品質保證"
-  recommend: "榮獲多方肯定"
-  more_pics: "更多圖示"
-  start_use: "開始試用"
-  cloud: "雲端平台"
+  personal_message: "個人メッセージ"
+  read: "(既読)"
+  not_read: "(未読)"
+  email: "メールアドレス"
+  back_to_top: "トップに戻る"
+  quality: "品質保証"
+  recommend: "他方の承認を獲得"
+  more_pics: "その他アイコンを表示する"
+  start_use: "トライアル開始"
+  cloud: "クラウドプラットフォーム"
   cancel: "取消"
 
   start:
-    start_message: "請先下載手機端軟體, 並同步後再開始使用 AndroMoney 雲端服務!"
+    start_message: "先ずは先に携帯にソフトウェアをダウンロードしてから、同期化を開始してください。 AndroMoney クラウドサービス!"
 
   feature_multiple_platform: |
-    <h1>支援多重平台</h1>
+    <h1>マルチプラットフォームサポート</h1>
     <p>
-      不論是 Android, iPhone 甚至是電腦都可以使用, 立即下載 AndroMoney, 體驗完善的記帳服務！
+      Androidでも iPhoneでも、パソコンでも使用することができます。今すぐ、アンドロマネーをダウンロードし、全ての記帳サービスを体験しましょう！
     </p>
 
   feture_record: |
-    <h2>記錄生活消費</h2>
-    <p>不論是Android 或是 iPhone 用戶都可以透過AndroMoney手機APP, 輕鬆地記錄下每一筆花費，轉帳，收入與支出</p>
+    <h2>生活消費を記録</h2>
+    <p>Android でも iPhone ユーザーでもアンドロマネーモバイルアプリを通じて、簡単に一つ一つの出費、振込み、収入及び支出を記録することができます。</p>
 
   feature_analysis: |
-    <h2>即時消費分析</h2>
-    <p>找出最高消費，平均花費，以利使用者分析花費支出，並可以動態繪製統計圖，圓餅圖(花費分佈)，趨勢圖(花費趨勢)之功能，對圖表進行互動式操作。</p>
+    <h2>リアルタイムに消費を分析</h2>
+    <p>最大消費、平均出費を検索し、ダイナミックな統計グラフを作成し、パイグラフ(出費分布)、ランチャート(出費傾向)の機能があり、グラフや表とインタラクティブな操作が可能です。</p>
 
   feature_asset: |
-    <h2>掌握資產狀況</h2>
-    <p>提供多帳戶功能，可以設定不同的戶頭，也可透過專案管理，可以了解自己在每個項目的花費流向，確實掌握自己資產</p>
+    <h2>資産状況を把握</h2>
+    <p>マルチアカウント機能に対応し、異なるアカウントを設定することや専案管理もでき、各項目の出費と使い道が理解でき、確実に自分の資産を把握することができます。</p>
 
   feature_track: |
     <h2 class="text-primary">
-      記帳功能完整
+      完璧な記帳機能
       <div class="small">
-        單筆記帳, 預算管理, 消費類別管理, 多帳戶功能, 不同貨幣, 統計圖表分析
+        各出費記帳、予算管理、消費タイプ別管理、マルチアカウント機能、異なる貨幣、統計グラフ分析 
       </div>
     </h2>
     <p class="lead">
-      AndroMoney 是行動電話上的個人理財服務工具，希望透過這個工具，可以良好的管理個人的財富。
+      アンドロマネーはモバイルションの個人記帳財務管理ツールです。このツールを通じて、個人資産を良く管理します。
       <br />
       <br />
-      我們軟體的發展方展方向是：
-      1.簡單易用，在操作上是十分直覺的
-      2.功能強大，不論單純的記帳，或者想要管理不同的帳戶、類別，甚至是繪成圖表，也都可以輕易的辦到。
+      我々のソフトウエアの発展方向は：
+      1.簡単で使いやすく、直感的な操作。
+      2.強大な機能，単純な記帳だけでなく、違うアカウント、カテゴリー、更にはグラフ作成も軽かる簡単にできます。
     </p>
 
   feature_protect: |
     <h2 class="text-primary">
-      保護使用者資料
+      ユーザーデーターの保護
       <div class="small">
-        手機端備份, 雲端備份, 電腦檔案匯出入
+        モバイル末端のバックアップ、クラウドバックアップ、コンピュータからデーターをインポート/エクスポート
       </div>
     </h2>
     <p class="lead">
-      常有使用者在使用其它記帳軟體時, 發生資料遺失, 辛苦記帳的資料付諸流水, AndroMoney為保護使用者的資料, 開發備份功能, 也提供使用者將檔案匯出入, 使用者不用再煩腦資料問題
+      ユーザーがその他の記帳ソフトやアプリを使用している時に資料が無くなり、苦労して記帳した資料が台無しになってしまうことがよくあります。アンドロマネーはユーザーのデーターをプロテクトする為、バックアップ機能を開発しました。ユーザーはデーターをインポート/エクスポートする事ができ、データーの問題を心配する必要はありません。
     </p>
 
   feature_platform: |
     <h2 class="text-primary">
-      多平台同步
+      マルチプラットフォームの同期化
       <div class="small">
-        支援 Android, iPhone, Web
+        Android,、iPhone、Web に対応
       </div>
     </h2>
     <p class="lead">
-      使用者常有多個不同的裝置, 如 Android 手機, iPad 甚至是桌上型電腦, 都可以下載 AndroMoney APP, 或使用 AndroMoeny 雲端服務, 並利用帳戶同步的功能, 達到多平台都可記帳
+      ユーザーは異なるデバイス、それはアンドロイドのモバイルフォン、iPad、或はデスクトップパソコンを所持している場合がありますが、これら全てアンドロマネーをダウンロードすることができます。また、アンドロマネーのクラウドサービスより、アカウント同期化機能を利用しし、マルチプラットフォームで記帳をすることができます。
     </p>
 
   feature_price: |
-    <h3 class="plan-name">免費試用</h3>
+    <h3 class="plan-name">フリートライアル</h3>
     <h1 class="plan-price text-danger">$0</h1>
     <table class="table table-striped">
       <tbody>
         <tr>
-          <td>單筆記帳</td>
+          <td>各出費記帳</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
         </tr>
         <tr>
-          <td>預算管理</td>
+          <td>予算管理</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
         </tr>
         <tr>
-          <td>消費類別管理</td>
+          <td>消費タイプで管理</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
         </tr>
         <tr>
-          <td>多帳戶功能</td>
+          <td>マルチアカウント機能</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
         </tr>
         <tr>
-          <td>不同貨幣</td>
+          <td>貨幣別</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
         </tr>
         <tr>
-          <td>統計圖表分析</td>
+          <td>統計表（グラフ）解析</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
         </tr>
         <tr>
-          <td>多平台同步</td>
+          <td>マルチプラットフォームの同期化</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
@@ -122,48 +122,48 @@ ja:
 
   web: |
     <h2 class="text-danger">
-      最完善的雲端記帳服務
+      一番機能がそろったクラウドサービス
     </h2>
     <table class="table table-striped">
       <tbody>
         <tr>
-          <td>單筆記帳</td>
+          <td>各出費記帳</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
         </tr>
         <tr>
-          <td>預算管理</td>
+          <td>予算管理</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
         </tr>
         <tr>
-          <td>消費類別管理</td>
+          <td>消費タイプで管理</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
         </tr>
         <tr>
-          <td>多帳戶功能</td>
+          <td>マルチアカウント機能</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
         </tr>
         <tr>
-          <td>不同貨幣</td>
+          <td>貨幣別</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
         </tr>
         <tr>
-          <td>統計圖表分析</td>
+          <td>統計表（グラフ）解析</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
         </tr>
         <tr>
-          <td>多平台同步</td>
+          <td>マルチプラットフォームの同期化</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
@@ -173,48 +173,48 @@ ja:
 
   ios: |
     <h2 class="text-danger">
-      iPhone 必備APP
+      iPhone 必須のアプリ
     </h2>
     <table class="table table-striped">
       <tbody>
         <tr>
-          <td>單筆記帳</td>
+          <td>各出費記帳</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
         </tr>
         <tr>
-          <td>預算管理</td>
+          <td>予算管理</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
         </tr>
         <tr>
-          <td>消費類別管理</td>
+          <td>消費タイプで管理</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
         </tr>
         <tr>
-          <td>多帳戶功能</td>
+          <td>マルチアカウント機能</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
         </tr>
         <tr>
-          <td>不同貨幣</td>
+          <td>貨幣別</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
         </tr>
         <tr>
-          <td>統計圖表分析</td>
+          <td>統計表（グラフ）解析</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
         </tr>
         <tr>
-          <td>多平台同步</td>
+          <td>マルチプラットフォームの同期化</td>
           <td>
             <span class="glyphicon glyphicon-ok"></span>
           </td>
@@ -224,191 +224,190 @@ ja:
 
   android: |
     <b class="text-danger">
-      榮獲Google Play 首頁之效率排行工具之理財APP。
+      Google Play ホームページの効率ツールランキングの推薦記帳財務管理アプリにランクイン。
     </b>
     <br />
     <b class="text-danger">
-      入圍App Next 2013應用程式創新大賽之理財工具。
+      App Next 2013応用プログラム創新コンペの財務管理ツール。
     </b>
     <br />
     <b class="text-danger">
-    【Android App達人評測網】精選之─AndroMoney(記帳理財)
+      【Android App達人実測評価サイト】厳選アプリの1つ、アンドロマネー（家計簿･財務管理)
     </b>
     <br />
-    知名網站推薦：
+    知名ウェブサイトによる推薦： 
     <br />
     <div class="text-success">
       PUNAPP :
     </div>
-    【AndroMoney】雙平台資產管理記帳APP，好評如何得來
+    【AndroMoney】ダブルプラットフォームの資産管理記帳アプリ、好評の原因
     <br />
     <div class="text-success">
-      電腦玩物 : 
+      電腦（コンピュータプレイヤー）: 
     </div>
-    記帳 AndroMoney 免費記帳軟體貼心好用Android記帳本
+    記帳 アンドロマネー　無料記帳ソフトウェア　心にいきわたる使いやすいアンドロイドブックキーピング 
     <br />
     <div class="text-success">
-      重灌狂人 : 
+      重灌狂人（リインストール狂人）: 
     </div>
-    超好用的記帳 APP] AndroMoney 收支分類清楚、圖表分析、直接匯出 excel…
+    超使いやすい記帳アプリ　アンドローマネー 　収支と支出分類が明確に　グラフ･チャート分析、直接 excelにエクスポート…
     <br />
     <div class="text-success">
-      挨踢路人甲 : 
+      挨踢路人甲（アプリ紹介ウェブサイト）:
     </div>
-    相當符合我胃口，所以介紹大家試試。
+    非常に好みにびったりです。なので皆さんに紹介します。
     <br />
     <div class="text-success">
-      PDA魔王部落 : 
+      PDA魔王ブログ : 
     </div>
-    讓人眼睛一亮的莫過於 AndroMoney，不僅美工精美，操作起來順手易學，很快地就擄獲魔王的心。
+    目を輝かせるのが記帳アプリのアンドロマネー、きれいなレイアウトとデザイン。操作は簡単で習いやすい。直ぐに魔王の心を捕らえました。
     <br />
     <div class="text-success">
-      Apphome-好玩的app : 
+      Apphome-面白いアプリ : 
     </div>
-    聰明記帳幫手-理財、記帳 AndroMoney
+    スマート記帳ヘルパー-財務管理、記帳アンドマネー
     <br />
     <div class="text-success">
-      Freegroup 免費資源網路社群 : 
+      Freegroup無料リソースソーシャルネットワーク : 
     </div>
-    [Android] AndroMoney 簡單又有質感的快速記帳，還可透過 Excel 匯入匯出！
+    [Android] アンドロマネー 簡単で質感のある快速記帳、Excelからインポート/エクスポートも可能！
 
   about_text: |
     <h1>
-      理財幫手 AndroMoney
+      財務管理ヘルパー AndroMoney
     </h1>
     <p>
       <br />
-      AndroMoney 是行動電話上的個人理財服務工具，
+      AndroMoney はモバイルフォン向けの個人財務管理ツールです, 
       <br />
-      希望透過這個工具，可以良好的管理個人的財富。
+      このツールを利用することより、個人資産を管理して頂きたいと思います。
       <br />
       <br />
-      我們軟體的發展方展方向是：
+      我々のアプリの発展方向は：
       <br />
       <span class="text-success">
-        1.簡單易用，在操作上是十分直覺的
+        1.簡単で使いやすい、直感的な操作
       </span>
       <br />
       <span class="text-success">
-        2.功能強大，不論單純的記帳，或者想要管理不同的帳戶、類別，甚至是繪成圖表，也都可以輕易的辦到。
+        2.強大な機能，単純な記帳だけでなく、違うアカウント、カテゴリー、更にはグラフ作成も軽かる簡単にできます。 
       </span>
       <br />
       <br />
-      將來我們會陸續地加入其它功能，使其更為完整
+      今後は続々とその他機能を追加し、機能を豊富にそろえます。
       <br />
-      如同軟體的名稱，我們期許AndroMoney 能成為最好用，最受歡迎的個人財務軟體
+      アプリの名称通り、アンドロマネーはアンドロイドの中で、類似カテゴリーのアプリーのトップになれるよう期しています。
       <br />
-      如果有任何使用上的問題，十分歡迎利用 email 跟我們連絡，謝謝！
+      どんな使用上の問題でもEメールでの連絡を歓迎しております！ご使用ありがとうございます。
     </p>
 
 
 
-
-  share_email: "想跟你分享 (%{account}) 帳戶資料!"
-  owner_delete_email: "已取消你分享給 %{email} 的帳戶資料"
-  sharer_receive_delete_email: "%{email} 已取消跟你分享帳戶資料"
-  required_for_login_user: "你好，請先登入再開始使用，謝謝！"
-  welcome_message: "歡迎你開始使用最好用的記帳軟體 AndroMoney!"
-  edit: "修改"
-  confirm_edit: "確定修改"
-  confirm_add: "確定新增"
-  name: "名稱"
-  confirm_q: "確定要刪除嗎?"
-  no_data: "無資料"
-  filter: "篩選"
-  query: "查詢"
-  logout: "登出"
-  message: "訊息"
-  home: "首頁"
-  download: "軟體下載"
-  price: "價格方案"
-  about: "關於"
-  login: "用戶登入"
+  share_email: "あなたと (%{account})アカウント情報をシェアします!"
+  owner_delete_email: " %{email}のアカウント情報のシェアを取消しました。"
+  sharer_receive_delete_email: "%{email} アカウント情報のシェアを取消しました"
+  required_for_login_user: "こんにちは、ログインしてから使用開始して下さい。ありがとうございます！"
+  welcome_message: "最も使用し易い家計簿ソフトウェアーアンドロマネーのご使用、ありがとうございます!"
+  edit: "編集"
+  confirm_edit: "編集確認"
+  confirm_add: "新規追加確認"
+  name: "名称"
+  confirm_q: "削除しますか？"
+  no_data: "データーがありません"
+  filter: "フィルター"
+  query: "検索"
+  logout: "ログアウト"
+  message: "メッセージ"
+  home: "ホーム"
+  download: "ソフトウェアダウンロード"
+  price: "価格プラン"
+  about: "アンドロマネーについて"
+  login: "ユーザーログイン"
   amount: "金額"
-  note: "備註"
+  note: "備考"
 
-  every_day: "(每天)"
+  every_day: "(毎日)"
   every_week: "(每周)"
   every_month: "(每月)"
   every_year: "(每年)"
 
-  last_month: "«上個月"
-  next_month: "下個月»"
+  last_month: "«先月" 
+  next_month: "翌月»"
 
   sidebar:
-    report: "報表"
+    report: "レポート"
     record: "明細"
 
   category:
-    category: "類別"
-    success_create: "恭喜你，已成功新增類別！"
-    fail_create: "新增失敗，請填寫正確的訊息及不要重複的類別名稱"
-    add: "新增主類別"
-    type: "類別型態"
-    name: "類別名稱"
-    pic: "圖片"
-    placeholder: "請輸入名稱"
-    pic_notice: "點擊可換圖片"
-    choose_pic: "選擇類別圖片"
-    income_cat: "收入類別"
-    expense_cat: "支出類別"
-    main_category: "主類別"
+    category: "タイプ"
+    success_create: "おめでとうございます！新規タイプを追加しました！"
+    fail_create: "新規失敗，正しいメッセージを入力し、カテゴリータイプ名称は重複しないで下さい"
+    add: "メインタイプ新規追加"
+    type: "タイプ別"
+    name: "タイプ名称"
+    pic: "写真"
+    placeholder: "名称を入力してください"
+    pic_notice: "クリックすると写真を変更できます"
+    choose_pic: "カテゴリ別の写真を選択"
+    income_cat: "收入タイプ"
+    expense_cat: "支出タイプ"
+    main_category: "メインタイプ"
 
   subcategory:
-    subcategory: "子類別"
-    add: "增加子類別"
-    num: "編號"
-    name: "子類別名稱"
+    subcategory: "サブタイプ"
+    add: "サブタイプを新規追加"
+    num: "番号"
+    name: "サブカテゴリー名称"
 
   payment:
-    payment: "帳戶"
-    success_create: "已成功新增帳戶！"
-    fail_create: "新增失敗，請填寫正確的訊息及不要重複的專案名稱"
-    add: "新增帳戶"
-    overview: "帳戶總覽"
-    include: "(含未來記錄)"
-    total_income: "總收入(含初始金額)"
-    liability: "總負債"
-    init_amount: "初始金額"
-    edit: "修改帳戶"
+    payment: "アカウント"
+    success_create: "新規アカウントを追加しました！"
+    fail_create: "新規失敗，正しいメッセージを入力し、カテゴリータイプ名称は重複しないで下さい"
+    add: "新規アカウント"
+    overview: "アカウント概要"
+    include: "(今後の記録を含む)"
+    total_income: "合計収入(初期金額を含む)"
+    liability: "総負債"
+    init_amount: "初期金額"
+    edit: "アカウント編集"
     cash: "現金"
-    credit_card: "信用卡"
+    credit_card: "クレジットカード"
     bank: "銀行"
-    amount_placeholder: "請輸入初始金額"
-    choose: "選擇帳戶"
+    amount_placeholder: "初期金額を入力して下さい"
+    choose: "アカウント選択"
 
   record:
-    success_create: "已成功新增記錄！"
-    fail_create: "新增失敗，請填寫正確的訊息"
-    delete: "已刪除該筆記錄"
-    add: "新增一筆"
+    success_create: "新規記録追加成功！"
+    fail_create: "新規失敗、正確なメッセージを入力して下さい"
+    delete: "当記録を削除しました"
+    add: "新規追加"
 
   record_type:
     income: "收入"
     expense: "支出"
-    transfer: "轉帳"
+    transfer: "振込み先"
 
   report:
-    date: "日期"
-    month_curve: "月趨勢圖"
-    ratio: "帳戶比例"
-    bar: "帳戶長條圖"
+    date: "日付"
+    month_curve: "マンスリーカーグラム"
+    ratio: "アカウント比率"
+    bar: "アカウントバーグラフ"
 
   project:
-    project: "專案"
-    choose: "選擇專案"
+    project: "プロジェクト"
+    choose: "プロジェクトを選択"
 
   payee:
-    payee: "商家"
-    choose: "選擇商家"
+    payee: "販売者"
+    choose: "店舗選択"
 
-  total: "總計"
-  balance: "結餘"
-  other: "其它"
-  rate: "匯率"
+  total: "合計"
+  balance: "残額"
+  other: "その他"
+  rate: "レート"
 
   account:
-    account: "帳戶"
+    account: "アカウント"
 
   date:
     abbr_day_names:
