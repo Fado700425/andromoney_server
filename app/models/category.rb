@@ -8,7 +8,6 @@ class Category < ActiveRecord::Base
   
   belongs_to :user
   validates_uniqueness_of :hash_key, scope: [ :user_id ]
-  validates_presence_of :category
   scope :api_select, -> { where(is_delete: false).select("id,category,type,photo_path,hidden,order_no,hash_key,update_time"
                         ) }
 end
