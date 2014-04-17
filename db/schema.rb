@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140417064851) do
+ActiveRecord::Schema.define(version: 20140417104528) do
 
   create_table "ad_clicks", force: true do |t|
     t.string  "uuid"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20140417064851) do
     t.string "link"
     t.string "pic_link"
     t.string "bank_name"
+    t.string "content"
   end
 
   create_table "category_table", force: true do |t|
