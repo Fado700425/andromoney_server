@@ -106,6 +106,13 @@ AndromoneyServer::Application.routes.draw do
           post 'other_tables'
         end
       end
+
+      resources :ads , only: [:index] do
+        collection do
+          post 'click'
+        end
+      end
+
     end
   end
 end

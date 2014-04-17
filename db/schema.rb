@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140116025406) do
+ActiveRecord::Schema.define(version: 20140417064851) do
+
+  create_table "ad_clicks", force: true do |t|
+    t.string  "uuid"
+    t.string  "email"
+    t.integer "click_times"
+    t.integer "ad_id"
+  end
+
+  add_index "ad_clicks", ["ad_id"], name: "index_ad_clicks_on_ad_id", using: :btree
+  add_index "ad_clicks", ["email"], name: "index_ad_clicks_on_email", using: :btree
+  add_index "ad_clicks", ["uuid"], name: "index_ad_clicks_on_uuid", using: :btree
+
+  create_table "ads", force: true do |t|
+    t.string "title"
+    t.string "link"
+    t.string "pic_link"
+    t.string "bank_name"
+  end
 
   create_table "category_table", force: true do |t|
     t.string   "category",                    null: false
@@ -244,6 +262,9 @@ ActiveRecord::Schema.define(version: 20140116025406) do
     t.string   "refresh_token"
     t.string   "access_token"
     t.datetime "expires"
+    t.boolean  "is_pro",        default: false
+    t.datetime "expire_date"
+    t.string   "customer_id"
   end
 
   add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
