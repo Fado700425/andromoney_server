@@ -97,7 +97,7 @@ class ReportsController < ApplicationController
       project_amount.each do |hash_key, amount|
         if projects.include? hash_key
           array = []
-          array << Project.find_by(hash_key: hash_key).category
+          array << Project.find_by(hash_key: hash_key, user_id: current_user.id).category
           array << amount.to_f
 
           if @chart_array.size < 10
@@ -133,7 +133,7 @@ class ReportsController < ApplicationController
 
         if payees.include? hash_key
           array = []
-          array << Payee.find_by(hash_key: hash_key).category
+          array << Payee.find_by(hash_key: hash_key, user_id: current_user.id).category
           array << amount.to_f
           
           if @chart_array.size < 10
@@ -169,7 +169,7 @@ class ReportsController < ApplicationController
 
         if categories.include? hash_key
           array = []
-          array << Category.find_by(hash_key: hash_key).category
+          array << Category.find_by(hash_key: hash_key, user_id: current_user.id).category
           array << amount.to_f
 
           if @chart_array.size < 10
