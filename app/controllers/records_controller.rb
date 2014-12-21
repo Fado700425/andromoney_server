@@ -5,7 +5,7 @@ class RecordsController < ApplicationController
 
   def new
     @record = Record.new
-    @expense_category = Category.where(type: 20, user_id: current_user.id).not_hidden.each_slice(3).to_a
+    @expense_category = Category.joins("Inner JOIN subcategory_table ON subcategory_table.id_category = category_table.hash_key AND subcategory_table.user_id = #{current_user.id}").where(type: 20, user_id: current_user.id).distinct.not_hidden.each_slice(3).to_a
     @income_category = Category.where("type = 10 and hash_key != 'SYSTEM' and user_id = #{current_user.id}").not_hidden.each_slice(3).to_a
     @transfer_category = Category.where(type: 30, user_id: current_user.id).not_hidden.each_slice(3).to_a
     @payments = Payment.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
