@@ -6,7 +6,7 @@ class RecordsController < ApplicationController
   def new
     @record = Record.new
     @expense_category = Category.where(user_id: current_user.id,type: 20, hash_key:Subcategory.select("id_category").where(user_id: current_user.id,type: 20)).not_hidden.each_slice(3).to_a
-    @income_category = Category.where(user_id: current_user.id,type: 10, hash_key:Subcategory.select("id_category").where(user_id: current_user.id,type: 20)).where.not(hash_key: "SYSTEM").not_hidden.each_slice(3).to_a
+    @income_category = Category.where(user_id: current_user.id,type: 10, hash_key:Subcategory.select("id_category").where(user_id: current_user.id,type: 10)).not_hidden.each_slice(3).to_a
     #@income_category = Category.where("type = 10 and hash_key != 'SYSTEM' and user_id = #{current_user.id}").not_hidden.each_slice(3).to_a
     @transfer_category = Category.where(type: 30, user_id: current_user.id, hash_key:Subcategory.select("id_category").where(user_id: current_user.id,type: 30)).not_hidden.each_slice(3).to_a
     @payments = Payment.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
