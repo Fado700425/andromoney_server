@@ -5,8 +5,7 @@ require 'capistrano/local_precompile'
 set :application, "andromoney_server"
 set :rails_env, "production"
 
-set :branch, "master"
-#set :branch, "dev"
+
 set :repository,  "https://github.com/StevenKo/andromoney_server.git"
 set :scm, "git"
 set :user, "apps" # 一個伺服器上的帳戶用來放你的應用程式，不需要有sudo權限，但是需要有權限可以讀取Git repository拿到原始碼
@@ -15,17 +14,20 @@ set :port, "22"
 set :deploy_to, "/home/apps/andromoney_server"
 set :deploy_via, :remote_cache
 set :use_sudo, false
-
-# role :web, "106.186.122.183"
-# role :app, "106.186.122.183"
-# role :db,  "106.186.122.183", :primary => true
-
 set :bundle_cmd, "RAILS_ENV=production bundle"
 
 
-role :web, "106.186.22.13"
-role :app, "106.186.22.13"
-role :db,  "106.186.22.13", :primary => true
+#測試的
+set :branch, "dev"  #dev branch 名字
+role :web, "106.186.122.183" 
+role :app, "106.186.122.183"
+role :db,  "106.186.122.183", :primary => true
+
+# 正式的
+#set :branch, "master"
+#role :web, "106.186.22.13"
+#role :app, "106.186.22.13"
+#role :db,  "106.186.22.13", :primary => true
 
 
 namespace :deploy do
