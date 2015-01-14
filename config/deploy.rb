@@ -3,7 +3,9 @@ require 'capistrano/local_precompile'
 # require 'hoptoad_notifier/capistrano'
 
 set :application, "andromoney_server"
-set :rails_env, "production"
+#set :rails_env, "production"
+
+set :rails_env, "development"
 
 
 set :repository,  "https://github.com/StevenKo/andromoney_server.git"
@@ -25,6 +27,7 @@ role :db,  "106.186.122.183", :primary => true
 
 # 正式的
 #set :branch, "master"
+
 #role :web, "106.186.22.13"
 #role :app, "106.186.22.13"
 #role :db,  "106.186.22.13", :primary => true
