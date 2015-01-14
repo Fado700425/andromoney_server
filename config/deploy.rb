@@ -4,6 +4,7 @@ require 'capistrano/local_precompile'
 
 set :application, "andromoney_server"
 set :rails_env, "production"
+set :branch, "dev"  #dev branch 名字
 
 set :repository,  "https://github.com/StevenKo/andromoney_server.git"
 set :scm, "git"
@@ -13,14 +14,14 @@ set :port, "22"
 set :deploy_to, "/home/apps/andromoney_server"
 set :deploy_via, :remote_cache
 set :use_sudo, false
-set :bundle_cmd, "RAILS_ENV=production bundle"
 
 
 #測試的
-set :branch, "dev"  #dev branch 名字
 role :web, "106.186.122.183" 
 role :app, "106.186.122.183"
 role :db,  "106.186.122.183", :primary => true
+
+set :bundle_cmd, "RAILS_ENV=production bundle"
 
 # 正式的
 #set :branch, "master"
@@ -34,7 +35,7 @@ namespace :deploy do
 
   task :copy_config_files, :roles => [:app] do
     db_config = "#{shared_path}/config/database.yml"
-    run "cp #{db_config} #{release_path}/config/database.yml"
+    run "cp #{db_config} #{restartlease_path}/config/database.yml"
     local_config = "#{shared_path}/config/application.yml"
     run "cp #{local_config} #{release_path}/config/application.yml"
   end
