@@ -3,10 +3,7 @@ require 'capistrano/local_precompile'
 # require 'hoptoad_notifier/capistrano'
 
 set :application, "andromoney_server"
-#set :rails_env, "production"
-
-set :rails_env, "development"
-
+set :rails_env, "production"
 
 set :repository,  "https://github.com/StevenKo/andromoney_server.git"
 set :scm, "git"
