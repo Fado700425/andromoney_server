@@ -15,7 +15,7 @@
             %span.input-group-addon
               %span.glyphicon.glyphicon-calendar
               #{t('report.date')}
-            = f.text_field(:date,:readonly => true, {id: "datepicker", class: "form-control", data: {behaviour: "datepicker"}, value: @record.date.strftime("%Y/%m/%d")})
+            = f.text_field(:date, {id: "datepicker", readonly:true , class: "form-control", data: {behaviour: "datepicker"}, value: @record.date.strftime("%Y/%m/%d")})
           .input-group
             %span.input-group-addon
               %span.glyphicon.glyphicon-book
