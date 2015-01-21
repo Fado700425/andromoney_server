@@ -19,7 +19,7 @@ class RecordsController < ApplicationController
   def create
     @record = Record.new(record_param)
     @record.user_id = current_user.id
-    @record.hash_key = SecureRandom.urlsafe_base64
+    @record.hash_key = 'test' + SecureRandom.urlsafe_base64
     set_record_submit_value(@record)
 
     if @record.save
