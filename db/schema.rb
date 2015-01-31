@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.integer  "order_no"
     t.string   "hash_key",                    null: false
     t.integer  "user_id"
-    t.boolean  "is_delete",   default: false
+    t.boolean  "is_delete",   default: 0,null:false
     t.datetime "update_time",                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.string   "flag_path",                                                null: false
     t.integer  "order_no"
     t.integer  "user_id"
-    t.boolean  "is_delete",                                default: false
+    t.boolean  "is_delete",                                default: 0,null:false
     t.datetime "update_time",                                              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.integer  "type"
     t.integer  "order_no"
     t.string   "hash_key",                    null: false
-    t.boolean  "is_delete",   default: false
+    t.boolean  "is_delete",   default: 0,null:false
     t.integer  "user_id"
     t.datetime "update_time",                 null: false
     t.datetime "created_at"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.integer  "hidden",                                                 null: false
     t.integer  "order_no"
     t.string   "hash_key",                                               null: false
-    t.boolean  "is_delete",                              default: false
+    t.boolean  "is_delete",                              default: 0,null:false
     t.integer  "user_id"
     t.datetime "update_time",                                            null: false
     t.datetime "created_at"
@@ -140,7 +140,7 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.integer  "period_num",                  null: false
     t.integer  "order_no"
     t.string   "hash_key",                    null: false
-    t.boolean  "is_delete",   default: false
+    t.boolean  "is_delete",   default: 0,null:false
     t.integer  "user_id"
     t.datetime "update_time",                 null: false
     t.datetime "created_at"
@@ -156,7 +156,7 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.string   "key",                         null: false
     t.string   "value"
     t.integer  "user_id"
-    t.boolean  "is_delete",   default: false
+    t.boolean  "is_delete",   default: 0,null:false
     t.datetime "update_time",                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -172,7 +172,7 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.integer  "hidden",                       null: false
     t.integer  "order_no"
     t.string   "hash_key",                     null: false
-    t.boolean  "is_delete",    default: false
+    t.boolean  "is_delete",    default: 0,null:false
     t.integer  "user_id"
     t.datetime "update_time",                  null: false
     t.datetime "created_at"
@@ -204,7 +204,7 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.string   "out_currency"
     t.integer  "user_id"
     t.string   "hash_key"
-    t.boolean  "is_delete",                               default: false
+    t.boolean  "is_delete",                               default: 0,null:false
     t.datetime "update_time"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -222,7 +222,7 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.integer  "hidden",                      null: false
     t.integer  "order_no"
     t.string   "hash_key",                    null: false
-    t.boolean  "is_delete",   default: false
+    t.boolean  "is_delete",   default: 0,null:false
     t.integer  "user_id"
     t.datetime "update_time",                 null: false
     t.datetime "created_at"
