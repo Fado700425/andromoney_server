@@ -18,10 +18,10 @@ class ReportsController < ApplicationController
     projects = []
     payees =[]
 
-    params[:payment].select{|key,val| val == "1"}.each{|key,val| payments << key}
-    params[:category].select{|key,val| val == "1"}.each{|key,val| categories << key}
-    params[:project].select{|key,val| val == "1"}.each{|key,val| projects << key}
-    params[:payee].select{|key,val| val == "1"}.each{|key,val| payees << key}
+    params[:payment].select{|key,val| val == "1"}.each{|key,val| payments << key} if params[:payment]
+    params[:category].select{|key,val| val == "1"}.each{|key,val| categories << key} if params[:category]
+    params[:project].select{|key,val| val == "1"}.each{|key,val| projects << key} if params[:project]
+    params[:payee].select{|key,val| val == "1"}.each{|key,val| payees << key} if params[:payee]
 
     # expense income trends
     @expense_trends = Array.new(Time.days_in_month((Time.now + params[:month_from_now].to_i.month).month),0)

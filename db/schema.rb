@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140417104528) do
+ActiveRecord::Schema.define(version: 20150214013001) do
 
   create_table "ad_clicks", force: true do |t|
     t.string  "uuid"
@@ -20,9 +20,9 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.integer "ad_id"
   end
 
-  add_index "ad_clicks", ["ad_id"], name: "index_ad_clicks_on_ad_id"
-  add_index "ad_clicks", ["email"], name: "index_ad_clicks_on_email"
-  add_index "ad_clicks", ["uuid"], name: "index_ad_clicks_on_uuid"
+  add_index "ad_clicks", ["ad_id"], name: "index_ad_clicks_on_ad_id", using: :btree
+  add_index "ad_clicks", ["email"], name: "index_ad_clicks_on_email", using: :btree
+  add_index "ad_clicks", ["uuid"], name: "index_ad_clicks_on_uuid", using: :btree
 
   create_table "ads", force: true do |t|
     t.string "title"
@@ -40,16 +40,16 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.integer  "order_no"
     t.string   "hash_key",                    null: false
     t.integer  "user_id"
-    t.boolean  "is_delete",   default: 0,null:false
+    t.boolean  "is_delete",   default: false
     t.datetime "update_time",                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "device_uuid"
   end
 
-  add_index "category_table", ["device_uuid"], name: "index_category_table_on_device_uuid"
-  add_index "category_table", ["hash_key"], name: "index_category_table_on_hash_key"
-  add_index "category_table", ["user_id"], name: "index_category_table_on_user_id"
+  add_index "category_table", ["device_uuid"], name: "index_category_table_on_device_uuid", using: :btree
+  add_index "category_table", ["hash_key"], name: "index_category_table_on_hash_key", using: :btree
+  add_index "category_table", ["user_id"], name: "index_category_table_on_user_id", using: :btree
 
   create_table "currency_table", force: true do |t|
     t.string   "currency_code"
@@ -59,27 +59,27 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.string   "flag_path",                                                null: false
     t.integer  "order_no"
     t.integer  "user_id"
-    t.boolean  "is_delete",                                default: 0,null:false
+    t.boolean  "is_delete",                                default: false
     t.datetime "update_time",                                              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "device_uuid"
   end
 
-  add_index "currency_table", ["currency_code"], name: "index_currency_table_on_currency_code"
-  add_index "currency_table", ["device_uuid"], name: "index_currency_table_on_device_uuid"
-  add_index "currency_table", ["user_id"], name: "index_currency_table_on_user_id"
+  add_index "currency_table", ["currency_code"], name: "index_currency_table_on_currency_code", using: :btree
+  add_index "currency_table", ["device_uuid"], name: "index_currency_table_on_device_uuid", using: :btree
+  add_index "currency_table", ["user_id"], name: "index_currency_table_on_user_id", using: :btree
 
   create_table "devices", force: true do |t|
     t.integer  "user_id"
     t.string   "uuid"
-    t.datetime "last_sync_time",  default: '1986-08-17 07:04:35'
+    t.datetime "last_sync_time",  default: '1987-08-05 07:13:03'
     t.datetime "sync_start_time"
     t.boolean  "is_syncing",      default: false
   end
 
-  add_index "devices", ["user_id"], name: "index_devices_on_user_id"
-  add_index "devices", ["uuid"], name: "index_devices_on_uuid"
+  add_index "devices", ["user_id"], name: "index_devices_on_user_id", using: :btree
+  add_index "devices", ["uuid"], name: "index_devices_on_uuid", using: :btree
 
   create_table "messages", force: true do |t|
     t.integer  "user_id"
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.datetime "updated_at"
   end
 
-  add_index "messages", ["user_id"], name: "index_messages_on_user_id"
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "payee_table", force: true do |t|
     t.string   "payee_name",                  null: false
@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.integer  "type"
     t.integer  "order_no"
     t.string   "hash_key",                    null: false
-    t.boolean  "is_delete",   default: 0,null:false
+    t.boolean  "is_delete",   default: false
     t.integer  "user_id"
     t.datetime "update_time",                 null: false
     t.datetime "created_at"
@@ -105,9 +105,9 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.string   "device_uuid"
   end
 
-  add_index "payee_table", ["device_uuid"], name: "index_payee_table_on_device_uuid"
-  add_index "payee_table", ["hash_key"], name: "index_payee_table_on_hash_key"
-  add_index "payee_table", ["user_id"], name: "index_payee_table_on_user_id"
+  add_index "payee_table", ["device_uuid"], name: "index_payee_table_on_device_uuid", using: :btree
+  add_index "payee_table", ["hash_key"], name: "index_payee_table_on_hash_key", using: :btree
+  add_index "payee_table", ["user_id"], name: "index_payee_table_on_user_id", using: :btree
 
   create_table "payment_table", force: true do |t|
     t.integer  "kind",                                                   null: false
@@ -119,18 +119,23 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.integer  "hidden",                                                 null: false
     t.integer  "order_no"
     t.string   "hash_key",                                               null: false
-    t.boolean  "is_delete",                              default: 0,null:false
+    t.boolean  "is_delete",                              default: false
     t.integer  "user_id"
     t.datetime "update_time",                                            null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "device_uuid"
+    t.date     "pay_date"
+    t.date     "bill_date"
+    t.string   "remark"
+    t.string   "pay_payment"
+    t.integer  "alert"
   end
 
-  add_index "payment_table", ["currency_code"], name: "index_payment_table_on_currency_code"
-  add_index "payment_table", ["device_uuid"], name: "index_payment_table_on_device_uuid"
-  add_index "payment_table", ["hash_key"], name: "index_payment_table_on_hash_key"
-  add_index "payment_table", ["user_id"], name: "index_payment_table_on_user_id"
+  add_index "payment_table", ["currency_code"], name: "index_payment_table_on_currency_code", using: :btree
+  add_index "payment_table", ["device_uuid"], name: "index_payment_table_on_device_uuid", using: :btree
+  add_index "payment_table", ["hash_key"], name: "index_payment_table_on_hash_key", using: :btree
+  add_index "payment_table", ["user_id"], name: "index_payment_table_on_user_id", using: :btree
 
   create_table "period_table", force: true do |t|
     t.datetime "start_date",                  null: false
@@ -140,7 +145,7 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.integer  "period_num",                  null: false
     t.integer  "order_no"
     t.string   "hash_key",                    null: false
-    t.boolean  "is_delete",   default: 0,null:false
+    t.boolean  "is_delete",   default: false
     t.integer  "user_id"
     t.datetime "update_time",                 null: false
     t.datetime "created_at"
@@ -148,31 +153,31 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.string   "device_uuid"
   end
 
-  add_index "period_table", ["device_uuid"], name: "index_period_table_on_device_uuid"
-  add_index "period_table", ["hash_key"], name: "index_period_table_on_hash_key"
-  add_index "period_table", ["user_id"], name: "index_period_table_on_user_id"
+  add_index "period_table", ["device_uuid"], name: "index_period_table_on_device_uuid", using: :btree
+  add_index "period_table", ["hash_key"], name: "index_period_table_on_hash_key", using: :btree
+  add_index "period_table", ["user_id"], name: "index_period_table_on_user_id", using: :btree
 
   create_table "pref_table", force: true do |t|
     t.string   "key",                         null: false
     t.string   "value"
     t.integer  "user_id"
-    t.boolean  "is_delete",   default: 0,null:false
+    t.boolean  "is_delete",   default: false
     t.datetime "update_time",                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "device_uuid"
   end
 
-  add_index "pref_table", ["device_uuid"], name: "index_pref_table_on_device_uuid"
-  add_index "pref_table", ["key"], name: "index_pref_table_on_key"
-  add_index "pref_table", ["user_id"], name: "index_pref_table_on_user_id"
+  add_index "pref_table", ["device_uuid"], name: "index_pref_table_on_device_uuid", using: :btree
+  add_index "pref_table", ["key"], name: "index_pref_table_on_key", using: :btree
+  add_index "pref_table", ["user_id"], name: "index_pref_table_on_user_id", using: :btree
 
   create_table "project_table", force: true do |t|
     t.string   "project_name",                 null: false
     t.integer  "hidden",                       null: false
     t.integer  "order_no"
     t.string   "hash_key",                     null: false
-    t.boolean  "is_delete",    default: 0,null:false
+    t.boolean  "is_delete",    default: false
     t.integer  "user_id"
     t.datetime "update_time",                  null: false
     t.datetime "created_at"
@@ -180,9 +185,9 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.string   "device_uuid"
   end
 
-  add_index "project_table", ["device_uuid"], name: "index_project_table_on_device_uuid"
-  add_index "project_table", ["hash_key"], name: "index_project_table_on_hash_key"
-  add_index "project_table", ["user_id"], name: "index_project_table_on_user_id"
+  add_index "project_table", ["device_uuid"], name: "index_project_table_on_device_uuid", using: :btree
+  add_index "project_table", ["hash_key"], name: "index_project_table_on_hash_key", using: :btree
+  add_index "project_table", ["user_id"], name: "index_project_table_on_user_id", using: :btree
 
   create_table "record_table", force: true do |t|
     t.decimal  "mount",          precision: 16, scale: 2
@@ -204,17 +209,18 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.string   "out_currency"
     t.integer  "user_id"
     t.string   "hash_key"
-    t.boolean  "is_delete",                               default: 0,null:false
+    t.boolean  "is_delete",                               default: false
     t.datetime "update_time"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "device_uuid"
+    t.integer  "status"
   end
 
-  add_index "record_table", ["currency_code"], name: "index_record_table_on_currency_code"
-  add_index "record_table", ["device_uuid"], name: "index_record_table_on_device_uuid"
-  add_index "record_table", ["hash_key"], name: "index_record_table_on_hash_key"
-  add_index "record_table", ["user_id"], name: "index_record_table_on_user_id"
+  add_index "record_table", ["currency_code"], name: "index_record_table_on_currency_code", using: :btree
+  add_index "record_table", ["device_uuid"], name: "index_record_table_on_device_uuid", using: :btree
+  add_index "record_table", ["hash_key"], name: "index_record_table_on_hash_key", using: :btree
+  add_index "record_table", ["user_id"], name: "index_record_table_on_user_id", using: :btree
 
   create_table "subcategory_table", force: true do |t|
     t.string   "id_category"
@@ -222,7 +228,7 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.integer  "hidden",                      null: false
     t.integer  "order_no"
     t.string   "hash_key",                    null: false
-    t.boolean  "is_delete",   default: 0,null:false
+    t.boolean  "is_delete",   default: false
     t.integer  "user_id"
     t.datetime "update_time",                 null: false
     t.datetime "created_at"
@@ -230,9 +236,9 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.string   "device_uuid"
   end
 
-  add_index "subcategory_table", ["device_uuid"], name: "index_subcategory_table_on_device_uuid"
-  add_index "subcategory_table", ["hash_key"], name: "index_subcategory_table_on_hash_key"
-  add_index "subcategory_table", ["user_id"], name: "index_subcategory_table_on_user_id"
+  add_index "subcategory_table", ["device_uuid"], name: "index_subcategory_table_on_device_uuid", using: :btree
+  add_index "subcategory_table", ["hash_key"], name: "index_subcategory_table_on_hash_key", using: :btree
+  add_index "subcategory_table", ["user_id"], name: "index_subcategory_table_on_user_id", using: :btree
 
   create_table "user_share_payment_relations", force: true do |t|
     t.integer  "share_user_id",                    null: false
@@ -245,11 +251,11 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.datetime "updated_at"
   end
 
-  add_index "user_share_payment_relations", ["is_approved"], name: "index_user_share_payment_relations_on_is_approved"
-  add_index "user_share_payment_relations", ["owner_user_id"], name: "index_user_share_payment_relations_on_owner_user_id"
-  add_index "user_share_payment_relations", ["payment_hash_key"], name: "index_user_share_payment_relations_on_payment_hash_key"
-  add_index "user_share_payment_relations", ["share_user_id"], name: "index_user_share_payment_relations_on_share_user_id"
-  add_index "user_share_payment_relations", ["token"], name: "index_user_share_payment_relations_on_token"
+  add_index "user_share_payment_relations", ["is_approved"], name: "index_user_share_payment_relations_on_is_approved", using: :btree
+  add_index "user_share_payment_relations", ["owner_user_id"], name: "index_user_share_payment_relations_on_owner_user_id", using: :btree
+  add_index "user_share_payment_relations", ["payment_hash_key"], name: "index_user_share_payment_relations_on_payment_hash_key", using: :btree
+  add_index "user_share_payment_relations", ["share_user_id"], name: "index_user_share_payment_relations_on_share_user_id", using: :btree
+  add_index "user_share_payment_relations", ["token"], name: "index_user_share_payment_relations_on_token", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -263,11 +269,8 @@ ActiveRecord::Schema.define(version: 20140417104528) do
     t.string   "refresh_token"
     t.string   "access_token"
     t.datetime "expires"
-    t.boolean  "is_pro",        default: false
-    t.datetime "expire_date"
-    t.string   "customer_id"
   end
 
-  add_index "users", ["uid"], name: "index_users_on_uid"
+  add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
 
 end

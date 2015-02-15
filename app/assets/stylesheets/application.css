@@ -13,4 +13,7 @@
  *= require bootstrap-datepicker
  *= require fancybox
  *= require_tree .
+
+
+ *= require bootstrap-datetimepicker
  */

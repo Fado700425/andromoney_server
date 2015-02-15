@@ -5,15 +5,15 @@ class Record < ActiveRecord::Base
   validates_uniqueness_of :hash_key,  scope: [ :user_id ]
 
 
-  scope :api_select, -> { where(is_delete: 0).select("id,mount,category,sub_category,date, in_payment,out_payment,remark,currency_code,amount_to_main,period,
+  scope :api_select, -> { where(is_delete: false).select("id,mount,category,sub_category,date, in_payment,out_payment,remark,currency_code,amount_to_main,period,
                               payee,project,fee,in_amount,out_amount,in_currency,out_currency,hash_key,update_time"
                         ) }
 
-  scope :month_from_now, ->(num) { where("is_delete = 0 and date > ? AND  date < ?", (Time.now + num.month).beginning_of_month, (Time.now + num.month).end_of_month) }
+  scope :month_from_now, ->(num) { where("is_delete = false and date > ? AND  date < ?", (Time.now + num.month).beginning_of_month, (Time.now + num.month).end_of_month) }
 
   scope :order_by_date, ->{order("date ASC")}
 
-  scope :not_delete, -> {where(is_delete: 0)}
+  scope :not_delete, -> {where(is_delete: false)}
 
   def category_order_num
     (category.split("_")[1].to_i*10 + category.split("_")[0].to_i) *1000 + (sub_category.split("_")[1].to_i*10 + sub_category.split("_")[0].to_i)
@@ -60,7 +60,16 @@ class Record < ActiveRecord::Base
   def as_json(options)
     json = super(:only => [:id,:mount,:category,:sub_category, :in_payment,:out_payment,:remark,:currency_code,:amount_to_main,:period,
                               :payee,:project,:fee,:in_amount,:out_amount,:in_currency,:out_currency,:hash_key,:update_time, :is_delete])
-    (date) ? json.merge!(date: date.strftime("%Y%m%d")) : json.merge!(date: nil) if attributes.include? "date"
+
+    if(date)
+      json.merge!(date: date.strftime("%Y%m%d")) 
+      record_time=date.strftime("%H%M")
+      json.merge!(record_time: record_time) if record_time!="0000" 
+    else
+       json.merge!(date: nil) if attributes.include? "date"
+    end
+
+
     json
   end
 end

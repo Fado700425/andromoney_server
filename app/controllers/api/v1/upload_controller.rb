@@ -9,7 +9,7 @@ class Api::V1::UploadController < ApplicationController
     if user && device
       begin
         ActiveRecord::Base.transaction do
-          insert_datas(body_params[:insert],user,"record", :hash_key,body_params[:device]) if body_params[:insert]
+          insert_datas(body_params[:insert],"record",:hash_key,user,body_params[:device]) if body_params[:insert]
           update_datas(body_params[:update],"record",:hash_key,user,body_params[:device]) if body_params[:update]
           delete_datas(body_params[:delete],'record',:hash_key,user,body_params[:device]) if body_params[:delete]
         end
@@ -50,14 +50,14 @@ private
 
     begin
       ActiveRecord::Base.transaction do
-        insert_datas(params[:category_table][:insert],user,"category", :hash_key,params[:device]) if params[:category_table]
-        insert_datas(params[:payee_table][:insert],user,"payee", :hash_key,params[:device]) if params[:payee_table]
-        insert_datas(params[:currency_table][:insert],user,"currency", :currency_code,params[:device]) if params[:currency_table]
-        insert_datas(params[:payment_table][:insert],user,"payment", :hash_key,params[:device]) if params[:payment_table]
-        insert_datas(params[:period_table][:insert],user,"period", :hash_key,params[:device]) if params[:period_table]
-        insert_datas(params[:pref_table][:insert],user,"pref", :key,params[:device]) if params[:pref_table]
-        insert_datas(params[:project_table][:insert],user,"project", :hash_key,params[:device]) if params[:project_table]
-        insert_datas(params[:subcategory_table][:insert],user,"subcategory", :hash_key,params[:device]) if params[:subcategory_table]
+        insert_datas(params[:category_table][:insert],"category", :hash_key,user,params[:device]) if params[:category_table]
+        insert_datas(params[:payee_table][:insert],"payee", :hash_key,user,params[:device]) if params[:payee_table]
+        insert_datas(params[:currency_table][:insert],"currency", :currency_code,user,params[:device]) if params[:currency_table]
+        insert_datas(params[:payment_table][:insert],"payment", :hash_key,user,params[:device]) if params[:payment_table]
+        insert_datas(params[:period_table][:insert],"period", :hash_key,user,params[:device]) if params[:period_table]
+        insert_datas(params[:pref_table][:insert],"pref", :key,user,params[:device]) if params[:pref_table]
+        insert_datas(params[:project_table][:insert],"project", :hash_key,user,params[:device]) if params[:project_table]
+        insert_datas(params[:subcategory_table][:insert],"subcategory", :hash_key,user,params[:device]) if params[:subcategory_table]
       end
     rescue
       render :status=>404, :json=>{:message=>"Create Fail"}
@@ -103,7 +103,7 @@ private
     return true
   end
 
-  def insert_datas(params,user,class_name,key,device_uuid)
+  def insert_datas(params,class_name,key,user,device_uuid)
     return unless params
     params.each do |param|
       begin

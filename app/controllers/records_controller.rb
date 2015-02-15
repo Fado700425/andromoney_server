@@ -66,7 +66,6 @@ class RecordsController < ApplicationController
 
   def update
     record = Record.find(params[:id])
-    
     record.in_amount = nil
     record.out_amount = nil
     record.in_currency = nil
@@ -123,7 +122,7 @@ class RecordsController < ApplicationController
 
   def destroy
     record = Record.find(params[:id])
-    record.is_delete = 1
+    record.is_delete = true
     record.device_uuid = "computer"
     record.update_time = DateTime.now.utc
     record.save

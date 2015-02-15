@@ -16,7 +16,9 @@
 //= require twitter/bootstrap
 //= require bootstrap-datepicker
 //= require_tree .
+//= require moment
 
+//= require bootstrap-datetimepicker
 
 $(document).ready(function() {
   $("a.fancybox").fancybox();

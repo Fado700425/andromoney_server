@@ -46,6 +46,8 @@ GEM
     bootstrap-sass-rails (3.0.2.1)
       railties (>= 3.1.0)
       sass-rails (>= 3.1.0)
+    bootstrap3-datetimepicker-rails (4.0.0)
+      momentjs-rails (>= 2.8.1)
     builder (3.1.4)
     capistrano (2.15.5)
       highline
@@ -145,6 +147,8 @@ GEM
     mime-types (1.25)
     mini_portile (0.5.2)
     minitest (4.7.5)
+    momentjs-rails (2.9.0)
+      railties (>= 3.1)
     multi_json (1.8.2)
     multipart-post (1.2.0)
     mysql2 (0.3.13)
@@ -288,6 +292,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-datepicker-rails!
   bootstrap-sass-rails
+  bootstrap3-datetimepicker-rails (~> 4.0.0)
   capistrano
   capistrano-local-precompile
   capybara
@@ -304,6 +309,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   letter_opener
+  momentjs-rails (>= 2.9.0)
   mysql2
   omniauth-google-oauth2
   pry
