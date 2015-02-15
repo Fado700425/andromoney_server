@@ -3,7 +3,7 @@ class PaymentsController < ApplicationController
   layout 'account'
 
   def index
-    @payments = Payment.where(user_id: current_user.id).not_hidden
+    @payments = Payment.where(user_id: current_user.id).not_hidden.order("order_no")
   end
 
   def update

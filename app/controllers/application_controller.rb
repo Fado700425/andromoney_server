@@ -6,7 +6,11 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    begin
+      @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    rescue
+      reset_session
+    end
   end
 
   def require_user

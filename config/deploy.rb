@@ -25,7 +25,7 @@ set :use_sudo, false
 set :bundle_cmd, "RAILS_ENV=production bundle"
 
 
-run("cd #{deploy_to}/current && /usr/bin/env rake db:migrate RAILS_ENV=production")
+
 
 # 正式的
 #set :branch, "master"
@@ -34,6 +34,7 @@ role :web, "106.186.22.13"
 role :app, "106.186.22.13"
 role :db,  "106.186.22.13", :primary => true
 
+#run("cd #{deploy_to}/current && /usr/bin/env rake db:migrate RAILS_ENV=production")
 
 namespace :deploy do
 
