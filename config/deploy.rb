@@ -24,9 +24,6 @@ set :use_sudo, false
 
 set :bundle_cmd, "RAILS_ENV=production bundle"
 
-
-
-
 # 正式的
 #set :branch, "master"
 
