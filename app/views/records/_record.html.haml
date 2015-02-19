@@ -1,6 +1,6 @@
 %td
-  = image_tag record.record_category.photo_path, width: "40px"
-  = "[#{record.record_category.category}]#{record.record_subcategory.subcategory}"
+  = image_tag record.record_category.photo_path, width: "40px" if record.record_category
+  = "[#{record.record_category.category}]#{record.record_subcategory.subcategory}" if record.record_category
 %td
   = record.currency_code
   %span

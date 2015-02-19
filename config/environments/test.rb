@@ -21,6 +21,7 @@ AndromoneyServer::Application.configure do
   config.action_controller.perform_caching = false
 
   # Raise exceptions instead of rendering exception templates.
+  config.logger = Logger.new(config.paths["log"].first, 10, 1000*1024*1024) # 10 megabytes
   config.action_dispatch.show_exceptions = false
 
   # Disable request forgery protection in test environment.
