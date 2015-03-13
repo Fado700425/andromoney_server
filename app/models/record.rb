@@ -61,12 +61,14 @@ class Record < ActiveRecord::Base
     json = super(:only => [:id,:mount,:category,:sub_category, :in_payment,:out_payment,:remark,:currency_code,:amount_to_main,:period,
                               :payee,:project,:fee,:in_amount,:out_amount,:in_currency,:out_currency,:hash_key,:update_time, :is_delete])
 
-    if(date)
-      json.merge!(date: date.strftime("%Y%m%d")) 
-      record_time=date.strftime("%H%M")
-      json.merge!(record_time: record_time) if record_time!="0000" 
-    else
-       json.merge!(date: nil) if attributes.include? "date"
+    if attributes.include? "date"
+      if(date)
+        json.merge!(date: date.strftime("%Y%m%d")) 
+        record_time=date.strftime("%H%M")
+        json.merge!(record_time: record_time) if record_time!="0000" 
+      else
+         json.merge!(date: nil) if attributes.include? "date"
+      end
     end
 
 
