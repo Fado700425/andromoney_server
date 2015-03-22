@@ -7,7 +7,7 @@ class Payment < ActiveRecord::Base
   default_scope { order('order_no desc') } 
   scope :not_hidden, ->{where("hidden = 0 and is_delete = 0")} 
 
-  scope :api_select, -> { where(is_delete: false).select("id,kind,payment_name,total,currency_code,rate,out_total,hidden,order_no,hash_key,update_time"
+  scope :api_select, -> { where(is_delete: false).select("id,kind,payment_name,total,currency_code,rate,out_total,hidden,order_no,hash_key,update_time,bill_date,pay_date,remark"
                         ) }
 
   table_mapping =  {"record_table" => "Record", "category_table" => "Category", "payee_table" => "Payee", "currency_table" => "Currency", "payment_table" => "Payment", "period_table" => "Period", "pref_table" => "Pref", "project_table" => "Project", "subcategory_table" => "Subcategory"}

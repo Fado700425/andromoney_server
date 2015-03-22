@@ -68,6 +68,9 @@ private
 
   def update_all_data(user,params)
     device_uuid = params[:device]
+
+    #logger.info "**************************************************************************************************************************************************************************************************************fail dddddddddddddddd****************" 
+
     begin
       ActiveRecord::Base.transaction do
         update_datas(params[:category_table][:update],"category",:hash_key,user,device_uuid) if params[:category_table]
@@ -130,7 +133,13 @@ private
   def update_datas(params,class_name,key,user,device_uuid)
     return unless params
     params.each do |param|
+      # logger.info "**************************************************************************************************************************************************************************************************************fail dddddddddddddddd****************" 
+      # Rails.logger.debug param.inspect
+      # logger.info "**************************************************************************************************************************************************************************************************************fail dddddddddddddddd****************" 
       data = eval(class_name.classify).find_by(key => param[key], user_id: user.id)
+      # Rails.logger.debug data.inspect
+      # logger.info "－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－"
+      # Rails.logger.debug param.inspect
       param[:update_time] = DateTime.parse(param[:update_time]) if param[:update_time]
       param[:is_delete] = false
       param[:device_uuid] = device_uuid
