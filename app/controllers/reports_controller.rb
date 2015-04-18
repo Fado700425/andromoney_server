@@ -49,6 +49,9 @@ class ReportsController < ApplicationController
     colors = ['#FA363F', '#A4C22B', '#319AA9', '#FD8710', '#F353AF', '#3489D2' , '#FECB0A', '#7D68AC', '#1BA3AC' , '#c1c1c1']
     color_index = 0
 
+    logger.debug "XXXX**************************************************************************************************************************************************************************************************************fail dddddddddddddddd****************" 
+    logger.debug params.inspect
+    logger.debug "111111**************************************************************************************************************************************************************************************************************fail dddddddddddddddd****************" 
     case params[:report][:type]
     when "payment"
       payments = Payment.where(hash_key: payments, user_id: current_user.id).sort_by{|p| -p.balance.abs}
@@ -153,7 +156,7 @@ class ReportsController < ApplicationController
         other_array << colors[0]
         @chart_array << other_array
       end 
-    when "category"
+    when "category"      
       @chart_array = [[t('category.category'), t('total'), { role: "style" }]]
       @pie_array = [[t('category.category'), t('total')]]
       category_amount = Record.month_from_now(params[:month_from_now].to_i).where("user_id = #{current_user.id}").group(:category).sum(:amount_to_main)
@@ -191,6 +194,9 @@ class ReportsController < ApplicationController
         other_array << colors[0]
         @chart_array << other_array
       end 
+
+      
+      
     end
 
   end
