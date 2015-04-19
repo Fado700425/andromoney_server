@@ -24,15 +24,27 @@ class ReportsController < ApplicationController
     params[:payee].select{|key,val| val == "1"}.each{|key,val| payees << key} if params[:payee]
 
     # expense income trends
-    @expense_trends = Array.new(Time.days_in_month((Time.now + params[:month_from_now].to_i.month).month),0)
-    a = Record.month_from_now(params[:month_from_now].to_i).where("out_payment is not null and in_payment is null and user_id = #{current_user.id}").group(:date).sum(:amount_to_main)
+    month_days = Time.days_in_month((Time.now + params[:month_from_now].to_i.month).month)
+    logger.debug "month days: #{month_days}----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+    @expense_trends = Array.new(month_days,0)
+    a = Record.month_from_now(params[:month_from_now].to_i).where("out_payment is not null and in_payment is null and user_id = #{current_user.id}").group("DATE(date)").sum(:amount_to_main)
     a.each do |date, val|
+      logger.debug "expense dateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZ" 
+      logger.debug date
+      logger.debug date.strftime("%d")
+      logger.debug val
+      logger.debug "^expense dateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZ" 
       @expense_trends[date.strftime("%d").to_i-1] = val.to_f
     end
 
-    @income_trends = Array.new(Time.days_in_month((Time.now + params[:month_from_now].to_i.month).month),0)
-    a = Record.month_from_now(params[:month_from_now].to_i).where("out_payment is null and in_payment is not null and user_id = #{current_user.id}").group(:date).sum(:amount_to_main)
+    @income_trends = Array.new(month_days,0)
+    a = Record.month_from_now(params[:month_from_now].to_i).where("out_payment is null and in_payment is not null and user_id = #{current_user.id}").group("DATE(date)").sum(:amount_to_main)
     a.each do |date, val|
+      logger.debug "income dateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZ" 
+      logger.debug date
+      logger.debug date.strftime("%d")
+      logger.debug val
+      logger.debug "^income dateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZdateXXXXXXXXXXZZZZZ" 
       @income_trends[date.strftime("%d").to_i-1] = val.to_f
     end
 
@@ -41,17 +53,18 @@ class ReportsController < ApplicationController
       array = []
       array << ((Time.now + params[:month_from_now].to_i.month).beginning_of_month + index.day).strftime("%m/%d")
       array << val
-      array << @income_trends[index]
+      if @income_trends[index]
+        array << @income_trends[index]
+      else
+        array << 0
+      end
 
       @trends_array << array
     end
 
     colors = ['#FA363F', '#A4C22B', '#319AA9', '#FD8710', '#F353AF', '#3489D2' , '#FECB0A', '#7D68AC', '#1BA3AC' , '#c1c1c1']
     color_index = 0
-
-    logger.debug "XXXX**************************************************************************************************************************************************************************************************************fail dddddddddddddddd****************" 
-    logger.debug params.inspect
-    logger.debug "111111**************************************************************************************************************************************************************************************************************fail dddddddddddddddd****************" 
+    
     case params[:report][:type]
     when "payment"
       payments = Payment.where(hash_key: payments, user_id: current_user.id).sort_by{|p| -p.balance.abs}
@@ -159,6 +172,7 @@ class ReportsController < ApplicationController
     when "category"      
       @chart_array = [[t('category.category'), t('total'), { role: "style" }]]
       @pie_array = [[t('category.category'), t('total')]]
+
       category_amount = Record.month_from_now(params[:month_from_now].to_i).where("user_id = #{current_user.id}").group(:category).sum(:amount_to_main)
       category_amount = category_amount.sort_by{|key,val| val}
 
@@ -196,6 +210,16 @@ class ReportsController < ApplicationController
       end 
 
       
+      logger.debug "trend*************************************************************************************************************************************************************************************************************fail dddddddddddddddd****************" 
+      logger.debug @trends_array.inspect
+      logger.debug "pie**************************************************************************************************************************************************************************************************************fail dddddddddddddddd****************" 
+      logger.debug @pie_array.inspect
+      logger.debug "chart**************************************************************************************************************************************************************************************************************fail dddddddddddddddd****************" 
+      logger.debug @chart_array.inspect
+      logger.debug "other**************************************************************************************************************************************************************************************************************fail dddddddddddddddd****************" 
+      logger.debug @other_array.inspect
+      logger.debug "111111**************************************************************************************************************************************************************************************************************fail dddddddddddddddd****************" 
+
       
     end
 

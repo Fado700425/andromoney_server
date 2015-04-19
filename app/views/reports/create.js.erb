@@ -29,23 +29,28 @@ chart.draw(data, options);
     colors: ['#FA363F', '#A4C22B', '#319AA9', '#FD8710', '#F353AF', '#3489D2' , '#FECB0A', '#7D68AC', '#1BA3AC']
   };
 
+  console.log("ABCDEFG:");
+  console.log(<%= raw @pie_array %>);
+  console.log(data2);
   var chart2 = new google.visualization.PieChart(document.getElementById('piechart'));
   chart2.draw(data2, options2);
 
 
-  var data = google.visualization.arrayToDataTable(<%= raw @chart_array.to_json.html_safe %>);
+  // var data = google.visualization.arrayToDataTable(<%= raw @chart_array.to_json.html_safe %>);
 
-  var options = {
-    title: "<%= t('report.bar') %>",
-    height: 350,
-    width: '50%',
-    chartArea: {top:20},
-    legend: {position: 'none'},
-    colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
-  };
+  // var options = {
+  //   title: "<%= t('report.bar') %>",
+  //   height: 350,
+  //   width: '50%',
+  //   chartArea: {top:20},
+  //   legend: {position: 'none'},
+  //   colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
+  // };
 
-  var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-  chart.draw(data, options);
+  // var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+  // chart.draw(data, options);
+
+
 <% else %>
   $('.no_data').removeClass("hide");
   $('#piechart').addClass("hide");

@@ -9,7 +9,7 @@ class Record < ActiveRecord::Base
                               payee,project,fee,in_amount,out_amount,in_currency,out_currency,hash_key,update_time,status"
                         ) }
 
-  scope :month_from_now, ->(num) { where("is_delete = false and date > ? AND  date < ?", (Time.now + num.month).beginning_of_month, (Time.now + num.month).end_of_month) }
+  scope :month_from_now, ->(num) { where("is_delete = false and date >= ? AND  date < ?", (Date.today + num.month).beginning_of_month, (Date.today + (num+1).month ).beginning_of_month) }
 
   scope :order_by_date, ->{order("date ASC")}
 

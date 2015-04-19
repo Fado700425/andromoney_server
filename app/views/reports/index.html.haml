@@ -27,14 +27,7 @@
             %a{id: "projectLink","data-toggle" => "tab", :href => "#projectTab", data: {value: "project"}} #{t('project.project')}
           %li.report_link
             %a{id: "payeeLink","data-toggle" => "tab", :href => "#payeeTab", data: {value: "payee"}} #{t('payee.payee')}
-        .row
-          .col-sm-6.report
-            #piechart
-          .col-sm-6.report
-            #chart_div
-          .col-sm-12.no_data.hide
-            %p.text-center
-              = t('no_data')
+        
 
       .panel.panel-success
         .panel-heading
