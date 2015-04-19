@@ -36,19 +36,19 @@ chart.draw(data, options);
   chart2.draw(data2, options2);
 
 
-  // var data = google.visualization.arrayToDataTable(<%= raw @chart_array.to_json.html_safe %>);
+  var data = google.visualization.arrayToDataTable(<%= raw @chart_array.to_json.html_safe %>);
 
-  // var options = {
-  //   title: "<%= t('report.bar') %>",
-  //   height: 350,
-  //   width: '50%',
-  //   chartArea: {top:20},
-  //   legend: {position: 'none'},
-  //   colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
-  // };
+  var options = {
+    title: "<%= t('report.bar') %>",
+    height: 350,
+    width: '50%',
+    chartArea: {top:20},
+    legend: {position: 'none'},
+    colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
+  };
 
-  // var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-  // chart.draw(data, options);
+  var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+  chart.draw(data, options);
 
 
 <% else %>
