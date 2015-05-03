@@ -6,7 +6,7 @@ class Record < ActiveRecord::Base
 
 
   scope :api_select, -> { where(is_delete: false).select("id,mount,category,sub_category,date, in_payment,out_payment,remark,currency_code,amount_to_main,period,
-                              payee,project,fee,in_amount,out_amount,in_currency,out_currency,hash_key,update_time,status"
+                              payee,project,fee,in_amount,out_amount,in_currency,out_currency,hash_key,update_time,receipt_num,status"
                         ) }
 
   scope :month_from_now, ->(num) { where("is_delete = false and date >= ? AND  date < ?", (Date.today + num.month).beginning_of_month, (Date.today + (num+1).month ).beginning_of_month) }
@@ -59,7 +59,7 @@ class Record < ActiveRecord::Base
 
   def as_json(options)
     json = super(:only => [:id,:mount,:category,:sub_category, :in_payment,:out_payment,:remark,:currency_code,:amount_to_main,:period,
-                              :payee,:project,:fee,:in_amount,:out_amount,:in_currency,:out_currency,:hash_key,:update_time, :is_delete,:status])
+                              :payee,:project,:fee,:in_amount,:out_amount,:in_currency,:out_currency,:hash_key,:update_time, :is_delete,:status,:receipt_num])
 
     if attributes.include? "date"
       if(date)
