@@ -91,20 +91,24 @@ class ReportsController < ApplicationController
         @chart_array << other_array
       end
     when "project"
-      @chart_array = [[t('project.project'), t('total')]]
-      project_amount = Record.month_from_now(params[:month_from_now].to_i).where("user_id = #{current_user.id}").group(:project).sum(:amount_to_main)
-      project_amount = project_amount.sort_by{|key,val| val}
+      @chart_array = [[t('payee.payee'), t('total'), { role: "style" }]]
+      @pie_array = [[t('payee.payee'), t('total')]]
+      payee_amount = Record.month_from_now(params[:month_from_now].to_i).where("user_id = #{current_user.id}").group(:project).sum(:amount_to_main)
+      payee_amount = payee_amount.sort_by{|key,val| val}
 
       other_array = []
       other_array << t('other')
       other_amount = 0
 
-      project_amount.each do |hash_key, amount|
-        if projects.include? hash_key
-          array = []
-          array << Project.find_by(hash_key: hash_key, user_id: current_user.id).category
-          array << amount.to_f
+      payee_amount.each_with_index do |hash, index|
+        hash_key = hash[0]
+        amount = hash[1]
 
+        if payees.include? hash_key
+          array = []
+          array << Project.find_by(hash_key: hash_key, user_id: current_user.id).project_name
+          array << amount.to_f
+          
           if @chart_array.size < 10
             @pie_array << array.dup
             array << colors[index + color_index]
@@ -121,7 +125,41 @@ class ReportsController < ApplicationController
         @pie_array << other_array.dup
         other_array << colors[0]
         @chart_array << other_array
-      end
+      end 
+      # @chart_array = [[t('project.project'), t('total')]]
+      # @pie_array = [[t('project.project'), t('total')]]
+      # project_amount = Record.month_from_now(params[:month_from_now].to_i).where("user_id = #{current_user.id}").group(:project).sum(:amount_to_main)
+      # project_amount = project_amount.sort_by{|key,val| val}
+
+      # other_array = []
+      # other_array << t('other')
+      # other_amount = 0
+
+      # project_amount.each_with_index do |hash, index|
+      #   hash_key = hash[0]
+      #   amount = hash[1]
+      #   if projects.include? hash_key
+      #     array = []
+      #     array << Project.find_by(hash_key: hash_key, user_id: current_user.id).project_name
+      #     array << amount.to_f
+
+      #     if @chart_array.size < 10
+      #       @pie_array << array.dup
+      #       array << colors[index + color_index]
+      #       @chart_array << array
+      #     else
+      #       other_amount += amount.to_f
+      #     end
+      #   else
+      #     color_index -= 1
+      #   end
+      # end
+      # other_array << other_amount
+      # if @chart_array.size == 10
+      #   @pie_array << other_array.dup
+      #   other_array << colors[0]
+      #   @chart_array << other_array
+      # end 
     when "payee"
       @chart_array = [[t('payee.payee'), t('total'), { role: "style" }]]
       @pie_array = [[t('payee.payee'), t('total')]]
@@ -132,13 +170,13 @@ class ReportsController < ApplicationController
       other_array << t('other')
       other_amount = 0
 
-      payee_amount.each_with_index do |hash_key, index|
+      payee_amount.each_with_index do |hash, index|
         hash_key = hash[0]
         amount = hash[1]
 
         if payees.include? hash_key
           array = []
-          array << Payee.find_by(hash_key: hash_key, user_id: current_user.id).category
+          array << Payee.find_by(hash_key: hash_key, user_id: current_user.id).payee_name
           array << amount.to_f
           
           if @chart_array.size < 10
