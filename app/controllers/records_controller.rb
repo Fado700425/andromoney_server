@@ -5,15 +5,15 @@ class RecordsController < ApplicationController
 
   def new
     @record = Record.new
-    @expense_category = Category.where(user_id: current_user.id,type: 20).not_hidden.order(:order_no).each_slice(3).to_a
-    @income_category = Category.where(user_id: current_user.id,type: 10).where.not(hash_key:"SYSTEM").not_hidden.order(:order_no).each_slice(3).to_a
-    @transfer_category = Category.where( user_id: current_user.id, type: 30).not_hidden.order(:order_no).each_slice(3).to_a
-    @payments = Payment.where(user_id: current_user.id).not_hidden.order(:order_no).each_slice(3).to_a
-    @payees = Payee.where(user_id: current_user.id).not_hidden.order(:order_no).each_slice(3).to_a
-    @projects = Project.where(user_id: current_user.id).not_hidden.order(:order_no).each_slice(3).to_a
-    @subcategories = Subcategory.where(id_category: @expense_category.first[0].hash_key, user_id: current_user.id).not_hidden.order(:order_no).each_slice(3).to_a
-    @income_subcategories = Subcategory.where(id_category: @income_category.first[0].hash_key, user_id: current_user.id).not_hidden.order(:order_no).each_slice(3).to_a
-    @transfer_subcategories = Subcategory.where(id_category: @transfer_category.first[0].hash_key, user_id: current_user.id).not_hidden.order(:order_no).each_slice(3).to_a
+    @expense_category = Category.where(user_id: current_user.id,type: 20, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).not_hidden.to_a
+    @income_category = Category.where(user_id: current_user.id,type: 10, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).where.not(hash_key:"SYSTEM").not_hidden.to_a
+    @transfer_category = Category.where(type: 30, user_id: current_user.id, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).not_hidden.to_a
+    @payments = Payment.where(user_id: current_user.id).not_hidden.to_a
+    @payees = Payee.where(user_id: current_user.id).not_hidden.to_a
+    @projects = Project.where(user_id: current_user.id).not_hidden.to_a
+    @subcategories = Subcategory.where(user_id: current_user.id).not_hidden.to_a
+    @income_subcategories = Subcategory.where(user_id: current_user.id).not_hidden.to_a
+    @transfer_subcategories = Subcategory.where(user_id: current_user.id).not_hidden.to_a
   end
 
   def create
