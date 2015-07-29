@@ -5,9 +5,9 @@ class RecordsController < ApplicationController
 
   def new
     @record = Record.new
-    @expense_category = Category.where(user_id: current_user.id,type: 20, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).not_hidden.to_a
-    @income_category = Category.where(user_id: current_user.id,type: 10, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).where.not(hash_key:"SYSTEM").not_hidden.to_a
-    @transfer_category = Category.where(type: 30, user_id: current_user.id, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).not_hidden.to_a
+    @expense_category   = Category.where(user_id: current_user.id, type: 20, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).not_hidden.to_a
+    @income_category    = Category.where(user_id: current_user.id, type: 10, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).where.not(hash_key:"SYSTEM").not_hidden.to_a
+    @transfer_category  = Category.where(user_id: current_user.id, type: 30, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).not_hidden.to_a
     @payments = Payment.where(user_id: current_user.id).not_hidden.to_a
     @payees = Payee.where(user_id: current_user.id).not_hidden.to_a
     @projects = Project.where(user_id: current_user.id).not_hidden.to_a
