@@ -12,41 +12,48 @@
           #{t('report.date')}
         = f.text_field(:date, {id: "datepicker", readonly: true , class: "form-control", data: {behaviour: "datepicker"}, value: Time.now.strftime("%Y/%m/%d")})
 
-      -# the 2nd line
+    -# the 2nd line
+    .form-group
       .input-group
-        %span.input-group-addon
-          %span.glyphicon.glyphicon-share
-          #{t('payment.payment')}
-        = f.select(:out_payment, @payments.collect {|p| [ p.payment_name + " (" + p.currency_code + ")", p.payment_name]},   {}, {class: 'form-control'})
+        .col-md-3
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-th-large
+            #{t('category.main_category')}
+          = f.select(:category, @expense_category.collect {|p| [ p.category , p.hash_key, :title => p.photo_path ]}, {selected: @expense_category.first.hash_key}, {class: 'form-control', size: 5})
+          -#= f.collection_select(:category, @expense_category, :hash_key, :category, title: image_url(:photo_path),  {}, {class: 'form-control', size: 5})
 
-        %span.input-group-addon
-          %span.glyphicon.glyphicon-check
-          #{t('payee.payee')}
-        = f.select(:payee, @payees.collect {|p| [ p.payee_name, p.payee_name]}, {include_blank: true}, {class: 'form-control'})
+        .col-md-3
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-list-alt
+            #{t('subcategory.subcategory')}
+          = f.grouped_collection_select(:sub_category, @expense_category, :subcategories, :category, :hash_key, :subcategory, {selected: @subcategories.first.hash_key}, {class: 'form-control', size: 5})
 
-        %span.input-group-addon
-          %span.glyphicon.glyphicon-book
-          #{t('project.project')}
-        = f.select(:project, @projects.collect {|p| [ p.project_name, p.project_name]}, {include_blank: true}, {class: 'form-control'})
+        .col-md-2
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-share
+            #{t('payment.payment')}
+          = f.select(:out_payment, @payments.collect {|p| [ p.payment_name + " (" + p.currency_code + ")", p.payment_name]}, {selected: @payments.first.payment_name}, {class: 'form-control', size: 5})
 
-      -# the 3rd line
-      .input-group
-        %span.input-group-addon
-          %span.glyphicon.glyphicon-th-large
-          #{t('category.main_category')}
-        = f.collection_select(:category, @expense_category, :hash_key, :category,  {}, {class: 'form-control'})
+        .col-md-2
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-check
+            #{t('payee.payee')}
+          = f.select(:payee, @payees.collect {|p| [ p.payee_name, p.payee_name]}, {include_blank: true}, {class: 'form-control', size: 5})
 
-        %span.input-group-addon
-          %span.glyphicon.glyphicon-list-alt
-          #{t('subcategory.subcategory')}
-        = f.grouped_collection_select(:sub_category, @expense_category, :subcategories, :category, :hash_key, :subcategory,  {}, {class: 'form-control'})
+        .col-md-2
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-book
+            #{t('project.project')}
+          = f.select(:project, @projects.collect {|p| [ p.project_name, p.project_name]}, {include_blank: true}, {class: 'form-control', size: 5})
 
+    -# the 3rd line: remark
+    .form-group
       .input-group
         %span.input-group-addon
           %span.glyphicon.glyphicon-align-left
           #{t('note')}
         = f.text_area :remark, class: 'form-control'
-    
+
     -# submit button
     .pull-right
       %br

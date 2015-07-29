@@ -1,7 +1,11 @@
 class Record < ActiveRecord::Base
   self.table_name = "record_table"
   belongs_to :user
-  validates_presence_of :date
+
+  validates :date, presence: true
+  validates :category, presence: true
+  validates :sub_category, presence: true
+  validates :currency_code, presence: true
   validates_uniqueness_of :hash_key,  scope: [ :user_id ]
 
 
