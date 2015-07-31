@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150214013001) do
+ActiveRecord::Schema.define(version: 20150726134650) do
 
   create_table "ad_clicks", force: true do |t|
     t.string  "uuid"
@@ -31,6 +31,18 @@ ActiveRecord::Schema.define(version: 20150214013001) do
     t.string "bank_name"
     t.string "content"
   end
+
+  create_table "announcements", force: true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.string   "category"
+    t.string   "locale"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "announcements", ["category", "created_at"], name: "index_announcements_on_category_and_created_at", using: :btree
+  add_index "announcements", ["locale", "created_at"], name: "index_announcements_on_locale_and_created_at", using: :btree
 
   create_table "category_table", force: true do |t|
     t.string   "category",                    null: false
@@ -73,7 +85,7 @@ ActiveRecord::Schema.define(version: 20150214013001) do
   create_table "devices", force: true do |t|
     t.integer  "user_id"
     t.string   "uuid"
-    t.datetime "last_sync_time",  default: '1987-08-05 07:13:03'
+    t.datetime "last_sync_time",  default: '1988-03-14 11:45:56'
     t.datetime "sync_start_time"
     t.boolean  "is_syncing",      default: false
   end
@@ -125,8 +137,8 @@ ActiveRecord::Schema.define(version: 20150214013001) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "device_uuid"
-    t.date     "pay_date"
-    t.date     "bill_date"
+    t.integer  "pay_date"
+    t.integer  "bill_date"
     t.string   "remark"
     t.string   "pay_payment"
     t.integer  "alert"
