@@ -1,0 +1,19 @@
+.container
+  .row
+    %ul.nav.nav-pills
+      %li{class: ( 'active' if params[:category].nil? )}
+        = link_to t('announcements.all'), announcements_path
+      - @categories.each do |category|
+        %li{class: ('active' if category.downcase == params[:category]) }
+          = link_to "#{category}", announcements_path(category: category.downcase)
+
+    - cache [@announcements] do
+      - @announcements.each do |a|
+        %h3
+          = a.title
+          %small
+            = a.created_at.strftime('%Y-%m-%d')
+        %blockquote
+          %p
+            = a.content
+    = will_paginate @announcements, :previous_label => '<', :next_label => '>'
