@@ -243,32 +243,32 @@ zh:
     【AndroMoney】雙平台資產管理記帳APP，好評如何得來
     <br />
     <div class="text-success">
-      電腦玩物 : 
+      電腦玩物 :
     </div>
     記帳 AndroMoney 免費記帳軟體貼心好用Android記帳本
     <br />
     <div class="text-success">
-      重灌狂人 : 
+      重灌狂人 :
     </div>
     超好用的記帳 APP] AndroMoney 收支分類清楚、圖表分析、直接匯出 excel…
     <br />
     <div class="text-success">
-      挨踢路人甲 : 
+      挨踢路人甲 :
     </div>
     相當符合我胃口，所以介紹大家試試。
     <br />
     <div class="text-success">
-      PDA魔王部落 : 
+      PDA魔王部落 :
     </div>
     讓人眼睛一亮的莫過於 AndroMoney，不僅美工精美，操作起來順手易學，很快地就擄獲魔王的心。
     <br />
     <div class="text-success">
-      Apphome-好玩的app : 
+      Apphome-好玩的app :
     </div>
     聰明記帳幫手-理財、記帳 AndroMoney
     <br />
     <div class="text-success">
-      Freegroup 免費資源網路社群 : 
+      Freegroup 免費資源網路社群 :
     </div>
     [Android] AndroMoney 簡單又有質感的快速記帳，還可透過 Excel 匯入匯出！
 
@@ -505,3 +505,7 @@ zh:
       month: 月
       second: 秒
       year: 年
+
+  announcement: "公告"
+  announcements:
+    all: "全部"
