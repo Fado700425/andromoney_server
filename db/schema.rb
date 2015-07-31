@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 20150726134650) do
   create_table "devices", force: true do |t|
     t.integer  "user_id"
     t.string   "uuid"
-    t.datetime "last_sync_time",  default: '1988-03-14 11:45:56'
+    t.datetime "last_sync_time",  default: '1995-01-01 00:00:00'
     t.datetime "sync_start_time"
     t.boolean  "is_syncing",      default: false
   end
