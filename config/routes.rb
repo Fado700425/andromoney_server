@@ -17,6 +17,9 @@ AndromoneyServer::Application.routes.draw do
 
   get 'start_use', controller: 'start', action: 'index'
 
+  get 'announcements/:category' => 'announcements#index'
+  get 'announcements' => 'announcements#index'
+
   resources :records do
     get "transfer_edit"
     patch "transfer_update"
