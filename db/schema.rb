@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150726134650) do
+ActiveRecord::Schema.define(version: 20150727141101) do
 
   create_table "ad_clicks", force: true do |t|
     t.string  "uuid"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20150726134650) do
   add_index "announcements", ["locale", "created_at"], name: "index_announcements_on_locale_and_created_at", using: :btree
 
   create_table "category_table", force: true do |t|
-    t.string   "category",                    null: false
+    t.string   "category"
     t.integer  "type",                        null: false
     t.string   "photo_path",                  null: false
     t.integer  "hidden",                      null: false
@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(version: 20150726134650) do
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "payee_table", force: true do |t|
-    t.string   "payee_name",                  null: false
+    t.string   "payee_name"
     t.integer  "hidden",                      null: false
     t.integer  "type"
     t.integer  "order_no"
@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 20150726134650) do
 
   create_table "payment_table", force: true do |t|
     t.integer  "kind",                                                   null: false
-    t.string   "payment_name",                                           null: false
+    t.string   "payment_name"
     t.decimal  "total",         precision: 16, scale: 2,                 null: false
     t.string   "currency_code"
     t.decimal  "rate",          precision: 16, scale: 6
@@ -185,7 +185,7 @@ ActiveRecord::Schema.define(version: 20150726134650) do
   add_index "pref_table", ["user_id"], name: "index_pref_table_on_user_id", using: :btree
 
   create_table "project_table", force: true do |t|
-    t.string   "project_name",                 null: false
+    t.string   "project_name"
     t.integer  "hidden",                       null: false
     t.integer  "order_no"
     t.string   "hash_key",                     null: false
@@ -236,7 +236,7 @@ ActiveRecord::Schema.define(version: 20150726134650) do
 
   create_table "subcategory_table", force: true do |t|
     t.string   "id_category"
-    t.string   "subcategory",                 null: false
+    t.string   "subcategory"
     t.integer  "hidden",                      null: false
     t.integer  "order_no"
     t.string   "hash_key",                    null: false
