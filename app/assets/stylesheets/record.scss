@@ -137,3 +137,13 @@ vertical-align: middle;
 .ml-nav {
 left: 30%;
 }
+
+.record {
+  .select-label{
+    display:block;        /* full-width */
+    position:relative;
+    line-height: 25px;
+    font-size: 14px;
+    border-radius: 6px;
+  }
+}
