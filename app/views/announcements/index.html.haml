@@ -15,5 +15,5 @@
             = a.created_at.strftime('%Y-%m-%d')
         %blockquote
           %p
-            = a.content
+            = simple_format(a.content)
     = will_paginate @announcements, :previous_label => '<', :next_label => '>'
