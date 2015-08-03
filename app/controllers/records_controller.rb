@@ -5,15 +5,7 @@ class RecordsController < ApplicationController
 
   def new
     @record = Record.new
-    @expense_category   = Category.where(user_id: current_user.id, type: 20, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).not_hidden.to_a
-    @income_category    = Category.where(user_id: current_user.id, type: 10, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).where.not(hash_key:"SYSTEM").not_hidden.to_a
-    @transfer_category  = Category.where(user_id: current_user.id, type: 30, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).not_hidden.to_a
-    @payments = Payment.where(user_id: current_user.id).not_hidden.to_a
-    @payees = Payee.where(user_id: current_user.id).not_hidden.to_a
-    @projects = Project.where(user_id: current_user.id).not_hidden.to_a
-    @subcategories = Subcategory.where(user_id: current_user.id).not_hidden.to_a
-    @income_subcategories = Subcategory.where(user_id: current_user.id).not_hidden.to_a
-    @transfer_subcategories = Subcategory.where(user_id: current_user.id).not_hidden.to_a
+    fetch_variables_for_records_new
   end
 
   def create
@@ -23,11 +15,14 @@ class RecordsController < ApplicationController
     set_record_submit_value(@record)
 
     if @record.save
-      flash["success"] = t('record.success_create')     
+      flash["success"] = t('record.success_create')   
+      redirect_to records_path(month_from_now: params[:month_from_now])  
     else
       flash["danger"] = t('record.fail_create')
+      fetch_variables_for_records_new
+      render 'records/new'
+      #redirect_to records_path(month_from_now: params[:month_from_now])  
     end
-    redirect_to records_path(month_from_now: params[:month_from_now])
   end
 
   def transfer
@@ -215,5 +210,17 @@ private
     record.device_uuid = "computer"
     record.update_time = DateTime.now.utc
     
+  end
+
+  def fetch_variables_for_records_new()
+    @expense_category   = Category.where(user_id: current_user.id, type: 20, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).not_hidden.to_a
+    @income_category    = Category.where(user_id: current_user.id, type: 10, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).where.not(hash_key:"SYSTEM").not_hidden.to_a
+    @transfer_category  = Category.where(user_id: current_user.id, type: 30, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).not_hidden.to_a
+    @payments = Payment.where(user_id: current_user.id).not_hidden.to_a
+    @payees = Payee.where(user_id: current_user.id).not_hidden.to_a
+    @projects = Project.where(user_id: current_user.id).not_hidden.to_a
+    @subcategories = Subcategory.where(user_id: current_user.id).not_hidden.to_a
+    @income_subcategories = Subcategory.where(user_id: current_user.id).not_hidden.to_a
+    @transfer_subcategories = Subcategory.where(user_id: current_user.id).not_hidden.to_a
   end
 end

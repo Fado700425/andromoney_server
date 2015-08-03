@@ -25,4 +25,16 @@ module RecordHelper
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
     link_to title, params.merge(:sort => column, :direction => direction, :page => nil), {:class => css_class}
   end
+
+  def payment_icon(payment_kind)
+    if payment_kind == 0
+      icon_path = "payment_icon/cash.png"
+    elsif payment_kind == 1
+      icon_path = "payment_icon/card.png"
+    elsif payment_kind == 2
+      icon_path = "payment_icon/bank.png"
+    end
+    return icon_path
+  end
+  
 end
