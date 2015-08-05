@@ -139,6 +139,10 @@ left: 30%;
 }
 
 .record {
+  .row-full-width {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
   .select-with-icon {
     display:block;        /* full-width */
     width: 100%;

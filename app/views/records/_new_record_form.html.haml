@@ -2,15 +2,15 @@
   = form_for @record, url: records_path(@record, month_from_now: params[:month_from_now]) do |f|
     -# the 1st line
     .form-group
-      .container-fluid
-        .row
-          .col-md-6
+      .container-fluid.record
+        .row.row-full-width
+          .col-md-3
             .input-group
               %span.input-group-addon
                 = image_tag("currency_sign_dollar.png", width: "15px")
                 #{t('amount')}
               = f.number_field(:mount, class: "form-control", :step => 'any')
-          .col-md-6
+          .col-md-4
             .input-group
               %span.input-group-addon
                 %span.glyphicon.glyphicon-calendar
@@ -20,7 +20,7 @@
     -# the 2nd line
     .form-group
       .container-fluid.record
-        .row
+        .row.row-full-width
           .col-md-3
             %span.label.label-primary.select-label
               %span.glyphicon.glyphicon-th-large

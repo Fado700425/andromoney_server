@@ -55,7 +55,7 @@ function dd(element, settings) {
 		{byJson: {data: null, selectedIndex: 0, name: null, size: 5, multiple: false, width: "100%"},
 		mainCSS: 'dd',
 		height: 120, //not using currently
-		visibleRows: 5,
+		visibleRows: 7,
 		rowHeight: 0,
 		showIcon: true,
 		zIndex: 9999,
