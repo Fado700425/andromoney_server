@@ -14,11 +14,10 @@
       .row
         = render 'new_record_form'
 
- 
+
 :javascript
-  $(document).ready(function(){
-    $('[data-behaviour~=datepicker]').datepicker({
-    format: "yyyy/mm/dd",
-    autoclose: true
+  $(function () {
+    $('#datetimepicker_report').datetimepicker({
+      format: 'YYYY/MM/DD-HH:mm A'
+    });
   });
-  })

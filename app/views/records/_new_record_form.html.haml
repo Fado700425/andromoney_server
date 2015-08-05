@@ -1,21 +1,26 @@
 .recordForm.clearfix
   = form_for @record, url: records_path(@record, month_from_now: params[:month_from_now]) do |f|
+    -# the 1st line
     .form-group
-      -# the 1st line
-      .input-group
-        %span.input-group-addon
-          = image_tag("currency_sign_dollar.png", width: "15px")
-          #{t('amount')}
-        = f.number_field(:mount, class: "form-control", :step => 'any')
-        %span.input-group-addon
-          %span.glyphicon.glyphicon-calendar
-          #{t('report.date')}
-        = f.text_field(:date, {id: "datepicker", readonly: true , class: "form-control", data: {behaviour: "datepicker"}, value: Time.now.strftime("%Y/%m/%d")})
+      .container-fluid
+        .row
+          .col-md-6
+            .input-group
+              %span.input-group-addon
+                = image_tag("currency_sign_dollar.png", width: "15px")
+                #{t('amount')}
+              = f.number_field(:mount, class: "form-control", :step => 'any')
+          .col-md-6
+            .input-group
+              %span.input-group-addon
+                %span.glyphicon.glyphicon-calendar
+                #{t('report.date')}
+              = f.text_field(:date, {id: "datetimepicker_report", class: "form-control", value: Time.now.strftime("%Y/%m/%d/T%H%M")})
 
     -# the 2nd line
     .form-group
-      .container-fluid
-        .row.record
+      .container-fluid.record
+        .row
           .col-md-3
             %span.label.label-primary.select-label
               %span.glyphicon.glyphicon-th-large
@@ -29,7 +34,7 @@
             = f.grouped_collection_select(:sub_category, @expense_category, :subcategories, :category, :hash_key, :subcategory, {selected: @subcategories.first.hash_key}, {class: 'select-subcategory', size: 5 })
 
           .col-md-3
-            %span.label.label-default.select-label
+            %span.label.label-primary.select-label
               %span.glyphicon.glyphicon-share
               #{t('payment.payment')}
             = f.select(:out_payment, @payments.collect {|p| [ p.payment_name + " (" + p.currency_code + ")", p.payment_name, :"data-image" => asset_path(payment_icon(p.kind)) ]}, {selected: @payments.first.payment_name}, {class: 'select-with-icon', size: 5 })
