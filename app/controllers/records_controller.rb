@@ -5,13 +5,19 @@ class RecordsController < ApplicationController
 
   def new
     @record = Record.new
-    fetch_variables_for_records_new
+    fetch_variables_for_records
+  end
+
+  def edit
+    @record = Record.find(params[:id])
+    fetch_variables_for_records
   end
 
   def create
     @record = Record.new(record_param)
     @record.user_id = current_user.id
     @record.hash_key = SecureRandom.urlsafe_base64
+    @record.date ||= Time.now.strftime("%Y/%m/%d/ %H:%M")   # if user didn't input :date, this will set default value.
     set_record_submit_value(@record)
 
     if @record.save
@@ -19,10 +25,29 @@ class RecordsController < ApplicationController
       redirect_to records_path(month_from_now: params[:month_from_now])  
     else
       flash["danger"] = t('record.fail_create')
-      fetch_variables_for_records_new
+      fetch_variables_for_records
       render 'records/new'
       #redirect_to records_path(month_from_now: params[:month_from_now])  
     end
+  end
+
+  def update
+    @record = Record.find(params[:id])
+    @record.in_amount = nil
+    @record.out_amount = nil
+    @record.in_currency = nil
+    @record.out_currency = nil
+    @record.update!(record_param)
+    set_record_submit_value(@record)    # there is a bug # TBD
+
+    if @record.save
+      flash["success"] = t('record.success_create')
+      redirect_to records_path(month_from_now: params[:month_from_now])
+    else
+      flash["danger"] = t('record.fail_create')
+      fetch_variables_for_records
+      render 'edit'
+    end    
   end
 
   def transfer
@@ -59,20 +84,6 @@ class RecordsController < ApplicationController
     redirect_to records_path(month_from_now: params[:month_from_now])
   end
 
-  def update
-    record = Record.find(params[:id])
-    record.in_amount = nil
-    record.out_amount = nil
-    record.in_currency = nil
-    record.out_currency = nil
-
-    if record.update(record_param)
-      set_record_submit_value(record)
-      record.save
-    end
-    redirect_to records_path(month_from_now: params[:month_from_now])
-  end
-
   def index
 
     if current_user.categories.size > 0
@@ -102,17 +113,6 @@ class RecordsController < ApplicationController
       redirect_to start_use_path
     end
 
-  end
-
-  def edit
-    @record = Record.find(params[:id])
-    @expense_category = Category.where(type: 20, user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @income_category = Category.where("type = 10 and hash_key != 'SYSTEM' and user_id = #{current_user.id}").not_hidden.each_slice(3).to_a
-    @payments = Payment.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @payees = Payee.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @projects = Project.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @subcategories = Subcategory.where(id_category: @record.category, user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @income_subcategories = Subcategory.where(id_category: @record.category, user_id: current_user.id).not_hidden.each_slice(3).to_a
   end
 
   def destroy
@@ -203,8 +203,8 @@ private
         record.in_amount = record.calculate_record_amount(Currency.find_by(currency_code: record.record_in_payment.display_currency_code(current_user), user_id: current_user.id))
       end
     end
-    
-    record.project = Project.find_by(project_name: record.project, user_id: current_user.id).hash_key if record.project.present?
+    # TBD
+    record.project = Project.find_by(project_name: record.project, user_id: current_user.id).hash_key 
     record.payee = Payee.find_by(payee_name: record.payee, user_id: current_user.id).hash_key if record.payee.present?
     
     record.device_uuid = "computer"
@@ -212,7 +212,7 @@ private
     
   end
 
-  def fetch_variables_for_records_new()
+  def fetch_variables_for_records()
     @expense_category   = Category.where(user_id: current_user.id, type: 20, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).not_hidden.to_a
     @income_category    = Category.where(user_id: current_user.id, type: 10, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).where.not(hash_key:"SYSTEM").not_hidden.to_a
     @transfer_category  = Category.where(user_id: current_user.id, type: 30, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).not_hidden.to_a

@@ -20,6 +20,8 @@ class Record < ActiveRecord::Base
 
   scope :not_delete, -> {where(is_delete: false)}
 
+  # ===== default value for select =====
+
   # ===== misc method =====
   def category_order_num
     (category.split("_")[1].to_i*10 + category.split("_")[0].to_i) *1000 + (subcategory.split("_")[1].to_i*10 + subcategory.split("_")[0].to_i)

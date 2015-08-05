@@ -1,196 +1,23 @@
 .row.row-offcanvas.row-offcanvas-right
   = render 'shared/sidebar'
 
-  .row
-    .col-xs-12.col-sm-9
-      = render_tab(@record)
+  .col-xs-12.col-sm-10
+    .row
+      %ul#tabs.nav.nav-tabs{"data-tabs" => "tabs"}
+        %li.active
+          %a{id: "expenseLink","data-toggle" => "tab", :href => "#expenseTab"} #{t('record_type.expense')}
+        %li
+          %a{id: "incomeLink","data-toggle" => "tab", :href => "#incomeTab"} #{t('record_type.income')}
+        %li
+          %a{id: "transferLink","data-toggle" => "tab", :href => ""} #{t('record_type.transfer')}
 
       .row
-        = form_for @record, url: record_path(@record, month_from_now: params[:month_from_now]) do |f|
-          .input-group
-            %span.input-group-addon
-              = image_tag("currency_sign_dollar.png", width: "15px")
-              #{t('amount')}
-            = f.number_field(:mount, class: "form-control", :step => 'any')
-            %span.input-group-addon
-              %span.glyphicon.glyphicon-calendar
-              #{t('report.date')}
-            = f.text_field(:date, {id: "datepicker", readonly:true , class: "form-control", data: {behaviour: "datepicker"}, value: @record.date.strftime("%Y/%m/%d")})
-          .input-group
-            %span.input-group-addon
-              %span.glyphicon.glyphicon-book
-              #{t('payment.payment')}
-            - if @record.out_payment
-              = f.text_field(:out_payment, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myPaymentModal", value: "#{@record.record_out_payment.payment_name}(#{@record.record_out_payment.currency_code})"})
-            - else
-              = f.text_field(:out_payment, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myPaymentModal", value: "#{@record.record_in_payment.payment_name}(#{@record.record_in_payment.currency_code})", name: "record[in_payment]"})
-            
-            %span.input-group-addon
-              %span.glyphicon.glyphicon-book
-              #{t('payee.payee')}
-            - if @record.payee.present?
-              = f.text_field(:payee, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myStoreModal", value: @record.record_payee.payee_name})
-            - else
-              = f.text_field(:payee, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myStoreModal"})
-            %span.input-group-addon
-              %span.glyphicon.glyphicon-book
-              #{t('project.project')}
-            - if @record.project.present?
-              = f.text_field(:project, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myProjectModal", value: @record.record_project.project_name})
-            - else
-              = f.text_field(:project, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myProjectModal"})
+        = render 'new_record_form'
 
-          %br
-          = f.hidden_field :category, value: @record.category
-          = f.hidden_field :subcategory, value: @record.subcategory
-          %h4 #{t('category.main_category')}
-          #my-tab-content.tab-content
-            #expenseTab.mltab-type.tab-pane{"data-type" => "income"}
-              %table.table.table-bordered
-                %tbody.expense_main_category
-                  - @expense_category.each_with_index do |category_group,i|
-                    %tr
-                      - category_group.each_with_index do |category,j|
-                        - if(category.hash_key == @record.category)
-                          %td{data: {category_id: category.hash_key, category_name: category.category}, class: "warning"}
-                            .category
-                              = image_tag category.photo_path, width: "40px"
-                              %br
-                              = category.category
-                        - else
-                          %td{data: {category_id: category.hash_key, category_name: category.category}}
-                            .category
-                              = image_tag category.photo_path, width: "40px"
-                              %br
-                              = category.category
-                      - (1..3-category_group.size).each do |i|
-                        %td
-              %h4 #{t('subcategory.subcategory')}
-              %table.table.table-bordered.category-table
-                %tbody.subcategory.expense_category
-                  = render 'subcategories', subcategories: @subcategories, record: @record
-
-            #incomeTab.mltab-type.tab-pane{"data-type" => "expense"}
-              %table.table.table-bordered.category-table
-                %tbody.income_main_category
-                  - @income_category.each_with_index do |category_group,i|
-                    %tr
-                      - category_group.each_with_index do |category,j|
-                        - if(category.hash_key == @record.category)
-                          %td{data: {category_id: category.hash_key, category_name: category.category}, class: "warning"}
-                            .category
-                              = image_tag category.photo_path, width: "40px"
-                              %br
-                              = category.category
-                        - else
-                          %td{data: {category_id: category.hash_key, category_name: category.category}}
-                            .category
-                              = image_tag category.photo_path, width: "40px"
-                              %br
-                              = category.category
-                      - (1..3-category_group.size).each do |i|
-                        %td
-              %h4 #{t('subcategory.subcategory')}
-              %table.table.table-bordered.category-table
-                %tbody.subcategory.income_category
-                  = render 'subcategories', subcategories: @income_subcategories, record: @record
-
-          %h4 #{t('note')}
-          = f.text_area :remark, class: 'form-control'
-          .pull-right
-            %br
-            = f.submit t('confirm_edit'), class: "btn btn-primary btn-lg"
-
-#myPaymentModal.modal.fade
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %a.close{"data-dismiss" => "modal"} &times;
-        %h4 #{t('payment.choose')}
-      .modal-body
-        %table.table.table-bordered.category-table
-          %tbody.account
-            - @payments.each_with_index do |payment_group,i|
-              %tr
-                - payment_group.each_with_index do |payment,j|
-                  - if(payment.hash_key == (@record.in_payment || @record.out_payment))
-                    %td{data: {payment_id: payment.id, payment_name: "#{payment.payment_name}(#{payment.currency_code})"}, class: "warning"}
-                      .category
-                        - icon_path = ["payment_icon/cash.png","payment_icon/card.png","payment_icon/bank.png"]
-                        = image_tag icon_path[payment.kind], width: "40px"
-                        %br
-                        = "#{payment.payment_name}(#{payment.currency_code})"
-                  - else
-                    %td{data: {payment_id: payment.id, payment_name: "#{payment.payment_name}(#{payment.currency_code})"}}
-                      .category
-                        - icon_path = ["payment_icon/cash.png","payment_icon/card.png","payment_icon/bank.png"]
-                        = image_tag icon_path[payment.kind], width: "40px"
-                        %br
-                        = "#{payment.payment_name}(#{payment.currency_code})"
-
-
-#myStoreModal.modal.fade
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %a.close{"data-dismiss" => "modal"} &times;
-        %h4 #{t('payee.choose')}
-      .modal-body
-        %table.table.table-bordered.category-table
-          %tbody.payee
-            - @payees.each do |payee_group|
-              %tr
-                - payee_group.each do |payee|
-                  - if payee.hash_key == @record.payee
-                    %td{data: {payee_id: payee.id, payee_name: payee.payee_name},class: "warning"}
-                      .category
-                        = image_tag "payee_icon/payee.png", width: "40px"
-                        %br
-                        = payee.payee_name
-                  - else
-                    %td{data: {payee_id: payee.id, payee_name: payee.payee_name}}
-                      .category
-                        = image_tag "payee_icon/payee.png", width: "40px"
-                        %br
-                        = payee.payee_name
-        .record_modal_footer
-          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button",id: "payee-dismiss"} #{t('cancel')}
-
-#myProjectModal.modal.fade
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %a.close{"data-dismiss" => "modal"} &times;
-        %h4 #{t('project.choose')}
-      .modal-body
-        %table.table.table-bordered.category-table
-          %tbody.project
-            - @projects.each do |project_group|
-              %tr
-                - project_group.each do |project|
-                  - if project.hash_key == @record.project
-                    %td{data: {project_id: project.id, project_name: project.project_name},class: "warning"}
-                      .category
-                        = image_tag "project.png", width: "40px"
-                        %br
-                        = project.project_name
-                  - else
-                    %td{data: {project_id: project.id, project_name: project.project_name}}
-                      .category
-                        = image_tag "project.png", width: "40px"
-                        %br
-                        = project.project_name
-        .record_modal_footer
-          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button", id: "project-dismiss"} #{t('cancel')}
-
-= javascript_tag do
-  = "$('#incomeTab').addClass('active in')" if @record.in_payment
-  = "$('#expenseTab').addClass('active in')" if @record.out_payment
 
 :javascript
-  $(document).ready(function(){
-    $('[data-behaviour~=datepicker]').datepicker({
-      format: "yyyy/mm/dd",
-      autoclose: true
+  $(function () {
+    $('#datetimepicker_report').datetimepicker({
+      format: 'YYYY/MM/DD-HH:mm A'
     });
-  })
+  });
