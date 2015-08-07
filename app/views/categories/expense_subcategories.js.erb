@@ -1,11 +1,11 @@
-$(".sub_category.expense_category").html("<%=j(render 'records/subcategories', subcategories: @subcategories) %> ");
+$(".subcategory.expense_category").html("<%=j(render 'records/subcategories', subcategories: @subcategories) %> ");
 
-$("tbody.sub_category.expense_category tr td").bind("click", function(event) {
+$("tbody.subcategory.expense_category tr td").bind("click", function(event) {
   if ($(this).data('subcategory-id')) {
-    $("tbody.sub_category.expense_category tr td.warning").attr("class", "");
+    $("tbody.subcategory.expense_category tr td.warning").attr("class", "");
     $(this).attr("class", "warning");
-    $('#record_sub_category').val($(this).data('subcategory-id'));
+    $('#record_subcategory').val($(this).data('subcategory-id'));
   }
 });
 
-$('#record_sub_category').val('<%= @subcategories[0][0].hash_key %>');
+$('#record_subcategory').val('<%= @subcategories[0][0].hash_key %>');

@@ -5,7 +5,7 @@ class Record < ActiveRecord::Base
   validates_uniqueness_of :hash_key,  scope: [ :user_id ]
 
 
-  scope :api_select, -> { where(is_delete: false).select("id,mount,category,sub_category,date, in_payment,out_payment,remark,currency_code,amount_to_main,period,
+  scope :api_select, -> { where(is_delete: false).select("id,mount,category,subcategory,date, in_payment,out_payment,remark,currency_code,amount_to_main,period,
                               payee,project,fee,in_amount,out_amount,in_currency,out_currency,hash_key,update_time,receipt_num,status"
                         ) }
 
@@ -16,7 +16,7 @@ class Record < ActiveRecord::Base
   scope :not_delete, -> {where(is_delete: false)}
 
   def category_order_num
-    (category.split("_")[1].to_i*10 + category.split("_")[0].to_i) *1000 + (sub_category.split("_")[1].to_i*10 + sub_category.split("_")[0].to_i)
+    (category.split("_")[1].to_i*10 + category.split("_")[0].to_i) *1000 + (subcategory.split("_")[1].to_i*10 + subcategory.split("_")[0].to_i)
   end
 
   def calculate_record_amount(currency)
@@ -34,7 +34,7 @@ class Record < ActiveRecord::Base
   end
 
   def record_subcategory
-    Subcategory.find_by(user_id: user_id, hash_key: sub_category)
+    Subcategory.find_by(user_id: user_id, hash_key: subcategory)
   end
 
   def record_project
@@ -58,8 +58,10 @@ class Record < ActiveRecord::Base
   end
 
   def as_json(options)
-    json = super(:only => [:id,:mount,:category,:sub_category, :in_payment,:out_payment,:remark,:currency_code,:amount_to_main,:period,
+    json = super(:only => [:id,:mount,:category,:subcategory, :in_payment,:out_payment,:remark,:currency_code,:amount_to_main,:period,
                               :payee,:project,:fee,:in_amount,:out_amount,:in_currency,:out_currency,:hash_key,:update_time, :is_delete,:status,:receipt_num])
+
+    json["sub_category"] = json.delete "subcategory"
 
     if attributes.include? "date"
       if(date)

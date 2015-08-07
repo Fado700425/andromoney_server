@@ -48,7 +48,7 @@ class CategoriesController < ApplicationController
     @category.user_id = current_user.id
     if @category.save
       params[:subcategorys].each do |sub|
-        create_sub_category(@category,sub["subcategory"])
+        create_subcategory(@category,sub["subcategory"])
       end
       flash["success"] = t('category.success_create')
       redirect_to edit_category_path(@category)
@@ -75,7 +75,7 @@ class CategoriesController < ApplicationController
           sub_cat.device_uuid = "computer"
           sub_cat.save
         else
-          create_sub_category(category,sub["subcategory"])
+          create_subcategory(category,sub["subcategory"])
         end
       end
     end
@@ -92,7 +92,7 @@ private
     params.require(:category).permit(:category,:photo_path,:type)
   end
 
-  def create_sub_category category,subcategory
+  def create_subcategory category,subcategory
     sub_cat = Subcategory.new(subcategory: subcategory)
     sub_cat.id_category = category.hash_key
     sub_cat.hidden = 0
