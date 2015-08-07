@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150214013001) do
+ActiveRecord::Schema.define(version: 20150807000448) do
 
   create_table "ad_clicks", force: true do |t|
     t.string  "uuid"
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 20150214013001) do
   create_table "devices", force: true do |t|
     t.integer  "user_id"
     t.string   "uuid"
-    t.datetime "last_sync_time",  default: '1987-08-05 07:13:03'
+    t.datetime "last_sync_time",  default: '1988-03-18 02:43:19'
     t.datetime "sync_start_time"
     t.boolean  "is_syncing",      default: false
   end
@@ -125,8 +125,8 @@ ActiveRecord::Schema.define(version: 20150214013001) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "device_uuid"
-    t.date     "pay_date"
-    t.date     "bill_date"
+    t.integer  "pay_date"
+    t.integer  "bill_date"
     t.string   "remark"
     t.string   "pay_payment"
     t.integer  "alert"
@@ -190,26 +190,26 @@ ActiveRecord::Schema.define(version: 20150214013001) do
   add_index "project_table", ["user_id"], name: "index_project_table_on_user_id", using: :btree
 
   create_table "record_table", force: true do |t|
-    t.decimal  "mount",          precision: 16, scale: 2
+    t.decimal  "mount",                      precision: 16, scale: 2
     t.string   "category"
-    t.string   "sub_category"
+    t.string   "subcategory"
     t.datetime "date"
     t.string   "in_payment"
     t.string   "out_payment"
-    t.text     "remark"
+    t.text     "remark",         limit: 255
     t.string   "currency_code"
-    t.decimal  "amount_to_main", precision: 16, scale: 2
+    t.decimal  "amount_to_main",             precision: 16, scale: 2
     t.string   "period"
     t.string   "payee"
     t.string   "project"
     t.string   "fee"
-    t.decimal  "in_amount",      precision: 16, scale: 2
-    t.decimal  "out_amount",     precision: 16, scale: 2
+    t.decimal  "in_amount",                  precision: 16, scale: 2
+    t.decimal  "out_amount",                 precision: 16, scale: 2
     t.string   "in_currency"
     t.string   "out_currency"
     t.integer  "user_id"
     t.string   "hash_key"
-    t.boolean  "is_delete",                               default: false
+    t.boolean  "is_delete",                                           default: false
     t.datetime "update_time"
     t.datetime "created_at"
     t.datetime "updated_at"
