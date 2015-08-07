@@ -241,12 +241,12 @@ en:
     Best Android apps for personal financial management
     <br />
     <div class="text-success">
-      APP CRAWLR : 
+      APP CRAWLR :
     </div>
-    Top 5 Apps for Pie And Bar (iPhone/iPad) && 25+ Top Apps for Reporting Tool (android) 
+    Top 5 Apps for Pie And Bar (iPhone/iPad) && 25+ Top Apps for Reporting Tool (android)
     <br />
     <div class="text-success">
-      HONGKIAT.com : 
+      HONGKIAT.com :
     </div>
     20 Android Apps To Manage Your Finances
     <br />
@@ -256,12 +256,12 @@ en:
     The one of best tools for keeping accounts, efficiently tracking each expense report
     <br />
     <div class="text-success">
-      Z Jil : 
+      Z Jil :
     </div>
     AndroMoney : A Useful App! All things considered, I like this handy app and will recommend it!
     <br />
     <div class="text-success">
-      Apphome : 
+      Apphome :
     </div>
     AndroMoney is a personal finance tool for use on your mobile phone
     <br />
@@ -498,3 +498,7 @@ en:
       month: Month
       second: Seconds
       year: Year
+
+  announcement: "Announcements"
+  announcements:
+    all: "All"
