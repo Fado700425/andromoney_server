@@ -1,7 +1,7 @@
 - subcategories.each_with_index do |category_group, i|
   %tr
     - category_group.each_with_index do |category,j|
-      - if(defined?(record) && category.hash_key == record.sub_category)
+      - if(defined?(record) && category.hash_key == record.subcategory)
         %td{data: {subcategory_id: category.hash_key, category_name: category.subcategory}, class: "warning"}
           .category
             = category.subcategory

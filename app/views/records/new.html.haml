@@ -59,7 +59,7 @@
               = f.text_field(:project, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myProjectModal",id: "transfer_project"})
 
             = f.hidden_field :category, value: @transfer_category[0][0].hash_key, id: "transfer_category"
-            = f.hidden_field :sub_category, value: @transfer_subcategories[0][0].hash_key, id: "transfer_sub_category"
+            = f.hidden_field :subcategory, value: @transfer_subcategories[0][0].hash_key, id: "transfer_subcategory"
 
             %br
             %h4 #{t('category.main_category')}
@@ -85,7 +85,7 @@
                         %td
               %h4 #{t('subcategory.subcategory')}
               %table.table.table-bordered.category-table
-                %tbody.sub_category.transfer_category
+                %tbody.subcategory.transfer_category
                   = render 'subcategories', subcategories: @transfer_subcategories
             %h4 #{t('note')}
             = f.text_area :remark, class: 'form-control'
@@ -123,7 +123,7 @@
 
             %br
             = f.hidden_field :category, value: @expense_category[0][0].hash_key
-            = f.hidden_field :sub_category, value: @subcategories[0][0].hash_key
+            = f.hidden_field :subcategory, value: @subcategories[0][0].hash_key
             %h4 #{t('category.main_category')}
             #my-tab-content.tab-content
               #expenseTab.mltab-type.tab-pane.active.in{"data-type" => "income"}
@@ -148,7 +148,7 @@
                           %td
                 %h4 #{t('subcategory.subcategory')}
                 %table.table.table-bordered.category-table
-                  %tbody.sub_category.expense_category
+                  %tbody.subcategory.expense_category
                     = render 'subcategories', subcategories: @subcategories
 
               #incomeTab.mltab-type.tab-pane{"data-type" => "expense"}
@@ -173,7 +173,7 @@
                           %td
                 %h4 #{t('subcategory.subcategory')}
                 %table.table.table-bordered.category-table
-                  %tbody.sub_category.income_category
+                  %tbody.subcategory.income_category
                     = render 'subcategories', subcategories: @income_subcategories
 
             %h4 #{t('note')}

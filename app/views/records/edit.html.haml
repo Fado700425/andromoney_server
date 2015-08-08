@@ -42,7 +42,7 @@
 
           %br
           = f.hidden_field :category, value: @record.category
-          = f.hidden_field :sub_category, value: @record.sub_category
+          = f.hidden_field :subcategory, value: @record.subcategory
           %h4 #{t('category.main_category')}
           #my-tab-content.tab-content
             #expenseTab.mltab-type.tab-pane{"data-type" => "income"}
@@ -67,7 +67,7 @@
                         %td
               %h4 #{t('subcategory.subcategory')}
               %table.table.table-bordered.category-table
-                %tbody.sub_category.expense_category
+                %tbody.subcategory.expense_category
                   = render 'subcategories', subcategories: @subcategories, record: @record
 
             #incomeTab.mltab-type.tab-pane{"data-type" => "expense"}
@@ -92,7 +92,7 @@
                         %td
               %h4 #{t('subcategory.subcategory')}
               %table.table.table-bordered.category-table
-                %tbody.sub_category.income_category
+                %tbody.subcategory.income_category
                   = render 'subcategories', subcategories: @income_subcategories, record: @record
 
           %h4 #{t('note')}
