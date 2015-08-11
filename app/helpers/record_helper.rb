@@ -36,5 +36,9 @@ module RecordHelper
     end
     return icon_path
   end
+
+  def default_selected(original, default)
+    original ||= default
+  end
   
 end

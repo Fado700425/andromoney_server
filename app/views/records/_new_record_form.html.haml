@@ -28,7 +28,7 @@
             %span.label.label-primary.select-label
               %span.glyphicon.glyphicon-th-large
               #{t('category.main_category')}
-            = f.select(:category, @expense_category.collect {|p| [ p.category , p.hash_key, :"data-image" => asset_path(p.photo_path) ]}, {selected: @expense_category.first.hash_key}, { class: "select-with-icon", size: 5 })
+            = f.select(:category, @expense_category.collect {|p| [ p.category , p.hash_key, :"data-image" => asset_path(p.photo_path) ]}, {selected: default_selected(@record.category, @expense_category.first.hash_key)}, { class: "select-with-icon", size: 5 })
 
           .col-md-2
             %span.label.label-primary.select-label
