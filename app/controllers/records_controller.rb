@@ -177,10 +177,10 @@ private
     record.mount = 0 unless record.mount
 
     if record.out_payment
-      out_payment_name = record.out_payment.split('(')[0]
-      payment = Payment.find_by(payment_name: out_payment_name, user_id: current_user.id)
-      record.out_payment = payment.hash_key
-      init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", subcategory: "INIT_AMOUNT", user_id: current_user.id)
+      #out_payment_name = record.out_payment.split('(')[0]          # get hash_key from select form directly
+      payment = Payment.find_by(hash_key: record.out_payment, user_id: current_user.id)
+      #record.out_payment = payment.hash_key                        # get hash_key from select form directly
+      init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: current_user.id)
       record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
       record.amount_to_main = record.calculate_record_amount(current_user.get_main_currency)
 
@@ -203,9 +203,9 @@ private
         record.in_amount = record.calculate_record_amount(Currency.find_by(currency_code: record.record_in_payment.display_currency_code(current_user), user_id: current_user.id))
       end
     end
-    # TBD
-    record.project = Project.find_by(project_name: record.project, user_id: current_user.id).hash_key 
-    record.payee = Payee.find_by(payee_name: record.payee, user_id: current_user.id).hash_key if record.payee.present?
+    # get hash_key from select form directly and skip find hash_key base on name.
+    #record.project = Project.find_by(project_name: record.project, user_id: current_user.id).hash_key 
+    #record.payee = Payee.find_by(payee_name: record.payee, user_id: current_user.id).hash_key if record.payee.present?
     
     record.device_uuid = "computer"
     record.update_time = DateTime.now.utc

@@ -3,6 +3,7 @@ class Record < ActiveRecord::Base
   belongs_to :user
 
   # ===== validation =====
+  validates :mount, presence: true
   validates :date, presence: true
   validates :category, presence: true
   validates :sub_category, presence: true
