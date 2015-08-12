@@ -1,18 +1,41 @@
 jQuery(function() {
-  var category, dynamicSelect, subcategory;
+  var category, dynamicSelect, subcategory, original_selected_category, original_selected_subcateg;
+
+  subcategory = $('#record_sub_category').html();
+
   dynamicSelect = function() {
     var options;
     options = $(subcategory).filter("optgroup[label=" + category + "]").html();
     if (options) {
-      return $('#record_sub_category').html(options);
+       $('#record_sub_category').html(options);
     } else {
-      return $('#record_sub_category').empty();
+       $('#record_sub_category').empty();
+    }
+    // If the displayed record_sub_category doen't have selected, then select the first item in this group.
+    if ( original_selected_category !== category) {
+      $("#record_sub_category :selected").removeAttr("selected");
+      $("#record_sub_category :first").attr("selected","selected");
     }
   };
+
   subcategory = $('#record_sub_category').html();
-  category = $('#record_category :first').text();
+  // Memory the original selected elements.
+  original_selected_category = $('#record_category :selected').text();
+  original_selected_subcateg = $('#record_sub_category :selected').text();
+  // If there is no selected elements, select the first item in this group.
+  category = original_selected_category;
+  if (!category) {
+    category = $('#record_category :first').text();
+  }
+
   dynamicSelect();
+  // apply when "change"
   return $('#record_category').change(function() {
+    category = $('#record_category :selected').text();
+    return dynamicSelect();
+  });
+  // apply when "ready"
+  $( document ).ready(function() {
     category = $('#record_category :selected').text();
     return dynamicSelect();
   });
