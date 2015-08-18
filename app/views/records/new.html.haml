@@ -12,9 +12,13 @@
           %a{id: "transferLink","data-toggle" => "tab", :href => ""} #{t('record_type.transfer')}
 
       .row
-        = render 'new_record_form'
+        .expanseForm.clearfix
+          = render 'form_expanse'
+        .incomeForm.clearfix
 
+        .transferForm.clearfix.hide
 
+        
 :javascript
   $(function () {
     $('#datetimepicker_report').datetimepicker({

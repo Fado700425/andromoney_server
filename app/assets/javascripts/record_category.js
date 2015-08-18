@@ -3,7 +3,17 @@ jQuery(function() {
 
   subcategory = $('#record_sub_category').html();
 
-  dynamicSelect = function() {
+  // set format for select-subcategory
+  var setSubcategoryFormat = function() {
+    $('.select-subcategory').find('option').css({
+      "font-size":"16px",
+      "padding":"5px 5px 5px 5px",
+      "border-bottom":"1px solid #c3c3c3",
+      "autocomplete":"off"
+    })
+  };
+
+  var dynamicSelect = function() {
     var options;
     options = $(subcategory).filter("optgroup[label=" + category + "]").html();
     if (options) {
@@ -16,6 +26,8 @@ jQuery(function() {
       $("#record_sub_category :selected").removeAttr("selected");
       $("#record_sub_category :first").attr("selected","selected");
     }
+    // set format for select-subcategory
+    setSubcategoryFormat();
   };
 
   subcategory = $('#record_sub_category').html();
@@ -26,6 +38,7 @@ jQuery(function() {
   category = original_selected_category;
   if (!category) {
     category = $('#record_category :first').text();
+    $('#record_category :first').attr("selected","selected");
   }
 
   dynamicSelect();
@@ -34,9 +47,14 @@ jQuery(function() {
     category = $('#record_category :selected').text();
     return dynamicSelect();
   });
-  // apply when "ready"
-  $( document ).ready(function() {
-    category = $('#record_category :selected').text();
-    return dynamicSelect();
-  });
+});
+
+
+$(document).ready(function(e) {
+  // set msDropDown
+  try {
+    $(".select-with-icon").msDropDown();
+  } catch(e) {
+    alert(e.message);
+  }
 });

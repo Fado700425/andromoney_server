@@ -38,13 +38,13 @@
                 - if( record.category )
                   - if( record.record_out_payment && record.record_in_payment)
                     %tr.item-transactions.success
-                      = render 'record', record: record
+                      = render 'index_record', record: record
                   - elsif record.record_out_payment
                     %tr.item-transactions.warning
-                      = render 'record', record: record
+                      = render 'index_record', record: record
                   - elsif record.record_in_payment
                     %tr.item-transactions.danger
-                      = render 'record', record: record
+                      = render 'index_record', record: record
     .row
       .pull-left
         = link_to new_record_path(month_from_now: params[:month_from_now]), class: "btn btn-primary btn-lg add_new" do
