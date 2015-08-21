@@ -1,17 +1,7 @@
-jQuery(function() {
+$(function() {
   var category, dynamicSelect, subcategory, original_selected_category, original_selected_subcateg;
 
   subcategory = $('#record_sub_category').html();
-
-  // set format for select-subcategory
-  var setSubcategoryFormat = function() {
-    $('.select-subcategory').find('option').css({
-      "font-size":"16px",
-      "padding":"5px 5px 5px 5px",
-      "border-bottom":"1px solid #c3c3c3",
-      "autocomplete":"off"
-    })
-  };
 
   var dynamicSelect = function() {
     var options;
@@ -26,8 +16,6 @@ jQuery(function() {
       $("#record_sub_category :selected").removeAttr("selected");
       $("#record_sub_category :first").attr("selected","selected");
     }
-    // set format for select-subcategory
-    setSubcategoryFormat();
   };
 
   subcategory = $('#record_sub_category').html();
@@ -47,14 +35,5 @@ jQuery(function() {
     category = $('#record_category :selected').text();
     return dynamicSelect();
   });
-});
 
-
-$(document).ready(function(e) {
-  // set msDropDown
-  try {
-    $(".select-with-icon").msDropDown();
-  } catch(e) {
-    alert(e.message);
-  }
 });

@@ -1,18 +1,21 @@
 $ ->
   $('a#expenseLink').on 'click', (event) ->
-    $('.expanseForm').removeClass("hide")
-    $('.incomeForm').addClass("hide")
     $('.transferForm').addClass("hide")
+    $('.recordForm').removeClass("hide")
+    $('#record_out_payment').attr('name',"record[out_payment]")
+    $('#record_category').val($('tbody.expense_main_category td.warning').data('category-id'))
+    $('#record_sub_category').val($('tbody.expense_category.sub_category td.warning').data('subcategory-id'))
 
   $('a#incomeLink').on 'click', (event) ->
-    $('.incomeForm').removeClass("hide")
-    $('.expanseForm').addClass("hide")
     $('.transferForm').addClass("hide")
+    $('.recordForm').removeClass("hide")
+    $('#record_out_payment').attr('name',"record[in_payment]")
+    $('#record_category').val($('tbody.income_main_category td.warning').data('category-id'))
+    $('#record_sub_category').val($('tbody.income_category.sub_category td.warning').data('subcategory-id'))
 
   $('a#transferLink').on 'click', (event) ->
     $('.transferForm').removeClass("hide")
-    $('.incomeForm').addClass("hide")
-    $('.expanseForm').addClass("hide")
+    $('.recordForm').addClass("hide")
 
   $('tbody.expense_main_category tr td').on 'click', (event) ->
     if($(this).data('category-id'))
