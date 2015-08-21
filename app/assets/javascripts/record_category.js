@@ -1,18 +1,16 @@
 $(document).ready(function(){
-  var oriExpSelectCat, oriExpSelectSub, allExpSub;
+  var oriExpSelectCat, oriExpSelectSub, allExpSub, oriIncSelectCat, oriIncSelectSub, allIncSub;
+  var expenseSelectCatField, incomeSelectCatField, expenseSelectSubField, incomeSelectSubField;
   // Memory the original selected elements.
-  oriExpSelectCat = $(".expanse-category :selected").text();
-  oriExpSelectSub = $(".expanse-subcategory :selected").text();
-  allExpSub       = $(".expanse-subcategory").html();
-  oriIncSelectCat = $(".income-category :selected").text();
-  oriIncSelectSub = $(".income-subcategory :selected").text();
-  allIncSub       = $(".income-subcategory").html();
-
-  $(".select-with-icon, .expanse-category, .income-category").msDropDown();
+  oriExpSelectCat = $("#expense-category :selected").text();
+  oriExpSelectSub = $("#expense-subcategory :selected").text();
+  allExpSub       = $("#expense-subcategory").html();
+  oriIncSelectCat = $("#income-category :selected").text();
+  oriIncSelectSub = $("#income-subcategory :selected").text();
+  allIncSub       = $("#income-subcategory").html();
 
   var dynamicSelect = function(objCat, objSub, oriSelectCat, oriSelectSub, allSub, selectCat) {
     var category, subcategory, dynamicSelect;
-
     // If there is no selected elements, select the first item in this group.
     if (selectCat == "") {
       category = oriSelectCat;
@@ -25,6 +23,9 @@ $(document).ready(function(){
     }
 
     subcategory = allSub;
+
+    console.log(oriExpSelectSub);
+    console.log(oriIncSelectSub);
 
     var updateSelect = function() {
       var options;
@@ -42,33 +43,48 @@ $(document).ready(function(){
     };
     return updateSelect();
   };
-  // apply when "document ready"
-  dynamicSelect(".expanse-category", ".expanse-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, "");
 
-  // apply when "change"
-  $('.expanse-category').on('change', function() {
-    selectedCat = $('.expanse-category :selected').text();
-    dynamicSelect(".expanse-category", ".expanse-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, selectedCat);
-  });
-  // apply when "change"
-  $('.income-category').on('change', function() {
-    selectedCat = $('.income-category :selected').text();
-    dynamicSelect(".income-category", ".income-subcategory", oriIncSelectCat, oriIncSelectSub, allIncSub, selectedCat);
-  });
+  // apply immediately after "document ready"
+  $(".select-with-icon").msDropDown().data("dd");
+  // apply immediately after "document ready"
+  expenseSelectField = $('#expense-category').msDropDown().data("dd");
+  incomeSelectField = $('#income-category').msDropDown().data("dd");
+  if (expenseSelectField) {
+    expenseSelectField.visible(true);
+    incomeSelectField.visible(false);
+  }
+  $('#expense-subcategory').removeClass("hide");
+  $('#income-subcategory').addClass("hide");
+  // apply immediately after "document ready"
+  dynamicSelect("#expense-category", "#expense-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, "");
 
   // apply when "click tab"
   $('a#incomeLink').on('click', function() {
-    selectedCat = $('.income-category :selected').text();
-    dynamicSelect(".income-category", ".income-subcategory", oriIncSelectCat, oriIncSelectSub, allIncSub, selectedCat);
+    incomeSelectField.visible(true);
+    expenseSelectField.visible(false);
+    $('#income-subcategory').removeClass("hide");
+    $('#expense-subcategory').addClass("hide");
+    selectedCat = $('#income-category :selected').text();
+    dynamicSelect("#income-category", "#income-subcategory", oriIncSelectCat, oriIncSelectSub, allIncSub, selectedCat);
   });
   // apply when "click tab"
-  $('a#expanseLink').on('click', function() {
-    selectedCat = $('.expanse-category :selected').text();
-    dynamicSelect(".expanse-category", ".expanse-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, selectedCat);
+  $('a#expenseLink').on('click', function() {
+    expenseSelectField.visible(true);
+    incomeSelectField.visible(false);
+    $('#expense-subcategory').removeClass("hide");
+    $('#income-subcategory').addClass("hide");
+    selectedCat = $('#expense-category :selected').text();
+    dynamicSelect("#expense-category", "#expense-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, selectedCat);
+  });
+
+  // apply when "change"
+  $('#expense-category').on('change', function() {
+    selectedCat = $('#expense-category :selected').text();
+    dynamicSelect("#expense-category", "#expense-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, selectedCat);
+  });
+  // apply when "change"
+  $('#income-category').on('change', function() {
+    selectedCat = $('#income-category :selected').text();
+    dynamicSelect("#income-category", "#income-subcategory", oriIncSelectCat, oriIncSelectSub, allIncSub, selectedCat);
   });
 });
-
-
-
-
-

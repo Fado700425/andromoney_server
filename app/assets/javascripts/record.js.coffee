@@ -2,8 +2,6 @@ $ ->
   $('a#expenseLink').on 'click', (event) ->
     $('.transferForm').addClass("hide")
     $('.recordForm').removeClass("hide")
-    $('.expanseSelect').removeClass("hide")
-    $('.incomeSelect').addClass("hide")
     $('#record_out_payment').attr('name',"record[out_payment]")
     $('#record_category').val($('tbody.expense_main_category td.warning').data('category-id'))
     $('#record_sub_category').val($('tbody.expense_category.sub_category td.warning').data('subcategory-id'))
@@ -11,8 +9,6 @@ $ ->
   $('a#incomeLink').on 'click', (event) ->
     $('.transferForm').addClass("hide")
     $('.recordForm').removeClass("hide")
-    $('.expanseSelect').addClass("hide")
-    $('.incomeSelect').removeClass("hide")
     $('#record_out_payment').attr('name',"record[in_payment]")
     $('#record_category').val($('tbody.income_main_category td.warning').data('category-id'))
     $('#record_sub_category').val($('tbody.income_category.sub_category td.warning').data('subcategory-id'))
