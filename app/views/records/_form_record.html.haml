@@ -19,7 +19,7 @@
               #{t('report.date')}
             = f.text_field(:date, {id: "datetimepicker_report", class: "form-control", })
 
-  -# the 2nd line
+  -# the 2-And line
   .form-group
     .container-fluid.record
       .row.row-full-width
@@ -27,13 +27,19 @@
           %span.label.label-primary.select-label
             %span.glyphicon.glyphicon-th-large
             #{t('category.main_category')}
-          = f.select(:category, @expense_category.collect {|p| [ p.category , p.hash_key, :"data-image" => asset_path(p.photo_path) ]}, {selected: default_selected(@record.category,  @expense_category.first.hash_key)}, { class: "select-with-icon", size: 5 })
+          .expanseSelect.clearfix
+            = f.select(:category, @expense_category.collect {|p| [ p.category , p.hash_key, :"data-image" => asset_path(p.photo_path) ]}, {selected: default_selected(@record.category,  @expense_category.first.hash_key)}, { class: "expanse-category", size: 5 })
+          .incomeSelect.clearfix.hide
+            = f.select(:in_amount, @income_category.collect {|p| [ p.category , p.hash_key, :"data-image" => asset_path(p.photo_path) ]}, {selected: default_selected(@record.category,  @expense_category.first.hash_key)}, { class: "income-category", size: 5 })
 
-        .col-md-2
+        .col-md-2 
           %span.label.label-primary.select-label
             %span.glyphicon.glyphicon-list-alt
             #{t('subcategory.subcategory')}
-          = f.grouped_collection_select(:sub_category, @expense_category, :subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.sub_category,  @subcategories.first.hash_key)}, {class: 'select-subcategory', size: 5 })
+          .expanseSelect.clearfix
+            = f.grouped_collection_select(:sub_category, @expense_category, :subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.sub_category,  @subcategories.first.hash_key)}, {class: 'expanse-subcategory', size: 5 })
+          .incomeSelect.clearfix.hide
+            = f.grouped_collection_select(:out_amount, @income_category, :subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.sub_category,  @subcategories.first.hash_key)}, {class: 'income-subcategory', size: 5 })
 
         .col-md-3
           %span.label.label-primary.select-label
@@ -69,17 +75,14 @@
     = f.submit "儲存並回到列表", class: "btn btn-info btn-lg"
 
 :javascript
-  $(document).ready(function(e) {
-    try {
-      $(".select-with-icon").msDropDown();
-    } catch(e) {
-      alert(e.message);
-    }
-  });
+  var setSubcatFormat = function(the_class) {
+    $(the_class).find("option").css({
+      "font-size":"16px",
+      "padding":"5px 5px 5px 5px",
+      "border-bottom":"1px solid #c3c3c3",
+      "autocomplete":"off"
+    });
+  };
 
-  $('.select-subcategory').find('option').css({
-    "font-size":"16px",
-    "padding":"5px 5px 5px 5px",
-    "border-bottom":"1px solid #c3c3c3",
-    "autocomplete":"off"
-  });
+  setSubcatFormat(".expanse-subcategory");
+  setSubcatFormat(".income-subcategory");

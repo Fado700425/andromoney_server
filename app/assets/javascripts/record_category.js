@@ -1,39 +1,74 @@
-$(function() {
-  var category, dynamicSelect, subcategory, original_selected_category, original_selected_subcateg;
-
-  subcategory = $('#record_sub_category').html();
-
-  var dynamicSelect = function() {
-    var options;
-    options = $(subcategory).filter("optgroup[label=" + category + "]").html();
-    if (options) {
-       $('#record_sub_category').html(options);
-    } else {
-       $('#record_sub_category').empty();
-    }
-    // If the displayed record_sub_category doen't have selected, then select the first item in this group.
-    if ( original_selected_category !== category) {
-      $("#record_sub_category :selected").removeAttr("selected");
-      $("#record_sub_category :first").attr("selected","selected");
-    }
-  };
-
-  subcategory = $('#record_sub_category').html();
+$(document).ready(function(){
+  var oriExpSelectCat, oriExpSelectSub, allExpSub;
   // Memory the original selected elements.
-  original_selected_category = $('#record_category :selected').text();
-  original_selected_subcateg = $('#record_sub_category :selected').text();
-  // If there is no selected elements, select the first item in this group.
-  category = original_selected_category;
-  if (!category) {
-    category = $('#record_category :first').text();
-    $('#record_category :first').attr("selected","selected");
-  }
+  oriExpSelectCat = $(".expanse-category :selected").text();
+  oriExpSelectSub = $(".expanse-subcategory :selected").text();
+  allExpSub       = $(".expanse-subcategory").html();
+  oriIncSelectCat = $(".income-category :selected").text();
+  oriIncSelectSub = $(".income-subcategory :selected").text();
+  allIncSub       = $(".income-subcategory").html();
 
-  dynamicSelect();
+  $(".select-with-icon, .expanse-category, .income-category").msDropDown();
+
+  var dynamicSelect = function(objCat, objSub, oriSelectCat, oriSelectSub, allSub, selectCat) {
+    var category, subcategory, dynamicSelect;
+
+    // If there is no selected elements, select the first item in this group.
+    if (selectCat == "") {
+      category = oriSelectCat;
+    } else {
+      category = selectCat;
+    }
+    if (!category) {
+      category = $(objCat + " :first").text();
+      $(objCat + " :first").attr("selected","selected");
+    }
+
+    subcategory = allSub;
+
+    var updateSelect = function() {
+      var options;
+      options = $(subcategory).filter("optgroup[label=" + category + "]").html();
+      if (options) {
+         $(objSub).html(options);
+      } else {
+         $(objSub).empty();
+      }
+      // If the displayed record_sub_category doen't have selected, then select the first item in this group.
+      if ( oriSelectCat != category) {
+        $(objSub + " :selected").removeAttr("selected");
+        $(objSub + " :first").attr("selected","selected");
+      }
+    };
+    return updateSelect();
+  };
+  // apply when "document ready"
+  dynamicSelect(".expanse-category", ".expanse-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, "");
+
   // apply when "change"
-  return $('#record_category').change(function() {
-    category = $('#record_category :selected').text();
-    return dynamicSelect();
+  $('.expanse-category').on('change', function() {
+    selectedCat = $('.expanse-category :selected').text();
+    dynamicSelect(".expanse-category", ".expanse-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, selectedCat);
+  });
+  // apply when "change"
+  $('.income-category').on('change', function() {
+    selectedCat = $('.income-category :selected').text();
+    dynamicSelect(".income-category", ".income-subcategory", oriIncSelectCat, oriIncSelectSub, allIncSub, selectedCat);
   });
 
+  // apply when "click tab"
+  $('a#incomeLink').on('click', function() {
+    selectedCat = $('.income-category :selected').text();
+    dynamicSelect(".income-category", ".income-subcategory", oriIncSelectCat, oriIncSelectSub, allIncSub, selectedCat);
+  });
+  // apply when "click tab"
+  $('a#expanseLink').on('click', function() {
+    selectedCat = $('.expanse-category :selected').text();
+    dynamicSelect(".expanse-category", ".expanse-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, selectedCat);
+  });
 });
+
+
+
+
+

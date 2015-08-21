@@ -148,6 +148,16 @@ left: 30%;
     width: 100%;
   }
 
+  .expanse-category {
+    display:block;        /* full-width */
+    width: 100%;
+  }
+
+  .income-category {
+    display:block;        /* full-width */
+    width: 100%;
+  }
+
   .select-label {
     display:block;        /* full-width */
     position:relative;
@@ -156,7 +166,20 @@ left: 30%;
     border-radius: 4px;
   }
 
-  .select-subcategory {
+  .expanse-subcategory {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    display: block;        /* full-width */
+    width: 100%;
+    overflow-y: scroll;
+    border: solid #c3c3c3 2px;     /* border of the select */
+    border-radius: 5px;
+    background-color: #FFFFF;  
+  }
+
+  .income-subcategory {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
