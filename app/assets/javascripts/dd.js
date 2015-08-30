@@ -52,10 +52,10 @@ if (typeof $.expr.createPseudo === 'function') {
 //dropdown class
 function dd(element, settings) {
 	var settings = $.extend(true,
-		{byJson: {data: null, selectedIndex: 0, name: null, size: 5, multiple: false, width: "100%"},
+		{byJson: {data: null, selectedIndex: 0, name: null, size: 1, multiple: false, width: "100%"},
 		mainCSS: 'dd',
 		height: 120, //not using currently
-		visibleRows: 7,
+		visibleRows: 2,		// fix rowHeight for multiple selection display.
 		rowHeight: 0,
 		showIcon: true,
 		zIndex: 9999,
@@ -468,7 +468,7 @@ function dd(element, settings) {
 			var margin = parseInt(firstLI.css("padding-bottom")) + parseInt(firstLI.css("padding-top"));
 			if(settings.rowHeight===0) {
 				$("#" + childid).css({visibility:'hidden',display:'block'}); //hack for first child
-				settings.rowHeight = Math.ceil(firstLI.height());
+				settings.rowHeight = 75;	// fix rowHeight for multiple selection display.
 				$("#" + childid).css({visibility:'visible'});
 				if(!isList || settings.enableCheckbox===true) {
 					$("#" + childid).css({display:'none'});

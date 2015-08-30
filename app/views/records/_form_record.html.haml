@@ -37,9 +37,9 @@
             %span.glyphicon.glyphicon-list-alt
             #{t('subcategory.subcategory')}
 
-          = f.grouped_collection_select(:sub_category, @expense_category, :subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.sub_category,  @subcategories.first.hash_key)}, {class: 'select-subcategory', id: "expense-subcategory", size: 5 })
+          = f.grouped_collection_select(:sub_category, @expense_category, :subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.sub_category)}, {class: 'select-subcategory', id: "expense-subcategory", size: 6 })
 
-          = f.grouped_collection_select(:sub_category, @income_category, :subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.sub_category,  @income_subcategories.first.hash_key)}, {class: 'select-subcategory', id: "income-subcategory", size: 5 })
+          = f.grouped_collection_select(:sub_category, @income_category, :subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.sub_category)}, {class: 'select-subcategory', id: "income-subcategory", size: 6 })
 
         .col-md-3
           %span.label.label-primary.select-label

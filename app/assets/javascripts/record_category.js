@@ -9,6 +9,15 @@ $(document).ready(function(){
   oriIncSelectSub = $("#income-subcategory :selected").text();
   allIncSub       = $("#income-subcategory").html();
 
+  var resetExpSelected = function() {
+    $("#expense-category :selected").removeAttr("selected");
+    $("#expense-subcategory :selected").removeAttr("selected");
+  }
+  var resetIncSelected = function() {
+    $("#income-category :selected").removeAttr("selected");
+    $("#income-subcategory :selected").removeAttr("selected");
+  }
+
   var dynamicSelect = function(objCat, objSub, oriSelectCat, oriSelectSub, allSub, selectCat) {
     var category, subcategory, dynamicSelect;
     // If there is no selected elements, select the first item in this group.
@@ -24,9 +33,6 @@ $(document).ready(function(){
 
     subcategory = allSub;
 
-    console.log(oriExpSelectSub);
-    console.log(oriIncSelectSub);
-
     var updateSelect = function() {
       var options;
       options = $(subcategory).filter("optgroup[label=" + category + "]").html();
@@ -37,6 +43,10 @@ $(document).ready(function(){
       }
       // If the displayed record_sub_category doen't have selected, then select the first item in this group.
       if ( oriSelectCat != category) {
+        $(objSub + " :selected").removeAttr("selected");
+        $(objSub + " :first").attr("selected","selected");
+      }
+      if ( oriSelectSub === "") {
         $(objSub + " :selected").removeAttr("selected");
         $(objSub + " :first").attr("selected","selected");
       }
@@ -53,8 +63,10 @@ $(document).ready(function(){
     expenseSelectField.visible(true);
     incomeSelectField.visible(false);
   }
+  $('#expense-category').removeClass("hide");
   $('#expense-subcategory').removeClass("hide");
   $('#income-subcategory').addClass("hide");
+  $('#income-category').addClass("hide");
   // apply immediately after "document ready"
   dynamicSelect("#expense-category", "#expense-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, "");
 
@@ -62,7 +74,9 @@ $(document).ready(function(){
   $('a#incomeLink').on('click', function() {
     incomeSelectField.visible(true);
     expenseSelectField.visible(false);
+    $('#income-category').removeClass("hide");
     $('#income-subcategory').removeClass("hide");
+    $('#expense-category').addClass("hide");
     $('#expense-subcategory').addClass("hide");
     selectedCat = $('#income-category :selected').text();
     dynamicSelect("#income-category", "#income-subcategory", oriIncSelectCat, oriIncSelectSub, allIncSub, selectedCat);
@@ -71,7 +85,9 @@ $(document).ready(function(){
   $('a#expenseLink').on('click', function() {
     expenseSelectField.visible(true);
     incomeSelectField.visible(false);
+    $('#expense-category').removeClass("hide");
     $('#expense-subcategory').removeClass("hide");
+    $('#income-category').addClass("hide");
     $('#income-subcategory').addClass("hide");
     selectedCat = $('#expense-category :selected').text();
     dynamicSelect("#expense-category", "#expense-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, selectedCat);
