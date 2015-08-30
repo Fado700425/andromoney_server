@@ -9,15 +9,6 @@ $(document).ready(function(){
   oriIncSelectSub = $("#income-subcategory :selected").text();
   allIncSub       = $("#income-subcategory").html();
 
-  var resetExpSelected = function() {
-    $("#expense-category :selected").removeAttr("selected");
-    $("#expense-subcategory :selected").removeAttr("selected");
-  }
-  var resetIncSelected = function() {
-    $("#income-category :selected").removeAttr("selected");
-    $("#income-subcategory :selected").removeAttr("selected");
-  }
-
   var dynamicSelect = function(objCat, objSub, oriSelectCat, oriSelectSub, allSub, selectCat) {
     var category, subcategory, dynamicSelect;
     // If there is no selected elements, select the first item in this group.
@@ -69,6 +60,10 @@ $(document).ready(function(){
   $('#income-category').addClass("hide");
   // apply immediately after "document ready"
   dynamicSelect("#expense-category", "#expense-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, "");
+  $('#expense-category').attr('name',"record[category]");
+  $('#expense-subcategory').attr('name',"record[sub_category]");
+  $('#income-category').attr('name', "record[hide1]");
+  $('#income-subcategory').attr('name', "record[hide2]");  
 
   // apply when "click tab"
   $('a#incomeLink').on('click', function() {
@@ -80,6 +75,10 @@ $(document).ready(function(){
     $('#expense-subcategory').addClass("hide");
     selectedCat = $('#income-category :selected').text();
     dynamicSelect("#income-category", "#income-subcategory", oriIncSelectCat, oriIncSelectSub, allIncSub, selectedCat);
+    $('#expense-category').attr('name',"record[hide1]");
+    $('#expense-subcategory').attr('name',"record[hide2]");
+    $('#income-category').attr('name', "record[category]");
+    $('#income-subcategory').attr('name', "record[sub_category]");
   });
   // apply when "click tab"
   $('a#expenseLink').on('click', function() {
@@ -91,6 +90,10 @@ $(document).ready(function(){
     $('#income-subcategory').addClass("hide");
     selectedCat = $('#expense-category :selected').text();
     dynamicSelect("#expense-category", "#expense-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, selectedCat);
+    $('#expense-category').attr('name',"record[category]");
+    $('#expense-subcategory').attr('name',"record[sub_category]");
+    $('#income-category').attr('name', "record[hide1]");
+    $('#income-subcategory').attr('name', "record[hide2]");  
   });
 
   // apply when "change"
