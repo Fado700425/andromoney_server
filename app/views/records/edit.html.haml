@@ -3,18 +3,12 @@
 
   .col-xs-12.col-sm-10
     .row
-      %ul#tabs.nav.nav-tabs{"data-tabs" => "tabs"}
-        %li.active
-          %a{id: "expenseLink","data-toggle" => "tab", :href => "#expenseTab"} #{t('record_type.expense')}
-        %li
-          %a{id: "incomeLink","data-toggle" => "tab", :href => "#incomeTab"} #{t('record_type.income')}
-        %li
-          %a{id: "transferLink","data-toggle" => "tab", :href => ""} #{t('record_type.transfer')}
+      .record-edit-tab
+        = render_tab(@record)
 
-      .row
-        .recordForm.clearfix
-          = render 'form_record'
-        .transferForm.clearfix.hide
+    .row
+      .recordForm.clearfix
+        = render 'form_record'
 
 :javascript
   $(function () {

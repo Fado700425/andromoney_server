@@ -4,15 +4,20 @@ module RecordHelper
       
       render_text = ""
 
-      if record.out_payment
+      if record.out_payment && !record.in_payment  #expense
         render_text = 
         content_tag(:li, class: "active") do
-          link_to t('record_type.expense'), "#expenseTab", id: "expenseLink","data-toggle" => "tab"
+          link_to t('record_type.expense'), "#expenseTab",   class: "editLink", id: "expenseLink", "data-toggle" => "tab", "data-token" => "expense"
         end
-      else
+      elsif !record.out_payment && record.in_payment  #income
         render_text = 
         content_tag(:li, class: "active") do
-          link_to t('record_type.income'), "#incomeTab", id: "incomeLink","data-toggle" => "tab"
+          link_to t('record_type.income'), "#incomeTab",     class: "editLink", id: "incomeLink", "data-toggle" => "tab", "data-token" => "income"
+        end 
+      elsif record.out_payment && record.out_payment  #transfer
+        render_text = 
+        content_tag(:li, class: "active") do
+          link_to t('record_type.transfer'), "#transferTab", class: "editLink", id: "transferLink", "data-toggle" => "tab", "data-token" => "transfer"
         end 
       end
       render_text
