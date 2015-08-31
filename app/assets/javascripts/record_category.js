@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  var oriExpSelectCat, oriExpSelectSub, allExpSub, oriIncSelectCat, oriIncSelectSub, allIncSub;
+  var oriExpSelectCat, oriExpSelectSub, allExpSub, oriIncSelectCat, oriIncSelectSub, allIncSub, oriTraSelectCat, oriTraSelectSub, allTraSub;
   var expenseSelectCatField, incomeSelectCatField, expenseSelectSubField, incomeSelectSubField, transferSelectField;
   var setDisplayCategory;
   var setReadCategory;
@@ -11,6 +11,9 @@ $(document).ready(function(){
   oriIncSelectCat = $("#income-category :selected").text();
   oriIncSelectSub = $("#income-subcategory :selected").text();
   allIncSub       = $("#income-subcategory").html();
+  oriTraSelectCat = $("#transfer-category :selected").text();
+  oriTraSelectSub = $("#transfer-subcategory :selected").text();
+  allTraSub       = $("#transfer-subcategory").html();
 
   var dynamicSelect = function(objCat, objSub, oriSelectCat, oriSelectSub, allSub, selectCat) {
     // objCat: select_tag id depends on user's choice: expense, income or transfer.
@@ -30,6 +33,7 @@ $(document).ready(function(){
       category = $(objCat + " :first").text();
       $(objCat + " :first").attr("selected","selected");
     }
+    console.log(category);
     // subcategory: options, which are depends on user's choice: expense, income or transfer.
     subcategory = allSub;
 
@@ -60,6 +64,7 @@ $(document).ready(function(){
   $(".select-with-icon").msDropDown().data("dd");
   expenseSelectField = $('#expense-category').msDropDown().data("dd");
   incomeSelectField = $('#income-category').msDropDown().data("dd");
+  transferSelectField = $('#transfer-category').msDropDown().data("dd");
 
   setDisplayCategory = function(target, hide1, hide2) {
       $('#' + target + '-category').removeClass("hide");
@@ -82,7 +87,7 @@ $(document).ready(function(){
   setCategorySelect = function(expense, income, transfer) {
     expenseSelectField.visible(expense);
     incomeSelectField.visible(income);
-    //transferSelectField.visible(transfer);
+    transferSelectField.visible(transfer);
   }
   
   // apply immediately after "document ready"     // default is set to "expense".
@@ -107,6 +112,14 @@ $(document).ready(function(){
     dynamicSelect("#expense-category", "#expense-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, selectedCat);
     setReadCategory('expense', 'income', 'transfer');
   });
+  // apply when "click tab"
+  $('a#transferLink').on('click', function() {
+    setCategorySelect(false, false, true)
+    setDisplayCategory('transfer', 'income', 'expense');
+    selectedCat = $('#transfer-category :selected').text();
+    dynamicSelect("#transfer-category", "#transfer-subcategory", oriTraSelectCat, oriTraSelectSub, allTraSub, selectedCat);
+    setReadCategory('transfer', 'income', 'expense');
+  });
 
   // apply when "change"
   $('#expense-category').on('change', function() {
@@ -117,5 +130,10 @@ $(document).ready(function(){
   $('#income-category').on('change', function() {
     selectedCat = $('#income-category :selected').text();
     dynamicSelect("#income-category", "#income-subcategory", oriIncSelectCat, oriIncSelectSub, allIncSub, selectedCat);
+  });
+  // apply when "change"
+  $('#transfer-category').on('change', function() {
+    selectedCat = $('#transfer-category :selected').text();
+    dynamicSelect("#transfer-category", "#transfer-subcategory", oriTraSelectCat, oriTraSelectSub, allTraSub, selectedCat);
   });
 });

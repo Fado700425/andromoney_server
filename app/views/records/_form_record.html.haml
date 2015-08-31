@@ -32,6 +32,8 @@
 
           = f.select(:category, @income_category.collect {|p| [ p.category , p.hash_key, :"data-image" => asset_path(p.photo_path) ]}, {selected: default_selected(@record.category,  @income_category.first.hash_key)}, { class: "select-with-icon", id: "income-category",  size: 5 })
 
+          = f.select(:category, @transfer_category.collect {|p| [ p.category , p.hash_key, :"data-image" => asset_path(p.photo_path) ]}, {selected: default_selected(@record.category,  @transfer_category.first.hash_key)}, { class: "select-with-icon", id: "transfer-category", size: 5 })
+
         .col-md-2 
           %span.label.label-primary.select-label
             %span.glyphicon.glyphicon-list-alt
@@ -40,6 +42,8 @@
           = f.grouped_collection_select(:sub_category, @expense_category, :subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.sub_category)}, {class: 'select-subcategory', id: "expense-subcategory", size: 6 })
 
           = f.grouped_collection_select(:sub_category, @income_category, :subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.sub_category)}, {class: 'select-subcategory', id: "income-subcategory", size: 6 })
+
+          = f.grouped_collection_select(:sub_category, @transfer_category, :subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.sub_category)}, {class: 'select-subcategory', id: "transfer-subcategory", size: 6 })
 
         .col-md-3
           %span.label.label-primary.select-label
@@ -85,3 +89,4 @@
   };
   setSubcatFormat("#expense-subcategory");
   setSubcatFormat("#income-subcategory");
+  setSubcatFormat("#transfer-subcategory");

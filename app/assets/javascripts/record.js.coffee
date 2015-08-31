@@ -1,17 +1,11 @@
 $ ->
   $('a#expenseLink').on 'click', (event) ->
-    $('.transferForm').addClass("hide")
-    $('.recordForm').removeClass("hide")
     $('#record_out_payment').attr('name',"record[out_payment]")
 
   $('a#incomeLink').on 'click', (event) ->
-    $('.transferForm').addClass("hide")
-    $('.recordForm').removeClass("hide")
     $('#record_out_payment').attr('name',"record[in_payment]")
 
   $('a#transferLink').on 'click', (event) ->
-    $('.transferForm').removeClass("hide")
-    $('.recordForm').addClass("hide")
 
   $('tbody.expense_main_category tr td').on 'click', (event) ->
     if($(this).data('category-id'))
