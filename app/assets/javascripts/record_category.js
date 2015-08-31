@@ -1,7 +1,10 @@
 $(document).ready(function(){
   var oriExpSelectCat, oriExpSelectSub, allExpSub, oriIncSelectCat, oriIncSelectSub, allIncSub;
-  var expenseSelectCatField, incomeSelectCatField, expenseSelectSubField, incomeSelectSubField;
-  // Memory the original selected elements.
+  var expenseSelectCatField, incomeSelectCatField, expenseSelectSubField, incomeSelectSubField, transferSelectField;
+  var setDisplayCategory;
+  var setReadCategory;
+  var setCategorySelect;
+  // Memorize the original selected elements.
   oriExpSelectCat = $("#expense-category :selected").text();
   oriExpSelectSub = $("#expense-subcategory :selected").text();
   allExpSub       = $("#expense-subcategory").html();
@@ -10,33 +13,41 @@ $(document).ready(function(){
   allIncSub       = $("#income-subcategory").html();
 
   var dynamicSelect = function(objCat, objSub, oriSelectCat, oriSelectSub, allSub, selectCat) {
+    // objCat: select_tag id depends on user's choice: expense, income or transfer.
+    // objSub: select_tag id depends on user's choice: expense, income or transfer.
+    // oriSelectCat: default    category value.
+    // oriSelectCat: default subcategory value.   #new: default="",   #edit: default=db value.
+    // allSub: options, which are depends on user's choice: expense, income or transfer.
     var category, subcategory, dynamicSelect;
-    // If there is no selected elements, select the first item in this group.
+    // "category" is [1]oriSelectCat(default), if there is no selected made by the user.
+    //               [2]the item selected by the user.
     if (selectCat == "") {
       category = oriSelectCat;
     } else {
       category = selectCat;
     }
-    if (!category) {
+    if (!category) {  // Redundency as a protection.
       category = $(objCat + " :first").text();
       $(objCat + " :first").attr("selected","selected");
     }
-
+    // subcategory: options, which are depends on user's choice: expense, income or transfer.
     subcategory = allSub;
 
     var updateSelect = function() {
       var options;
+      // filter "subcategory" options by "category".
       options = $(subcategory).filter("optgroup[label=" + category + "]").html();
       if (options) {
          $(objSub).html(options);
       } else {
          $(objSub).empty();
       }
-      // If the displayed record_sub_category doen't have selected, then select the first item in this group.
+      // When "category" is selected to a new value by the user, refresh "subcategory".
       if ( oriSelectCat != category) {
         $(objSub + " :selected").removeAttr("selected");
         $(objSub + " :first").attr("selected","selected");
       }
+      // When there is no "oriSelectSub", like #new, then refresh "subcategory".
       if ( oriSelectSub === "") {
         $(objSub + " :selected").removeAttr("selected");
         $(objSub + " :first").attr("selected","selected");
@@ -47,53 +58,54 @@ $(document).ready(function(){
 
   // apply immediately after "document ready"
   $(".select-with-icon").msDropDown().data("dd");
-  // apply immediately after "document ready"
   expenseSelectField = $('#expense-category').msDropDown().data("dd");
   incomeSelectField = $('#income-category').msDropDown().data("dd");
-  if (expenseSelectField) {
-    expenseSelectField.visible(true);
-    incomeSelectField.visible(false);
-  }
-  $('#expense-category').removeClass("hide");
-  $('#expense-subcategory').removeClass("hide");
-  $('#income-subcategory').addClass("hide");
-  $('#income-category').addClass("hide");
-  // apply immediately after "document ready"
-  dynamicSelect("#expense-category", "#expense-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, "");
-  $('#expense-category').attr('name',"record[category]");
-  $('#expense-subcategory').attr('name',"record[sub_category]");
-  $('#income-category').attr('name', "record[hide1]");
-  $('#income-subcategory').attr('name', "record[hide2]");  
 
+  setDisplayCategory = function(target, hide1, hide2) {
+      $('#' + target + '-category').removeClass("hide");
+      $('#' + target + '-subcategory').removeClass("hide");
+      $('#' + hide1  + '-category').addClass("hide");
+      $('#' + hide1  + '-subcategory').addClass("hide");
+      $('#' + hide2  + '-category').addClass("hide");
+      $('#' + hide2  + '-subcategory').addClass("hide");
+  }
+
+  setReadCategory = function(target, hide1, hide2) {
+    $('#' + target + '-category').attr('name',"record[category]");
+    $('#' + target + '-subcategory').attr('name',"record[sub_category]");
+    $('#' + hide1  + '-category').attr('name',"record[hide1cat]");
+    $('#' + hide1  + '-subcategory').attr('name',"record[hide1sub]");
+    $('#' + hide2  + '-category').attr('name',"record[hide2cat]");
+    $('#' + hide2  + '-subcategory').attr('name',"record[hide2sub]");
+  }
+
+  setCategorySelect = function(expense, income, transfer) {
+    expenseSelectField.visible(expense);
+    incomeSelectField.visible(income);
+    //transferSelectField.visible(transfer);
+  }
+  
+  // apply immediately after "document ready"     // default is set to "expense".
+  setCategorySelect(true, false, false)
+  setDisplayCategory('expense', 'income', 'transfer');
+  dynamicSelect("#expense-category", "#expense-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, "");
+  setReadCategory('expense', 'income', 'transfer');
+  
   // apply when "click tab"
   $('a#incomeLink').on('click', function() {
-    incomeSelectField.visible(true);
-    expenseSelectField.visible(false);
-    $('#income-category').removeClass("hide");
-    $('#income-subcategory').removeClass("hide");
-    $('#expense-category').addClass("hide");
-    $('#expense-subcategory').addClass("hide");
+    setCategorySelect(false, true, false)
+    setDisplayCategory('income', 'expense', 'transfer');
     selectedCat = $('#income-category :selected').text();
     dynamicSelect("#income-category", "#income-subcategory", oriIncSelectCat, oriIncSelectSub, allIncSub, selectedCat);
-    $('#expense-category').attr('name',"record[hide1]");
-    $('#expense-subcategory').attr('name',"record[hide2]");
-    $('#income-category').attr('name', "record[category]");
-    $('#income-subcategory').attr('name', "record[sub_category]");
+    setReadCategory('income', 'expense', 'transfer');
   });
   // apply when "click tab"
   $('a#expenseLink').on('click', function() {
-    expenseSelectField.visible(true);
-    incomeSelectField.visible(false);
-    $('#expense-category').removeClass("hide");
-    $('#expense-subcategory').removeClass("hide");
-    $('#income-category').addClass("hide");
-    $('#income-subcategory').addClass("hide");
+    setCategorySelect(true, false, false)
+    setDisplayCategory('expense', 'income', 'transfer');
     selectedCat = $('#expense-category :selected').text();
     dynamicSelect("#expense-category", "#expense-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, selectedCat);
-    $('#expense-category').attr('name',"record[category]");
-    $('#expense-subcategory').attr('name',"record[sub_category]");
-    $('#income-category').attr('name', "record[hide1]");
-    $('#income-subcategory').attr('name', "record[hide2]");  
+    setReadCategory('expense', 'income', 'transfer');
   });
 
   // apply when "change"
