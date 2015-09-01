@@ -10,6 +10,7 @@ zh:
   start_use: "開始試用"
   cloud: "雲端平台"
   cancel: "取消"
+  search: "搜尋"
 
   start:
     start_message: "請先下載手機端軟體, 並同步後再開始使用 AndroMoney 雲端服務!"
@@ -19,19 +20,15 @@ zh:
     <p>
       不論是 Android, iPhone 甚至是電腦都可以使用, 立即下載 AndroMoney, 體驗完善的記帳服務！
     </p>
-
   feture_record: |
     <h2>記錄生活消費</h2>
     <p>不論是Android 或是 iPhone 用戶都可以透過AndroMoney手機APP, 輕鬆地記錄下每一筆花費，轉帳，收入與支出</p>
-
   feature_analysis: |
     <h2>即時消費分析</h2>
     <p>找出最高消費，平均花費，以利使用者分析花費支出，並可以動態繪製統計圖，圓餅圖(花費分佈)，趨勢圖(花費趨勢)之功能，對圖表進行互動式操作。</p>
-
   feature_asset: |
     <h2>掌握資產狀況</h2>
     <p>提供多帳戶功能，可以設定不同的戶頭，也可透過專案管理，可以了解自己在每個項目的花費流向，確實掌握自己資產</p>
-
   feature_track: |
     <h2 class="text-primary">
       記帳功能完整
@@ -47,7 +44,6 @@ zh:
       1.簡單易用，在操作上是十分直覺的
       2.功能強大，不論單純的記帳，或者想要管理不同的帳戶、類別，甚至是繪成圖表，也都可以輕易的辦到。
     </p>
-
   feature_protect: |
     <h2 class="text-primary">
       保護使用者資料
@@ -58,7 +54,6 @@ zh:
     <p class="lead">
       常有使用者在使用其它記帳軟體時, 發生資料遺失, 辛苦記帳的資料付諸流水, AndroMoney為保護使用者的資料, 開發備份功能, 也提供使用者將檔案匯出入, 使用者不用再煩腦資料問題
     </p>
-
   feature_platform: |
     <h2 class="text-primary">
       多平台同步
@@ -69,7 +64,6 @@ zh:
     <p class="lead">
       使用者常有多個不同的裝置, 如 Android 手機, iPad 甚至是桌上型電腦, 都可以下載 AndroMoney APP, 或使用 AndroMoeny 雲端服務, 並利用帳戶同步的功能, 達到多平台都可記帳
     </p>
-
   feature_price: |
     <h3 class="plan-name">免費試用</h3>
     <h1 class="plan-price text-danger">$0</h1>
@@ -119,7 +113,6 @@ zh:
         </tr>
       </tbody>
     </table>
-
   web: |
     <h2 class="text-danger">
       最完善的雲端記帳服務
@@ -170,7 +163,6 @@ zh:
         </tr>
       </tbody>
     </table>
-
   ios: |
     <h2 class="text-danger">
       iPhone 必備APP
@@ -221,7 +213,6 @@ zh:
         </tr>
       </tbody>
     </table>
-
   android: |
     <b class="text-danger">
       榮獲Google Play 首頁之效率排行工具之理財APP。
@@ -271,7 +262,6 @@ zh:
       Freegroup 免費資源網路社群 :
     </div>
     [Android] AndroMoney 簡單又有質感的快速記帳，還可透過 Excel 匯入匯出！
-
   about_text: |
     <h1>
       理財幫手 AndroMoney
@@ -300,8 +290,6 @@ zh:
       <br />
       如果有任何使用上的問題，十分歡迎利用 email 跟我們連絡，謝謝！
     </p>
-
-
   share_email: "想跟你分享 (%{account}) 帳戶資料!"
   owner_delete_email: "已取消你分享給 %{email} 的帳戶資料"
   sharer_receive_delete_email: "%{email} 已取消跟你分享帳戶資料"
@@ -324,6 +312,9 @@ zh:
   login: "用戶登入"
   amount: "金額"
   note: "備註"
+  main_currency: "主幣別"
+  reset: "重置"
+  confirm: "確定"
 
   every_day: "(每天)"
   every_week: "(每周)"
@@ -404,9 +395,25 @@ zh:
   balance: "結餘"
   other: "其它"
   rate: "匯率"
+  attention: "注意"
 
   account:
     account: "帳戶"
+
+  setting:
+    setting: "設定"
+    now_currency: "您現在的主幣別"
+    choose_currency: "請選擇您要使用的主幣別"
+    update_currency_success: "主幣別更新成功"
+    cannot_update_multi_in_one_day: "主幣別更新只能一日一次"
+    account_management: "帳號管理"
+    data_setting: "資料設定"
+    reset_account: "重置此帳號所有資料"
+    submit_currency: "是否更新主幣別至"
+    update_currency_fail: "主幣別更新失敗"
+    reset_success: "重置帳號成功"
+    reset_fail: "重置帳號失敗"
+    reset_confirm: "帳號重置後所有資料將被刪除"
 
   date:
     abbr_day_names:

@@ -10,6 +10,7 @@ ja:
   start_use: "トライアル開始"
   cloud: "クラウドプラットフォーム"
   cancel: "取消"
+  search: "検索"
 
   start:
     start_message: "先ずは先に携帯にソフトウェアをダウンロードしてから、同期化を開始してください。 AndroMoney クラウドサービス!"
@@ -19,19 +20,15 @@ ja:
     <p>
       Androidでも iPhoneでも、パソコンでも使用することができます。今すぐ、アンドロマネーをダウンロードし、全ての記帳サービスを体験しましょう！
     </p>
-
   feture_record: |
     <h2>生活消費を記録</h2>
     <p>Android でも iPhone ユーザーでもアンドロマネーモバイルアプリを通じて、簡単に一つ一つの出費、振込み、収入及び支出を記録することができます。</p>
-
   feature_analysis: |
     <h2>リアルタイムに消費を分析</h2>
     <p>最大消費、平均出費を検索し、ダイナミックな統計グラフを作成し、パイグラフ(出費分布)、ランチャート(出費傾向)の機能があり、グラフや表とインタラクティブな操作が可能です。</p>
-
   feature_asset: |
     <h2>資産状況を把握</h2>
     <p>マルチアカウント機能に対応し、異なるアカウントを設定することや専案管理もでき、各項目の出費と使い道が理解でき、確実に自分の資産を把握することができます。</p>
-
   feature_track: |
     <h2 class="text-primary">
       完璧な記帳機能
@@ -47,7 +44,6 @@ ja:
       1.簡単で使いやすく、直感的な操作。
       2.強大な機能，単純な記帳だけでなく、違うアカウント、カテゴリー、更にはグラフ作成も軽かる簡単にできます。
     </p>
-
   feature_protect: |
     <h2 class="text-primary">
       ユーザーデーターの保護
@@ -58,7 +54,6 @@ ja:
     <p class="lead">
       ユーザーがその他の記帳ソフトやアプリを使用している時に資料が無くなり、苦労して記帳した資料が台無しになってしまうことがよくあります。アンドロマネーはユーザーのデーターをプロテクトする為、バックアップ機能を開発しました。ユーザーはデーターをインポート/エクスポートする事ができ、データーの問題を心配する必要はありません。
     </p>
-
   feature_platform: |
     <h2 class="text-primary">
       マルチプラットフォームの同期化
@@ -69,7 +64,6 @@ ja:
     <p class="lead">
       ユーザーは異なるデバイス、それはアンドロイドのモバイルフォン、iPad、或はデスクトップパソコンを所持している場合がありますが、これら全てアンドロマネーをダウンロードすることができます。また、アンドロマネーのクラウドサービスより、アカウント同期化機能を利用しし、マルチプラットフォームで記帳をすることができます。
     </p>
-
   feature_price: |
     <h3 class="plan-name">フリートライアル</h3>
     <h1 class="plan-price text-danger">$0</h1>
@@ -119,7 +113,6 @@ ja:
         </tr>
       </tbody>
     </table>
-
   web: |
     <h2 class="text-danger">
       一番機能がそろったクラウドサービス
@@ -170,7 +163,6 @@ ja:
         </tr>
       </tbody>
     </table>
-
   ios: |
     <h2 class="text-danger">
       iPhone 必須のアプリ
@@ -221,7 +213,6 @@ ja:
         </tr>
       </tbody>
     </table>
-
   android: |
     <b class="text-danger">
       Google Play ホームページの効率ツールランキングの推薦記帳財務管理アプリにランクイン。
@@ -271,7 +262,6 @@ ja:
       Freegroup無料リソースソーシャルネットワーク :
     </div>
     [Android] アンドロマネー 簡単で質感のある快速記帳、Excelからインポート/エクスポートも可能！
-
   about_text: |
     <h1>
       財務管理ヘルパー AndroMoney
@@ -300,9 +290,6 @@ ja:
       <br />
       どんな使用上の問題でもEメールでの連絡を歓迎しております！ご使用ありがとうございます。
     </p>
-
-
-
   share_email: "あなたと (%{account})アカウント情報をシェアします!"
   owner_delete_email: " %{email}のアカウント情報のシェアを取消しました。"
   sharer_receive_delete_email: "%{email} アカウント情報のシェアを取消しました"
@@ -325,6 +312,9 @@ ja:
   login: "ユーザーログイン"
   amount: "金額"
   note: "備考"
+  main_currency: "主な通貨"
+  reset: "リセット"
+  confirm: "確認します"
 
   every_day: "(毎日)"
   every_week: "(每周)"
@@ -405,9 +395,25 @@ ja:
   balance: "残額"
   other: "その他"
   rate: "レート"
+  attention: "注意"
 
   account:
     account: "アカウント"
+
+  setting:
+    setting: "設定します"
+    now_currency: "あなたの主な通貨になりました"
+    choose_currency: "自分のメイン通貨を選択してください"
+    update_currency_success: "成功の主な通貨を更新"
+    cannot_update_multi_in_one_day: "1日に複数回の主通貨を更新することはできません"
+    account_management: "アカウント管理"
+    data_setting: "データ設定"
+    reset_account: "このアカウントのすべてのデータをリセット"
+    submit_currency: "本位貨幣を更新してに着かないでくださいかどうか"
+    update_currency_fail: "主な通貨の更新に失敗します"
+    reset_success: "アカウントデータの成功をリセット！"
+    reset_fail: "アカウントデータをリセットするために失敗"
+    reset_confirm: "リセット後のデータはすべて削除されます"
 
   date:
     abbr_day_names:

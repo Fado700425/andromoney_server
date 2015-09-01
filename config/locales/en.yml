@@ -10,6 +10,7 @@ en:
   start_use: "Start to Use"
   cloud: "Cloud"
   cancel: "Cancel"
+  search: "Search"
 
   start:
     start_message: "Please download AndroMoney mobile app(Android or iOS), and start to use web service after syncing data!"
@@ -19,19 +20,15 @@ en:
     <p>
       No matter using Android, iPad or desktop, you can download AndroMoney mobile app, or using AndroMoney web cloud service!
     </p>
-
   feture_record: |
     <h2>Track Daily Expense</h2>
     <p>No matter using Android or iPhone, users can track every expense, income, transfer record</p>
-
   feature_analysis: |
     <h2>Realtime Expense Report</h2>
     <p>Find the highest expense, average expense, or get the statistic report(pie chart, bar chart, curve chart....)</p>
-
   feature_asset: |
     <h2>Track Your Asset</h2>
     <p>Provide multiple accouts, projects founction, easily to track your asset</p>
-
   feature_track: |
     <h2 class="text-primary">
       Expense Track
@@ -48,7 +45,6 @@ en:
       <br />
       2.Powerful:daily accounting, managing categories, or even drawing detail reports, AndroMoney can easily manage it.
     </p>
-
   feature_protect: |
     <h2 class="text-primary">
       Protect User Date
@@ -59,7 +55,6 @@ en:
     <p class="lead">
       When using other financial app, you might losing your data accidently. In order to protect your data, AndroMoney can backup your data to cloud or export your data. You don't need to be afraid of losing data anymore!
     </p>
-
   feature_platform: |
     <h2 class="text-primary">
       Multiple Platform
@@ -70,7 +65,6 @@ en:
     <p class="lead">
       No matter using Android, iPad or desktop, you can download AndroMoney mobile app, or using AndroMoney web cloud service. Tracking your expense and syncing the data with mobile and web
     </p>
-
   feature_price: |
     <h3 class="plan-name">Free Trial</h3>
     <h1 class="plan-price text-danger">$0</h1>
@@ -120,7 +114,6 @@ en:
         </tr>
       </tbody>
     </table>
-
   web: |
     <h2 class="text-danger">
       Best Personal Account Web Service
@@ -171,7 +164,6 @@ en:
         </tr>
       </tbody>
     </table>
-
   ios: |
     <h2 class="text-danger">
       iPhone
@@ -222,7 +214,6 @@ en:
         </tr>
       </tbody>
     </table>
-
   android: |
     <b class="text-danger">
       Google Play Selected as Best Financial APP
@@ -265,7 +256,6 @@ en:
     </div>
     AndroMoney is a personal finance tool for use on your mobile phone
     <br />
-
   about_text: |
     <h1>
       AndroMoney
@@ -292,9 +282,6 @@ en:
       <br />
       If you have any problems about how to use it or ideas about how to improve it, feel free to email us. We appreciate your feedback!
     </p>
-
-
-
   share_email: "wants to share account (%{account}) with you!"
   owner_delete_email: "Cancel sharing account with %{email}"
   sharer_receive_delete_email: "%{email} already cancel to share account with you"
@@ -317,6 +304,9 @@ en:
   login: "Login"
   amount: "Amount"
   note: "Note"
+  main_currency: "Main Currency"
+  reset: "Reset"
+  confirm: "Confirm"
 
   every_day: "(Every Day)"
   every_week: "(Every Week)"
@@ -397,9 +387,25 @@ en:
   balance: "Balance"
   other: "Other"
   rate: "Rate"
+  attention: "Attention"
 
   account:
     account: "Account"
+
+  setting:
+    setting: "Setting"
+    now_currency: "Your current main currency"
+    choose_currency: "Please choose your Main Currency"
+    update_currency_success: "Update main currency successfully"
+    cannot_update_multi_in_one_day: "Cannot update main currency more than once in one day"
+    account_management: "Account Management"
+    data_setting: "Data Setting"
+    reset_account: "Reset all data of this account"
+    submit_currency: "Update your main currency to"
+    update_currency_fail: "Fail to update main currency"
+    reset_success: "Reset account data Success!"
+    reset_fail: "Fail to reset account data"
+    reset_confirm: "After reset all data will be deleted"
 
   date:
     abbr_day_names:
