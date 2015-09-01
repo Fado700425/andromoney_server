@@ -61,13 +61,16 @@ $(document).ready(function(){
   var incomeSelectField = $('#income-category').msDropDown().data("dd");
   var transferSelectField = $('#transfer-category').msDropDown().data("dd");
 
+  var receiverNonTraField = $('#nontrans-receiver').msDropDown().data("dd");
+  var receiverTransfField = $('#transfer-receiver').msDropDown().data("dd");
+
   var setDisplayCategory = function(target, hide1, hide2) {
-      $('#' + target + '-category').removeClass("hide");
-      $('#' + target + '-subcategory').removeClass("hide");
-      $('#' + hide1  + '-category').addClass("hide");
-      $('#' + hide1  + '-subcategory').addClass("hide");
-      $('#' + hide2  + '-category').addClass("hide");
-      $('#' + hide2  + '-subcategory').addClass("hide");
+    $('#' + target + '-category').removeClass("hide");
+    $('#' + target + '-subcategory').removeClass("hide");
+    $('#' + hide1  + '-category').addClass("hide");
+    $('#' + hide1  + '-subcategory').addClass("hide");
+    $('#' + hide2  + '-category').addClass("hide");
+    $('#' + hide2  + '-subcategory').addClass("hide");
   }
 
   var setReadCategory = function(target, hide1, hide2) {
@@ -79,61 +82,99 @@ $(document).ready(function(){
     $('#' + hide2  + '-subcategory').attr('name',"record[hide2sub]");
   }
 
+  var setDisplayReceiver = function(target, hide) {
+    $('#' + target + '-receiver').removeClass("hide");
+    $('#' + hide   + '-receiver').addClass("hide");
+  }
+
+  var setReadReceiver = function(isTransfer) {
+    if(isTransfer){
+      $('#nontrans-receiver').attr('name',"record[hideReceiver]");
+      $('#transfer-receiver').attr('name',"record[in_payment]");
+    } else {
+      $('#nontrans-receiver').attr('name',"record[payee]");
+      $('#transfer-receiver').attr('name',"record[hideReceiver]");
+    }
+  }
+
   var setCategorySelect = function(expense, income, transfer) {
     expenseSelectField.visible(expense);
     incomeSelectField.visible(income);
     transferSelectField.visible(transfer);
   }
 
+  var setReceiverSelect = function(nontrans, transfer) {
+    receiverNonTraField.visible(nontrans);
+    receiverTransfField.visible(transfer);
+  }
+
+  // declare for edit page.
   var editToken = $(".record-edit-tab .editLink").data('token');
   var refreshEditPage = function(token){
     if (token == "income") {
-      setCategorySelect(false, true, false)
+      setDisplayReceiver('nontrans', 'transfer');
+      setReceiverSelect(true, false);
+      setCategorySelect(false, true, false);
       setDisplayCategory('income', 'expense', 'transfer');
       selectedCat = $('#income-category :selected').text();
       dynamicSelect("#income-category", "#income-subcategory", oriIncSelectCat, oriIncSelectSub, allIncSub, selectedCat);
       setReadCategory('income', 'expense', 'transfer');
+      setReadReceiver(false);
     } else if (token == "transfer") {
-      setCategorySelect(false, false, true)
+      setDisplayReceiver('transfer', 'nontrans');
+      setReceiverSelect(false, true);
+      setCategorySelect(false, false, true);
       setDisplayCategory('transfer', 'income', 'expense');
       selectedCat = $('#transfer-category :selected').text();
       dynamicSelect("#transfer-category", "#transfer-subcategory", oriTraSelectCat, oriTraSelectSub, allTraSub, selectedCat);
       setReadCategory('transfer', 'income', 'expense');
+      setReadReceiver(true);
     }
   }
   
   // apply immediately after "document ready"     // default is set to "expense".
-  setCategorySelect(true, false, false)
+  setDisplayReceiver('nontrans', 'transfer');
+  setReceiverSelect(true, false);
+  setCategorySelect(true, false, false);
   setDisplayCategory('expense', 'income', 'transfer');
   dynamicSelect("#expense-category", "#expense-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, "");
   setReadCategory('expense', 'income', 'transfer');
+  setReadReceiver(false);
+  // refresh for edit page.
   refreshEditPage(editToken);
 
-  
-  
   // apply when "click tab"
   $('a#incomeLink').on('click', function() {
-    setCategorySelect(false, true, false)
+    setDisplayReceiver('nontrans', 'transfer');
+    setReceiverSelect(true, false);
+    setCategorySelect(false, true, false);
     setDisplayCategory('income', 'expense', 'transfer');
     selectedCat = $('#income-category :selected').text();
     dynamicSelect("#income-category", "#income-subcategory", oriIncSelectCat, oriIncSelectSub, allIncSub, selectedCat);
     setReadCategory('income', 'expense', 'transfer');
+    setReadReceiver(false);
   });
   // apply when "click tab"
   $('a#expenseLink').on('click', function() {
-    setCategorySelect(true, false, false)
+    setDisplayReceiver('nontrans', 'transfer');
+    setReceiverSelect(true, false);
+    setCategorySelect(true, false, false);
     setDisplayCategory('expense', 'income', 'transfer');
     selectedCat = $('#expense-category :selected').text();
     dynamicSelect("#expense-category", "#expense-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, selectedCat);
     setReadCategory('expense', 'income', 'transfer');
+    setReadReceiver(false);
   });
   // apply when "click tab"
   $('a#transferLink').on('click', function() {
-    setCategorySelect(false, false, true)
+    setDisplayReceiver('transfer', 'nontrans');
+    setReceiverSelect(false, true);
+    setCategorySelect(false, false, true);
     setDisplayCategory('transfer', 'income', 'expense');
     selectedCat = $('#transfer-category :selected').text();
     dynamicSelect("#transfer-category", "#transfer-subcategory", oriTraSelectCat, oriTraSelectSub, allTraSub, selectedCat);
     setReadCategory('transfer', 'income', 'expense');
+    setReadReceiver(true);
   });
 
   // apply when "change select"

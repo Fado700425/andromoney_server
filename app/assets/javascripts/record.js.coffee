@@ -6,6 +6,7 @@ $ ->
     $('#record_out_payment').attr('name',"record[in_payment]")
 
   $('a#transferLink').on 'click', (event) ->
+    $('#record_out_payment').attr('name',"record[out_payment]")
 
   $('tbody.expense_main_category tr td').on 'click', (event) ->
     if($(this).data('category-id'))
