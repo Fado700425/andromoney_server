@@ -73,6 +73,14 @@ $(document).ready(function(){
     $('#' + hide2  + '-subcategory').addClass("hide");
   }
 
+  var setRecordOutPaymet = function(isOutPayment){
+    if(isOutPayment){
+      $('#record_out_payment').attr('name',"record[out_payment]")
+    } else {
+      $('#record_out_payment').attr('name',"record[in_payment]")
+    } 
+  }
+
   var setReadCategory = function(target, hide1, hide2) {
     $('#' + target + '-category').attr('name',"record[category]");
     $('#' + target + '-subcategory').attr('name',"record[sub_category]");
@@ -120,6 +128,7 @@ $(document).ready(function(){
       dynamicSelect("#income-category", "#income-subcategory", oriIncSelectCat, oriIncSelectSub, allIncSub, selectedCat);
       setReadCategory('income', 'expense', 'transfer');
       setReadReceiver(false);
+      setRecordOutPaymet(false);
     } else if (token == "transfer") {
       setDisplayReceiver('transfer', 'nontrans');
       setReceiverSelect(false, true);
@@ -129,6 +138,7 @@ $(document).ready(function(){
       dynamicSelect("#transfer-category", "#transfer-subcategory", oriTraSelectCat, oriTraSelectSub, allTraSub, selectedCat);
       setReadCategory('transfer', 'income', 'expense');
       setReadReceiver(true);
+      setRecordOutPaymet(true);
     }
   }
   
@@ -140,6 +150,7 @@ $(document).ready(function(){
   dynamicSelect("#expense-category", "#expense-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, "");
   setReadCategory('expense', 'income', 'transfer');
   setReadReceiver(false);
+  setRecordOutPaymet(true);
   // refresh for edit page.
   refreshEditPage(editToken);
 
@@ -153,6 +164,7 @@ $(document).ready(function(){
     dynamicSelect("#income-category", "#income-subcategory", oriIncSelectCat, oriIncSelectSub, allIncSub, selectedCat);
     setReadCategory('income', 'expense', 'transfer');
     setReadReceiver(false);
+    setRecordOutPaymet(false);
   });
   // apply when "click tab"
   $('a#expenseLink').on('click', function() {
@@ -164,6 +176,7 @@ $(document).ready(function(){
     dynamicSelect("#expense-category", "#expense-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, selectedCat);
     setReadCategory('expense', 'income', 'transfer');
     setReadReceiver(false);
+    setRecordOutPaymet(true);
   });
   // apply when "click tab"
   $('a#transferLink').on('click', function() {
@@ -175,6 +188,7 @@ $(document).ready(function(){
     dynamicSelect("#transfer-category", "#transfer-subcategory", oriTraSelectCat, oriTraSelectSub, allTraSub, selectedCat);
     setReadCategory('transfer', 'income', 'expense');
     setReadReceiver(true);
+    setRecordOutPaymet(true);
   });
 
   // apply when "change select"
