@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20150829142046) do
 
   create_table "ad_clicks", force: true do |t|
@@ -40,9 +41,6 @@ ActiveRecord::Schema.define(version: 20150829142046) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "announcements", ["category", "created_at"], name: "index_announcements_on_category_and_created_at", using: :btree
-  add_index "announcements", ["locale", "created_at"], name: "index_announcements_on_locale_and_created_at", using: :btree
 
   create_table "category_table", force: true do |t|
     t.string   "category"
@@ -85,7 +83,7 @@ ActiveRecord::Schema.define(version: 20150829142046) do
   create_table "devices", force: true do |t|
     t.integer  "user_id"
     t.string   "uuid"
-    t.datetime "last_sync_time",  default: '1995-01-01 00:00:00'
+    t.datetime "last_sync_time",  default: '1987-08-05 07:13:03'
     t.datetime "sync_start_time"
     t.boolean  "is_syncing",      default: false
   end
@@ -122,25 +120,25 @@ ActiveRecord::Schema.define(version: 20150829142046) do
   add_index "payee_table", ["user_id"], name: "index_payee_table_on_user_id", using: :btree
 
   create_table "payment_table", force: true do |t|
-    t.integer  "kind",                                                   null: false
+    t.integer  "kind",                                                                null: false
     t.string   "payment_name"
-    t.decimal  "total",         precision: 16, scale: 2,                 null: false
+    t.decimal  "total",                      precision: 16, scale: 2,                 null: false
     t.string   "currency_code"
-    t.decimal  "rate",          precision: 16, scale: 6
+    t.decimal  "rate",                       precision: 16, scale: 6
     t.integer  "out_total"
-    t.integer  "hidden",                                                 null: false
+    t.integer  "hidden",                                                              null: false
     t.integer  "order_no"
-    t.string   "hash_key",                                               null: false
-    t.boolean  "is_delete",                              default: false
+    t.string   "hash_key",                                                            null: false
+    t.boolean  "is_delete",                                           default: false
     t.integer  "user_id"
-    t.datetime "update_time",                                            null: false
+    t.datetime "update_time",                                                         null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "device_uuid"
-    t.integer  "pay_date"
-    t.integer  "bill_date"
-    t.string   "remark"
-    t.string   "pay_payment"
+    t.integer  "pay_date",      limit: 1
+    t.integer  "bill_date",     limit: 1
+    t.string   "remark",        limit: 2000
+    t.string   "pay_payment",                                         default: ""
     t.integer  "alert"
   end
 
@@ -150,7 +148,7 @@ ActiveRecord::Schema.define(version: 20150829142046) do
   add_index "payment_table", ["user_id"], name: "index_payment_table_on_user_id", using: :btree
 
   create_table "period_table", force: true do |t|
-    t.datetime "start_date",                  null: false
+    t.datetime "start_date"
     t.datetime "end_date"
     t.datetime "update_date"
     t.integer  "period_type",                 null: false
@@ -215,6 +213,7 @@ ActiveRecord::Schema.define(version: 20150829142046) do
     t.string   "period"
     t.string   "payee"
     t.string   "project"
+    t.string   "fee"
     t.decimal  "in_amount",                    precision: 16, scale: 2
     t.decimal  "out_amount",                   precision: 16, scale: 2
     t.string   "in_currency"
