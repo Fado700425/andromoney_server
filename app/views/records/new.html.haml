@@ -2,14 +2,14 @@
   = render 'shared/sidebar'
 
   .col-xs-12.col-sm-10
-    .row
+    .row.verify-record-form{"data-token" => "true"}
       %ul#tabs.nav.nav-tabs{"data-tabs" => "tabs"}
         %li.active
-          %a{id: "expenseLink","data-toggle" => "tab", :href => "#expenseTab"} #{t('record_type.expense')}
+          %a{id: "expenseLink", "data-token" => "all", "data-toggle" => "tab", :href => "#expenseTab"} #{t('record_type.expense')}
         %li
-          %a{id: "incomeLink","data-toggle" => "tab", :href => "#incomeTab"} #{t('record_type.income')}
+          %a{id: "incomeLink", "data-toggle" => "tab", :href => "#incomeTab"} #{t('record_type.income')}
         %li
-          %a{id: "transferLink","data-toggle" => "tab", :href => "transferTab"} #{t('record_type.transfer')}
+          %a{id: "transferLink", "data-toggle" => "tab", :href => "transferTab"} #{t('record_type.transfer')}
 
       .row
         .recordForm.clearfix

@@ -2,7 +2,7 @@
   = render 'shared/sidebar'
 
   .col-xs-12.col-sm-10
-    .row
+    .row.verify-record-form{"data-token" => "true"}
       .record-edit-tab
         = render_tab(@record)
 
