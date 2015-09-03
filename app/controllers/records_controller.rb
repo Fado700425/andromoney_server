@@ -67,23 +67,6 @@ class RecordsController < ApplicationController
     
   end
 
-  def transfer_edit
-    @record = Record.find(params[:record_id])
-    @payments = Payment.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @projects = Project.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @transfer_category = Category.where(type: 30, user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @transfer_subcategories = Subcategory.where(id_category: @transfer_category.first[0].hash_key, user_id: current_user.id).not_hidden.each_slice(3).to_a
-  end
-
-  def transfer_update
-    record = Record.find(params[:record_id])
-    if record.update(record_param)
-      set_tranfer_record_value(record)
-      record.save
-    end
-    redirect_to records_path(month_from_now: params[:month_from_now])
-  end
-
   def index
 
     if current_user.categories.size > 0

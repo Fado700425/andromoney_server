@@ -48,7 +48,6 @@ gem 'font-awesome-rails'
 group :development, :test do
   gem 'pry-nav'
   gem 'rspec-rails'
-  gem 'factory_girl_rails', "~> 4.4.1"    # for Rspec test.
   gem 'pry'
   gem 'letter_opener'
   gem 'capybara'
