@@ -78,8 +78,8 @@
   .pull-right
     %br
     -#= f.submit t('confirm_add'), class: "btn btn-primary btn-lg"
-    = f.submit "儲存並新增下一筆", class: "btn btn-success btn-lg"
-    = f.submit "儲存並回到列表", class: "btn btn-info btn-lg"
+    = f.button "儲存並新增下一筆", class: "btn btn-success btn-lg", name: "submit_type", value: "to_new"
+    = f.button "儲存並回到列表", class: "btn btn-info btn-lg", name: "submit_type", value: "to_list"
 
 :javascript
   var setSubcatFormat = function(id) {

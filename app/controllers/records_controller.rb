@@ -17,17 +17,23 @@ class RecordsController < ApplicationController
     @record = Record.new(record_param)
     @record.user_id = current_user.id
     @record.hash_key = SecureRandom.urlsafe_base64
-    @record.date ||= Time.now.strftime("%Y/%m/%d/ %H:%M")   # if user didn't input :date, this will set default value.
+    @record.date ||= DateTime.now.utc.strftime("%Y/%m/%d/ %H:%M")   # if user didn't input :date, this will set default value.
     set_record_submit_value(@record)
 
     if @record.save
-      flash["success"] = t('record.success_create')   
-      redirect_to records_path(month_from_now: params[:month_from_now])  
+      flash["success"] = t('record.success_create')
+      @array = params[:submit_type]
+      if !@array.blank? && (@array == "to_new")
+        @record = Record.new
+        fetch_variables_for_records
+        render 'records/new'
+      else
+        redirect_to records_path(month_from_now: params[:month_from_now])  
+      end
     else
       flash["danger"] = t('record.fail_create')
       fetch_variables_for_records
       render 'records/new'
-      #redirect_to records_path(month_from_now: params[:month_from_now])  
     end
   end
 
@@ -48,23 +54,6 @@ class RecordsController < ApplicationController
       fetch_variables_for_records
       render 'edit'
     end    
-  end
-
-  def transfer
-    record = Record.new(record_param)
-    record.user_id = current_user.id
-    record.hash_key = SecureRandom.urlsafe_base64
-
-    set_tranfer_record_value(record)
-    
-
-    if record.save
-      flash["success"] = t('record.success_create')   
-    else
-      flash["danger"] = t('record.fail_create')
-    end
-    redirect_to records_path(month_from_now: params[:month_from_now])
-    
   end
 
   def index
@@ -123,37 +112,6 @@ private
 
   def record_param
     params.require(:record).permit(:mount,:date,:in_payment,:out_payment,:payee,:project,:category,:subcategory,:remark,:in_amount,:out_amount,:fee)
-  end
-
-  def set_tranfer_record_value(record)
-    record.mount = 0 unless record.mount
-
-    record.device_uuid = "computer"
-    record.update_time = DateTime.now.utc
-    record.project = Project.find_by(project_name: record.project, user_id: current_user.id).hash_key if record.project.present?
-
-    out_payment_name = record.out_payment.split('(')[0]
-    payment = Payment.find_by(payment_name: out_payment_name, user_id: current_user.id)
-    record.out_payment = payment.hash_key
-    init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", subcategory: "INIT_AMOUNT", user_id: current_user.id)
-    record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
-    record.amount_to_main = record.calculate_record_amount(current_user.get_main_currency)
-
-    if record.currency_code != record.record_out_payment.display_currency_code(current_user)
-      record.out_currency = record.record_out_payment.display_currency_code(current_user)
-      record.out_amount = record.calculate_record_amount(Currency.find_by(currency_code: record.record_out_payment.display_currency_code(current_user), user_id: current_user.id))
-    end
-
-    if record.in_payment
-      in_payment_name = record.in_payment.split('(')[0]
-      payment = Payment.find_by(payment_name: in_payment_name, user_id: current_user.id) 
-      record.in_payment = payment.hash_key
-    end
-
-    if record.currency_code != record.record_in_payment.display_currency_code(current_user)
-      record.in_currency = record.record_in_payment.display_currency_code(current_user)
-      record.in_amount = record.calculate_record_amount(Currency.find_by(currency_code: record.record_in_payment.display_currency_code(current_user), user_id: current_user.id)) unless record.in_amount
-    end
   end
 
   def set_record_submit_value(record)
