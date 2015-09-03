@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150829131351) do
+
+ActiveRecord::Schema.define(version: 20150829142046) do
 
   create_table "ad_clicks", force: true do |t|
     t.string  "uuid"
@@ -201,6 +202,7 @@ ActiveRecord::Schema.define(version: 20150829131351) do
   create_table "record_table", force: true do |t|
     t.decimal  "mount",                        precision: 16, scale: 2
     t.string   "category"
+    t.string   "fee"
     t.string   "subcategory"
     t.datetime "date"
     t.string   "in_payment"
