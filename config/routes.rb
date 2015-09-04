@@ -20,11 +20,7 @@ AndromoneyServer::Application.routes.draw do
   get 'announcements/:category' => 'announcements#index'
   get 'announcements' => 'announcements#index'
 
-  resources :records do
-    collection do
-      post "transfer"
-    end
-  end
+  resources :records
   resources :budgets
   resources :reports do
     collection do

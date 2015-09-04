@@ -143,7 +143,7 @@ td.record-remark{
     margin-left:  -30px;
     margin-right: -20px;
   }
-  .select-with-icon {
+  .select-with-icon, .category-select-with-icon, .subcategory-select-with-icon, .receiver-select-with-icon{
     display:block;        /* full-width */
     width: 100%;
   }
@@ -154,22 +154,5 @@ td.record-remark{
     line-height: 18px;
     font-size: 14px;
     border-radius: 4px;
-  }
-
-  .select-subcategory {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-
-    height: 178px;
-    font-size: 16px;
-    border-bottom: 1px solid blue;
-
-    display: block;        /* full-width */
-    width: 100%;
-    overflow-y: scroll;
-    border: solid #c3c3c3 2px;     /* border of the select */
-    border-radius: 5px;
-    background-color: #FFFFF;
   }
 }

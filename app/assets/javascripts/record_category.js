@@ -15,9 +15,8 @@ $(document).ready(function(){
     allTraSub       = $("#transfer-subcategory").html();
 
     function setDynamicSelect(typeOfRecord){
-      var dynamicSelect = function(objCat, objSub, oriSelectCat, oriSelectSub, allSub, selectCat) {
-        // objCat: select_tag id depends on user's choice: expense, income or transfer.
-        // objSub: select_tag id depends on user's choice: expense, income or transfer.
+      var dynamicSelect = function(obj, obj_h1, obj_h2, oriSelectCat, oriSelectSub, allSub, selectCat) {
+        // obj: select_tag id depends on user's choice: expense, income or transfer.
         // oriSelectCat: default    category value.
         // oriSelectCat: default subcategory value.   #new: default="",   #edit: default=db value.
         // allSub: options, which are depends on user's choice: expense, income or transfer.
@@ -27,44 +26,51 @@ $(document).ready(function(){
         category = (selectCat === "") ? oriSelectCat : selectCat;
 
         if (!category) {  // Redundency as a protection.
-          category = $(objCat + " :first").text();
-          $(objCat + " :first").attr("selected","selected");
+          category = $('#' + obj + '-category :first').text();
+          $('#' + obj + '-category :first').attr("selected","selected");
         }
         // subcategory: options, which are depends on user's choice: expense, income or transfer.
         subcategory = allSub;
 
-        var updateSelect = function() {
-          var options;
-          // filter "subcategory" options by "category".
-          options = $(subcategory).filter("optgroup[label=\"" + category + "\"]").html();
-          options ? $(objSub).html(options) : $(objSub).empty();
-
+        (function updateSelect() {
+          var filteredOpts;
+          var selectedIndex;
+          // filter "subcategory" filteredOpts by "category".
+          filteredOpts = $(subcategory).filter("optgroup[label=\"" + category + "\"]").html();
+          filteredOpts ? $('#' + obj + '-subcategory').html(filteredOpts) : $('#' + obj + '-subcategory').empty();
           // When "category" is selected to a new value by the user, refresh "subcategory".
           if ( oriSelectCat !== category) {
-            $(objSub + " :selected").removeAttr("selected");
-            $(objSub + " :first").attr("selected","selected");
+            $('#' + obj + '-subcategory :selected').removeAttr("selected");
+            $('#' + obj + '-subcategory :first').attr("selected","selected");
           }
           // When there is no "oriSelectSub", like #new, then refresh "subcategory".
           if ( oriSelectSub === "") {
-            $(objSub + " :selected").removeAttr("selected");
-            $(objSub + " :first").attr("selected","selected");
+            $('#' + obj + '-subcategory :selected').removeAttr("selected");
+            $('#' + obj + '-subcategory :first').attr("selected","selected");
           }
-        };
-        return updateSelect();
+          // set subcategory msDropDown
+          $('#' + obj_h1 + '-subcategory').msDropDown().data("dd").destroy();
+          $('#' + obj_h1 + '-subcategory').msDropDown().data("dd").destroy();
+          $('#' + obj + '-subcategory').msDropDown().data("dd").destroy();
+
+          $('#' + obj_h1 + '-subcategory').msDropDown().data("dd").visible(false);
+          $('#' + obj_h2 + '-subcategory').msDropDown().data("dd").visible(false);
+          $('#' + obj + '-subcategory').msDropDown().data("dd").visible(true);
+        })();
       };
 
       switch(typeOfRecord){
         case "expense":
           selectedCat = $('#expense-category :selected').text();
-          dynamicSelect("#expense-category", "#expense-subcategory", oriExpSelectCat, oriExpSelectSub, allExpSub, selectedCat);
+          dynamicSelect("expense", "income", "transfer", oriExpSelectCat, oriExpSelectSub, allExpSub, selectedCat);
           break;
         case "income":
           selectedCat = $('#income-category :selected').text();
-          dynamicSelect("#income-category", "#income-subcategory", oriIncSelectCat, oriIncSelectSub, allIncSub, selectedCat);
+          dynamicSelect("income", "transfer", "expense", oriIncSelectCat, oriIncSelectSub, allIncSub, selectedCat);
           break;
         case "transfer":
           selectedCat = $('#transfer-category :selected').text();
-          dynamicSelect("#transfer-category", "#transfer-subcategory", oriTraSelectCat, oriTraSelectSub, allTraSub, selectedCat);
+          dynamicSelect("transfer", "expense", "income", oriTraSelectCat, oriTraSelectSub, allTraSub, selectedCat);
           break;
       }
     }
@@ -165,11 +171,8 @@ $(document).ready(function(){
     }
     // apply all msDropDown immediately after "document ready"
     $(".select-with-icon").msDropDown().data("dd");
-    $('#expense-category').msDropDown().data("dd");
-    $('#income-category').msDropDown().data("dd");
-    $('#transfer-category').msDropDown().data("dd");
-    $('#nontrans-receiver').msDropDown().data("dd");
-    $('#transfer-receiver').msDropDown().data("dd");
+    $(".category-select-with-icon").msDropDown().data("dd");
+    $(".receiver-select-with-icon").msDropDown().data("dd");
 
     // apply immediately after "document ready"     // default is set to "expense".
     setView("expense");
@@ -184,8 +187,10 @@ $(document).ready(function(){
     });
     // apply when "click tab"
     $('a#expenseLink').on('click', function() {
+      console.time("machen");
       setView("expense");
       setDynamicSelect("expense");
+      console.timeEnd("machen");
     });
     // apply when "click tab"
     $('a#transferLink').on('click', function() {
@@ -205,5 +210,11 @@ $(document).ready(function(){
     $('#transfer-category').on('change', function() {
       setDynamicSelect("transfer");
     });
+
+    // set datetimepicker_report format
+    (function setDatetimepickerFormat() {
+      $('#datetimepicker_report').datetimepicker({ format: 'YYYY/MM/DD-HH:mm A'});
+    })();
   }
+
 });
