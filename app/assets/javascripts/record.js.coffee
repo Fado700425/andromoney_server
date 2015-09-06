@@ -4,14 +4,14 @@ $ ->
     $('.recordForm').removeClass("hide")
     $('#record_out_payment').attr('name',"record[out_payment]")
     $('#record_category').val($('tbody.expense_main_category td.warning').data('category-id'))
-    $('#record_sub_category').val($('tbody.expense_category.sub_category td.warning').data('subcategory-id'))
+    $('#record_subcategory').val($('tbody.expense_category.subcategory td.warning').data('subcategory-id'))
 
   $('a#incomeLink').on 'click', (event) ->
     $('.transferForm').addClass("hide")
     $('.recordForm').removeClass("hide")
     $('#record_out_payment').attr('name',"record[in_payment]")
     $('#record_category').val($('tbody.income_main_category td.warning').data('category-id'))
-    $('#record_sub_category').val($('tbody.income_category.sub_category td.warning').data('subcategory-id'))
+    $('#record_subcategory').val($('tbody.income_category.subcategory td.warning').data('subcategory-id'))
 
   $('a#transferLink').on 'click', (event) ->
     $('.transferForm').removeClass("hide")
@@ -55,23 +55,23 @@ $ ->
   
 
 
-  $("tbody.sub_category.income_category tr td").bind "click", (event) ->
+  $("tbody.subcategory.income_category tr td").bind "click", (event) ->
     if($(this).data('subcategory-id'))
-      $("tbody.sub_category.income_category tr td.warning").attr "class", ""
+      $("tbody.subcategory.income_category tr td.warning").attr "class", ""
       $(this).attr "class", "warning"
-      $('#record_sub_category').val($(this).data('subcategory-id'))
+      $('#record_subcategory').val($(this).data('subcategory-id'))
 
-  $("tbody.sub_category.expense_category tr td").bind "click", (event) ->
+  $("tbody.subcategory.expense_category tr td").bind "click", (event) ->
     if($(this).data('subcategory-id'))
-      $("tbody.sub_category.expense_category tr td.warning").attr "class", ""
+      $("tbody.subcategory.expense_category tr td.warning").attr "class", ""
       $(this).attr "class", "warning"
-      $('#record_sub_category').val($(this).data('subcategory-id'))
+      $('#record_subcategory').val($(this).data('subcategory-id'))
 
-  $("tbody.sub_category.transfer_category tr td").bind "click", (event) ->
+  $("tbody.subcategory.transfer_category tr td").bind "click", (event) ->
     if($(this).data('subcategory-id'))
-      $("tbody.sub_category.transfer_category tr td.warning").attr "class", ""
+      $("tbody.subcategory.transfer_category tr td.warning").attr "class", ""
       $(this).attr "class", "warning"
-      $('#transfer_sub_category').val($(this).data('subcategory-id'))
+      $('#transfer_subcategory').val($(this).data('subcategory-id'))
 
 
   $('tbody.account tr td').on 'click', (event) ->

@@ -5,15 +5,15 @@ class RecordsController < ApplicationController
 
   def new
     @record = Record.new
-    @expense_category = Category.where(user_id: current_user.id,type: 20, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).not_hidden.each_slice(3).to_a
-    @income_category = Category.where(user_id: current_user.id,type: 10, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).where.not(hash_key:"SYSTEM").not_hidden.each_slice(3).to_a
-    @transfer_category = Category.where(type: 30, user_id: current_user.id, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).not_hidden.each_slice(3).to_a
-    @payments = Payment.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @payees = Payee.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @projects = Project.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @subcategories = Subcategory.where(id_category: @expense_category.first[0].hash_key, user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @income_subcategories = Subcategory.where(id_category: @income_category.first[0].hash_key, user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @transfer_subcategories = Subcategory.where(id_category: @transfer_category.first[0].hash_key, user_id: current_user.id).not_hidden.each_slice(3).to_a
+    @expense_category = Category.where(user_id: current_user.id,type: 20).not_hidden.order(:order_no).each_slice(3).to_a
+    @income_category = Category.where(user_id: current_user.id,type: 10).where.not(hash_key:"SYSTEM").not_hidden.order(:order_no).each_slice(3).to_a
+    @transfer_category = Category.where( user_id: current_user.id, type: 30).not_hidden.order(:order_no).each_slice(3).to_a
+    @payments = Payment.where(user_id: current_user.id).not_hidden.order(:order_no).each_slice(3).to_a
+    @payees = Payee.where(user_id: current_user.id).not_hidden.order(:order_no).each_slice(3).to_a
+    @projects = Project.where(user_id: current_user.id).not_hidden.order(:order_no).each_slice(3).to_a
+    @subcategories = Subcategory.where(id_category: @expense_category.first[0].hash_key, user_id: current_user.id).not_hidden.order(:order_no).each_slice(3).to_a
+    @income_subcategories = Subcategory.where(id_category: @income_category.first[0].hash_key, user_id: current_user.id).not_hidden.order(:order_no).each_slice(3).to_a
+    @transfer_subcategories = Subcategory.where(id_category: @transfer_category.first[0].hash_key, user_id: current_user.id).not_hidden.order(:order_no).each_slice(3).to_a
   end
 
   def create
@@ -144,7 +144,7 @@ private
   end
 
   def record_param
-    params.require(:record).permit(:mount,:date,:in_payment,:out_payment,:payee,:project,:category,:sub_category,:remark,:in_amount,:out_amount,:fee)
+    params.require(:record).permit(:mount,:date,:in_payment,:out_payment,:payee,:project,:category,:subcategory,:remark,:in_amount,:out_amount,:fee)
   end
 
   def set_tranfer_record_value(record)
@@ -157,7 +157,7 @@ private
     out_payment_name = record.out_payment.split('(')[0]
     payment = Payment.find_by(payment_name: out_payment_name, user_id: current_user.id)
     record.out_payment = payment.hash_key
-    init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: current_user.id)
+    init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", subcategory: "INIT_AMOUNT", user_id: current_user.id)
     record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
     record.amount_to_main = record.calculate_record_amount(current_user.get_main_currency)
 
@@ -185,7 +185,7 @@ private
       out_payment_name = record.out_payment.split('(')[0]
       payment = Payment.find_by(payment_name: out_payment_name, user_id: current_user.id)
       record.out_payment = payment.hash_key
-      init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: current_user.id)
+      init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", subcategory: "INIT_AMOUNT", user_id: current_user.id)
       record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
       record.amount_to_main = record.calculate_record_amount(current_user.get_main_currency)
 
@@ -199,7 +199,7 @@ private
       in_payment_name = record.in_payment.split('(')[0]
       payment = Payment.find_by(payment_name: in_payment_name, user_id: current_user.id) 
       record.in_payment = payment.hash_key if record.in_payment
-      init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: current_user.id)
+      init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", subcategory: "INIT_AMOUNT", user_id: current_user.id)
       record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
       record.amount_to_main = record.calculate_record_amount(current_user.get_main_currency)
 

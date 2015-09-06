@@ -6,7 +6,8 @@
 
 # Ignore bundler config.
 /.bundle
-.idea
+/.idea
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
@@ -34,3 +35,4 @@
 # Ignore application configuration
 /config/application.yml
 /config/deploy.rb
+/vendor/assets/bower_components/

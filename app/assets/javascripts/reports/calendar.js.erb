@@ -1,0 +1,157 @@
+function groupBy(array, f) {
+    var groups = {};
+    array.forEach(function (o) {
+        var group = JSON.stringify(f(o));
+        groups[group] = groups[group] || [];
+        groups[group].push(o);
+    });
+    return Object.keys(groups).map(function (group) {
+        return groups[group];
+    })
+}
+
+function getRequestParam(name) {
+    if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search))
+        return decodeURIComponent(name[1]);
+    return null;
+}
+
+
+
+$(document).ready(function () {
+    var currencyCodeStr = '';
+    var locale = getRequestParam('locale') || 'en';
+    // page is now ready, initialize the calendar...
+    i18n.init({
+        interpolationPrefix: '%{',
+        interpolationSuffix: '}',
+        lng: locale,
+        resGetPath: '/locales/%{lng}.json',
+        useLocalStorage: true,
+        localStorageExpirationTime: 60 * 60 * 24 * 1000
+    });
+
+    var current_view = 'month';
+
+    $('#calendar').fullCalendar({
+        defaultView: current_view,
+        header: {
+            left: 'title',
+            center: '',
+            right: 'today,prev,next,month, basicWeek, basicDay'
+        },
+        timezone: 'local',
+        eventLimit: true,
+        eventRender: function (event, element, view) {
+
+            if (event.isSummary) {
+                var eventsInDay = event.eventsInDay;
+                var inTotal = 0;
+                var outTotal = 0;
+                var total = 0;
+                eventsInDay.forEach(function (entry) {
+                    if (entry.in_payment != null && entry.in_payment != 0) {
+                        inTotal += parseInt(entry.amount_to_main);
+                        total += parseInt(entry.amount_to_main);
+                    }
+                    if (entry.out_payment != null && entry.out_payment != 0) {
+                        outTotal += parseInt(entry.amount_to_main);
+                        total -= parseInt(entry.amount_to_main);
+                    }
+                });
+                var $content = $(
+                        '<div class="calendar-event-summary"><div>' + moment(eventsInDay[0].date).format('YYYY/MM/DD') + ' <span class="amount">' + currencyCodeStr + total.toString() + '</span></div>' +
+                        '<div style="overflow:auto;"><span class="amount">'+ currencyCodeStr + inTotal + '/' + currencyCodeStr + '-' + outTotal + '</span></div>' +
+                        '</div>'
+                );
+                $content.click(function(e){
+                    console.log(event.start);
+                    $('#calendar').fullCalendar( 'changeView', 'basicDay' );
+                    $('#calendar').fullCalendar( 'gotoDate', event.start );
+                });
+                var $element = $(element);
+                $element.empty().append($content);
+                return $element;
+            } else {
+                var record = event.event;
+                var isIn = event.isIn;
+                var $content = $('<div class="detail"><span class="subcategory"><i class="fa fa-circle ' + (isIn ? 'bulletin-point-income' : 'bulletin-point-expense') + '"></i>'
+                        + record.record_subcategory.subcategory + '</span><span class="amount">'
+                        + currencyCodeStr + Math.round(record.amount_to_main) + '</span><span class="time">' + moment(record.date).format('HH:mm') + '</span></div>');
+                var $element = $(element);
+                $element.empty().append($content);
+                return $element;
+            }
+        },
+        events: function (start, end, timezone, callback) {
+            $.ajax({
+                url: Routes.records_path(),
+                data: {
+                    view: current_view,
+                    start: start.format('YYYY-MM-DD'),
+                    end: end.format('YYYY-MM-DD'),
+                    timezone: timezone
+                },
+                success: function (data) {
+                    var events = [];
+                    var records = data.records;
+                    currencyCodeStr = currency.symbolize(data.currencyCode);
+                    var eventsGroupByDate = groupBy(records, function (entry) {
+                        return moment(entry.date).format('YYYYMMDD');
+                    });
+                    for (var key in eventsGroupByDate) {
+                        if (eventsGroupByDate.hasOwnProperty(key)) {
+                            var inTotal = 0;
+                            var outTotal = 0;
+                            var total = 0;
+                            var eventsInDay = eventsGroupByDate[key];
+                            eventsInDay.forEach(function (entry, index) {
+                                var isIn = false;
+                                var isOut = false;
+                                if (entry.in_payment != null && entry.in_payment != 0) {
+                                    isIn = true;
+                                    inTotal += parseInt(entry.amount_to_main);
+                                    total += parseInt(entry.amount_to_main);
+                                }
+                                if (entry.out_payment != null && entry.out_payment != 0) {
+                                    isOut = true;
+                                    outTotal += parseInt(entry.amount_to_main);
+                                    total -= parseInt(entry.amount_to_main);
+                                }
+                                events.push({
+                                    start: entry.date,
+                                    end: entry.date,
+                                    order: index + 1,
+                                    allDay: true,
+                                    className: isIn ?
+                                            'calendar-event-in' : isOut ?
+                                            'calendar-event-out' : '',
+                                    event: entry,
+                                    isIn: isIn
+                                });
+                            });
+
+                            if (eventsInDay.length > 0) {
+                                events.push({
+                                    order: 0,
+                                    start: eventsInDay[0].date,
+                                    end: eventsInDay[0].date,
+                                    eventsInDay: eventsInDay,
+                                    allDay: true,
+                                    isSummary: true
+                                });
+                            }
+                        }
+                    }
+                    callback(events);
+                }
+            });
+        }
+        ,
+
+        eventClick: function (calEvent, jsEvent, view) {
+
+        }
+    });
+
+});

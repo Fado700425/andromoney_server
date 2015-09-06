@@ -12,9 +12,13 @@ AndromoneyServer::Application.routes.draw do
   
   get "/" => 'welcome#front',  constraints: {subdomain: 'web'}
   get "/" => 'welcome#front',  constraints: {subdomain: 'test'}
-  root to: redirect("http://www.andromoney.com")
+  #root to: redirect("http://www.andromoney.com")   #avoid force redirection to www.andromoney.com at developement mode.
+  root to: 'welcome#front'
 
   get 'start_use', controller: 'start', action: 'index'
+
+  get 'announcements/:category' => 'announcements#index'
+  get 'announcements' => 'announcements#index'
 
   resources :records do
     get "transfer_edit"

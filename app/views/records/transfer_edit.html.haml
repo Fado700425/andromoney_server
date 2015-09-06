@@ -58,7 +58,7 @@
                 = f.text_field(:project, {class: "form-control", "data-toggle" => "modal", 'data-target' => "#myProjectModal"})
                 
             = f.hidden_field :category, value: @transfer_category[0][0].hash_key, id: "transfer_category"
-            = f.hidden_field :sub_category, value: @transfer_subcategories[0][0].hash_key, id: "transfer_sub_category"
+            = f.hidden_field :subcategory, value: @transfer_subcategories[0][0].hash_key, id: "transfer_subcategory"
 
             %br
             %h4 #{t('category.main_category')}
@@ -84,7 +84,7 @@
                         %td
               %h4 #{t('subcategory.subcategory')}
               %table.table.table-bordered.category-table
-                %tbody.sub_category.transfer_category
+                %tbody.subcategory.transfer_category
                   = render 'subcategories', subcategories: @transfer_subcategories
             %h4 #{t('note')}
             = f.text_area :remark, class: 'form-control'
