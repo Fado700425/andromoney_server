@@ -1,6 +1,13 @@
 namespace :dev do
 
   desc "Rebuild system"
-  task :build => ["tmp:clear", "log:clear", "db:drop", "db:create", "db:migrate", "db:seed", "db:test:prepare"]
+  task :build => %w(tmp:clear log:clear db:drop db:create db:migrate db:seed db:test:prepare)
 
+  desc "generate dev seed"
+  task :import_sample => :environment do
+    Rake::Task["db:drop"].invoke
+    Rake::Task["db:create"].invoke
+    Rake::Task["db:migrate"].invoke
+    load File.join(pwd,'lib','sample.rb')
+  end
 end

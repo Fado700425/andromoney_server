@@ -329,6 +329,7 @@ en:
   sidebar:
     report: "Report"
     record: "Record"
+    calendar: "Calendar"
 
   category:
     category: "Category"

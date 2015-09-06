@@ -2,18 +2,18 @@ class Record < ActiveRecord::Base
   self.table_name = "record_table"
   belongs_to :user
   validates_presence_of :date
-  validates_uniqueness_of :hash_key,  scope: [ :user_id ]
+  validates_uniqueness_of :hash_key, scope: [:user_id]
 
 
   scope :api_select, -> { where(is_delete: false).select("id,mount,category,subcategory,date, in_payment,out_payment,remark,currency_code,amount_to_main,period,
                               payee,project,fee,in_amount,out_amount,in_currency,out_currency,hash_key,update_time,receipt_num,status"
-                        ) }
+  ) }
 
-  scope :month_from_now, ->(num) { where("is_delete = false and date >= ? AND  date < ?", (Date.today + num.month).beginning_of_month, (Date.today + (num+1).month ).beginning_of_month) }
+  scope :month_from_now, ->(num) { where("is_delete = false and date >= ? AND  date < ?", (Date.today + num.month).beginning_of_month, (Date.today + (num+1).month).beginning_of_month) }
 
-  scope :order_by_date, ->{order("date ASC")}
+  scope :order_by_date, -> { order("date ASC") }
 
-  scope :not_delete, -> {where(is_delete: false)}
+  scope :not_delete, -> { where(is_delete: false) }
 
   def category_order_num
     (category.split("_")[1].to_i*10 + category.split("_")[0].to_i) *1000 + (subcategory.split("_")[1].to_i*10 + subcategory.split("_")[0].to_i)
@@ -58,22 +58,25 @@ class Record < ActiveRecord::Base
   end
 
   def as_json(options)
-    json = super(:only => [:id,:mount,:category,:subcategory, :in_payment,:out_payment,:remark,:currency_code,:amount_to_main,:period,
-                              :payee,:project,:fee,:in_amount,:out_amount,:in_currency,:out_currency,:hash_key,:update_time, :is_delete,:status,:receipt_num])
+    if options[:platform] == :web
+      json =super(only: [:id, :date, :mount, :amount_to_main, :currency_code, :in_payment, :out_payment, :in_amount, :out_amount, :in_currency, :out_currency], methods: [:record_category, :record_subcategory, :record_project, :record_payee])
+      json
+    else
+      json = super(:only => [:id, :mount, :category, :subcategory, :in_payment, :out_payment, :remark, :currency_code, :amount_to_main, :period,
+                             :payee, :project, :fee, :in_amount, :out_amount, :in_currency, :out_currency, :hash_key, :update_time, :is_delete, :status, :receipt_num])
 
-    json["sub_category"] = json.delete "subcategory"
+      json["sub_category"] = json.delete "subcategory"
 
-    if attributes.include? "date"
-      if(date)
-        json.merge!(date: date.strftime("%Y%m%d")) 
-        record_time=date.strftime("%H%M")
-        json.merge!(record_time: record_time) if record_time!="0000" 
-      else
-         json.merge!(date: nil) if attributes.include? "date"
+      if attributes.include? "date"
+        if (date)
+          json.merge!(date: date.strftime("%Y%m%d"))
+          record_time=date.strftime("%H%M")
+          json.merge!(record_time: record_time) if record_time!="0000"
+        else
+          json.merge!(date: nil) if attributes.include? "date"
+        end
       end
+      json
     end
-
-
-    json
   end
 end

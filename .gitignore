@@ -15,6 +15,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/erd.pdf
 
 /config/database.yml
 /public/uploads
@@ -31,6 +32,8 @@
 
 /app/views/.DS_Store
 
+#Ignore bower components
+/vendor/assets/bower_components/
 
 # Ignore application configuration
 /config/application.yml
