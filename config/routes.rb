@@ -60,6 +60,7 @@ AndromoneyServer::Application.routes.draw do
   # get 'home', controller: 'accounts', action: 'info'
   get 'home', controller: 'reports', action: 'index'
   get 'calendar', controller: 'reports', action: 'calendar'
+  get 'test', controller: 'reports', action: 'test'
 
 
   get 'share_confirm', controller: 'api/v1/sync', action: 'confirm_share'

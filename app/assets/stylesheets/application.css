@@ -9,7 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require twitter/bootstrap
+ *= require bootstrap
  *= require bootstrap-datepicker
  *= require fancybox
  *= require_tree .
@@ -17,3 +17,11 @@
  *= require font-awesome
  *= require fullcalendar/dist/fullcalendar
  */
+
+
+
+*, *:after, *:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}

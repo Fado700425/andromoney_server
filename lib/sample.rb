@@ -23,8 +23,9 @@ subcategories = Hash.new { |h, k| h[k] = [] }
 end
 
 
-20.times do
-  record = Fabricate(:record, user_id: sample_user.id)
+10.times do
+  currency_code = Currency.all.to_a.sample.currency_code
+  record = Fabricate(:record, currency_code: currency_code, user_id: sample_user.id)
   record.send [:in_payment=, :out_payment=].sample, Fabricate(:payment, user_id: sample_user.id).hash_key
   unless record.in_payment.nil?
     category = categories[10].sample
@@ -38,7 +39,7 @@ end
     record.category = category.hash_key
     record.subcategory = subcategory.hash_key
   end
-  record.date = Faker::Time.between(DateTime.now - 30, DateTime.now)
+  record.date = Faker::Time.between(DateTime.now, DateTime.now)
   record.save
 end
 

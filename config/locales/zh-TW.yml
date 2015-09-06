@@ -326,7 +326,9 @@ zh-TW:
   login: "用戶登入"
   amount: "金額"
   note: "備註"
-
+  edit: "編輯"
+  delete: "刪除"
+  share: "分享"
   every_day: "(每天)"
   every_week: "(每周)"
   every_month: "(每月)"

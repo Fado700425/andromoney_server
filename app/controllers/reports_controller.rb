@@ -15,6 +15,10 @@ class ReportsController < ApplicationController
 
   end
 
+  def test
+    
+  end
+
   def create
     params[:month_from_now] = "0" unless params[:month_from_now]
 

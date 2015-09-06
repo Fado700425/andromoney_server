@@ -51,9 +51,8 @@ GEM
     addressable (2.3.5)
     arel (4.0.1)
     atomic (1.1.14)
-    bootstrap-sass-rails (3.0.2.1)
-      railties (>= 3.1.0)
-      sass-rails (>= 3.1.0)
+    bootstrap-sass (3.1.0.2)
+      sass (~> 3.2)
     bootstrap3-datetimepicker-rails (4.0.0)
       momentjs-rails (>= 2.8.1)
     bower-rails (0.10.0)
@@ -309,7 +308,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-datepicker-rails!
-  bootstrap-sass-rails
+  bootstrap-sass
   bootstrap3-datetimepicker-rails (~> 4.0.0)
   bower-rails (~> 0.10.0)
   bundler (>= 1.8.4)

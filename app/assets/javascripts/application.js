@@ -13,7 +13,7 @@
 //= require jquery/dist/jquery
 //= require jquery-ujs/src/rails
 //= require fancybox
-//= require twitter/bootstrap
+//= require bootstrap
 //= require bootstrap-datepicker
 //= require_tree .
 //= require moment/moment
