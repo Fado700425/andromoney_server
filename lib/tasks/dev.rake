@@ -5,9 +5,7 @@ namespace :dev do
 
   desc "generate dev seed"
   task :import_sample => :environment do
-    Rake::Task["db:drop"].invoke
-    Rake::Task["db:create"].invoke
-    Rake::Task["db:migrate"].invoke
+    Rake::Task["db:reset"].invoke
     load File.join(pwd,'lib','sample.rb')
   end
 end
