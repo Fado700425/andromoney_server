@@ -23,6 +23,7 @@ subcategories = Hash.new { |h, k| h[k] = [] }
 end
 
 
+
 100.times do
   currency_code = Currency.all.to_a.sample.currency_code
   record = Fabricate(:record, currency_code: currency_code, user_id: sample_user.id)
