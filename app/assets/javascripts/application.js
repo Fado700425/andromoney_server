@@ -22,6 +22,7 @@
 //= require js-routes
 //= require i18next/i18next.min
 //= require currency-symbol/currency
+//= require spin-js/spin
 
 
 $(document).ready(function() {

@@ -11,7 +11,8 @@
       "i18next"    : "git@github.com:i18next/i18next.git",
       "currency-symbol": "git@github.com:dulaccc/currency-symbol.js.git",
       "fullcalendar" : "git@github.com:tilumi/fullcalendar.git#add_event_ordering_feature",
-      "jquery-ujs": "git@github.com:rails/jquery-ujs.git"
+      "jquery-ujs": "git@github.com:rails/jquery-ujs.git",
+      "spin-js": "git@github.com:fgnass/spin.js.git"
     }
   }
 }
