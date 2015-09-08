@@ -25,16 +25,53 @@
     cursor: pointer;
 }
 
-.calendar-event-day-category-subcateogry{
-    color: rgba(26,131,171,255);
+.calendar-event-day-categories{
+    color: #268ab0;
     float:left;
     margin: 0;
 }
 
 .calendar-event-day-account{
-    color: rgba(122,122,0,255);
+    color: #808000;
     float:right;
     margin: 0;
+}
+
+.calendar-event-day-time{
+  float: right;
+  margin: 0;
+  color: #777777;
+}
+
+@mixin calendar-event-day-amount{
+  float: left;
+  margin: 0;
+}
+
+.calendar-event-day-amount-in{
+  @include calendar-event-day-amount;
+  color: #3cdc8d;
+}
+
+.calendar-event-day-amount-out{
+  @include calendar-event-day-amount;
+  color: #ef412e;
+}
+
+.calendar-event-day-remark{
+  margin: 1em 0;
+}
+
+.calendar-event-day-project{
+  float: left;
+  margin: 0;
+  color: #c88000;
+}
+
+.calendar-event-day-payee{
+  float: right;
+  margin: 0;
+  color: #c66400;
 }
 
 .detail .amount {
@@ -85,9 +122,9 @@
     margin-top: 2em;
     margin-bottom: 2em;
     font-size: 100%;
-    font-family: "Droid Serif", serif;
+    font-family: Lato,"Helvetica Neue",Arial,sans-serif;
     color: #7f8c97;
-    background-color: #e9f0f5;
+    background-color: #f5f5f5;
 }
 #timeline::before {
     /* this is the vertical line */
@@ -97,7 +134,7 @@
     left: 30px;
     height: 100%;
     width: 4px;
-    background: #d7e4ed;
+    background: #cccccc;
 }
 @media only screen and (min-width: 1170px) {
     #timeline {
@@ -145,17 +182,17 @@
     height: 40px;
     border-radius: 50%;
     box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
-    background: #75ce66;
+    background: #f5f5f5;
 }
 .timeline-img img {
     display: block;
-    width: 24px;
-    height: 24px;
+    width: 36px;
+    height: 36px;
     position: relative;
     left: 50%;
     top: 50%;
-    margin-left: -12px;
-    margin-top: -12px;
+    margin-left: -18px;
+    margin-top: -18px;
 }
 .timeline-img.cd-picture {
     background: #75ce66;
@@ -166,6 +203,7 @@
 .timeline-img.cd-location {
     background: #f0ca45;
 }
+
 @media only screen and (min-width: 1170px) {
     .timeline-img {
         width: 60px;
@@ -199,8 +237,8 @@
     display: table;
     clear: both;
 }
-.timeline-content h2 {
-    color: #303e49;
+.timeline-content {
+    color: #777777;
 }
 .timeline-content p, .timeline-content .cd-read-more, .timeline-content .cd-date {
     font-size: 20px;
@@ -210,7 +248,6 @@
     display: inline-block;
 }
 .timeline-content p {
-    margin: 1em 0;
     line-height: 1.6;
 }
 .timeline-content .cd-read-more {

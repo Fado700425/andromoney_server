@@ -22,7 +22,15 @@ subcategories = Hash.new { |h, k| h[k] = [] }
   end
 end
 
+projects = []
+10.times do
+  projects << Fabricate(:project, user_id: sample_user.id)
+end
 
+payees = []
+10.times do
+  payees << Fabricate(:payee, user_id: sample_user.id)
+end
 
 100.times do
   currency_code = Currency.all.to_a.sample.currency_code
@@ -40,11 +48,8 @@ end
     record.category = category.hash_key
     record.subcategory = subcategory.hash_key
   end
+  record.payee = payees.sample.hash_key
+  record.project = projects.sample.hash_key
   record.date = Faker::Time.between(DateTime.now - 10.days, DateTime.now + 10.days)
   record.save
-end
-
-10.times do
-  Fabricate(:payee)
-  Fabricate(:project)
 end

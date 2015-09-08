@@ -59,7 +59,7 @@ class Record < ActiveRecord::Base
 
   def as_json(options)
     if options[:platform] == :web
-      json =super(only: [:id, :date, :mount, :amount_to_main, :currency_code, :in_payment, :out_payment, :in_amount, :out_amount, :in_currency, :out_currency, :remark], methods: [:record_category, :record_subcategory, :record_in_payment, :record_out_payment])
+      json =super(only: [:id, :date, :mount, :amount_to_main, :currency_code, :in_payment, :out_payment, :in_amount, :out_amount, :in_currency, :out_currency, :remark], methods: [:record_category, :record_subcategory, :record_in_payment, :record_out_payment, :record_project, :record_payee])
       json
     else
       json = super(:only => [:id, :mount, :category, :subcategory, :in_payment, :out_payment, :remark, :currency_code, :amount_to_main, :period,
