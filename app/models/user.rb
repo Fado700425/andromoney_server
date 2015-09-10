@@ -16,7 +16,11 @@ class User < ActiveRecord::Base
 
 
   def get_main_currency
-    currencies.find_by(sequence_status: 0)
+    currency = currencies.find_by(sequence_status: 0)
+    if(currency == nil) 
+      currency = Currency.new(currency_code: "USD", rate:1, currency_remark: "US Dollar", sequence_status:0, flag_path: "America.png")
+    end
+    return currency
   end
 
 end
