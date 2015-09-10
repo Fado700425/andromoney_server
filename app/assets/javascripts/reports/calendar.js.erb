@@ -65,11 +65,11 @@ $(document).ready(function () {
         header: {
             left: 'title',
             center: '',
-            right: 'today,prev,next,month, basicWeek, basicDay'
+            right: 'today,prev,next month,basicWeek,basicDay'
         },
         timezone: 'local',
         eventLimit: true,
-        loading: function(bool) {
+        loading: function (bool) {
             if (bool)
                 $spinner.show();
             else
@@ -96,24 +96,25 @@ $(document).ready(function () {
                     var isIn = record.record_in_payment != null;
                     var payment_name = record.record_in_payment ? record.record_in_payment.payment_name : record.record_out_payment.payment_name;
                     var currencyCode = record.currency_code;
-                    var projectName = record.record_project == null? '': record.record_project.project_name;
-                    var payeeName = record.record_payee == null? '': record.record_payee.payee_name;
-                    var time =  moment(record.date).format('HH:mm');
+                    var projectName = record.record_project == null ? '' : record.record_project.project_name;
+                    var payeeName = record.record_payee == null ? '' : record.record_payee.payee_name;
+                    var time = moment(record.date).format('HH:mm');
                     var currencySymbol = currency.symbolize(currencyCode);
+                    var remark = record.remark==null?'':record.remark;
                     $recordElement = $('<div class="timeline-block"> ' +
                             '<div class="timeline-img picture"> <img src="assets/' + record.record_category.photo_path
                             + '" alt="Picture"> </div> <div class="timeline-content"> <div class="timeline-content-container" style="padding: 1.5em 1.5em 0em 1.5em;"></div></div> </div>');
-                    $title = $('<div><h2>' + currencySymbol + currencyCode + ' ' + amount + '</h2><p class="calendar-event-day-time">' + time + '</p><div><div style="clear: both;"></div>');
-                    $title.find('h2').addClass(isIn ? 'calendar-event-day-amount-in' : 'calendar-event-day-amount-out');
+                    $title = $('<div><span>' + currencySymbol + currencyCode + ' ' + amount + '</span><p class="calendar-event-day-time">' + time + '</p><div><div style="clear: both;"></div>');
+                    $title.find('span').addClass(isIn ? 'calendar-event-day-amount-in' : 'calendar-event-day-amount-out');
                     $categoriesAndAccount = $('<div><p class="calendar-event-day-categories">' + categroy + '-' + subcategroy + '</p><p class="calendar-event-day-account">' + payment_name + '</p></div><div style="clear: both;"></div>');
                     $projectAndPayee = $('<div><p class="calendar-event-day-project">' + projectName + '</p><p class="calendar-event-day-payee">' + payeeName + '</p></div><div style="clear: both;"></div>');
-                    $recordContent = $('<p class="calendar-event-day-remark">' + record.remark + '</p>');
+                    $recordContent = $('<p class="calendar-event-day-remark">' + remark + '</p>');
                     $footer = $('<div class="calendar-event-day-footer btn-group btn-group-justified" role="group" aria-label="...">' +
                             ' <div class="btn-group" role="group"> <button type="button" style="border: none; color: #777777;" class="btn btn-default"><i class="fa fa-edit"></i> ' + i18n.t('edit') + '</button> </div>' +
                             ' <div class="btn-group" role="group"> <button type="button" style="border-top: none; border-bottom: none;color: #777777;" class="btn btn-default"><i class="fa fa-trash"></i> ' + i18n.t('delete') + '</button> </div>' +
                             ' <div class="btn-group" role="group"> <button type="button" style="border: none;color: #777777;" class="btn btn-default"><i class="fa fa-share-alt"></i> ' + i18n.t('share') + '</button> </div> </div>');
-                    $timelineContent =$recordElement.find('.timeline-content');
-                    $timelineContentContainer =$recordElement.find('.timeline-content-container');
+                    $timelineContent = $recordElement.find('.timeline-content');
+                    $timelineContentContainer = $recordElement.find('.timeline-content-container');
                     $timelineContentContainer.append($title);
                     $timelineContentContainer.append($categoriesAndAccount);
                     $timelineContentContainer.append($projectAndPayee);
@@ -125,22 +126,17 @@ $(document).ready(function () {
             } else {
                 if (event.isSummary) {
                     var eventsInDay = event.eventsInDay;
-                    var inTotal = 0;
-                    var outTotal = 0;
                     var total = 0;
                     eventsInDay.forEach(function (entry) {
                         if (entry.in_payment != null && entry.in_payment != 0) {
-                            inTotal += parseInt(entry.amount_to_main);
                             total += parseInt(entry.amount_to_main);
                         }
                         if (entry.out_payment != null && entry.out_payment != 0) {
-                            outTotal += parseInt(entry.amount_to_main);
                             total -= parseInt(entry.amount_to_main);
                         }
                     });
                     var $content = $(
                             '<div class="calendar-event-summary"><div>' + moment(eventsInDay[0].date).format('YYYY/MM/DD') + ' <span class="amount">' + currencyCodeStr + total.toString() + '</span></div>' +
-                            '<div style="overflow:auto;"><span class="amount">' + currencyCodeStr + inTotal + '/' + currencyCodeStr + '-' + outTotal + '</span></div>' +
                             '</div>'
                     );
                     $content.click(function (e) {
@@ -153,9 +149,9 @@ $(document).ready(function () {
                 } else {
                     var record = event.event;
                     var isIn = event.isIn;
-                    var $content = $('<div class="detail"><span class="subcategory"><i class="fa fa-circle ' + (isIn ? 'bulletin-point-income' : 'bulletin-point-expense') + '"></i>'
+                    var $content = $('<div class="detail"><span class="detail-icon"><i class="fa fa-circle ' + (isIn ? 'bulletin-point-income' : 'bulletin-point-expense') + '"></i></span><span class="time">' + moment(record.date).format('HH:mm') + '</span><span class="subcategory">&nbsp;'
                             + record.record_subcategory.subcategory + '</span><span class="amount">'
-                            + currencyCodeStr + Math.round(record.amount_to_main) + '</span><span class="time">' + moment(record.date).format('HH:mm') + '</span></div>');
+                            + currencyCodeStr + Math.round(record.amount_to_main) + '</span></div>');
                     var $element = $(element);
                     $element.empty().append($content);
                     return $element;
