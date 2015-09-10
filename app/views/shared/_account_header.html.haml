@@ -31,6 +31,5 @@
             %li
               = link_to t('setting.account_management'), edit_account_path(1)
               - currency = current_user.get_main_currency
-              = link_to raw("<span>#{t('main_currency')}  </span><span>#{currency.currency_code}</span><div class='#{"flag_#{currency.flag_path[0..((currency.flag_path.index '.') - 1)].downcase.gsub /([ &()])/, '_'}"} flag_zoom'></div>"), :controller => 'setting', :action => 'edit'
         %li
           = link_to t('logout'), signout_path
