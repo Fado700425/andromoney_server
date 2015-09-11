@@ -31,7 +31,7 @@ $(document).ready(function(){
       (function readTargetCatSub() {
         for(var i=0, bound=that.enable.length; i<bound; i++){
           $('#' + that.enable[i] + '-category').attr('name',"record[category]");
-          $('#' + that.enable[i] + '-subcategory').attr('name',"record[sub_category]");
+          $('#' + that.enable[i] + '-subcategory').attr('name',"record[subcategory]");
         }
         for(var i=0, bound=that.disable.length; i<bound; i++){   
           $('#' + that.disable[i]  + '-category').attr('name',"record[hideCat]");

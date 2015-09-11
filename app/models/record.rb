@@ -6,7 +6,7 @@ class Record < ActiveRecord::Base
   validates :mount, presence: true
   validates :date, presence: true
   validates :category, presence: true
-  validates :sub_category, presence: true
+  validates :subcategory, presence: true
   validates :currency_code, presence: true
   validates_uniqueness_of :hash_key,  scope: [ :user_id ]
 
@@ -70,7 +70,7 @@ class Record < ActiveRecord::Base
     json = super(:only => [:id,:mount,:category,:subcategory, :in_payment,:out_payment,:remark,:currency_code,:amount_to_main,:period,
                               :payee,:project,:fee,:in_amount,:out_amount,:in_currency,:out_currency,:hash_key,:update_time, :is_delete,:status,:receipt_num])
 
-    json["sub_category"] = json.delete "subcategory"
+    json["subcategory"] = json.delete "subcategory"
 
     if attributes.include? "date"
       if(date)
