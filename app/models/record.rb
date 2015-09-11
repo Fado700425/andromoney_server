@@ -8,6 +8,7 @@ class Record < ActiveRecord::Base
   validates :category, presence: true
   validates :subcategory, presence: true
   validates :currency_code, presence: true
+  validates :user_id, presence: true
   validates_uniqueness_of :hash_key,  scope: [ :user_id ]
 
   # ===== scope =====
