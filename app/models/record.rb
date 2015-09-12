@@ -3,26 +3,25 @@ class Record < ActiveRecord::Base
   belongs_to :user
 
   # ===== validation =====
-  validates :mount, presence: true
+  validates :mount, presence: true, numericality: true
   validates :date, presence: true
   validates :category, presence: true
   validates :subcategory, presence: true
   validates :currency_code, presence: true
   validates :user_id, presence: true
   validates_uniqueness_of :hash_key,  scope: [ :user_id ]
+  validate  :categoy_belongs_to_user
+  validate  :category_type_fits_in_out_payment
+  validate  :subcategory_belongs_to_category
+  validate  :only_transfer_has_in_amount_currecny
 
   # ===== scope =====
   scope :api_select, -> { where(is_delete: false).select("id,mount,category,subcategory,date, in_payment,out_payment,remark,currency_code,amount_to_main,period,
                               payee,project,fee,in_amount,out_amount,in_currency,out_currency,hash_key,update_time,receipt_num,status"
                         ) }
-
   scope :month_from_now, ->(num) { where("is_delete = false and date >= ? AND  date < ?", (Date.today + num.month).beginning_of_month, (Date.today + (num+1).month ).beginning_of_month) }
-
   scope :order_by_date, ->{order("date ASC")}
-
   scope :not_delete, -> {where(is_delete: false)}
-
-  # ===== default value for select =====
 
   # ===== misc method =====
   def category_order_num
@@ -67,6 +66,47 @@ class Record < ActiveRecord::Base
     Payment.find_by(user_id: user_id, hash_key: in_payment)
   end
 
+  # ===== validation method =====
+  def categoy_belongs_to_user
+    @category = self.record_category
+    if(!@category)
+      errors.add(:category, " TBD #{}")
+    end
+  end
+
+  def category_type_fits_in_out_payment
+    @type = self.record_category.type if (self.record_category)
+    @in  = !self.in_payment.blank?
+    @out = !self.out_payment.blank?
+    if (@type==10 && @in && !@out) #income has only in_payment.
+    elsif (@type==20 && !@in && @out) #expense has only out_payment.
+    elsif (@type==30 && @in && @out) #expense has in_payment and out_payment.
+    else
+      errors.add(:category, " TBD #{}")
+    end
+  end
+
+  def subcategory_belongs_to_category
+    @category = self.record_category
+    @subcategory = self.record_subcategory
+    @category_find_by_subcategory = Category.find_by(user_id: user_id, hash_key: @subcategory.id_category) if (@category!=nil && @subcategory!=nil)  # only dedicate to the case when :category, :subcategory are exist.
+    if ( @category != @category_find_by_subcategory)
+      errors.add(:subcategory, " TBD #{}")
+    end
+  end
+
+  def only_transfer_has_in_amount_currecny
+    @is_transfer = self.in_payment && self.out_payment
+    @in_amount = !self.in_amount.blank?
+    @in_currency = !self.in_currency.blank?
+    if ( @is_transfer && @in_amount && @in_currency )
+    elsif ( !@is_transfer && !@in_amount && !@in_currency )
+    else
+      errors.add(:in_amount, " TBD #{}")
+    end
+  end
+
+  # ===== json =====
   def as_json(options)
     json = super(:only => [:id,:mount,:category,:subcategory, :in_payment,:out_payment,:remark,:currency_code,:amount_to_main,:period,
                               :payee,:project,:fee,:in_amount,:out_amount,:in_currency,:out_currency,:hash_key,:update_time, :is_delete,:status,:receipt_num])
@@ -82,7 +122,6 @@ class Record < ActiveRecord::Base
          json.merge!(date: nil) if attributes.include? "date"
       end
     end
-
 
     json
   end
