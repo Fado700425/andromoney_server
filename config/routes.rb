@@ -41,7 +41,7 @@ AndromoneyServer::Application.routes.draw do
     end
     member do
       get 'message'
-      post 'reset'
+      post 'delete'
     end
   end
   resources :categories do

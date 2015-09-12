@@ -321,6 +321,7 @@ en:
   main_currency: "Main Currency"
   reset: "Reset"
   confirm: "Confirm"
+  delete: "Delete"
 
   every_day: "(Every Day)"
   every_week: "(Every Week)"
@@ -414,12 +415,12 @@ en:
     cannot_update_multi_in_one_day: "Cannot update main currency more than once in one day"
     account_management: "Account Management"
     data_setting: "Data Setting"
-    reset_account: "Reset all data of this account"
+    delete_account: "Delete this account (all data will be cleared and cannot be restored)"
     submit_currency: "Update your main currency to"
-    update_currency_fail: "Fail to update main currency"
-    reset_success: "Reset account data Success!"
-    reset_fail: "Fail to reset account data"
-    reset_confirm: "After reset all data will be deleted"
+    update_currency_fail: "Fail to delete main currency"
+    delete_success: "Delete account Success!!"
+    delete_fail: "Fail to delete account"
+    delete_confirm: "After delete all data will be cleared(cannot revert) and sign out!!"
 
   date:
     abbr_day_names:

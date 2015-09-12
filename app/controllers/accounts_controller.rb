@@ -8,7 +8,7 @@ class AccountsController < ApplicationController
   def info
   end
 
-  def reset
+  def delete
     begin 
       ActiveRecord::Base.transaction do
         Record.delete_all(user_id: current_user.id)
@@ -22,14 +22,17 @@ class AccountsController < ApplicationController
         Subcategory.delete_all(user_id: current_user.id)
         Device.delete_all(user_id: current_user.id)
         Message.delete_all(user_id: current_user.id)
+        User.delete(current_user.id)
       end
     rescue
-      flash[:danger] = t('setting.reset_fail')
+      flash[:danger] = t('setting.delete_fail')
+      redirect_to edit_account_path(1)
     else
-      flash[:success] = t('setting.reset_success')
+      session[:user_id] = nil
+      reset_session
+      flash[:success] = t('setting.delete_success')
+      redirect_to root_url
     end
-    
-    redirect_to edit_account_path(1)
   end
 
   def message

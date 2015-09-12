@@ -329,6 +329,7 @@ ja:
   main_currency: "主な通貨"
   reset: "リセット"
   confirm: "確認します"
+  delete: "削除します"
 
   every_day: "(毎日)"
   every_week: "(每周)"
@@ -422,12 +423,12 @@ ja:
     cannot_update_multi_in_one_day: "1日に複数回の主通貨を更新することはできません"
     account_management: "アカウント管理"
     data_setting: "データ設定"
-    reset_account: "このアカウントのすべてのデータをリセット"
+    delete_account: "このアカウントを削除します"
     submit_currency: "本位貨幣を更新してに着かないでくださいかどうか"
     update_currency_fail: "主な通貨の更新に失敗します"
-    reset_success: "アカウントデータの成功をリセット！"
-    reset_fail: "アカウントデータをリセットするために失敗"
-    reset_confirm: "リセット後のデータはすべて削除されます"
+    delete_success: "アカウントの成功を削除します！!"
+    delete_fail: "アカウントを削除することができません"
+    delete_confirm: "後すべてのデータが消去されます削除する（元に戻すことはできません）とサインアウト！"
 
   date:
     abbr_day_names:
