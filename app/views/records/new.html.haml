@@ -12,5 +12,6 @@
           %a{id: "transferLink", "data-toggle" => "tab", :href => "transferTab"} #{t('record_type.transfer')}
 
       .row
-        .recordForm.clearfix
+        = render 'spinner'
+        .recordForm
           = render 'form_record'

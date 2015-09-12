@@ -2,6 +2,7 @@ $(document).ready(function(){
   var isRecordform = $(".verify-record-form").data('token');
 
   if(isRecordform){
+    $(".spinner").hide();
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     function SelectObj(enableSelectArr, disableSelectArr) {
       this.enable  = enableSelectArr;
@@ -150,6 +151,7 @@ $(document).ready(function(){
       })();
     }
     // apply all msDropDown immediately after "document ready"
+    console.time("start")
     $(".select-with-icon").msDropDown().data("dd");
     $(".category-select-with-icon").msDropDown().data("dd");
     $(".receiver-select-with-icon").msDropDown().data("dd");
@@ -159,6 +161,7 @@ $(document).ready(function(){
     expense.setDynamicSelect();
     // refresh if it is "edit" page.
     setEditPage();
+    console.timeEnd("start")
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     // apply when "click tab"
@@ -197,4 +200,8 @@ $(document).ready(function(){
     })();
   }
 
+});
+
+$(document).on("page:fetch", function(){
+  $(".spinner").show();
 });
