@@ -40,3 +40,21 @@
   text-transform: uppercase;
   border: 0 !important;
 }
+
+#data-setting h3 {
+  color: #6dba89;
+  padding: 0px 0px 10px 0px;
+}
+
+.option-head {
+  font-size: 18px;
+  padding: 10px 0px 0px 0px;
+}
+
+tbody.setting_table tr td {
+  width: 80%;
+}
+
+.reset_account_confirm {
+  font-size: 18px;
+}
