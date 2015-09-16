@@ -4,10 +4,10 @@ ja:
   not_read: "(未読)"
   start_use: "トライアル開始"
   cancel: "取消"
+  search: "検索"
 
   start:
     start_message: "先ずは先に携帯にソフトウェアをダウンロードしてから、同期化を開始してください。 AndroMoney クラウドサービス!"
-
   share_email: "あなたと (%{account})アカウント情報をシェアします!"
   owner_delete_email: " %{email}のアカウント情報のシェアを取消しました。"
   sharer_receive_delete_email: "%{email} アカウント情報のシェアを取消しました"
@@ -30,6 +30,10 @@ ja:
   login: "ユーザーログイン"
   amount: "金額"
   note: "備考"
+  main_currency: "主な通貨"
+  reset: "リセット"
+  confirm: "確認します"
+  delete: "削除します"
 
   every_day: "(毎日)"
   every_week: "(每周)"
@@ -110,9 +114,25 @@ ja:
   balance: "残額"
   other: "その他"
   rate: "レート"
+  attention: "注意"
 
   account:
     account: "アカウント"
+
+  setting:
+    setting: "設定します"
+    now_currency: "あなたの主な通貨になりました"
+    choose_currency: "自分のメイン通貨を選択してください"
+    update_currency_success: "成功の主な通貨を更新"
+    cannot_update_multi_in_one_day: "1日に複数回の主通貨を更新することはできません"
+    account_management: "アカウント管理"
+    data_setting: "データ設定"
+    delete_account: "このアカウントを削除します"
+    submit_currency: "本位貨幣を更新してに着かないでくださいかどうか"
+    update_currency_fail: "主な通貨の更新に失敗します"
+    delete_success: "アカウントの成功を削除します！!"
+    delete_fail: "アカウントを削除することができません"
+    delete_confirm: "後すべてのデータが消去されます削除する（元に戻すことはできません）とサインアウト！"
 
   date:
     abbr_day_names:

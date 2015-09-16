@@ -34,3 +34,4 @@
 # Ignore application configuration
 /config/application.yml
 /config/deploy.rb
+/vendor/assets/bower_components/

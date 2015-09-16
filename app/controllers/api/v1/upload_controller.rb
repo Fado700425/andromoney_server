@@ -110,6 +110,7 @@ private
     return unless params
     params.each do |param|
       begin
+        param[:subcategory] = param.delete :sub_category if param.key?(:sub_category)
         param[:update_time] = DateTime.parse(param[:update_time]) if param[:update_time]
         param[:user_id] = user.id
         param[:device_uuid] = device_uuid
@@ -136,13 +137,14 @@ private
       # logger.info "**************************************************************************************************************************************************************************************************************fail dddddddddddddddd****************" 
       # Rails.logger.debug param.inspect
       # logger.info "**************************************************************************************************************************************************************************************************************fail dddddddddddddddd****************" 
-      data = eval(class_name.classify).find_by(key => param[key], user_id: user.id)
       # Rails.logger.debug data.inspect
       # logger.info "－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－"
       # Rails.logger.debug param.inspect
       param[:update_time] = DateTime.parse(param[:update_time]) if param[:update_time]
       param[:is_delete] = false
       param[:device_uuid] = device_uuid
+      param[:subcategory] = param.delete :sub_category if param.key?(:sub_category)
+      data = eval(class_name.classify).find_by(key => param[key], user_id: user.id)
       data.update_attributes(param) if (data && data.update_time < param[:update_time])
     end
   end

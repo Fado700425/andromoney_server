@@ -4,10 +4,10 @@ en:
   not_read: "(Not Read)"
   start_use: "Start to Use"
   cancel: "Cancel"
+  search: "Search"
 
   start:
     start_message: "Please download AndroMoney mobile app(Android or iOS), and start to use web service after syncing data!"
-
   share_email: "wants to share account (%{account}) with you!"
   owner_delete_email: "Cancel sharing account with %{email}"
   sharer_receive_delete_email: "%{email} already cancel to share account with you"
@@ -30,6 +30,10 @@ en:
   login: "Login"
   amount: "Amount"
   note: "Note"
+  main_currency: "Main Currency"
+  reset: "Reset"
+  confirm: "Confirm"
+  delete: "Delete"
 
   every_day: "(Every Day)"
   every_week: "(Every Week)"
@@ -110,9 +114,25 @@ en:
   balance: "Balance"
   other: "Other"
   rate: "Rate"
+  attention: "Attention"
 
   account:
     account: "Account"
+
+  setting:
+    setting: "Setting"
+    now_currency: "Your current main currency"
+    choose_currency: "Please choose your Main Currency"
+    update_currency_success: "Update main currency successfully"
+    cannot_update_multi_in_one_day: "Cannot update main currency more than once in one day"
+    account_management: "Account Management"
+    data_setting: "Data Setting"
+    delete_account: "Delete this account (all data will be cleared and cannot be restored)"
+    submit_currency: "Update your main currency to"
+    update_currency_fail: "Fail to delete main currency"
+    delete_success: "Delete account Success!!"
+    delete_fail: "Fail to delete account"
+    delete_confirm: "After delete all data will be cleared(cannot revert) and sign out!!"
 
   date:
     abbr_day_names:

@@ -25,6 +25,7 @@ class Api::V1::AddDatasController < ApplicationController
   def insert_datas(params,user,class_name,key,device_uuid)
     params.each do |param|
       begin
+        param[:subcategory] = param.delete :sub_category if param.key?(:sub_category)
         param[:update_time] = DateTime.parse(param[:update_time]) if param[:update_time]
         param[:user_id] = user.id
         param[:device_uuid] = device_uuid
