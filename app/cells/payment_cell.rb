@@ -1,8 +1,8 @@
 class PaymentCell < Cell::ViewModel
   cache :show do |options|
     current_user ||= User.find(session[:user_id]) if session[:user_id]
-    latestPayment = Payment.select(:update_time).where(user_id: current_user.id).order(:update_time).limit(1)
-    latestRecord = Record.select(:update_time).where(user_id: current_user.id).order(:update_time).limit(1)
+    latestPayment = Payment.select(:update_time).where(user_id: current_user.id).order('update_time DESC').limit(1)
+    latestRecord = Record.select(:update_time).where(user_id: current_user.id).order('update_time DESC').limit(1)
 
     if(latestPayment.size == 1)
       paymentKey = latestPayment[0].update_time.strftime("%Y%m%d%H%M%S")
