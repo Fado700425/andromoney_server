@@ -33,63 +33,7 @@
                           %span#total_remain.money_info.text-success 0
       .row
         .module-content.table-responsive
-          %table.table.table-striped
-            %thead
-              %tr
-                %th= t('payment.payment')
-                %th= t('payment.init_amount')
-                %th= t('record_type.income')
-                %th= t('record_type.expense')
-                %th= t('balance')
-                %th= t('rate')
-                %th #{current_user.get_main_currency.currency_code}結餘
-                %th
-            %tbody
-              - @payments.each do |payment|
-                %tr
-                  %td
-                    = image_tag icon_path[payment.kind], width: "40px"
-                    = payment.payment_name
-                    (#{payment.display_currency_code(current_user)})
-                  %td
-                    %span.text-success
-                      #{payment.display_currency_code(current_user)}
-                      - init_amount = payment.init_amount
-                      %span.init_amount
-                        = init_amount
-                    
-                  %td
-                    %span.text-success
-                      #{payment.display_currency_code(current_user)} 
-                      - income = payment.income
-                      = income
-                  %td
-                    %span.text-danger
-                      #{payment.display_currency_code(current_user)}
-                      \-
-                      - expense = payment.expense
-                      = expense
-                  %td
-                    %span.text-success
-                      #{payment.display_currency_code(current_user)} 
-                      = init_amount + income - expense
-                  %th
-                    1:
-                    - exchange_rate = payment.exchange_rate
-                    = exchange_rate
-                  %td
-                    %span.text-success
-                      #{current_user.get_main_currency.currency_code}
-                      %span.remain
-                        = ((init_amount + income - expense) * exchange_rate).round(2)
-                  %td
-                    %button.btn.btn-xs.btn-success.btn-edit.edit_category
-                      = link_to "#a","data-toggle" => "modal", 'data-target' => "#myAccountModal", data:{kind:payment.kind,name: payment.payment_name, initial: 0, payment_id: payment.id} do
-                        %span.glyphicon.glyphicon-pencil
-                        = t('edit')
-                    / %button.btn.btn-xs.btn-danger.btn-remove
-                    /   = link_to payment_path(payment), method: :delete, data: { confirm: 'Are you sure?' } do
-                    /     %span.glyphicon.glyphicon-remove
+          = cell(:payment).(:show, current_user, icon_path)
 
 #myAccountModal.modal.fade
   .modal-dialog
@@ -142,6 +86,3 @@
               = text_field_tag "initial_amount","", class: "form-control",placeholder: t('payment.amount_placeholder')
           .record_modal_footer
             = submit_tag t('confirm_add'), class: "btn btn-primary"
-
-
-                

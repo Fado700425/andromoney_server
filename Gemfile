@@ -26,6 +26,8 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
 gem 'will_paginate'
 gem 'rails-asset-localization', git: 'git@github.com:nicolai86/rails-asset-localization.git', branch: :master
 
+gem 'cells', "~> 4.0.0"
+gem 'cells-haml'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
