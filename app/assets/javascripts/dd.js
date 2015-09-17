@@ -51,14 +51,14 @@ if (typeof $.expr.createPseudo === 'function') {
 }
 //dropdown class
 function dd(element, settings) {
-	var settings = $.extend(true,
+	var settings = $.extend(false,
 		{byJson: {data: null, selectedIndex: 0, name: null, size: 1, multiple: false, width: "100%"},
 		mainCSS: 'dd',
 		height: 120, //not using currently
 		visibleRows: 2,		// fix rowHeight for multiple selection display.
 		rowHeight: 0,
 		showIcon: true,
-		zIndex: 9999,
+		zIndex: 100,
 		useSprite: false,
 		animStyle: 'slideDown',
 		event:'click',
@@ -73,7 +73,7 @@ function dd(element, settings) {
 		append:'',
 		prepend:'',
 		reverseMode:true, //it will update the msdropdown UI/value if you update the original dropdown - will be usefull if are using knockout.js or playing with original dropdown
-		roundedCorner:true,
+		roundedCorner:false,
 		enableAutoFilter:true,
 		on: {create: null,open: null,close: null,add: null,remove: null,change: null,blur: null,click: null,dblclick: null,mousemove: null,mouseover: null,mouseout: null,focus: null,mousedown: null,mouseup: null}
 		}, settings);								  
@@ -290,7 +290,7 @@ function dd(element, settings) {
 		};
 		var intcss = getInternalStyle(getElement(element));
 		var w = $("#" + element).outerWidth();
-		obj.style = "width: " + w + "px;";
+		obj.style = "width: 205px;";			// adjust select width !!!
 		if (intcss.length > 0) {
 			obj.style = obj.style + "" + intcss;
 		};
@@ -456,7 +456,7 @@ function dd(element, settings) {
 			if (val == -1) { //auto
 				$("#"+childid).css({height: "auto", overflow: "auto"});
 			} else {				
-				$("#"+childid).css("height", val+"px");
+				$("#"+childid).css("height", "200px");	// adjust select height !!!
 			};
 			return false;
 		};

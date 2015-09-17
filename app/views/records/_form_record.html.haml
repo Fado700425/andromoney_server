@@ -3,64 +3,63 @@
   .form-group
     .container-fluid.record
       .row
-        .col-md-3
-          .input-group
-            %span.input-group-addon
-              = image_tag("currency_sign_dollar.png", width: "15px")
-              #{t('amount')}
-            = f.number_field(:mount, class: "form-control", step: 'any')
-  .form-group
-    .container-fluid.record
-      .row
-        .col-md-3
+        .col-md-12
           .input-group
             %span.input-group-addon
               %span.glyphicon.glyphicon-calendar
               #{t('report.date')}
             = f.text_field(:date, {id: "datetimepicker_report", class: "form-control", })
-
+            %span.input-group-addon
+              = image_tag("currency_sign_dollar.png", width: "15px")
+              #{t('amount')}
+            = f.number_field(:mount, class: "form-control", step: 'any')
+            
   -# the 2nd line
   .form-group
     .container-fluid.record
-      .row.row-full-width
-        .col-md-10
-          .col-md-3
-            %span.label.label-primary.select-label
-              %span.glyphicon.glyphicon-th-large
-              #{t('category.main_category')}
+      .row
+        .record-box
+          %span.label.label-primary.select-label
+            %span.glyphicon.glyphicon-th-large
+            #{t('category.main_category')}
 
-            = f.select(:category, @expense_category.collect {|p| [ p.category , p.hash_key, :"data-image" => asset_path(p.photo_path) ]}, {selected: default_selected(@record.category,  @expense_category.first.hash_key)}, { class: "category-select-with-icon", id: "expense-category", size: 5 })
+          = f.select(:category, @expense_category.collect {|p| [ p.category , p.hash_key, :"data-image" => asset_path(p.photo_path) ]}, {selected: default_selected(@record.category,  @expense_category.first.hash_key)}, { class: "category-select-with-icon", id: "expense-category", size: 5 })
 
-            = f.select(:category, @income_category.collect {|p| [ p.category , p.hash_key, :"data-image" => asset_path(p.photo_path) ]}, {selected: default_selected(@record.category,  @income_category.first.hash_key)}, { class: "category-select-with-icon", id: "income-category",  size: 5 })
+          = f.select(:category, @income_category.collect {|p| [ p.category , p.hash_key, :"data-image" => asset_path(p.photo_path) ]}, {selected: default_selected(@record.category,  @income_category.first.hash_key)}, { class: "category-select-with-icon", id: "income-category",  size: 5 })
 
-            = f.select(:category, @transfer_category.collect {|p| [ p.category , p.hash_key, :"data-image" => asset_path(p.photo_path) ]}, {selected: default_selected(@record.category,  @transfer_category.first.hash_key)}, { class: "category-select-with-icon", id: "transfer-category", size: 5 })
+          = f.select(:category, @transfer_category.collect {|p| [ p.category , p.hash_key, :"data-image" => asset_path(p.photo_path) ]}, {selected: default_selected(@record.category,  @transfer_category.first.hash_key)}, { class: "category-select-with-icon", id: "transfer-category", size: 5 })
 
-          .col-md-3
-            %span.label.label-primary.select-label
-              %span.glyphicon.glyphicon-list-alt
-              #{t('subcategory.subcategory')}
+        .record-box
+          %span.label.label-primary.select-label
+            %span.glyphicon.glyphicon-list-alt
+            #{t('subcategory.subcategory')}
 
-            = f.grouped_collection_select(:subcategory, @expense_category, :subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.subcategory)}, {class: 'subcategory-select-with-icon', id: "expense-subcategory", size: 6 })
+          = f.grouped_collection_select(:subcategory, @expense_category, :subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.subcategory)}, {class: 'subcategory-select-with-icon', id: "expense-subcategory", size: 6 })
 
-            = f.grouped_collection_select(:subcategory, @income_category, :subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.subcategory)}, {class: 'subcategory-select-with-icon', id: "income-subcategory", size: 6 })
+          = f.grouped_collection_select(:subcategory, @income_category, :subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.subcategory)}, {class: 'subcategory-select-with-icon', id: "income-subcategory", size: 6 })
 
-            = f.grouped_collection_select(:subcategory, @transfer_category, :subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.subcategory)}, {class: 'subcategory-select-with-icon', id: "transfer-subcategory", size: 6 })
+          = f.grouped_collection_select(:subcategory, @transfer_category, :subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.subcategory)}, {class: 'subcategory-select-with-icon', id: "transfer-subcategory", size: 6 })
 
-          .col-md-3
-            %span.label.label-primary.select-label
-              %span.glyphicon.glyphicon-share
-              #{t('payment.payment')}
-            = f.select(:out_payment, @payments.collect {|p| [ p.payment_name + "-" + p.currency_code, p.hash_key, :"data-image" => asset_path(payment_icon(p.kind)) ]}, {selected: default_selected(@record.out_payment, @payments.first.hash_key)}, {class: 'select-with-icon', size: 5 })
+        .record-box
+          %span.label.label-primary.select-label.nontrans-label
+            %span.glyphicon.glyphicon-share
+            #{t('payment.payment')}
+          %span.label.label-primary.select-label.transfer-label
+            %span.glyphicon.glyphicon-log-out
+            #{t('transfer.out')}
+          = f.select(:out_payment, @payments.collect {|p| [ p.payment_name + "-" + p.currency_code, p.hash_key, :"data-image" => asset_path(payment_icon(p.kind)) ]}, {selected: default_selected(@record.out_payment, @payments.first.hash_key)}, {class: 'select-with-icon', size: 5 })
 
-          .col-md-3
-            %span.label.label-primary.select-label
-              %span.glyphicon.glyphicon-check
-              #{t('payee.payee')}
-            = f.select(:payee, @payees.collect {|p| [ p.payee_name, p.hash_key ]}, {selected: default_selected(@record.payee)}, {class: 'receiver-select-with-icon', id: "nontrans-receiver", size: 5 })
+        .record-box
+          %span.label.label-primary.select-label.nontrans-label
+            %span.glyphicon.glyphicon-check
+            #{t('payee.payee')}
+          = f.select(:payee, @payees.collect {|p| [ p.payee_name, p.hash_key ]}, {selected: default_selected(@record.payee)}, {class: 'receiver-select-with-icon', id: "nontrans-receiver", size: 5 })
+          %span.label.label-primary.select-label.transfer-label
+            %span.glyphicon.glyphicon-log-in
+            #{t('transfer.in')}
+          = f.select(:in_payment, @payments.collect {|p| [ p.payment_name + "-" + p.currency_code, p.hash_key, :"data-image" => asset_path(payment_icon(p.kind)) ]}, {selected: default_selected(@record.in_payment, @payments.second.hash_key)}, {class: 'receiver-select-with-icon', id: "transfer-receiver", size: 5 })
 
-            = f.select(:in_payment, @payments.collect {|p| [ p.payment_name + "-" + p.currency_code, p.hash_key, :"data-image" => asset_path(payment_icon(p.kind)) ]}, {selected: default_selected(@record.in_payment, @payments.second.hash_key)}, {class: 'receiver-select-with-icon', id: "transfer-receiver", size: 5 })
-
-        .col-md-2
+        .record-box
           %span.label.label-primary.select-label
             %span.glyphicon.glyphicon-book
             #{t('project.project')}

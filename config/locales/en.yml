@@ -114,6 +114,10 @@ en:
     payee: "Payee"
     choose: "Choose Payee"
 
+  transfer:
+    in: "Deposit Account"
+    out: "Withdrawal Account"
+
   total: "Total"
   balance: "Balance"
   other: "Other"

@@ -55,6 +55,16 @@ $(document).ready(function(){
           $('#transfer-receiver').addClass("hide");
         }
       })();
+      // hide or show label 
+      (function showTransOrNontraLabel() {
+        if(that.targetObj==="transfer"){
+          $('.nontrans-label').addClass("hide");
+          $('.transfer-label').removeClass("hide");
+        } else {
+          $('.nontrans-label').removeClass("hide");
+          $('.transfer-label').addClass("hide");
+        }
+      })();
       // read or filter out receiver
       (function readTransOrNontra() {
         if(that.targetObj==="transfer"){

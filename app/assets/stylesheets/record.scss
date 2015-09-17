@@ -139,20 +139,21 @@ td.record-remark{
 }
 
 .record {
-  .row-full-width {
-    margin-left:  -30px;
-    margin-right: -20px;
-  }
-  .select-with-icon, .category-select-with-icon, .subcategory-select-with-icon, .receiver-select-with-icon{
-    display:block;        /* full-width */
-    width: 100%;
+  .record-box {
+    display: inline-block;
+    width: 19.5%;
   }
 
   .select-label {
-    display:block;        /* full-width */
+    display: inline-block;
+    width: 205px;
     position:relative;
-    line-height: 18px;
-    font-size: 14px;
-    border-radius: 4px;
+    line-height: 24px;
+    font-size: 16px;
+
+    border-top-left-radius:     4px;
+    border-top-right-radius:    4px;
+    border-bottom-left-radius:  0px;
+    border-bottom-right-radius: 0px;
   }
 }
