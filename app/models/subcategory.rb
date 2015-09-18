@@ -2,7 +2,7 @@ class Subcategory < ActiveRecord::Base
   self.table_name = "subcategory_table"
 
   belongs_to :user
-  belongs_to :category, foreign_key: "id_category", primary_key: "hash_key"
+  #belongs_to :category, foreign_key: "id_category", primary_key: "hash_key"
 
   default_scope { order('order_no desc') } 
   scope :not_hidden, ->{where("hidden = 0 and is_delete = 0")} 

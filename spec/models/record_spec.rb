@@ -128,6 +128,13 @@ describe Record do
 			end
 			it { should_not be_valid }
 		end
+
+		describe "with the same in_payment & out_payment" do
+			before do
+				record.out_payment = record.in_payment
+			end
+			it { should_not be_valid }
+		end
 	end
 
 	describe "with category from other user" do
