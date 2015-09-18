@@ -12,4 +12,10 @@ class Category < ActiveRecord::Base
   validates_uniqueness_of :hash_key, scope: [ :user_id ]
   scope :api_select, -> { where(is_delete: false).select("id,category,type,photo_path,hidden,order_no,hash_key,update_time"
                         ) }
+
+  def get_subcategories		#method for record#new/edit view, grouped_collection_select.
+    subcategories = Subcategory.where(user_id: self.user_id).where(id_category: self.hash_key).not_hidden.order(:order_no)
+    return subcategories
+  end
+
 end

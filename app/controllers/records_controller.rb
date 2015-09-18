@@ -152,15 +152,15 @@ private
     
   end
 
-  def fetch_variables_for_records()
-    @expense_category   = Category.where(user_id: current_user.id, type: 20, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).not_hidden.order(:order_no).to_a
-    @income_category    = Category.where(user_id: current_user.id, type: 10, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).where.not(hash_key:"SYSTEM").not_hidden.order(:order_no).to_a
-    @transfer_category  = Category.where(user_id: current_user.id, type: 30, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).not_hidden.order(:order_no).to_a
-    @payments = Payment.where(user_id: current_user.id).not_hidden.order(:order_no).to_a
-    @payees = Payee.where(user_id: current_user.id).not_hidden.order(:order_no).to_a
-    @projects = Project.where(user_id: current_user.id).not_hidden.order(:order_no).to_a
-    @subcategories = Subcategory.where(user_id: current_user.id).not_hidden.order(:order_no).to_a
-    @income_subcategories = Subcategory.where(user_id: current_user.id).not_hidden.order(:order_no).to_a
-    @transfer_subcategories = Subcategory.where(user_id: current_user.id).not_hidden.order(:order_no).to_a
+  def fetch_variables_for_records
+    @expense_category   = Category.where(user_id: current_user.id, type: 20).not_hidden.order(:order_no)
+    @income_category    = Category.where(user_id: current_user.id, type: 10).where.not(hash_key:"SYSTEM").not_hidden.order(:order_no)
+    @transfer_category  = Category.where(user_id: current_user.id, type: 30).not_hidden.order(:order_no)
+    @payments   = Payment.where(user_id: current_user.id).not_hidden.order(:order_no)
+    @payees     = Payee.where(user_id: current_user.id).not_hidden.order(:order_no)
+    @projects   = Project.where(user_id: current_user.id).not_hidden.order(:order_no)
+    @subcategories = Subcategory.where(user_id: current_user.id).not_hidden.order(:order_no)
+    @income_subcategories = Subcategory.where(user_id: current_user.id).not_hidden.order(:order_no)
+    @transfer_subcategories = Subcategory.where(user_id: current_user.id).not_hidden.order(:order_no)
   end
 end

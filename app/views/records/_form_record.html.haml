@@ -34,11 +34,11 @@
             %span.glyphicon.glyphicon-list-alt
             #{t('subcategory.subcategory')}
 
-          = f.grouped_collection_select(:subcategory, @expense_category, :subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.subcategory)}, {class: 'subcategory-select-with-icon', id: "expense-subcategory", size: 6 })
+          = f.grouped_collection_select(:subcategory, @expense_category, :get_subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.subcategory)}, {class: 'subcategory-select-with-icon', id: "expense-subcategory", size: 6 })
 
-          = f.grouped_collection_select(:subcategory, @income_category, :subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.subcategory)}, {class: 'subcategory-select-with-icon', id: "income-subcategory", size: 6 })
+          = f.grouped_collection_select(:subcategory, @income_category, :get_subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.subcategory)}, {class: 'subcategory-select-with-icon', id: "income-subcategory", size: 6 })
 
-          = f.grouped_collection_select(:subcategory, @transfer_category, :subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.subcategory)}, {class: 'subcategory-select-with-icon', id: "transfer-subcategory", size: 6 })
+          = f.grouped_collection_select(:subcategory, @transfer_category, :get_subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.subcategory)}, {class: 'subcategory-select-with-icon', id: "transfer-subcategory", size: 6 })
 
         .record-box
           %span.label.label-primary.select-label.nontrans-label
