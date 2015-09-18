@@ -141,7 +141,28 @@ td.record-remark{
 .record {
   .record-box {
     display: inline-block;
-    width: 19.5%;
+    width: 20%;
+  }
+
+  .box-1 {
+    position: relative;
+    left: -0.4%;
+  }
+  .box-2 {
+    position: absolute;
+    left: 21%;
+  }
+  .box-3 {
+    position: absolute;
+    left: 41%;
+  }
+  .box-4 {
+    position: absolute;
+    left: 61%;
+  }
+  .box-5 {
+    position: absolute;
+    left: 81%;
   }
 
   .select-label {
@@ -156,4 +177,5 @@ td.record-remark{
     border-bottom-left-radius:  0px;
     border-bottom-right-radius: 0px;
   }
+
 }

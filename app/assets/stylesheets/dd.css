@@ -17,7 +17,7 @@ filter:alpha(opacity=50); /* ie lt 7 */
 color:#999999;
 }
 .ddcommon .clear{clear:both}
-.ddcommon .shadow{-moz-box-shadow:5px 5px 5px -5px #888888;-webkit-box-shadow:5px 5px 5px -5px #888888;box-shadow: 5px 5px 5px -5px #888888;}
+.ddcommon .shadow{-moz-box-shadow:0px 0px 0px 0px #888888;-webkit-box-shadow:0px 0px 0px 0px #888888;box-shadow: 0px 0px 0px 0px #888888;}
 .ddcommon input.text{color:#7e7e7e;padding:0 0 0 0; position:absolute; background:#fff; display:block; width:98%; height:98%; left:2px; top:0; border:none;}
 .ddOutOfVision{position:relative; display:-moz-inline-stack; display:inline-block; zoom:1; *display:inline;}
 .borderRadius .shadow{-moz-box-shadow:5px 5px 5px -5px #888888;-webkit-box-shadow:5px 5px 5px -5px #888888;box-shadow: 5px 5px 5px -5px #888888;}
@@ -43,7 +43,7 @@ img.fnone{float:none !important}
 .ddcommon .noBorderTop{border-top:none 0  !important; padding:0; margin:0;}
 
 /*************** default theme **********************/
-.dd{border:2px solid #c3c3c3;}
+.dd{border:0px solid #c3c3c3;}		/* change border */
 .dd .divider{border-left:1px solid #c3c3c3; border-right:1px solid #fff;; right:24px;}
 .dd .ddArrow{width:16px;height:16px; margin-top:-8px; background:url(../../images/msdropdown/skin1/dd_arrow.gif) no-repeat;}
 .dd .ddArrow:hover{background-position:0 100%;}
@@ -52,8 +52,8 @@ img.fnone{float:none !important}
 .dd .ddTitle .ddTitleText .ddTitleText{padding:0;}
 .dd .ddTitle .description{font-size:12px; color:#666}
 .dd .ddTitle .ddTitleText img{padding-right:5px;}
-.dd .ddChild{border:1px solid #c3c3c3; background-color:#fff; left:-1px;}
-.dd .ddChild li{padding:5px; background-color:#fff; border-bottom:1px solid #c3c3c3; font-size: 16px;}
+.dd .ddChild{border:1px solid #c3c3c3; background-color:#fff; left:0px;}
+.dd .ddChild li{padding:6px; background-color:#fff; border-bottom:1px solid #c3c3c3; font-size: 16px; height: 36px;} /* change select element height */
 .dd .ddChild li .description{color:#666;}
 .dd .ddChild li .ddlabel{color:#333;}
 .dd .ddChild li.hover{background-color:#f2f2f2}

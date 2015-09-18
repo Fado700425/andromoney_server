@@ -159,7 +159,7 @@ private
     @payments   = Payment.where(user_id: current_user.id).not_hidden.order(:order_no)
     @payees     = Payee.where(user_id: current_user.id).not_hidden.order(:order_no)
     @projects   = Project.where(user_id: current_user.id).not_hidden.order(:order_no)
-    @subcategories = Subcategory.where(user_id: current_user.id).not_hidden.order(:order_no)
+    #@subcategories = Subcategory.where(user_id: current_user.id).not_hidden.order(:order_no)
     @income_subcategories = Subcategory.where(user_id: current_user.id).not_hidden.order(:order_no)
     @transfer_subcategories = Subcategory.where(user_id: current_user.id).not_hidden.order(:order_no)
   end
