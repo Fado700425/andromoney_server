@@ -29,6 +29,8 @@ gem 'rails-asset-localization', git: 'git@github.com:nicolai86/rails-asset-local
 gem 'cells', "~> 4.0.0"
 gem 'cells-haml'
 
+gem 'byebug'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 

@@ -33,7 +33,9 @@
                           %span#total_remain.money_info.text-success 0
       .row
         .module-content.table-responsive
-          = cell(:payment).(:show, current_user, icon_path)
+          = cell(:payment).(:show, current_user, icon_path, true)
+          - if(current_user.hasNotCountPayment)
+            = cell(:payment).(:show, current_user, icon_path, false)
 
 #myAccountModal.modal.fade
   .modal-dialog

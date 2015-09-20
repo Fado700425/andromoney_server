@@ -1,1 +1,1 @@
-AndromoneyServer::Application.config.secret_key_base = ENV['SECRET_TOKEN']
+AndromoneyServer::Application.config.secret_key_base = '254d5ffb9945a8958fc8ec0cf7fd34f90772cb32b976b1f970a4595017c4fa79ecf94b690f319c6e13f62a8ded43ce3c8cbe1c26be54cda7013a5605db6fc293'

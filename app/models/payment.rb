@@ -53,6 +53,7 @@ class Payment < ActiveRecord::Base
   end
 
   def income
+    #byebug
     user = User.find(user_id)
     if display_currency_code(user) == user.get_main_currency.currency_code
       sum = Record.where(in_payment: hash_key, user_id: user_id).not_delete.sum("amount_to_main")
