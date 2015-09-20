@@ -59,21 +59,61 @@ $(document).ready(function () {
 
 
     var current_view = 'month';
-
     $('#calendar').fullCalendar({
         defaultView: current_view,
         header: {
             left: 'title',
             center: '',
-            right: 'today,prev,next month,basicWeek,basicDay'
+            right: 'today,prev,next month,agendaWeek,basicDay'
         },
-        timezone: 'local',
         eventLimit: true,
+        /*
+         * Default is 2 hours, makes events that start after 10:00 p.m. elapsed cross days.
+         * Fullcalendar will duplicate event object for displaying two blocks on each days.
+         * However, it's not necessary for our case. Hence, we change it to 0 second.
+         */
+        defaultTimedEventDuration: '00:00:00',
         loading: function (bool) {
             if (bool)
                 $spinner.show();
             else
                 $spinner.hide();
+        },
+        selectedCellClass: 'calendar-selected-date',
+        onToday: function(){
+            this.calendar.options.dayClick(this.calendar.getNow(),null, this);
+        },
+        dayRender: function (date, cell) {
+            var currentDay = $('#calendar').fullCalendar('getDate');
+            var isCurrentDay = (date.format('YYYYMMDD') == currentDay.format('YYYYMMDD'));
+            if (isCurrentDay) {
+                cell.addClass('calendar-selected-date');
+                var view = $('#calendar').fullCalendar('getView')
+                if (view.type == 'agendaWeek') {
+                    var index = cell.index();
+                    $('.fc-time-grid').find('td').removeClass('calendar-selected-date');
+                    $('.fc-time-grid').find('td:nth-child(' + (index + 1) + ')').addClass('calendar-selected-date');
+                }
+            } else {
+                cell.removeClass('calendar-selected-date');
+            }
+        },
+
+        dayClick: function (date, jsEvent, view) {
+            var currentDay = $('#calendar').fullCalendar('getDate');
+            var currentDayIndex = currentDay.diff(view.start, 'days');
+            var dayIndex = date.diff(view.start, 'days');
+            if (view.type == 'month') {
+                $('.fc-bg').find('td').removeClass('calendar-selected-date');
+                $($('.fc-bg').find('td').get(dayIndex)).addClass('calendar-selected-date');
+            } else if (view.type == 'agendaWeek') {
+                $('.fc-day-grid').find('td').removeClass('calendar-selected-date');
+                $('.fc-time-grid').find('td').removeClass('calendar-selected-date');
+                $('.fc-day-grid').find('tr td:nth-child(' + (dayIndex + 2 ) + ')').addClass('calendar-selected-date');
+                $('.fc-time-grid').find('tr td:nth-child(' + (dayIndex + 2) + ')').addClass('calendar-selected-date');
+            }
+            $('#calendar').fullCalendar('gotoDateWithoutRender', date);
+            $('#calendar').fullCalendar('updateTodayButton', date);
         },
         viewRender: function (view, element) {
             if (view.type == 'basicDay') {
@@ -81,10 +121,16 @@ $(document).ready(function () {
                 element.find('.fc-widget-content').addClass("timeline-container");
                 element.find('.fc-widget-content').empty();
             } else {
+                if (view.type == 'agendaWeek') {
+                    for (var i = 0; i < 6; i++) {
+                        $('.fc-slats').find('tr').append($('<td class="fc-widget-content"></td>'));
+                    }
+                }
                 element.find('.fc-widget-content').removeAttr("id");
                 element.find('.fc-widget-content').removeClass("timeline-container");
             }
         },
+
         eventRender: function (event, element, view) {
             if (view.type == 'basicDay') {
                 if (!event.isSummary) {
@@ -100,7 +146,7 @@ $(document).ready(function () {
                     var payeeName = record.record_payee == null ? '' : record.record_payee.payee_name;
                     var time = moment(record.date).format('HH:mm');
                     var currencySymbol = currency.symbolize(currencyCode);
-                    var remark = record.remark==null?'':record.remark;
+                    var remark = record.remark == null ? '' : record.remark;
                     $recordElement = $('<div class="timeline-block"> ' +
                             '<div class="timeline-img picture"> <img src="assets/' + record.record_category.photo_path
                             + '" alt="Picture"> </div> <div class="timeline-content"> <div class="timeline-content-container" style="padding: 1.5em 1.5em 0em 1.5em;"></div></div> </div>');
@@ -135,26 +181,73 @@ $(document).ready(function () {
                             total -= parseInt(entry.amount_to_main);
                         }
                     });
+
                     var $content = $(
-                            '<div class="calendar-event-summary"><div>' + moment(eventsInDay[0].date).format('YYYY/MM/DD') + ' <span class="amount">' + currencyCodeStr + total.toString() + '</span></div>' +
+                            '<div class="calendar-event-summary"><div>' + i18n.t('total') + '<span class="amount">' + currencyCodeStr + total.toString() + '</span></div><div style="clear: both;"></div>' +
                             '</div>'
                     );
-                    $content.click(function (e) {
-                        $('#calendar').fullCalendar('changeView', 'basicDay');
-                        $('#calendar').fullCalendar('gotoDate', event.start);
-                    });
                     var $element = $(element);
+                    $element.addClass(total >= 0 ? 'calendar-event-summary-in' : 'calendar-event-summary-out');
                     $element.empty().append($content);
                     return $element;
                 } else {
                     var record = event.event;
-                    var isIn = event.isIn;
-                    var $content = $('<div class="detail"><span class="detail-icon"><i class="fa fa-circle ' + (isIn ? 'bulletin-point-income' : 'bulletin-point-expense') + '"></i></span><span class="time">' + moment(record.date).format('HH:mm') + '</span><span class="subcategory">&nbsp;'
-                            + record.record_subcategory.subcategory + '</span><span class="amount">'
-                            + currencyCodeStr + Math.round(record.amount_to_main) + '</span></div>');
-                    var $element = $(element);
-                    $element.empty().append($content);
-                    return $element;
+                    var amount = parseInt(record.mount);
+                    var categroy = record.record_category ? record.record_category.category : '';
+                    var subcategroy = record.record_subcategory ? record.record_subcategory.subcategory : '';
+                    var category_id = record.record_category.id;
+                    var isIn = record.record_in_payment != null;
+                    var payment_name = record.record_in_payment ? record.record_in_payment.payment_name : record.record_out_payment.payment_name;
+                    var currencyCode = record.currency_code;
+                    var projectName = record.record_project == null ? '' : record.record_project.project_name;
+                    var payeeName = record.record_payee == null ? '' : record.record_payee.payee_name;
+                    var time = moment(record.date).format('HH:mm');
+                    var currencySymbol = currency.symbolize(currencyCode);
+                    var remark = record.remark == null ? '' : record.remark;
+                    if (view.type == 'month') {
+                        var $content = $('<div class="detail"><span class="detail-icon"><i class="fa fa-circle ' + (isIn ? 'bulletin-point-income' : 'bulletin-point-expense') + '"></i></span><span class="time">' + time + '</span><span class="subcategory">&nbsp;'
+                                + subcategroy + '</span><span class="amount">'
+                                + currencySymbol + Math.round(amount) + '</span></div>');
+                        var $element = $(element);
+                        $element.empty().append($content);
+                        return $element;
+                    } else if (view.type == 'agendaWeek') {
+                        var categoryColors = function () {
+                            var colors = {
+                                1: 'food',
+                                2: 'clothing-and-housing',
+                                3: 'traffic',
+                                4: 'recreation'
+                            }
+
+                            return {
+                                get: function (category_id) {
+                                    var color = colors[category_id];
+                                    if (color) {
+                                        return color;
+                                    }
+                                    return 'default';
+                                }
+                            }
+
+                        }();
+
+                        var eventMoment = moment(record.date);
+                        var nthHalfHour = eventMoment.hours() * 2 + (eventMoment.minutes() >= 30 ? 1 : 0);
+                        var nthDay = eventMoment.diff(moment(view.start.format('YYYY-MM-DD')), 'days');
+                        var $halfHourRow = $($('.fc-slats').find('tr').get(nthHalfHour));
+                        var $dayCol = $($halfHourRow.find('td').get(nthDay + 1));
+                        var $content = $('<div class="detail ' + categoryColors.get(category_id) + '">' +
+                                '<div class="content">' +
+                                '<div style="position: absolute;"><i class="fa fa-circle ' + (isIn ? 'bulletin-point-income' : 'bulletin-point-expense') + '"></i>' + '</div>' +
+                                '<div style="padding: 2px 10px 2px 12px; "><span class="time">' + time + '</span>' +
+                                '<div >' + currencySymbol + Math.round(amount) + '</div>' +
+                                '<div >' + subcategroy + '</div></div>' +
+                                '</div></div>');
+                        $dayCol.append($content);
+                        return false;
+
+                    }
                 }
             }
         },
@@ -164,11 +257,10 @@ $(document).ready(function () {
                 data: {
                     view: current_view,
                     start: start.format('YYYY-MM-DD'),
-                    end: end.format('YYYY-MM-DD'),
-                    timezone: timezone
+                    end: end.format('YYYY-MM-DD')
                 },
                 success: function (data) {
-                    console.log(data);
+//                    console.log(data);
                     var events = [];
                     var records = data.records;
                     currencyCodeStr = currency.symbolize(data.currencyCode);
@@ -196,9 +288,7 @@ $(document).ready(function () {
                                 }
                                 events.push({
                                     start: entry.date,
-                                    end: entry.date,
                                     order: index + 1,
-                                    allDay: true,
                                     className: isIn ?
                                             'calendar-event-in' : isOut ?
                                             'calendar-event-out' : '',
@@ -211,7 +301,6 @@ $(document).ready(function () {
                                 events.push({
                                     order: 0,
                                     start: eventsInDay[0].date,
-                                    end: eventsInDay[0].date,
                                     eventsInDay: eventsInDay,
                                     allDay: true,
                                     isSummary: true
@@ -226,7 +315,8 @@ $(document).ready(function () {
         ,
 
         eventClick: function (calEvent, jsEvent, view) {
-
+//            console.log(calEvent);
+            view.calendar.options.dayClick(calEvent.start,null, view);
         }
     });
 

@@ -10,9 +10,10 @@
     "dependencies": {
       "i18next"    : "git@github.com:i18next/i18next.git",
       "currency-symbol": "git@github.com:dulaccc/currency-symbol.js.git",
-      "fullcalendar" : "git@github.com:tilumi/fullcalendar.git#show_more_by_mouse_hover",
+      "fullcalendar" : "git@github.com:tilumi/fullcalendar.git#add_today_click_hook",
       "jquery-ujs": "git@github.com:rails/jquery-ujs.git",
-      "spin-js": "git@github.com:fgnass/spin.js.git"
+      "spin-js": "git@github.com:fgnass/spin.js.git",
+      "moment-timezone":"latest"
     }
   }
 }
