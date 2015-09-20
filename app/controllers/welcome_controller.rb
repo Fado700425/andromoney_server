@@ -4,15 +4,11 @@ class WelcomeController < ApplicationController
       redirect_to start_use_path
     elsif current_user
       redirect_to home_path, :notice => notice
+    # workaround for zh and zh-TW landing page
+    elsif [:zh, :"zh-TW"].include? I18n.locale
+      render layout: "landing"
+    else
+      render layout: "application"
     end
-  end
-
-  def download
-  end
-
-  def about
-  end
-
-  def pricing
   end
 end
