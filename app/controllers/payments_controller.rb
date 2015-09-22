@@ -7,6 +7,7 @@ class PaymentsController < ApplicationController
 
   def update
     payment = Payment.find(params[:payment_id])
+
     payment.update(payment_param)
     init  = payment.init_record
 
@@ -20,6 +21,8 @@ class PaymentsController < ApplicationController
     init.update_time = Time.now
     init.save
     
+    value = params[:out_total] == '0' ? '0' : '1'
+    payment.out_total = params[:out_total] == '0' ? '0' : '1'
     payment.device_uuid = "computer"
     payment.update_time = DateTime.now.utc
     payment.save
@@ -55,5 +58,6 @@ class PaymentsController < ApplicationController
 private
   def payment_param
     params.require(:payment).permit(:kind,:date,:payment_name)
+
   end
 end

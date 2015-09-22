@@ -23,6 +23,7 @@ class SessionsController < ApplicationController
       user.messages.create(context: t('welcome_message')) if @new_user
       session[:user_id] = user.id
       flash["success"] = "Signed in!"
+      create_user_basic_datas user
       if user.categories.size == 0
         redirect_to start_use_path
       else

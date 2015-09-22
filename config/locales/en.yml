@@ -373,6 +373,7 @@ en:
     amount_placeholder: "Please fill in init amount"
     choose: "Choose Account"
     not_count: "Not Count"
+    count_in: "Count in total"
 
   record:
     success_create: "Congration, create a new record!"
