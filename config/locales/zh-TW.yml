@@ -380,6 +380,7 @@ zh-TW:
     bank: "銀行"
     amount_placeholder: "請輸入初始金額"
     choose: "選擇帳戶"
+    not_count: "不計入"
 
   record:
     success_create: "已成功新增記錄！"

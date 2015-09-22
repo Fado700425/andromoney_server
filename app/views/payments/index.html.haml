@@ -35,6 +35,8 @@
         .module-content.table-responsive
           = cell(:payment).(:show, current_user, icon_path, true)
           - if(current_user.hasNotCountPayment)
+            %h4
+              = t('payment.not_count')
             = cell(:payment).(:show, current_user, icon_path, false)
 
 #myAccountModal.modal.fade
@@ -59,6 +61,11 @@
             %label.col-sm-2.control-label{:for => "payment_payment_name"} #{t('payment.init_amount')}
             .col-sm-10
               = text_field_tag "initial_amount","", class: "form-control",placeholder: t('payment.amount_placeholder')
+          .form-group
+            %label.col-sm-2
+            .col-sm-10
+              = check_box "payment", '', {:checked => "checked"} 
+              asdf
           = hidden_field_tag "payment_id"
           .record_modal_footer
             = submit_tag t('confirm_edit'), class: "btn btn-primary"
