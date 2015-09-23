@@ -22,7 +22,7 @@ class PaymentsController < ApplicationController
     init.save
     
     value = params[:out_total] == '0' ? '0' : '1'
-    payment.out_total = params[:out_total] == '0' ? '0' : '1'
+    payment.out_total = value
     payment.device_uuid = "computer"
     payment.update_time = DateTime.now.utc
     payment.save

@@ -1,15 +1,16 @@
 %table.table.table-striped
   %thead
     %tr
-    %th= I18n.t('payment.payment')
-    %th= I18n.t('payment.init_amount')
-    %th= I18n.t('record_type.income')
-    %th= I18n.t('record_type.expense')
-    %th= I18n.t('balance')
-    %th= I18n.t('rate')
-    %th #{@user.get_main_currency.currency_code}結餘
-    %th
+    %th{width: "20%"}= I18n.t('payment.payment')
+    %th{width: "10%"}= I18n.t('payment.init_amount')
+    %th{width: "10%"}= I18n.t('record_type.income')
+    %th{width: "10%"}= I18n.t('record_type.expense')
+    %th{width: "10%"}= I18n.t('balance')
+    %th{width: "10%"}= I18n.t('rate')
+    %th{width: "10%"} #{@user.get_main_currency.currency_code}結餘
+    %th{width: "10%"}
   %tbody
+    -byebug
     - @payments.each do |payment|
       %tr
         %td

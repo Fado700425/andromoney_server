@@ -62,9 +62,10 @@
             .col-sm-10
               = text_field_tag "initial_amount","", class: "form-control",placeholder: t('payment.amount_placeholder')
           .form-group
-            %label.col-sm-2.control-label{:for => "payment_payment_name"} #{t('payment.count_in')}
+            %label.col-sm-2.control-label{:for => "payment_payment_name"}
             .col-sm-10
-              = check_box_tag "out_total", '0', {:checked => "checked"}
+              = check_box_tag "out_total", '0'
+              = t('payment.count_in')
           = hidden_field_tag "payment_id"
           .record_modal_footer
             = submit_tag t('confirm_edit'), class: "btn btn-primary"

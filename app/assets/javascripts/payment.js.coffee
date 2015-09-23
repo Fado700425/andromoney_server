@@ -24,13 +24,19 @@ $ ->
     $('#payment_modal_pic').attr('src',$('#payment_modal_pic').data("pic-#{kind}"))
     $('#payment_payment_name').val(name)
     $('#initial_amount').val(initial)
-    
     if(out_total)
-      $('#out_total').removeAttr('checked')
+      $('#out_total').prop('checked',false);
       $('#out_total').val(1)
     else
+      $('#out_total').prop('checked',true);
       $('#out_total').val(0)
 
   $("select#payment_kind").on "change", ->
     kind = @value
     $('#payment_modal_pic').attr('src',$('#payment_modal_pic').data("pic-#{kind}"))
+
+  $('#out_total').on "change", ->
+    if(this.checked)
+      $('#out_total').val(0)
+    else
+      $('#out_total').val(1)
