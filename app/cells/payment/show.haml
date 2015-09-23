@@ -10,7 +10,6 @@
     %th{width: "10%"} #{@user.get_main_currency.currency_code}結餘
     %th{width: "10%"}
   %tbody
-    -byebug
     - @payments.each do |payment|
       %tr
         %td
