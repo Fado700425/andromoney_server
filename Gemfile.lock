@@ -22,7 +22,7 @@ GIT
       rails (>= 3.2.16, < 5.0)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     actionmailer (4.0.0)
       actionpack (= 4.0.0)
@@ -58,7 +58,6 @@ GEM
       momentjs-rails (>= 2.8.1)
     bower-rails (0.10.0)
     builder (3.1.4)
-    byebug (6.0.2)
     capistrano (2.15.5)
       highline
       net-scp (>= 1.0.0)
@@ -321,7 +320,6 @@ DEPENDENCIES
   bootstrap3-datetimepicker-rails (~> 4.0.0)
   bower-rails (~> 0.10.0)
   bundler (>= 1.8.4)
-  byebug
   capistrano
   capistrano-local-precompile
   capybara
