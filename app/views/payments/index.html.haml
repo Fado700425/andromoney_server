@@ -92,5 +92,9 @@
             %label.col-sm-2.control-label{:for => "payment_payment_name"} #{t('payment.init_amount')}
             .col-sm-10
               = text_field_tag "initial_amount","", class: "form-control",placeholder: t('payment.amount_placeholder')
+          .form-group
+            %label.col-sm-2.control-label{:for => "payment_payment_name"} #{t('payment.count_in')}
+            .col-sm-10
+              = check_box_tag "out_total", '0', {:checked => "checked"}
           .record_modal_footer
             = submit_tag t('confirm_add'), class: "btn btn-primary"

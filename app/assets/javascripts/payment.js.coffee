@@ -18,11 +18,18 @@ $ ->
     name = $(this).data('name')
     initial = parseFloat($(this).parent().parent().parent().children().eq(1).find(".init_amount").text())
     payment_id = $(this).data('payment-id')
+    out_total = $(this).data('out-total')
     $('#payment_id').val(payment_id)
     $('#payment_kind').val(kind)
     $('#payment_modal_pic').attr('src',$('#payment_modal_pic').data("pic-#{kind}"))
     $('#payment_payment_name').val(name)
     $('#initial_amount').val(initial)
+    
+    if(out_total)
+      $('#out_total').removeAttr('checked')
+      $('#out_total').val(1)
+    else
+      $('#out_total').val(0)
 
   $("select#payment_kind").on "change", ->
     kind = @value

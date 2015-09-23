@@ -31,6 +31,8 @@ class PaymentsController < ApplicationController
   end
 
   def create
+    byebug
+    para = payment_param
     payment = Payment.new(payment_param)
     payment.hash_key = SecureRandom.urlsafe_base64
     payment.user_id = current_user.id

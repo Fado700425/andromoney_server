@@ -45,11 +45,15 @@
         %td
           %span.text-success
             #{@user.get_main_currency.currency_code}
-            %span.remain
-              = ((init_amount + income - expense) * exchange_rate).round(2)
+            - if(payment.out_total == 1)
+              %span
+                = ((init_amount + income - expense) * exchange_rate).round(2)
+            - else
+              %span.remain
+                = ((init_amount + income - expense) * exchange_rate).round(2)
         %td
           %button.btn.btn-xs.btn-success.btn-edit.edit_category
-            = link_to "#a","data-toggle" => "modal", 'data-target' => "#myAccountModal", data:{kind:payment.kind,name: payment.payment_name, initial: 0, payment_id: payment.id} do
+            = link_to "#a","data-toggle" => "modal", 'data-target' => "#myAccountModal", data:{kind:payment.kind,name: payment.payment_name, initial: 0, payment_id: payment.id, out_total: payment.out_total} do
               %span.glyphicon.glyphicon-pencil
               = I18n.t('edit')
           / %button.btn.btn-xs.btn-danger.btn-remove
