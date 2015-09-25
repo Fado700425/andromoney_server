@@ -12,22 +12,16 @@
   background-color: transparent;
 }
 
-.calendar-event-in {
+.calendar-event {
   background-color: rgba(255, 255, 255, 0);
   border-color: rgba(255, 255, 255, 0);
   color: #555555;
 }
 
-.calendar-event-in:hover {
+.calendar-event:hover {
   color: #555555;
   background-color: #FCF8E3;
   cursor: pointer;
-}
-
-.calendar-event-out {
-  background-color: rgba(255, 255, 255, 0);
-  border-color: rgba(255, 255, 255, 0);
-  color: #555555;
 }
 
 .calendar-event-summary-in {
@@ -166,6 +160,12 @@
   font-size: 0.7em;
   padding-right: 5px;
   color: #76D846;
+}
+
+.bulletin-point-transfer {
+  font-size: 0.7em;
+  padding-right: 5px;
+  color: #F3F781;
 }
 
 /* week view styles*/

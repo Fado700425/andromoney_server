@@ -80,8 +80,8 @@ $(document).ready(function () {
                 $spinner.hide();
         },
         selectedCellClass: 'calendar-selected-date',
-        onToday: function(){
-            this.calendar.options.dayClick(this.calendar.getNow(),null, this);
+        onToday: function () {
+            this.calendar.options.dayClick(this.calendar.getNow(), null, this);
         },
         dayRender: function (date, cell) {
             var currentDay = $('#calendar').fullCalendar('getDate');
@@ -196,16 +196,17 @@ $(document).ready(function () {
                     var categroy = record.record_category ? record.record_category.category : '';
                     var subcategroy = record.record_subcategory ? record.record_subcategory.subcategory : '';
                     var category_id = record.record_category.id;
-                    var isIn = record.record_in_payment != null;
+                    var isIn = record.record_in_payment != null
+                    var isTransfer = record.record_in_payment != null && record.record_out_payment != null;
                     var payment_name = record.record_in_payment ? record.record_in_payment.payment_name : record.record_out_payment.payment_name;
                     var currencyCode = record.currency_code;
                     var projectName = record.record_project == null ? '' : record.record_project.project_name;
                     var payeeName = record.record_payee == null ? '' : record.record_payee.payee_name;
-                    var time = moment(record.date).format('HH:mm');
+                    var time = moment(record.date).utc().format('HH:mm');
                     var currencySymbol = currency.symbolize(currencyCode);
                     var remark = record.remark == null ? '' : record.remark;
                     if (view.type == 'month') {
-                        var $content = $('<div class="detail"><span class="detail-icon"><i class="fa fa-circle ' + (isIn ? 'bulletin-point-income' : 'bulletin-point-expense') + '"></i></span><span class="time">' + time + '</span><span class="subcategory">&nbsp;'
+                        var $content = $('<div class="detail"><span class="detail-icon"><i class="fa fa-circle ' + (isTransfer? 'bulletin-point-transfer' :isIn ? 'bulletin-point-income' : 'bulletin-point-expense') + '"></i></span><span class="time">' + time + '</span><span class="subcategory">&nbsp;'
                                 + subcategroy + '</span><span class="amount">'
                                 + currencySymbol + Math.round(amount) + '</span></div>');
                         var $element = $(element);
@@ -232,14 +233,14 @@ $(document).ready(function () {
 
                         }();
 
-                        var eventMoment = moment(record.date);
+                        var eventMoment = moment(record.date).utc();
                         var nthHalfHour = eventMoment.hours() * 2 + (eventMoment.minutes() >= 30 ? 1 : 0);
-                        var nthDay = eventMoment.diff(moment(view.start.format('YYYY-MM-DD')), 'days');
+                        var nthDay = eventMoment.diff(moment(view.start), 'days');
                         var $halfHourRow = $($('.fc-slats').find('tr').get(nthHalfHour));
                         var $dayCol = $($halfHourRow.find('td').get(nthDay + 1));
                         var $content = $('<div class="detail ' + categoryColors.get(category_id) + '">' +
                                 '<div class="content">' +
-                                '<div style="position: absolute;"><i class="fa fa-circle ' + (isIn ? 'bulletin-point-income' : 'bulletin-point-expense') + '"></i>' + '</div>' +
+                                '<div style="position: absolute;"><i class="fa fa-circle ' + (isTransfer? 'bulletin-point-transfer' :isIn ? 'bulletin-point-income' : 'bulletin-point-expense') + '"></i>' + '</div>' +
                                 '<div style="padding: 2px 10px 2px 12px; "><span class="time">' + time + '</span>' +
                                 '<div >' + currencySymbol + Math.round(amount) + '</div>' +
                                 '<div >' + subcategroy + '</div></div>' +
@@ -265,12 +266,10 @@ $(document).ready(function () {
                     var records = data.records;
                     currencyCodeStr = currency.symbolize(data.currencyCode);
                     var eventsGroupByDate = groupBy(records, function (entry) {
-                        return moment(entry.date).format('YYYYMMDD');
+                        return moment(entry.date).utc().format('YYYYMMDD');
                     });
                     for (var key in eventsGroupByDate) {
                         if (eventsGroupByDate.hasOwnProperty(key)) {
-                            var inTotal = 0;
-                            var outTotal = 0;
                             var total = 0;
                             var eventsInDay = eventsGroupByDate[key];
                             eventsInDay.forEach(function (entry, index) {
@@ -278,20 +277,16 @@ $(document).ready(function () {
                                 var isOut = false;
                                 if (entry.in_payment != null && entry.in_payment != 0) {
                                     isIn = true;
-                                    inTotal += parseInt(entry.amount_to_main);
                                     total += parseInt(entry.amount_to_main);
                                 }
                                 if (entry.out_payment != null && entry.out_payment != 0) {
                                     isOut = true;
-                                    outTotal += parseInt(entry.amount_to_main);
                                     total -= parseInt(entry.amount_to_main);
                                 }
                                 events.push({
-                                    start: entry.date,
+                                    start: moment(entry.date).utc(),
                                     order: index + 1,
-                                    className: isIn ?
-                                            'calendar-event-in' : isOut ?
-                                            'calendar-event-out' : '',
+                                    className: 'calendar-event',
                                     event: entry,
                                     isIn: isIn
                                 });
@@ -300,7 +295,7 @@ $(document).ready(function () {
                             if (eventsInDay.length > 0) {
                                 events.push({
                                     order: 0,
-                                    start: eventsInDay[0].date,
+                                    start: moment(eventsInDay[0].date).utc(),
                                     eventsInDay: eventsInDay,
                                     allDay: true,
                                     isSummary: true
@@ -316,7 +311,7 @@ $(document).ready(function () {
 
         eventClick: function (calEvent, jsEvent, view) {
 //            console.log(calEvent);
-            view.calendar.options.dayClick(calEvent.start,null, view);
+            view.calendar.options.dayClick(calEvent.start, null, view);
         }
     });
 
