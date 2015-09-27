@@ -16,9 +16,9 @@ describe "Reset", type: :request do
   end
 
   describe "GET /account" do
-    it "reset data" do
+    it "delete data" do
       get edit_account_path(1)
-      post reset_account_path(1)
+      post delete_account_path(1)
       expect(flash[:success]).to be_present
       expect(Record.where('user_id = ?', session[:user_id]).size).to eq(0)
       expect(Category.where('user_id = ?', session[:user_id]).size).to eq(0)
@@ -31,6 +31,7 @@ describe "Reset", type: :request do
       expect(Subcategory.where('user_id = ?', session[:user_id]).size).to eq(0)
       expect(Device.where('user_id = ?', session[:user_id]).size).to eq(0)
       expect(Message.where('user_id = ?', session[:user_id]).size).to eq(0)
+      expect(User.where('id = ?', session[:user_id]).size).to eq(0)
     end
   end
 end

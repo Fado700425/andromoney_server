@@ -46,7 +46,7 @@
           %span.text-success
             #{@user.get_main_currency.currency_code}
             - if(payment.out_total == 1)
-              %span
+              %span.not_count
                 = ((init_amount + income - expense) * exchange_rate).round(2)
             - else
               %span.remain
