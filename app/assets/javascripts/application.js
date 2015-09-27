@@ -22,7 +22,7 @@
 //= require js-routes
 //= require i18next/i18next.min
 //= require currency-symbol/currency
-
+//= require ms-Dropdown/js/msdropdown/jquery.dd
 
 $(document).ready(function() {
   $("a.fancybox").fancybox();

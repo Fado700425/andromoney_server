@@ -204,9 +204,9 @@ $(document).ready(function(){
     });
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-    // set datetimepicker_report format
+    // set datetimepicker_record format
     (function setDatetimepickerFormat() {
-      $('#datetimepicker_report').datetimepicker({ format: 'YYYY/MM/DD-HH:mm A'});
+      $('#datetimepicker_record').datetimepicker({ format: 'YYYY/MM/DD-HH:mm A'});
     })();
   }
 
