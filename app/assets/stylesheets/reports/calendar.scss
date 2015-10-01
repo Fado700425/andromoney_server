@@ -86,12 +86,12 @@
 @mixin calendar-event-day-amount {
   float: left;
   margin: 0;
-  font-size: x-large;
+  font-size: large;
 }
 
 .calendar-event-day-amount-in {
   @include calendar-event-day-amount;
-  color: #3cdc8d;
+  color: #2ca87d;
 }
 
 .calendar-event-day-amount-out {
@@ -159,13 +159,13 @@
 .bulletin-point-income {
   font-size: 0.7em;
   padding-right: 5px;
-  color: #76D846;
+  color: #009000;
 }
 
 .bulletin-point-transfer {
   font-size: 0.7em;
   padding-right: 5px;
-  color: #F3F781;
+  color: #FFAA00;
 }
 
 /* week view styles*/
@@ -416,7 +416,7 @@
   }
   .timeline-content p {
     font-size: 16px;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
   .timeline-content .cd-read-more, .timeline-content .cd-date {
     font-size: 14px;
