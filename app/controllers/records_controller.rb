@@ -6,6 +6,7 @@ class RecordsController < ApplicationController
   def new
     @record = Record.new
     fetch_variables_for_records
+    @record.date ||= DateTime.now.utc.strftime("%Y/%m/%d/ %H:%M")   # if user didn't input :date, this will set default value.
   end
 
   def edit

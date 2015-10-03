@@ -206,7 +206,10 @@ $(document).ready(function(){
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     // set datetimepicker_record format
     (function setDatetimepickerFormat() {
-      $('#datetimepicker_record').datetimepicker({ format: 'YYYY/MM/DD-HH:mm A'});
+      $('#datetimepicker_record').datetimepicker({  
+        format: 'YYYY/MM/DD-HH:mm A',
+        sideBySide: true
+      });
     })();
   }
 

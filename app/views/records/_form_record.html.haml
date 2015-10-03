@@ -6,6 +6,7 @@
         = image_tag("currency_sign_dollar.png", width: "15px")
         #{t('amount')}
       = f.number_field(:mount, class: "form-control", step: 'any')
+      
       %span.input-group-addon
         %span.glyphicon.glyphicon-calendar
         #{t('report.date')}
@@ -15,7 +16,7 @@
   .form-group
     .container-fluid.record
       .row
-        .record-box
+        .record-box.box-1
           %span.label.label-primary.select-label
             %span.glyphicon.glyphicon-th-large
             #{t('category.main_category')}
@@ -26,7 +27,7 @@
 
           = f.select(:category, @transfer_category.collect {|p| [ p.category , p.hash_key, :"data-image" => asset_path(p.photo_path) ]}, {selected: default_selected(@record.category,  @transfer_category.first.hash_key)}, { class: "category-select-with-icon", id: "transfer-category", size: 5 })
 
-        .record-box
+        .record-box.box-2
           %span.label.label-primary.select-label
             %span.glyphicon.glyphicon-list-alt
             #{t('subcategory.subcategory')}
@@ -37,7 +38,7 @@
 
           = f.grouped_collection_select(:subcategory, @transfer_category, :get_subcategories, :category, :hash_key, :subcategory, {selected: default_selected(@record.subcategory)}, {class: 'subcategory-select-with-icon', id: "transfer-subcategory", size: 6 })
 
-        .record-box
+        .record-box.box-3
           %span.label.label-primary.select-label.nontrans-label
             %span.glyphicon.glyphicon-share
             #{t('payment.payment')}
@@ -46,7 +47,7 @@
             #{t('transfer.out')}
           = f.select(:out_payment, @payments.collect {|p| [ p.payment_name + "-" + p.currency_code, p.hash_key, :"data-image" => asset_path(payment_icon(p.kind)) ]}, {selected: default_selected(@record.out_payment || @record.in_payment, @payments.first.hash_key)}, {class: 'select-with-icon', size: 5 })
 
-        .record-box
+        .record-box.box-4
           %span.label.label-primary.select-label.nontrans-label
             %span.glyphicon.glyphicon-check
             #{t('payee.payee')}
@@ -56,7 +57,7 @@
             #{t('transfer.in')}
           = f.select(:in_payment, @payments.collect {|p| [ p.payment_name + "-" + p.currency_code, p.hash_key, :"data-image" => asset_path(payment_icon(p.kind)) ]}, {selected: default_selected(@record.in_payment, @payments.second.hash_key)}, {class: 'receiver-select-with-icon', id: "transfer-receiver", size: 5 })
 
-        .record-box
+        .record-box.box-5
           %span.label.label-primary.select-label
             %span.glyphicon.glyphicon-book
             #{t('project.project')}
