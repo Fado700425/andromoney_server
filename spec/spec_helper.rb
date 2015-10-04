@@ -38,6 +38,13 @@ RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = false
   config.order = "random"
   config.treat_symbols_as_metadata_keys_with_true_values = true
+  
+  config.include Capybara::DSL
+
+  # omniauth
+  config.include Omniauth::Mock
+  config.include Omniauth::SessionHelpers, type: :feature
+  config.include NewTestUser, type: :feature
 
   config.before(:suite) do
     #DatabaseCleaner.strategy = :transaction
@@ -54,3 +61,4 @@ RSpec.configure do |config|
   end
 
 end
+OmniAuth.config.test_mode = true

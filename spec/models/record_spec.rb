@@ -169,9 +169,6 @@ describe Record do
 		before { record.currency_code = nil }
     	it { should_not be_valid }
 	end
-	describe "without amount_to_main" do
-		pending
-	end
 	describe "without user_id" do
 		before { record.user_id = nil }
     	it { should_not be_valid }

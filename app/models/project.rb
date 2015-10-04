@@ -5,7 +5,8 @@ class Project < ActiveRecord::Base
   #validates_presence_of :project_name
 
   default_scope { order('order_no desc') } 
-  scope :not_hidden, ->{where("hidden = 0 and is_delete = 0")} 
+  #scope :not_hidden, ->{where("hidden = 0 and is_delete = 0")} 
+  scope :not_hidden, ->{where(is_delete: false, hidden: 0)} 
 
   scope :api_select, -> { where(is_delete: false).select("id,project_name,hidden,order_no,hash_key,update_time"
                         ) }
