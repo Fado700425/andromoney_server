@@ -30,9 +30,9 @@
     %h1 您想擁有更好的生活卻還沒開始記帳嗎？
     .download
       = link_to "http://play.google.com/store/apps/details?id=com.kpmoney.android", target: '_blank' do
-        = image_tag("/landing/android.png")
+        = image_tag("/landing/badges/zh/android.zh.png")
       = link_to "http://itunes.apple.com/tw/app/li-cai-bang-shou-andromoney/id679044544?l=zh&mt=8", target: '_blank' do
-        = image_tag("/landing/ios.png")
+        = image_tag("/landing/badges/zh/ios.zh.svg")
 %section.landing#feature
   .container
     .row
@@ -167,25 +167,32 @@
 %section.landing#contact
   .container
     .row
-      %h1
-        理財幫手 AndroMoney
-        %br
-        %small AndroMoney 是行動裝置上的個人理財服務工具，希望藉此來幫助您妥善管理個人財富。
-      %p
-        我們軟體的發展方向是：
-        %br
-        %strong 簡單易用：操作直覺的使用者介面
-        %br
-        %strong 功能強大：不論單純的記帳，或者想要管理不同的帳戶、類別，甚至是繪製圖表，都可以輕易辦到。
-      %p
-        將來我們會陸續地加入其他功能，使其更為完整
-        %br
-        如同軟體的名稱，我們期許 AndroMoney 能成為最好用，最受歡迎的個人財務軟體
-        %br
-        如果有任何使用上的問題，十分歡迎您利用 email 與我們聯繫，謝謝！
-      %p
-        連絡信箱：
-        = mail_to 'service@andromoney.com'
+      .col-md-3
+        .download
+          = link_to "http://play.google.com/store/apps/details?id=com.kpmoney.android", target: '_blank' do
+            = image_tag("/landing/badges/zh/android.zh.png")
+          = link_to "http://itunes.apple.com/tw/app/li-cai-bang-shou-andromoney/id679044544?l=zh&mt=8", target: '_blank' do
+            = image_tag("/landing/badges/zh/ios.zh.svg")
+      .col-md-9
+        %h1
+          理財幫手 AndroMoney
+          %br
+          %small AndroMoney 是行動裝置上的個人理財服務工具，希望藉此來幫助您妥善管理個人財富。
+        %p
+          我們軟體的發展方向是：
+          %br
+          %strong 簡單易用：操作直覺的使用者介面
+          %br
+          %strong 功能強大：不論單純的記帳，或者想要管理不同的帳戶、類別，甚至是繪製圖表，都可以輕易辦到。
+        %p
+          將來我們會陸續地加入其他功能，使其更為完整
+          %br
+          如同軟體的名稱，我們期許 AndroMoney 能成為最好用，最受歡迎的個人財務軟體
+          %br
+          如果有任何使用上的問題，十分歡迎您利用 email 與我們聯繫，謝謝！
+        %p
+          連絡信箱：
+          = mail_to 'service@andromoney.com'
 %footer.landing
   %h4 © 2015 AndroMoney
 
