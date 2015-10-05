@@ -1,0 +1,211 @@
+%nav.landing.navbar.navbar-default.navbar-fixed-top
+  .container
+    .navbar-header
+      %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to root_path, class: "landing navbar-brand" do
+        = image_tag("/landing/logo.png")
+        AndroMoney
+    #navbar-collapse.collapse.navbar-collapse
+      %ul.nav.navbar-nav.navbar-right
+        %li
+          = link_to '功能介紹', root_path(anchor: "feature")
+        %li
+          = link_to '公告', announcements_path
+        %li
+          = link_to '聯絡我們', root_path(anchor: "contact")
+        %li
+          = link_to '登入', "/auth/google_login"
+.container
+  - flash.each do |name, msg|
+    - if msg.is_a?(String)
+      %div{:class => "landing alert alert-#{name}", style: 'margin-top: 50px;'}
+        %a.close{"data-dismiss" => "alert"} ×
+        = content_tag :div, msg, :id => "flash_#{name}"
+%section.landing#hero
+  .slogan
+    %h1 您想擁有更好的生活卻還沒開始記帳嗎？
+    .download
+      = link_to "http://play.google.com/store/apps/details?id=com.kpmoney.android", target: '_blank' do
+        = image_tag("/landing/badges/zh/android.zh.png")
+      = link_to "http://itunes.apple.com/tw/app/li-cai-bang-shou-andromoney/id679044544?l=zh&mt=8", target: '_blank' do
+        = image_tag("/landing/badges/zh/ios.zh.svg")
+%section.landing#feature
+  .container
+    .row
+      .col-sm-6
+        .feature-explaination.text-right
+          %h1 記錄生活消費
+          %p
+            不論是 Android 或是 iPhone 用戶
+            %br
+            都可以透過 AndroMoney 手機 App
+            %br
+            輕鬆的記錄每一筆花費
+            %br
+            轉帳、收入與支出
+          %h1 預算管理
+          %p
+            您可以設定每月總預算
+            %br
+            並依照類別訂定類別預算
+            %br
+            花費超過所設定的比例即會進行通知
+            %br
+            讓您有效掌握並控制自己的支出
+      .col-sm-6
+        = image_tag 'screenshots/screenshot01.zh-TW.png'
+    .row
+      .col-sm-6
+        = image_tag 'screenshots/screenshot02.zh-TW.png'
+      .col-sm-6
+        .feature-explaination
+          %h1 即時消費分析
+          %p
+            找出最高消費，平均花費，供您分析支出
+            %br
+            並可以動態繪製統計圖，圓餅分布圖，趨勢圖
+            %br
+            對圖表進行互動式操作
+          %h1 消費類別管理
+          %p
+            您可以修改或新增個人所需的消費類別
+            %br
+            也可以刪除您不需要的類別
+            %br
+            讓消費的類別完全符合您個人的需求
+    .row
+      .col-sm-6.text-right
+        .feature-explaination
+          %h1 掌握資產狀況
+          %p
+            提供多帳戶功能，可以設定不同的戶頭
+            %br
+            也可透過專案管理，了解每個項目的花費流向
+            %br
+            確實掌握自己資產
+          %h1 不同貨幣
+          %p
+            即使出國在外也可以使用不同貨幣來記帳
+            %br
+            透過 Google 進行匯率同步，自動為您換算
+            %br
+            讓您的花費清清楚楚
+      .col-sm-6
+        = image_tag 'screenshots/screenshot03.zh-TW.png'
+%section.landing#exclusive
+  .container
+    .row
+      .col-md-4
+        .exclusive-image
+          = image_tag '/landing/cross_platform.png'
+        .exclusive-title
+          %h2
+            跨平台同步
+            %br
+            %small Android, iPhone, Web
+        .exclusive-explaination.cross_platform
+          %p 您或許會有多個不同的裝置，如 Android 手機、iPad，甚至是桌上型電腦，都可以下載 AndroMoney App，或是使用 AndroMoney 雲端服務，並利用同步功能達到跨平台同步記帳
+          %strong 雲端服務須先從手機端同步後方可使用
+      .col-md-4
+        .exclusive-image
+          = image_tag '/landing/shield.png'
+        .exclusive-title
+          %h2
+            保護使用者資料
+            %br
+            %small 手機端、雲端備份、電腦檔案匯入匯出
+        .exclusive-explaination
+          %p 您或許會有過在使用其他記帳軟體時，發生資料遺失的情況，辛苦記帳的資料付諸流水，AndroMoney 為您寶貴的資料，具有備份功能，也提供您將資料匯入匯出，使您再也不用煩惱資料問題
+      .col-md-4
+        .exclusive-image
+          = image_tag '/landing/thumb_up.png'
+        .exclusive-title
+          %h2
+            品質保證
+            %br
+            %small 榮獲多方肯定
+        .exclusive-explaination.thumb_up
+          %p
+            登上 Google Play 首頁效率工具排行
+            %br
+            入圍 App Next 2013 應用程式創新大賽
+            %br
+            榮獲 Android App 達人評測精選
+        .exclusive-award
+          = link_to 'http://punapp.com/article/145', target: "_blank" do
+            %span PunApp：
+            %p 【AndroMoney】雙平台資產管理記帳APP，好評如何得來
+          = link_to 'http://www.playpcesor.com/2012/02/andromoney-android.html', target: "_blank" do
+            %span 電腦玩物：
+            %p 記帳 AndroMoney 免費記帳軟體貼心好用Android記帳本
+          = link_to 'https://briian.com/11864/andromoney.html', target: "_blank" do
+            %span 重灌狂人：
+            %p
+              超好用的記帳 App AndroMoney 收支分類清楚、圖表分析
+              %br
+              直接匯出 excel
+          = link_to 'http://walker-a.com/archives/1113', target: "_blank" do
+            %span 挨踢路人甲：
+            %p 相當符合我胃口，所以介紹大家試試
+          = link_to 'http://cmccm28.pixnet.net/blog/post/29605055-andromoney-%E9%AD%94%E7%8E%8B%E5%9A%B4%E9%81%B8%E8%A8%98%E5%B8%B3%E8%BB%9F%E9%AB%94', target: "_blank" do
+            %span PDA魔王部落：
+            %p
+              讓人眼睛一亮的莫過於 AndroMoney，不僅美工精美
+              %br 操作起來順手易學，很快地就擄獲魔王的心。
+          = link_to 'http://apphome.ithome.com.tw/article/463', target: "_blank" do
+            %span AppHome - 好玩的 App：
+            %p 聰明記帳幫手 - 理財、記帳 AndroMoney
+          = link_to 'https://free.com.tw/free-android-apps-andromoney/', target: "_blank" do
+            %span Freegroup 免費資源網路社群：
+            %p
+              [Android] AndroMoney 簡單又有質感的快速記帳
+              %br 還可透過 Excel 匯入匯出！
+%section.landing#contact
+  .container
+    .row
+      .col-md-3
+        .download
+          = link_to "http://play.google.com/store/apps/details?id=com.kpmoney.android", target: '_blank' do
+            = image_tag("/landing/badges/zh/android.zh.png")
+          = link_to "http://itunes.apple.com/tw/app/li-cai-bang-shou-andromoney/id679044544?l=zh&mt=8", target: '_blank' do
+            = image_tag("/landing/badges/zh/ios.zh.svg")
+      .col-md-9
+        %h1
+          理財幫手 AndroMoney
+          %br
+          %small AndroMoney 是行動裝置上的個人理財服務工具，希望藉此來幫助您妥善管理個人財富。
+        %p
+          我們軟體的發展方向是：
+          %br
+          %strong 簡單易用：操作直覺的使用者介面
+          %br
+          %strong 功能強大：不論單純的記帳，或者想要管理不同的帳戶、類別，甚至是繪製圖表，都可以輕易辦到。
+        %p
+          將來我們會陸續地加入其他功能，使其更為完整
+          %br
+          如同軟體的名稱，我們期許 AndroMoney 能成為最好用，最受歡迎的個人財務軟體
+          %br
+          如果有任何使用上的問題，十分歡迎您利用 email 與我們聯繫，謝謝！
+        %p
+          連絡信箱：
+          = mail_to 'service@andromoney.com'
+%footer.landing
+  %h4 © 2015 AndroMoney
+
+:javascript
+  $(window).scroll(function() {
+    var height = $(window).scrollTop();
+    if(height  > 1) {
+      $("nav").css('background', 'white')
+      $(".navbar-brand").css('color', '#777777')
+      $(".navbar-nav > li > a").css('color', '#777777')
+    } else {
+      $("nav").css('background', 'transparent')
+      $(".navbar-brand").css('color', 'white')
+      $(".navbar-nav > li > a").css('color', 'white')
+    }
+  });

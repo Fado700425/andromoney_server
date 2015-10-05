@@ -9,11 +9,11 @@ AndromoneyServer::Application.routes.draw do
   get 'download', controller: 'welcome', action: 'download'
   get 'about', controller: "welcome", action: 'about'
   get 'pricing', controller: "welcome", action: 'pricing'
-  
-  get "/" => 'welcome#front',  constraints: {subdomain: 'web'}
-  get "/" => 'welcome#front',  constraints: {subdomain: 'test'}
+
+  get "/" => 'welcome#index',  constraints: {subdomain: 'web'}
+  get "/" => 'welcome#index',  constraints: {subdomain: 'test'}
   #root to: redirect("http://www.andromoney.com")   #avoid force redirection to www.andromoney.com at developement mode.
-  root to: 'welcome#front'
+  root to: 'welcome#index'
 
   get 'start_use', controller: 'start', action: 'index'
 

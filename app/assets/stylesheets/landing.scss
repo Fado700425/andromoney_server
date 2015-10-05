@@ -1,0 +1,123 @@
+@import "twitter/bootstrap";
+
+@media screen and (max-width: 767px) {
+  section.landing#feature img {
+    display: none;
+  }
+  section.landing#feature .feature-explaination {
+    text-align: left;
+  }
+  section.landing#exclusive img {
+    display: none;
+  }
+  section.landing#contact .download {
+    margin-top: 10px;
+  }
+}
+
+.landing.navbar-default {
+  background:transparent;
+  border: 0;
+}
+
+.landing.navbar-collapse {
+  background-color: white;
+}
+
+.landing.navbar-brand {
+ padding: 10px 15px 0px 15px;
+ color: white;
+}
+
+.landing.navbar-default .navbar-nav > li > a {
+  color: white;
+}
+
+.landing.alert {
+  position: absolute;
+  width: inherit;
+  z-index: 1;
+}
+
+section.landing#hero {
+  background-image: url('/landing/hero.jpg');
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 720px;
+  display: table;
+  width: 100%;
+}
+
+section.landing#hero .slogan {
+  position: relative;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+}
+
+section.landing#hero h1 {
+  text-shadow: 0px 0px 10px #000;
+}
+
+section.landing#feature {
+  padding-top: 48px;
+}
+
+section.landing#feature .col-sm-6:first-child {
+  text-align: right;
+}
+
+section.landing#feature .feature-explaination {
+  position: relative;
+  top: 28px;
+}
+
+section.landing#exclusive {
+  margin-top: 48px;
+}
+
+section.landing#exclusive .exclusive-image {
+  text-align: center;
+}
+
+section.landing#exclusive .exclusive-title {
+  text-align: center;
+}
+
+section.landing#exclusive .exclusive-explaination.cross_platform strong {
+  text-decoration: underline;
+}
+
+section.landing#exclusive .exclusive-explaination.thumb_up {
+  text-align: center;
+}
+
+section.landing#exclusive .exclusive-award a {
+  text-decoration: none;
+}
+
+section.landing#exclusive .exclusive-award a p {
+  text-decoration: none;
+  color: #222222;
+}
+
+section.landing#contact {
+  margin-top: 32px;
+  background-color: #F0F0F0;
+}
+
+section.landing#contact .download {
+  margin-top: 80px;
+  text-align: center;
+}
+
+footer.landing {
+  display: inline-block;
+  height: 42px;
+  width: 100%;
+  text-align: center;
+  background-color: #555;
+  color: white;
+}
