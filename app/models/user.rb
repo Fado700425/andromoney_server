@@ -23,4 +23,8 @@ class User < ActiveRecord::Base
     return currency
   end
 
+  def hasNotCountPayment
+    Payment.where(user_id: id, out_total: 1).count > 0
+  end
+
 end

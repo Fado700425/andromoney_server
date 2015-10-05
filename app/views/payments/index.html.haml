@@ -33,7 +33,11 @@
                           %span#total_remain.money_info.text-success 0
       .row
         .module-content.table-responsive
-          = cell(:payment).(:show, current_user, icon_path)
+          = cell(:payment).(:show, current_user, icon_path, true)
+          - if(current_user.hasNotCountPayment)
+            %h4
+              = t('payment.not_count')
+            = cell(:payment).(:show, current_user, icon_path, false)
 
 #myAccountModal.modal.fade
   .modal-dialog
@@ -57,6 +61,11 @@
             %label.col-sm-2.control-label{:for => "payment_payment_name"} #{t('payment.init_amount')}
             .col-sm-10
               = text_field_tag "initial_amount","", class: "form-control",placeholder: t('payment.amount_placeholder')
+          .form-group
+            %label.col-sm-2.control-label{:for => "payment_payment_name"}
+            .col-sm-10
+              = check_box_tag "out_total", '0'
+              = t('payment.count_in')
           = hidden_field_tag "payment_id"
           .record_modal_footer
             = submit_tag t('confirm_edit'), class: "btn btn-primary"
@@ -84,5 +93,10 @@
             %label.col-sm-2.control-label{:for => "payment_payment_name"} #{t('payment.init_amount')}
             .col-sm-10
               = text_field_tag "initial_amount","", class: "form-control",placeholder: t('payment.amount_placeholder')
+          .form-group
+            %label.col-sm-2.control-label{:for => "payment_payment_name"}
+            .col-sm-10
+              = check_box_tag "out_total", '0', {:checked => "checked"}
+              = t('payment.count_in')
           .record_modal_footer
             = submit_tag t('confirm_add'), class: "btn btn-primary"

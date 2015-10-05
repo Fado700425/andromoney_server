@@ -84,6 +84,8 @@ ja:
     bank: "銀行"
     amount_placeholder: "初期金額を入力して下さい"
     choose: "アカウント選択"
+    not_count: "カウントされません"
+    count_in: "合計でカウント"
 
   record:
     success_create: "新規記録追加成功！"
