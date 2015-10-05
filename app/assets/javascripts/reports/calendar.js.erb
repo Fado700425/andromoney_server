@@ -193,6 +193,7 @@ $(document).ready(function () {
                 } else {
                     var record = event.event;
                     var amount = parseInt(record.mount);
+                    var type = record.record_category.type;
                     var categroy = record.record_category ? record.record_category.category : '';
                     var subcategroy = record.record_subcategory ? record.record_subcategory.subcategory : '';
                     var category_id = record.record_category.id;
@@ -213,17 +214,16 @@ $(document).ready(function () {
                         $element.empty().append($content);
                         return $element;
                     } else if (view.type == 'agendaWeek') {
-                        var categoryColors = function () {
+                        var recordColors = function () {
                             var colors = {
-                                1: 'food',
-                                2: 'clothing-and-housing',
-                                3: 'traffic',
-                                4: 'recreation'
+                                10: 'income_week',
+                                20: 'expense_week',
+                                30: 'transfer_week'
                             }
 
                             return {
-                                get: function (category_id) {
-                                    var color = colors[category_id];
+                                get: function (type) {
+                                    var color = colors[type];
                                     if (color) {
                                         return color;
                                     }
@@ -238,7 +238,7 @@ $(document).ready(function () {
                         var nthDay = eventMoment.diff(moment(view.start), 'days');
                         var $halfHourRow = $($('.fc-slats').find('tr').get(nthHalfHour));
                         var $dayCol = $($halfHourRow.find('td').get(nthDay + 1));
-                        var $content = $('<div class="detail ' + categoryColors.get(category_id) + '">' +
+                        var $content = $('<div class="detail ' + recordColors.get(type) + '">' +
                                 '<div class="content">' +
                                 '<div style="position: absolute;"><i class="fa fa-circle ' + (isTransfer? 'bulletin-point-transfer' :isIn ? 'bulletin-point-income' : 'bulletin-point-expense') + '"></i>' + '</div>' +
                                 '<div style="padding: 2px 10px 2px 12px; "><span class="time">' + time + '</span>' +

@@ -182,7 +182,7 @@
 }
 
 
-.food {
+.expense_week {
     @include week-view-event-container;
     background-color: rgb(253, 209, 221);
     .content {
@@ -193,19 +193,19 @@
 
 }
 
-.clothing-and-housing {
-
+.income_week {
     @include week-view-event-container;
-    background-color: rgb(210, 239, 254);
+    background-color: rgb(223, 246, 215);
     .content {
       @include week-view-event-content;
-      border-left: 2px solid rgb(114, 196, 234);
-      color: #166b9a;
+      border-left: 2px solid rgb(135, 221, 110);
+      color: #14731c;
     }
-
 }
 
-.traffic {
+
+
+.transfer_week {
 
     @include week-view-event-container;
     background-color: rgb(254, 233, 213);
@@ -217,7 +217,19 @@
 
 }
 
-.recreation {
+.default_week {
+
+    @include week-view-event-container;
+    background-color: rgb(210, 239, 254);
+    .content {
+      @include week-view-event-content;
+      border-left: 2px solid rgb(114, 196, 234);
+      color: #166b9a;
+    }
+
+}
+
+.other_week {
 
     @include week-view-event-container;
     background-color: rgb(246, 228, 249);
@@ -229,15 +241,7 @@
 
 }
 
-.default {
-    @include week-view-event-container;
-    background-color: rgb(223, 246, 215);
-    .content {
-      @include week-view-event-content;
-      border-left: 2px solid rgb(135, 221, 110);
-      color: #14731c;
-    }
-}
+
 
 /* day view timeline styles*/
 
