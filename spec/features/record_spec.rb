@@ -1,20 +1,109 @@
 require 'spec_helper'
 
-feature 'Record', :omniauth, js: true do
+feature Record, :omniauth, js: true do
 	given(:john) { create_user('john@andromoney.com', 'John Doe', 1) }
-
+	
 	background do
 		signin(john)
 		set_user_assest(john)
 	end
 
-	scenario 'new' do
-		visit '/records/new'
-		
-		#set_user_assest(john)
-		#expect(page).to have_content('Signed in!')
-	end
+	given(:tw_account) { Payment.find_by(payment_name: 'Taishin Bank', user_id: john.id) }
+	given(:us_account) { Payment.find_by(payment_name: 'Bank of America', user_id: john.id) }
+	given(:eu_account) { Payment.find_by(payment_name: 'Deutsch Bank', user_id: john.id) }
+	given(:cate_inc)   { Category.find_by(category: 'stock investment', user_id: john.id) }
+	given(:cate_out)   { Category.find_by(category: 'Electronics Equ', user_id: john.id) }
+	given(:cate_tra)   { Category.find_by(category: 'To my lover', user_id: john.id) }
+	given(:subc_inc)   { Subcategory.find_by(subcategory: "Buffet's choice", user_id: john.id) }
+	given(:subc_out)   { Subcategory.find_by(subcategory: "Apple's best", user_id: john.id) }
+	given(:subc_tra)   { Subcategory.find_by(subcategory: "miss Gina", user_id: john.id) }
+	given(:payee)	   { Payee.find_by(payee_name: "Amazon", user_id: john.id)}
+	given(:project)	   { Project.find_by(project_name: "Business", user_id: john.id)}
 
+	describe 'New page' do
+		context 'Default' do
+			before { visit '/records/new' }
+
+			scenario 'has proper contentes, buttons and links' do
+				genernal_content
+				expense_title
+				new_page_link
+			end
+
+			scenario 'clicks save_&_add_another_one' do
+				expect { click_button I18n.t('save_and_add_another_one') }.to change(Record, :count).by(1)
+				expect(current_path).to eq '/records/new'
+				expect(page).to have_content(I18n.t('record.success_create'))
+				genernal_content
+				expense_title
+				new_page_link
+			end
+
+			scenario 'click save_&_back_to_the_list' do
+				expect { click_button I18n.t('save_and_back_to_the_list') }.to change(Record, :count).by(1)				
+				expect(current_path).to eq '/records'
+			end
+=begin
+			scenario 'selects items' do
+				expect(page).to have_content(tw_account.payment_name)
+				expect { click_button I18n.t('save_and_add_another_one') }.to change(Record, :count).by(1)
+				expect(current_path).to eq '/records/new'
+				expect(page).to have_content(I18n.t('record.success_create'))
+				genernal_content
+				expense_title
+				new_page_link
+			end
+
+
+=end
+		end
+	end
 end
 
-# new expense should have correct category, subcategory, payment, payee, project
+=begin
+describe Record, :omniauth, js: true do
+	let(:john) { create_user('john@andromoney.com', 'John Doe', 1) }
+
+	before do
+		signin(john)
+		set_user_assest(john)
+	end
+
+	subject { page }
+
+	shared_examples 'a general new/edit page' do
+		it { should have_content(I18n.t('category.main_category')) }
+		it { should have_content(I18n.t('subcategory.subcategory')) }
+		it { should have_content(I18n.t('project.project')) }
+		it { should have_button(I18n.t('save_and_add_another_one')) }
+		it { should have_button(I18n.t('save_and_back_to_the_list')) }
+	end
+	shared_examples 'expense/income page' do
+		it { should have_content(I18n.t('payment.payment')) }
+		it { should have_content(I18n.t('payee.payee')) }
+		it { should_not have_content(I18n.t('transfer.out')) }
+		it { should_not have_content(I18n.t('transfer.in')) }
+	end
+	shared_examples 'transfe page' do
+		it { should have_content(I18n.t('transfer.out')) }
+		it { should have_content(I18n.t('transfer.in')) }
+		it { should_not have_content(I18n.t('payment.payment')) }
+		it { should_not have_content(I18n.t('payee.payee')) }
+	end
+	shared_examples 'a new page with 3 links' do
+		it { should have_content(I18n.t('record_type.expense')) }
+		it { should have_content(I18n.t('record_type.income')) }
+		it { should have_content(I18n.t('record_type.transfer')) }
+	end
+
+	describe 'New page' do
+		before { visit '/records/new' }
+
+		context 'Default' do
+			it_behaves_like 'a general new/edit page'
+			it_behaves_like 'expense/income page'
+			it_behaves_like 'a new page with 3 links'
+		end
+	end
+end
+=end

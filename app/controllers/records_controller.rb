@@ -27,7 +27,7 @@ class RecordsController < ApplicationController
       if !@array.blank? && (@array == "to_new")
         @record = Record.new
         fetch_variables_for_records
-        render 'records/new'
+        redirect_to new_record_path
       else
         redirect_to records_path(month_from_now: params[:month_from_now])  
       end
@@ -49,7 +49,7 @@ class RecordsController < ApplicationController
       if !@array.blank? && (@array == "to_new")
         @record = Record.new
         fetch_variables_for_records
-        render 'records/new'
+        redirect_to new_record_path
       else
         redirect_to records_path(month_from_now: params[:month_from_now])  
       end

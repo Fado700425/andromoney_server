@@ -4,5 +4,6 @@ Fabricator(:project) do
   project_name {Faker::Lorem.characters(20)}
   hidden 0
   is_delete false
+  order_no { Faker::Number.between(1, 100) }
   update_time Time.now
 end

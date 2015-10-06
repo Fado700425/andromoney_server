@@ -18,11 +18,11 @@ describe Record do
 	let(:amy) 		  { Fabricate(:user, id: bob.id+1) }
 	subject { record }
 
-	describe "as an expense" do
-		describe "with out_payment" do
+	context "as an expense" do
+		context "with out_payment" do
 			it { should be_valid }
 		end
-		describe "with in_payment" do
+		context "with in_payment" do
 			before do
 				record.in_payment 	 = deposit.hash_key
 				record.currency_code = deposit.currency_code
@@ -30,7 +30,7 @@ describe Record do
 			end
 			it { should_not be_valid }
 		end
-		describe "with in_payment & out_payment" do
+		context "with in_payment & out_payment" do
 			before do
 				record.out_payment   = withdrawal.hash_key
 				record.currency_code = withdrawal.currency_code
@@ -38,10 +38,10 @@ describe Record do
 			end
 			it { should_not be_valid }
 		end
-		describe "without in_amount/in_currency" do
+		context "without in_amount/in_currency" do
 			it { should be_valid }
 		end
-		describe "with in_amount/in_currency" do
+		context "with in_amount/in_currency" do
 			before do
 				record.in_amount     = 1
 				record.in_currency   = "TWD"
@@ -50,7 +50,7 @@ describe Record do
 		end
 	end
 
-	describe "as an income" do
+	context "as an income" do
 		before do 		#change category/ subcategory
 			record.category      = in_category.hash_key
 			record.subcategory 	 = in_subcategory.hash_key
@@ -60,36 +60,36 @@ describe Record do
 			record.in_amount     = nil
 			record.in_currency   = nil
 		end
-		describe "with out_payment only" do
+		context "with out_payment only" do
 			before do
 				record.in_payment 	 = nil
 				record.out_payment 	 = deposit.hash_key
 			end
 			it { should_not be_valid }
 		end
-		describe "with in_payment only" do
+		context "with in_payment only" do
 			it { should be_valid }
 		end
-		describe "with in_payment & out_payment" do
+		context "with in_payment & out_payment" do
 			before do
 				record.in_payment 	 = deposit.hash_key
 				record.out_payment 	 = withdrawal.hash_key
 			end
 			it { should_not be_valid }
 		end
-		describe "with in_amount & in_currency" do
+		context "with in_amount & in_currency" do
 			before do
 				record.in_amount     = 1
 				record.in_currency   = deposit.currency_code
 			end
 			it { should_not be_valid }
 		end
-		describe "without in_amount & in_currency" do
+		context "without in_amount & in_currency" do
 			it { should be_valid }
 		end
 	end
 
-	describe "as a transfer" do
+	context "as a transfer" do
 		before do 		#change category/ subcategory
 			record.category      = tra_category.hash_key
 			record.subcategory 	 = tra_subcategory.hash_key
@@ -99,7 +99,7 @@ describe Record do
 			record.in_amount     = 1
 			record.in_currency   = deposit.currency_code
 		end
-		describe "with out_payment only" do
+		context "with out_payment only" do
 			before do
 				record.in_payment 	 = nil
 				record.currency_code = nil
@@ -107,7 +107,7 @@ describe Record do
 			end
 			it { should_not be_valid }
 		end
-		describe "with in_payment only" do
+		context "with in_payment only" do
 			before do
 				record.in_payment 	 = deposit.hash_key
 				record.currency_code = deposit.currency_code
@@ -115,13 +115,13 @@ describe Record do
 			end
 			it { should_not be_valid }
 		end
-		describe "with in_payment & out_payment" do
+		context "with in_payment & out_payment" do
 			it { should be_valid }
 		end
-		describe "with in_amount & in_currency" do
+		context "with in_amount & in_currency" do
 			it { should be_valid }
 		end
-		describe "without in_amount & in_currency" do
+		context "without in_amount & in_currency" do
 			before do
 				record.in_amount     = nil
 				record.in_currency   = nil
@@ -129,7 +129,7 @@ describe Record do
 			it { should_not be_valid }
 		end
 
-		describe "with the same in_payment & out_payment" do
+		context "with the same in_payment & out_payment" do
 			before do
 				record.out_payment = record.in_payment
 			end
@@ -137,44 +137,44 @@ describe Record do
 		end
 	end
 
-	describe "with category from other user" do
+	context "with category from other user" do
 		let(:category_from_other_user) { Fabricate(:category, user_id: amy.id) }
 		before { record.category = category_from_other_user.hash_key }
 		it { should_not be_valid }
 	end
 
-	describe "with subcategory not belongs to category" do
+	context "with subcategory not belongs to category" do
 		let(:subcategory_from_different_category) { Fabricate(:subcategory, user_id: bob.id, id_category: "another_category_key") }
 		before { record.subcategory = subcategory_from_different_category.hash_key }
     	it { should_not be_valid }
 	end
 
-	describe "without mount" do
+	context "without mount" do
 		before { record.mount = nil }
     	it { should_not be_valid }
 	end
-	describe "without category" do
+	context "without category" do
 		before { record.category = nil }
     	it { should_not be_valid }
 	end
-	describe "without subcategory" do
+	context "without subcategory" do
 		before { record.subcategory = nil }
     	it { should_not be_valid }
 	end
-	describe "without date" do
+	context "without date" do
 		before { record.date = nil }
     	it { should_not be_valid }
 	end
-	describe "without currency_code" do
+	context "without currency_code" do
 		before { record.currency_code = nil }
     	it { should_not be_valid }
 	end
-	describe "without user_id" do
+	context "without user_id" do
 		before { record.user_id = nil }
     	it { should_not be_valid }
 	end
 
-	describe "of the same user" do
+	context "of the same user" do
 		it "with a duplicate hash_key." do
 			record.save!
 			another_record = record.dup 		#copy record to @another_record
