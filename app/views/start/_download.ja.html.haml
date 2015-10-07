@@ -1,0 +1,89 @@
+#myTabContent.tab-content
+  #android.tab-pane.fade.in.active
+    .row.featurette
+      .col-md-3.col-md-offset-3
+        = link_to(image_tag('android_index.png',class: "featurette-image img-responsive"),"https://play.google.com/store/apps/details?id=com.kpmoney.android")
+      .col-md-5
+        %b.text-danger
+          Google Play ホームページの効率ツールランキングの推薦記帳財務管理アプリにランクイン。
+        %br/
+        %b.text-danger
+          App Next 2013応用プログラム創新コンペの財務管理ツール。
+        %br/
+        %b.text-danger
+          【Android App達人実測評価サイト】厳選アプリの1つ、アンドロマネー（家計簿･財務管理)
+        %br/
+        知名ウェブサイトによる推薦：
+        %br/
+        .text-success
+          PUNAPP :
+        【AndroMoney】ダブルプラットフォームの資産管理記帳アプリ、好評の原因
+        %br/
+        .text-success
+          電腦（コンピュータプレイヤー）:
+        記帳 アンドロマネー　無料記帳ソフトウェア　心にいきわたる使いやすいアンドロイドブックキーピング
+        %br/
+        .text-success
+          重灌狂人（リインストール狂人）:
+        超使いやすい記帳アプリ　アンドローマネー 　収支と支出分類が明確に　グラフ･チャート分析、直接 excelにエクスポート…
+        %br/
+        .text-success
+          挨踢路人甲（アプリ紹介ウェブサイト）:
+        非常に好みにびったりです。なので皆さんに紹介します。
+        %br/
+        .text-success
+          PDA魔王ブログ :
+        目を輝かせるのが記帳アプリのアンドロマネー、きれいなレイアウトとデザイン。操作は簡単で習いやすい。直ぐに魔王の心を捕らえました。
+        %br/
+        .text-success
+          Apphome-面白いアプリ :
+        スマート記帳ヘルパー-財務管理、記帳アンドマネー
+        %br/
+        .text-success
+          Freegroup無料リソースソーシャルネットワーク :
+        [Android] アンドロマネー 簡単で質感のある快速記帳、Excelからインポート/エクスポートも可能！
+        %br
+        %p.lead
+          = link_to "http://play.google.com/store/apps/details?id=com.kpmoney.android", target: '_blank' do
+            = image_tag("/landing/badges/android.#{I18n.locale}.png")
+
+  #iphone.tab-pane.fade
+    .row.featurette
+      .col-md-3.col-md-offset-3
+        = link_to(image_tag('android_index.png',class: "featurette-image img-responsive"),"https://play.google.com/store/apps/details?id=com.kpmoney.android")
+      .col-md-5
+        %h2.text-danger
+          iPhone 必須のアプリ
+        %table.table.table-striped
+          %tbody
+            %tr
+              %td 各出費記帳
+              %td
+                %span.glyphicon.glyphicon-ok
+            %tr
+              %td 予算管理
+              %td
+                %span.glyphicon.glyphicon-ok
+            %tr
+              %td 消費タイプで管理
+              %td
+                %span.glyphicon.glyphicon-ok
+            %tr
+              %td マルチアカウント機能
+              %td
+                %span.glyphicon.glyphicon-ok
+            %tr
+              %td 貨幣別
+              %td
+                %span.glyphicon.glyphicon-ok
+            %tr
+              %td 統計表（グラフ）解析
+              %td
+                %span.glyphicon.glyphicon-ok
+            %tr
+              %td マルチプラットフォームの同期化
+              %td
+                %span.glyphicon.glyphicon-ok
+        %p.lead
+          = link_to "http://itunes.apple.com/tw/app/li-cai-bang-shou-andromoney/id679044544?l=zh&mt=8", target: '_blank' do
+            = image_tag("/landing/badges/ios.#{I18n.locale}.svg")
