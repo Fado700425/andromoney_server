@@ -21,41 +21,45 @@ feature Record, :omniauth, js: true do
 	given(:project)	   { Project.find_by(project_name: "Business", user_id: john.id)}
 
 	describe 'New page' do
-		context 'Default' do
-			before { visit '/records/new' }
+		before { visit '/records/new' }
 
-			scenario 'has proper contentes, buttons and links' do
-				genernal_content
-				expense_title
-				new_page_link
-			end
+		scenario 'users save a record, and get record#new by clicking save_&_add_another_one.' do
+			expect { click_button I18n.t('save_and_add_another_one') }.to change(Record, :count).by(1)
+			expect(current_path).to eq '/records/new'
+			expect(page).to have_content(I18n.t('record.success_create'))
+			genernal_content
+			expense_title
+			expense_content
+			new_page_category_toggle
+		end
 
-			scenario 'clicks save_&_add_another_one' do
-				expect { click_button I18n.t('save_and_add_another_one') }.to change(Record, :count).by(1)
-				expect(current_path).to eq '/records/new'
-				expect(page).to have_content(I18n.t('record.success_create'))
-				genernal_content
-				expense_title
-				new_page_link
-			end
+		scenario 'users save a record, and get record#index by clicking save_&_back_to_the_list.' do
+			expect { click_button I18n.t('save_and_back_to_the_list') }.to change(Record, :count).by(1)				
+			expect(current_path).to eq '/records'
+		end
 
-			scenario 'click save_&_back_to_the_list' do
-				expect { click_button I18n.t('save_and_back_to_the_list') }.to change(Record, :count).by(1)				
-				expect(current_path).to eq '/records'
-			end
-=begin
-			scenario 'selects items' do
-				expect(page).to have_content(tw_account.payment_name)
-				expect { click_button I18n.t('save_and_add_another_one') }.to change(Record, :count).by(1)
-				expect(current_path).to eq '/records/new'
-				expect(page).to have_content(I18n.t('record.success_create'))
-				genernal_content
-				expense_title
-				new_page_link
-			end
+		scenario 'users click "Expense" toggle, and see a expense page.' do
+			find('#expenseLink').click
+			genernal_content
+			expense_title
+			expense_content
+			new_page_category_toggle
+		end
 
+		scenario 'users click "Income" toggle, and see a income page.' do
+			find('#incomeLink').click
+			genernal_content
+			income_title
+			income_content
+			new_page_category_toggle
+		end
 
-=end
+		scenario 'users click "Transfer" toggle, and see a transfer page.' do
+			find('#transferLink').click
+			genernal_content
+			transfer_title
+			transfer_content
+			new_page_category_toggle
 		end
 	end
 end
