@@ -182,5 +182,12 @@ describe Record do
 			expect(another_record.errors[:hash_key]).to include("has already been taken")
 		end
 	end
+	context "when mobile updating" do
+		before do
+			record.category      = "SYSTEM"
+			record.subcategory 	 = "INIT_AMOUNT"
+		end
+		it { should be_valid }
+	end
 
 end
