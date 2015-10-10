@@ -1,0 +1,36 @@
+{
+  "name": "currency-symbol.js",
+  "main": "currency.js",
+  "version": "1.0.0",
+  "homepage": "https://github.com/dulaccc/currency-symbol.js",
+  "authors": [
+    "Pierre Dulac <pierre@dulaccc.me>"
+  ],
+  "description": "A lightweight JavaScript library for currency symbol formatting. Zero dependencies.",
+  "moduleType": [
+    "amd",
+    "node"
+  ],
+  "keywords": [
+    "currency",
+    "money",
+    "symbol"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "1.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.0",
+    "commit": "a72db8dfc4b40f3158a20bed3449a125813b23b6"
+  },
+  "_source": "git@github.com:dulaccc/currency-symbol.js.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:dulaccc/currency-symbol.js.git"
+}
