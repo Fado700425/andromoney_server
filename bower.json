@@ -1,5 +1,5 @@
 {
- "name": "foo",
+ "name": "bower-rails generated vendor assets",
  "dependencies": {
      "i18next"    : "git@github.com:i18next/i18next.git",
      "currency-symbol": "git@github.com:dulaccc/currency-symbol.js.git",
