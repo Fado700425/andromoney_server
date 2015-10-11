@@ -26,3 +26,4 @@
 /config/application.yml
 
 /vendor/assets/bower_components/
+bower_components
