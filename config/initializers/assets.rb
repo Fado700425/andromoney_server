@@ -1,1 +1,1 @@
-Rails.application.config.assets.precompile += %w( landing.scss )
+Rails.application.config.assets.precompile += %w( landing.css )
