@@ -1,268 +1,173 @@
-.jumbotron#about
+%nav.landing.navbar.navbar-default.navbar-fixed-top
   .container
-    %h1
-      AndroMoney
-    %p
-      %br
-      AndroMoney is a personal finance tool for use on your mobile phone,
-      %br
-      By using this tool, we hope you can better manage your wealth.
-      %br
-      %br
-      We focus on:
-      %br
-      %span.text-success
-        1.Ease of use: keep it intuitive to operate
-      %br
-      %span.text-success
-        2.Powerful:daily accounting, managing categories, or even drawing detail reports, AndroMoney can easily manage it.
-      %br
-      %br
-      We hope AndroMoney will be the best personal finance tool on Android  iOS  Web!
-      %br
-      If you have any problems about how to use it or ideas about how to improve it, feel free to email us. We appreciate your feedback!
-      %br
-      %br
-      Email:
-      = mail_to "service@andromoney.com", "service@andromoney.com"
-.container.marketing
-  .row
-    .col-lg-4
-      = image_tag("invoice.png")
-      %h2 Track Daily Expense
-      %p No matter using Android or iPhone, users can track every expense, income, transfer record
-    .col-lg-4
-      = image_tag("stock.png")
-      %h2 Realtime Expense Report
-      %p Find the highest expense, average expense, or get the statistic report(pie chart, bar chart, curve chart....)
-    .col-lg-4
-      = image_tag("coins.png")
-      %h2 Track Your Asset
-      %p Provide multiple accouts, projects founction, easily to track your asset
-  / START THE FEATURETTES
-  %hr.featurette-divider
-    .row.featurette
-      .col-md-7
-        %h2.text-primary
-          Expense Track
-          .small
-            Budget management, Transfers, scheduled with recurring transactions.,Multiple accounts, Multiple currencies, Dynamic report analysis, CSV import/export
-        %p.lead
-          AndroMoney is a personal finance tool for use on your mobile phone. By using this tool, we hope you can better manage your wealth.
+    .navbar-header
+      %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to root_path, class: "landing navbar-brand" do
+        = image_tag("/landing/logo.png")
+        AndroMoney
+    #navbar-collapse.collapse.navbar-collapse
+      %ul.nav.navbar-nav.navbar-right
+        %li
+          = link_to 'Feature', root_path(anchor: "feature")
+        %li
+          = link_to 'Announcement', announcements_path
+        %li
+          = link_to 'Contact us', root_path(anchor: "contact")
+        %li
+          = link_to 'Sign in', "/auth/google_login"
+.container
+  - flash.each do |name, msg|
+    - if msg.is_a?(String)
+      %div{:class => "landing alert alert-#{name}", style: 'margin-top: 50px;'}
+        %a.close{"data-dismiss" => "alert"} ×
+        = content_tag :div, msg, :id => "flash_#{name}"
+%section.landing#hero
+  .slogan
+    %h1 Know your money more to make better life!
+    .download
+      = link_to "http://play.google.com/store/apps/details?id=com.kpmoney.android", target: '_blank' do
+        = image_tag("/landing/badges/en/android.en.png", :class => "landing badge-image")
+      = link_to "http://itunes.apple.com/us/app/li-cai-bang-shou-andromoney/id679044544?l=en&mt=8", target: '_blank' do
+        = image_tag("/landing/badges/en/ios.en.svg", :class => "landing badge-image")
+%section.landing#feature
+  .container
+    .row
+      .col-sm-6
+        .feature-explaination.text-right
+          %h1 Track Daily Expense
+          %p
+            No matter using Android or iPhone, 
+            %br you can track every expense, income, transfer record.
+          %h1 Budget management
+          %p
+            You can set mnthly budget according to your category.
+            %br
+            Budget exceed alert help you control your expense.
+      .col-sm-6
+        = image_tag 'screenshots/screenshot01.en.png'
+    .row
+      .col-sm-6
+        = image_tag 'screenshots/screenshot02.en.png'
+      .col-sm-6
+        .feature-explaination
+          %h1 Realtime Expense Report
+          %p
+            Find the highest expense, average expense.
+            %br
+            Get the statistic report(pie chart, bar chart, curve chart....)
+            
+          %h1 Category management
+          %p
+            You can add, delete or modify the category according to your need.
+            %br
+            (Expense, Income, Transfer)
+    .row
+      .col-sm-6.text-right
+        .feature-explaination
+          %h1 Account management
+          %p
+            Multiple account can be set for you.
+            %br
+            Expense also can be tag to differenct project.
+            %br
+            You can know your asset totally.
+          %h1 Multiple Currencies
+          %p
+            You can use different currencies outside to billing on abroad.
+            %br
+            Currency rates can be synced with google currency.
+            
+      .col-sm-6
+        = image_tag 'screenshots/screenshot03.en.png'
+%section.landing#exclusive
+  .container
+    .row
+      .col-md-4
+        .exclusive-image
+          = image_tag '/landing/cross_platform.png'
+        .exclusive-title
+          %h2
+            Syncd on different platform
+            %br
+            %small Android, iPhone, Web
+        .exclusive-explaination.cross_platform
+          %p No matter using Android, iPad or desktop, you can download AndroMoney mobile app, or using AndroMoney web cloud service. Tracking your expense and syncing the data with mobile and web.          
+      .col-md-4
+        .exclusive-image
+          = image_tag '/landing/shield.png'
+        .exclusive-title
+          %h2
+            Data security
+            %br
+            %small PIN code to open app, and your financial data will always safe.
+        .exclusive-explaination
+          %p Even if your device has a meltdown, your stuff is always safe and can be restored.
+      .col-md-4
+        .exclusive-image
+          = image_tag '/landing/thumb_up.png'
+        .exclusive-title
+          %h2
+            Loyal
+            %br
+            %small 
+        .exclusive-explaination.thumb_up
+          %p
+            2013 Google Play effeciency tools
+            %br
+            2014 Goolge Play 30 best apps 
+            
+        
+%section.landing#contact
+  .container
+    .row
+      .col-md-3
+        .download
+          = link_to "http://play.google.com/store/apps/details?id=com.kpmoney.android", target: '_blank' do
+            = image_tag("/landing/badges/en/android.en.png", :class => "landing badge-image")
+          = link_to "http://itunes.apple.com/us/app/li-cai-bang-shou-andromoney/id679044544?l=en&mt=8", target: '_blank' do
+            = image_tag("/landing/badges/en/ios.en.svg", :class => "landing badge-image")
+      .col-md-9
+        %h1
+          AndroMoney
           %br
-          %br
-          We focus on:
-          %br
+        AndroMoney is a personal finance tool for use on your mobile phone,
+        %br
+        By using this tool, we hope you can better manage your wealth.
+        %br
+        %br
+        We focus on:
+        %br
+        %span.text-success
           1.Ease of use: keep it intuitive to operate
-          %br
+        %br
+        %span.text-success
           2.Powerful:daily accounting, managing categories, or even drawing detail reports, AndroMoney can easily manage it.
-      .col-md-5
-        = link_to image_path('android_index.png'), data: {gallery: ""}, title: "AndroMoney_Index", rel: "group" do
-          = image_tag('android_index.png',class: "featurette-image img-responsive", alt: "AndroMoney_Index")
-    %h3.text-success More Pics...
-    #links.clearfix
-      = link_to image_path('andromoney_1.png'), data: {gallery: ""}, title: "AndroMoney_1", rel: "group" do
-        = image_tag('andromoney_1.png', alt: "AndroMoney_1")
-      = link_to image_path('andromoney_2.png'), data: {gallery: ""}, title: "AndroMoney_2", rel: "group" do
-        = image_tag('andromoney_2.png', alt: "AndroMoney_2")
-      = link_to image_path('andromoney_3.png'), data: {gallery: ""}, title: "AndroMoney_3", rel: "group" do
-        = image_tag('andromoney_3.png', alt: "AndroMoney_3")
-      = link_to image_path('andromoney_4.png'), data: {gallery: ""}, title: "AndroMoney_4", rel: "group" do
-        = image_tag('andromoney_4.png', alt: "AndroMoney_4")
-  %hr.featurette-divider
-    .row.featurette
-      .col-md-5
-        = image_tag('CrossPlatform.png',class: "featurette-image img-responsive")
-      .col-md-7
-        %h2.text-primary
-          Multiple Platform
-          .small
-            iOS, Android Web platform support
-        %p.lead
-          No matter using Android, iPad or desktop, you can download AndroMoney mobile app, or using AndroMoney web cloud service. Tracking your expense and syncing the data with mobile and web
-  %hr.featurette-divider
-    .row.featurette
-      .col-md-7
-        %h2.text-primary
-          Protect User Data
-          .small
-            Cloud backup, CSV import/export
-        %p.lead
-          When using other financial app, you might losing your data accidently. In order to protect your data, AndroMoney can backup your data to cloud or export your data. You don't need to be afraid of losing data anymore!
-      .col-md-5
-        = image_tag('shield.png',class: "featurette-image img-responsive")
-  %hr.featurette-divider
-    .row.featurette
-      .col-md-5
-        = image_tag('thumb_up.png',class: "featurette-image img-responsive")
-      .col-md-7
-        %h2.text-primary
-          Quality Assurance
-          .small
-            Recommended by Many Website
-        %b.text-danger
-          Google Play Selected as Best Financial APP
-        %br
-        %b.text-danger
-          Nominated by App Next 2013 Software Competiton
         %br
         %br
-        Recommended by Famous Website：
+        We hope AndroMoney will be the best personal finance tool on Android  iOS  Web!
         %br
-        .text-success
-          Android Authority :
-        Best Android apps for personal financial management
+        If you have any problems about how to use it or ideas about how to improve it, feel free to email us. We appreciate your feedback!
         %br
-        .text-success
-          APP CRAWLR :
-        Top 5 Apps for Pie And Bar (iPhone/iPad)  25+ Top Apps for Reporting Tool (android)
         %br
-        .text-success
-          HONGKIAT.com :
-        20 Android Apps To Manage Your Finances
-        %br
-        .text-success
-          AppGoVideo.com
-        The one of best tools for keeping accounts, efficiently tracking each expense report
-        %br
-        .text-success
-          Z Jil :
-        AndroMoney : A Useful App! All things considered, I like this handy app and will recommend it!
-        %br
-        .text-success
-          Apphome :
-        AndroMoney is a personal finance tool for use on your mobile phone
-        %br
+        Email:
+        = mail_to "service@andromoney.com", "service@andromoney.com"
+%footer.landing
+  %h4 © 2015 AndroMoney
 
-  %hr.featurette-divider
-  .row.text-center#download
-    %ul#myTab.nav.nav-tabs.nav-justified
-      %li.active
-        = link_to "#{image_tag('android-icon.png')}Android".html_safe,"#android", :data => {:toggle=>"tab"}
-      %li
-        = link_to "#{image_tag('apple-icon.png')}iPhone".html_safe,"#iphone", :data => {:toggle=>"tab"}
-      %li
-        = link_to "#{image_tag('icon-50.png')}AndroMoney Cloud".html_safe,"#web", :data => {:toggle=>"tab"}
-      %br
-      #myTabContent.tab-content
-        #android.tab-pane.fade.in.active
-          .row.featurette
-            .col-md-3.col-md-offset-3
-              = image_tag('android_index.png',class: "featurette-image img-responsive")
-            .col-md-5
-              %b.text-danger
-                Google Play Selected as Best Financial APP
-              %br
-              %b.text-danger
-                Nominated by App Next 2013 Software Competiton
-              %br
-              %br
-              Recommended by Famous Website：
-              %br
-              .text-success
-                Android Authority :
-              Best Android apps for personal financial management
-              %br
-              .text-success
-                APP CRAWLR :
-              Top 5 Apps for Pie And Bar (iPhone/iPad)  25+ Top Apps for Reporting Tool (android)
-              %br
-              .text-success
-                HONGKIAT.com :
-              20 Android Apps To Manage Your Finances
-              %br
-              .text-success
-                AppGoVideo.com
-              The one of best tools for keeping accounts, efficiently tracking each expense report
-              %br
-              .text-success
-                Z Jil :
-              AndroMoney : A Useful App! All things considered, I like this handy app and will recommend it!
-              %br
-              .text-success
-                Apphome :
-              AndroMoney is a personal finance tool for use on your mobile phone
-              %br
-              %br
-              %br
-              %p.lead
-                = link_to(image_tag('badge_android.png'),"https://play.google.com/store/apps/details?id=com.kpmoney.android")
-
-        #iphone.tab-pane.fade
-          .row.featurette
-            .col-md-3.col-md-offset-3
-              = image_tag('android_index.png',class: "featurette-image img-responsive")
-            .col-md-5
-              %h2.text-danger
-                iPhone
-              %table.table.table-striped
-                %tbody
-                  %tr
-                    %td Expense Track
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td Budget Management
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td Transfer
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td Multiple Accounts
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td Dynamic Report Analysis
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td CSV Import/Export
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td iOS, Android Web Platform Support
-                    %td
-                      %span.glyphicon.glyphicon-ok
-              %p.lead
-                = link_to(image_tag('badge_ios.png'),"https://itunes.apple.com/us/app/andromoney/id679044544?mt=8")
-        #web.tab-pane.fade
-          .row.featurette
-            .col-md-3.col-md-offset-3
-              = image_tag('android_index.png',class: "featurette-image img-responsive")
-            .col-md-5
-              %h2.text-danger
-                Best Personal Account Web Service
-              %table.table.table-striped
-                %tbody
-                  %tr
-                    %td Expense Track
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td Budget Management
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td Transfer
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td Multiple Accounts
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td Dynamic Report Analysis
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td CSV Import/Export
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td iOS, Android Web Platform Support
-                    %td
-                      %span.glyphicon.glyphicon-ok
-              %p.lead
-                = link_to("#{image_tag('icon.png')} Login".html_safe,"/auth/google_login")
+:javascript
+  $(window).scroll(function() {
+    var height = $(window).scrollTop();
+    if(height  > 1) {
+      $("nav").css('background', 'white')
+      $(".navbar-brand").css('color', '#777777')
+      $(".navbar-nav > li > a").css('color', '#777777')
+    } else {
+      $("nav").css('background', 'transparent')
+      $(".navbar-brand").css('color', 'white')
+      $(".navbar-nav > li > a").css('color', 'white')
+    }
+  });

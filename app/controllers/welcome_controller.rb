@@ -5,7 +5,7 @@ class WelcomeController < ApplicationController
     elsif current_user
       redirect_to home_path, :notice => notice
     # workaround for zh and zh-TW landing page
-    elsif [:zh, :"zh-TW"].include? I18n.locale
+    elsif [:zh, :"zh-TW",:ja , :en].include? I18n.locale
       render layout: "landing"
     else
       render layout: "application"

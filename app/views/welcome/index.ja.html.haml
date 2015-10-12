@@ -1,280 +1,164 @@
-.jumbotron#about
+%nav.landing.navbar.navbar-default.navbar-fixed-top
   .container
-    %h1
-      財務管理ヘルパー AndroMoney
-    %p
-      %br
-      AndroMoney はモバイルフォン向けの個人財務管理ツールです,
-      %br
-      このツールを利用することより、個人資産を管理して頂きたいと思います。
-      %br
-      %br
-      我々のアプリの発展方向は：
-      %br
-      %span.text-success
-        1.簡単で使いやすい、直感的な操作
-      %br
-      %span.text-success
-        2.強大な機能，単純な記帳だけでなく、違うアカウント、カテゴリー、更にはグラフ作成も軽かる簡単にできます。
-      %br
-      %br
-      今後は続々とその他機能を追加し、機能を豊富にそろえます。
-      %br
-      アプリの名称通り、アンドロマネーはアンドロイドの中で、類似カテゴリーのアプリーのトップになれるよう期しています。
-      %br
-      どんな使用上の問題でもEメールでの連絡を歓迎しております！ご使用ありがとうございます。
-      %br
-      %br
-      メールアドレス:
-      = mail_to "service@andromoney.com", "service@andromoney.com"
-.container.marketing
-  .row
-    .col-lg-4
-      = image_tag("invoice.png")
-      %h2 生活消費を記録
-      %p Android でも iPhone ユーザーでもアンドロマネーモバイルアプリを通じて、簡単に一つ一つの出費、振込み、収入及び支出を記録することができます。
-    .col-lg-4
-      = image_tag("stock.png")
-      %h2 リアルタイムに消費を分析
-      %p 最大消費、平均出費を検索し、ダイナミックな統計グラフを作成し、パイグラフ(出費分布)、ランチャート(出費傾向)の機能があり、グラフや表とインタラクティブな操作が可能です。
-    .col-lg-4
-      = image_tag("coins.png")
-      %h2 資産状況を把握
-      %p マルチアカウント機能に対応し、異なるアカウントを設定することや専案管理もでき、各項目の出費と使い道が理解でき、確実に自分の資産を把握することができます。
-  / START THE FEATURETTES
-  %hr.featurette-divider
-    .row.featurette
-      .col-md-7
-        %h2.text-primary
-          完璧な記帳機能
-          .small
-            各出費記帳、予算管理、消費タイプ別管理、マルチアカウント機能、異なる貨幣、統計グラフ分析
-        %p.lead
-          アンドロマネーはモバイルションの個人記帳財務管理ツールです。このツールを通じて、個人資産を良く管理します。
-          %br
-          %br
-          我々のソフトウエアの発展方向は：
-          %br
-          1.簡単で使いやすく、直感的な操作。
-          %br
-          2.強大な機能，単純な記帳だけでなく、違うアカウント、カテゴリー、更にはグラフ作成も軽かる簡単にできます。
-      .col-md-5
-        = link_to image_path('android_index.png'), data: {gallery: ""}, title: "AndroMoney_Index", rel: "group" do
-          = image_tag('android_index.png',class: "featurette-image img-responsive", alt: "AndroMoney_Index")
-    %h3.text-success その他イメージを表示する
-    #links.clearfix
-      = link_to image_path('andromoney_1.png'), data: {gallery: ""}, title: "AndroMoney_1", rel: "group" do
-        = image_tag('andromoney_1.png', alt: "AndroMoney_1")
-      = link_to image_path('andromoney_2.png'), data: {gallery: ""}, title: "AndroMoney_2", rel: "group" do
-        = image_tag('andromoney_2.png', alt: "AndroMoney_2")
-      = link_to image_path('andromoney_3.png'), data: {gallery: ""}, title: "AndroMoney_3", rel: "group" do
-        = image_tag('andromoney_3.png', alt: "AndroMoney_3")
-      = link_to image_path('andromoney_4.png'), data: {gallery: ""}, title: "AndroMoney_4", rel: "group" do
-        = image_tag('andromoney_4.png', alt: "AndroMoney_4")
-  %hr.featurette-divider
-    .row.featurette
-      .col-md-5
-        = image_tag('CrossPlatform.png',class: "featurette-image img-responsive")
-      .col-md-7
-        %h2.text-primary
+    .navbar-header
+      %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to root_path, class: "landing navbar-brand" do
+        = image_tag("/landing/logo.png")
+        家計簿 AndroMoney
+    #navbar-collapse.collapse.navbar-collapse
+      %ul.nav.navbar-nav.navbar-right
+        %li
+          = link_to 'フィーチャー', root_path(anchor: "feature")
+        %li
+          = link_to 'お知らせ', announcements_path
+        %li
+          = link_to 'コンタクト', root_path(anchor: "contact")
+        %li
+          = link_to 'ユーザーログイン', "/auth/google_login"
+.container
+  - flash.each do |name, msg|
+    - if msg.is_a?(String)
+      %div{:class => "landing alert alert-#{name}", style: 'margin-top: 50px;'}
+        %a.close{"data-dismiss" => "alert"} ×
+        = content_tag :div, msg, :id => "flash_#{name}"
+%section.landing#hero
+  .slogan
+    %h1 常（つね）に明（あか）るさを失（うしな）わず努力する人には !
+    .download
+      = link_to "http://play.google.com/store/apps/details?id=com.kpmoney.android", target: '_blank' do
+        = image_tag("/landing/badges/ja/android.ja.png", :class => "landing badge-image")
+      = link_to "http://itunes.apple.com/jp/app/li-cai-bang-shou-andromoney/id679044544?l=ja&mt=8", target: '_blank' do
+        = image_tag("/landing/badges/ja/ios.ja.svg", :class => "landing badge-image")
+%section.landing#feature
+  .container
+    .row
+      .col-sm-6
+        .feature-explaination.text-right
+          %h1 生活消費を記録
+          %p Android でも iPhone ユーザーでもア
+          %br ンドロマネーモバイルアプリを通じて、
+          %br 簡単に一つ一つの出費、振込み、収入及
+          %br び支出を記録することができます。
+      .col-sm-6
+        = image_tag 'screenshots/screenshot01.ja.png'
+    .row
+      .col-sm-6
+        = image_tag 'screenshots/screenshot02.ja.png'
+      .col-sm-6
+        .feature-explaination
+          %h1 リアルタイムに消費を分析
+          %p 最大消費、平均出費を検索し、
+          %br ダイナミックな統計グラフを作成し、
+          %br パイグラフ(出費分布)、ランチャート(出費傾向)
+          %br の機能があり、グラフや表と
+          %br インタラクティブな操作が可能です。
+            
+    .row
+      .col-sm-6.text-right
+        .feature-explaination
+          %h1 資産状況を把握
+          %p マルチアカウント機能に対応し、
+          %br 異なるアカウントを設定することや専案管理もでき、
+          %br 各項目の出費と使い道が理解でき、確実に自分の資産
+          %br を把握することができます。
+            
+      .col-sm-6
+        = image_tag 'screenshots/screenshot03.ja.png'
+%section.landing#exclusive
+  .container
+    .row
+      .col-md-4
+        .exclusive-image
+          = image_tag '/landing/cross_platform.png'
+        .exclusive-title
+          %h2.text-primary
           マルチプラットフォームの同期化
           .small
             Android,、iPhone、Web に対応
-        %p.lead
-          ユーザーは異なるデバイス、それはアンドロイドのモバイルフォン、iPad、或はデスクトップパソコンを所持している場合がありますが、これら全てアンドロマネーをダウンロードすることができます。また、アンドロマネーのクラウドサービスより、アカウント同期化機能を利用しし、マルチプラットフォームで記帳をすることができます。
-  %hr.featurette-divider
-    .row.featurette
-      .col-md-7
-        %h2.text-primary
+          %p.lead
+            ユーザーは異なるデバイス、それはアンドロイドのモバイルフォン、iPad、或はデスクトップパソコンを所持している場合がありますが、これら全てアンドロマネーをダウンロードすることができます。また、アンドロマネーのクラウドサービスより、アカウント同期化機能を利用しし、マルチプラットフォームで記帳をすることができます。     
+      .col-md-4
+        .exclusive-image
+          = image_tag '/landing/shield.png'
+        .exclusive-title
+          %h2.text-primary
           ユーザーデーターの保護
           .small
             モバイル末端のバックアップ、クラウドバックアップ、コンピュータからデーターをインポート/エクスポート
-        %p.lead
-          ユーザーがその他の記帳ソフトやアプリを使用している時に資料が無くなり、苦労して記帳した資料が台無しになってしまうことがよくあります。アンドロマネーはユーザーのデーターをプロテクトする為、バックアップ機能を開発しました。ユーザーはデーターをインポート/エクスポートする事ができ、データーの問題を心配する必要はありません。
-      .col-md-5
-        = image_tag('shield.png',class: "featurette-image img-responsive")
-  %hr.featurette-divider
-    .row.featurette
-      .col-md-5
-        = image_tag('thumb_up.png',class: "featurette-image img-responsive")
-      .col-md-7
-        %h2.text-primary
+          %p.lead
+            ユーザーがその他の記帳ソフトやアプリを使用している時に資料が無くなり、苦労して記帳した資料が台無しになってしまうことがよくあります。アンドロマネーはユーザーのデーターをプロテクトする為、バックアップ機能を開発しました。ユーザーはデーターをインポート/エクスポートする事ができ、データーの問題を心配する必要はありません。
+      .col-md-4
+        .exclusive-image
+          = image_tag '/landing/thumb_up.png'
+        .exclusive-title
+          %h2.text-primary
           品質保証
           .small
             他方の承認を獲得
-        %b.text-danger
-          Google Play ホームページの効率ツールランキングの推薦記帳財務管理アプリにランクイン。
-        %br/
-        %b.text-danger
-          App Next 2013応用プログラム創新コンペの財務管理ツール。
-        %br/
-        %b.text-danger
-          【Android App達人実測評価サイト】厳選アプリの1つ、アンドロマネー（家計簿･財務管理)
-        %br/
-        知名ウェブサイトによる推薦：
-        %br/
-        .text-success
-          PUNAPP :
-        【AndroMoney】ダブルプラットフォームの資産管理記帳アプリ、好評の原因
-        %br/
-        .text-success
-          電腦（コンピュータプレイヤー）:
-        記帳 アンドロマネー　無料記帳ソフトウェア　心にいきわたる使いやすいアンドロイドブックキーピング
-        %br/
-        .text-success
-          重灌狂人（リインストール狂人）:
-        超使いやすい記帳アプリ　アンドローマネー 　収支と支出分類が明確に　グラフ･チャート分析、直接 excelにエクスポート…
-        %br/
-        .text-success
-          挨踢路人甲（アプリ紹介ウェブサイト）:
-        非常に好みにびったりです。なので皆さんに紹介します。
-        %br/
-        .text-success
-          PDA魔王ブログ :
-        目を輝かせるのが記帳アプリのアンドロマネー、きれいなレイアウトとデザイン。操作は簡単で習いやすい。直ぐに魔王の心を捕らえました。
-        %br/
-        .text-success
-          Apphome-面白いアプリ :
-        スマート記帳ヘルパー-財務管理、記帳アンドマネー
-        %br/
-        .text-success
-          Freegroup無料リソースソーシャルネットワーク :
-        [Android] アンドロマネー 簡単で質感のある快速記帳、Excelからインポート/エクスポートも可能！
-  %hr.featurette-divider
-  .row.text-center#download
-    %ul#myTab.nav.nav-tabs.nav-justified
-      %li.active
-        = link_to "#{image_tag('android-icon.png')}Android".html_safe,"#android", :data => {:toggle=>"tab"}
-      %li
-        = link_to "#{image_tag('apple-icon.png')}iPhone".html_safe,"#iphone", :data => {:toggle=>"tab"}
-      %li
-        = link_to "#{image_tag('icon-50.png')}AndroMoney クラウドプラットフォーム".html_safe,"#web", :data => {:toggle=>"tab"}
-      %br
-      #myTabContent.tab-content
-        #android.tab-pane.fade.in.active
-          .row.featurette
-            .col-md-3.col-md-offset-3
-              = image_tag('android_index.png',class: "featurette-image img-responsive")
-            .col-md-5
-              %b.text-danger
-                Google Play ホームページの効率ツールランキングの推薦記帳財務管理アプリにランクイン。
-              %br/
-              %b.text-danger
-                App Next 2013応用プログラム創新コンペの財務管理ツール。
-              %br/
-              %b.text-danger
-                【Android App達人実測評価サイト】厳選アプリの1つ、アンドロマネー（家計簿･財務管理)
-              %br/
-              知名ウェブサイトによる推薦：
-              %br/
-              .text-success
-                PUNAPP :
-              【AndroMoney】ダブルプラットフォームの資産管理記帳アプリ、好評の原因
-              %br/
-              .text-success
-                電腦（コンピュータプレイヤー）:
-              記帳 アンドロマネー　無料記帳ソフトウェア　心にいきわたる使いやすいアンドロイドブックキーピング
-              %br/
-              .text-success
-                重灌狂人（リインストール狂人）:
-              超使いやすい記帳アプリ　アンドローマネー 　収支と支出分類が明確に　グラフ･チャート分析、直接 excelにエクスポート…
-              %br/
-              .text-success
-                挨踢路人甲（アプリ紹介ウェブサイト）:
-              非常に好みにびったりです。なので皆さんに紹介します。
-              %br/
-              .text-success
-                PDA魔王ブログ :
-              目を輝かせるのが記帳アプリのアンドロマネー、きれいなレイアウトとデザイン。操作は簡単で習いやすい。直ぐに魔王の心を捕らえました。
-              %br/
-              .text-success
-                Apphome-面白いアプリ :
-              スマート記帳ヘルパー-財務管理、記帳アンドマネー
-              %br/
-              .text-success
-                Freegroup無料リソースソーシャルネットワーク :
-              [Android] アンドロマネー 簡単で質感のある快速記帳、Excelからインポート/エクスポートも可能！
-              %br
-              %br
-              %br
-              %p.lead
-                = link_to(image_tag('badge_android.png'),"https://play.google.com/store/apps/details?id=com.kpmoney.android")
+          %b.text-danger
+            Google Play ホームページの効率ツールランキングの推薦記帳財務管理アプリにランクイン。
+          %br/
+          %b.text-danger
+            App Next 2013応用プログラム創新コンペの財務管理ツール。
+          %br/
+          %b.text-danger
+            【Android App達人実測評価サイト】厳選アプリの1つ、アンドロマネー（家計簿･財務管理)
+            
+        
+%section.landing#contact
+  .container
+    .row
+      .col-md-3
+        .download
+          = link_to "http://play.google.com/store/apps/details?id=com.kpmoney.android", target: '_blank' do
+            = image_tag("/landing/badges/ja/android.ja.png", :class => "landing badge-image")
+          = link_to "http://itunes.apple.com/jp/app/li-cai-bang-shou-andromoney/id679044544?l=ja&mt=8", target: '_blank' do
+            = image_tag("/landing/badges/ja/ios.ja.svg", :class => "landing badge-image")
+      .col-md-9
+        %h1
+        財務管理ヘルパー AndroMoney
+        %p
+        %br
+        AndroMoney はモバイルフォン向けの個人財務管理ツールです,
+        %br
+        このツールを利用することより、個人資産を管理して頂きたいと思います。
+        %br
+        %br
+        我々のアプリの発展方向は：
+        %br
+        %span.text-success
+          1.簡単で使いやすい、直感的な操作
+        %br
+        %span.text-success
+          2.強大な機能，単純な記帳だけでなく、違うアカウント、カテゴリー、更にはグラフ作成も軽かる簡単にできます。
+        %br
+        %br
+        今後は続々とその他機能を追加し、機能を豊富にそろえます。
+        %br
+        アプリの名称通り、アンドロマネーはアンドロイドの中で、類似カテゴリーのアプリーのトップになれるよう期しています。
+        %br
+        どんな使用上の問題でもEメールでの連絡を歓迎しております！ご使用ありがとうございます。
+        %br
+        %br
+        メールアドレス:
+        = mail_to "service@andromoney.com", "service@andromoney.com"
+%footer.landing
+  %h4 © 2015 AndroMoney
 
-        #iphone.tab-pane.fade
-          .row.featurette
-            .col-md-3.col-md-offset-3
-              = image_tag('android_index.png',class: "featurette-image img-responsive")
-            .col-md-5
-              %h2.text-danger
-                iPhone 必須のアプリ
-              %table.table.table-striped
-                %tbody
-                  %tr
-                    %td 各出費記帳
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td 予算管理
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td 消費タイプで管理
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td マルチアカウント機能
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td 貨幣別
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td 統計表（グラフ）解析
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td マルチプラットフォームの同期化
-                    %td
-                      %span.glyphicon.glyphicon-ok
-              %p.lead
-                = link_to(image_tag('badge_ios.png'),"https://itunes.apple.com/jp/app/andromoney/id679044544?mt=8")
-        #web.tab-pane.fade
-          .row.featurette
-            .col-md-3.col-md-offset-3
-              = image_tag('android_index.png',class: "featurette-image img-responsive")
-            .col-md-5
-              %h2.text-danger
-                一番機能がそろったクラウドサービス
-              %table.table.table-striped
-                %tbody
-                  %tr
-                    %td 各出費記帳
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td 予算管理
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td 消費タイプで管理
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td マルチアカウント機能
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td 貨幣別
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td 統計表（グラフ）解析
-                    %td
-                      %span.glyphicon.glyphicon-ok
-                  %tr
-                    %td マルチプラットフォームの同期化
-                    %td
-                      %span.glyphicon.glyphicon-ok
-              %p.lead
-                = link_to("#{image_tag('icon.png')} Login".html_safe,"/auth/google_login")
+:javascript
+  $(window).scroll(function() {
+    var height = $(window).scrollTop();
+    if(height  > 1) {
+      $("nav").css('background', 'white')
+      $(".navbar-brand").css('color', '#777777')
+      $(".navbar-nav > li > a").css('color', '#777777')
+    } else {
+      $("nav").css('background', 'transparent')
+      $(".navbar-brand").css('color', 'white')
+      $(".navbar-nav > li > a").css('color', 'white')
+    }
+  });

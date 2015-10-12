@@ -8,7 +8,7 @@
         %span.icon-bar
       = link_to root_path, class: "landing navbar-brand" do
         = image_tag("/landing/logo.png")
-        AndroMoney
+        理財幫手 AndroMoney
     #navbar-collapse.collapse.navbar-collapse
       %ul.nav.navbar-nav.navbar-right
         %li
@@ -16,7 +16,7 @@
         %li
           = link_to '公告', announcements_path
         %li
-          = link_to '聯絡我們', root_path(anchor: "contact")
+          = link_to '連絡我們', root_path(anchor: "contact")
         %li
           = link_to '登入', "/auth/google_login"
 .container
@@ -27,12 +27,12 @@
         = content_tag :div, msg, :id => "flash_#{name}"
 %section.landing#hero
   .slogan
-    %h1 您想擁有更好的生活卻還沒開始記帳嗎？
+    %h1 您想擁有更好的生活卻還沒開始理財嗎？
     .download
       = link_to "http://play.google.com/store/apps/details?id=com.kpmoney.android", target: '_blank' do
-        = image_tag("/landing/badges/android.#{I18n.locale}.png")
+        = image_tag("/landing/badges/android.#{I18n.locale}.png", :class => "landing badge-image")
       = link_to "http://itunes.apple.com/tw/app/li-cai-bang-shou-andromoney/id679044544?l=zh&mt=8", target: '_blank' do
-        = image_tag("/landing/badges/ios.#{I18n.locale}.svg")
+        = image_tag("/landing/badges/ios.#{I18n.locale}.svg", :class => "landing badge-image")
 %section.landing#feature
   .container
     .row
@@ -170,9 +170,9 @@
       .col-md-3
         .download
           = link_to "http://play.google.com/store/apps/details?id=com.kpmoney.android", target: '_blank' do
-            = image_tag("/landing/badges/android.#{I18n.locale}.png")
+            = image_tag("/landing/badges/android.#{I18n.locale}.png", :class => "landing badge-image")
           = link_to "http://itunes.apple.com/tw/app/li-cai-bang-shou-andromoney/id679044544?l=zh&mt=8", target: '_blank' do
-            = image_tag("/landing/badges/ios.#{I18n.locale}.svg")
+            = image_tag("/landing/badges/ios.#{I18n.locale}.svg", :class => "landing badge-image")
       .col-md-9
         %h1
           理財幫手 AndroMoney

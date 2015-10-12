@@ -39,6 +39,10 @@
   z-index: 1;
 }
 
+.landing.badge-image {
+  height: 40px;
+}
+
 section.landing#hero {
   background-image: url('/landing/hero.jpg');
   background-position: top center;
@@ -55,6 +59,8 @@ section.landing#hero .slogan {
   text-align: center;
   vertical-align: middle;
   color: white;
+  padding-top: 400px;
+  padding-bottom: 100px;
 }
 
 section.landing#hero h1 {
@@ -112,6 +118,8 @@ section.landing#contact .download {
   margin-top: 80px;
   text-align: center;
 }
+
+
 
 footer.landing {
   display: inline-block;
