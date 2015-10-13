@@ -13,7 +13,7 @@
     - @payments.each do |payment|
       %tr
         %td
-          = image_tag '/assets/' + @icon_path[payment.kind], width: "40px"
+          = image_tag @icon_path[payment.kind], width: "40px"
           = payment.payment_name
           (#{payment.display_currency_code(@user)})
         %td

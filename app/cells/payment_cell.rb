@@ -1,4 +1,9 @@
 class PaymentCell < Cell::ViewModel
+  include Sprockets::Rails::Helper
+  self.assets_prefix = Rails.application.config.assets.prefix
+  self.assets_environment = Rails.application.assets
+  self.digest_assets = Rails.application.config.assets[:digest]
+
   cache :show do |user, icon_path, countIn|
     nCountIn = countIn ? 0 : 1
     latestPayment = Payment.select(:update_time).where("user_id = #{user.id}").order('update_time DESC').limit(1)
