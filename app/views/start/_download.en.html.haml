@@ -1,0 +1,84 @@
+#myTabContent.tab-content
+  #android.tab-pane.fade.in.active
+    .row.featurette
+      .col-md-3.col-md-offset-3
+        = link_to(image_tag('android_index.png',class: "featurette-image img-responsive"),"https://play.google.com/store/apps/details?id=com.kpmoney.android")
+      .col-md-5
+        %b.text-danger
+          Google Play Selected as Best Financial APP
+        %br/
+        %b.text-danger
+          Nominated by App Next 2013 Software Competiton
+        %br/
+        %br/
+        Recommended by Famous Website：
+        %br/
+        .text-success
+          Android Authority :
+        Best Android apps for personal financial management
+        %br/
+        .text-success
+          APP CRAWLR :
+        Top 5 Apps for Pie And Bar (iPhone/iPad) && 25+ Top Apps for Reporting Tool (android)
+        %br/
+        .text-success
+          HONGKIAT.com :
+        20 Android Apps To Manage Your Finances
+        %br/
+        .text-success
+          AppGoVideo.com
+        The one of best tools for keeping accounts, efficiently tracking each expense report
+        %br/
+        .text-success
+          Z Jil :
+        AndroMoney : A Useful App! All things considered, I like this handy app and will recommend it!
+        %br/
+        .text-success
+          Apphome :
+        AndroMoney is a personal finance tool for use on your mobile phone
+        %br/
+        %br
+        %p.lead
+          = link_to "http://play.google.com/store/apps/details?id=com.kpmoney.android", target: '_blank' do
+            = image_tag("/landing/badges/android.#{I18n.locale}.png")
+
+  #iphone.tab-pane.fade
+    .row.featurette
+      .col-md-3.col-md-offset-3
+        = link_to(image_tag('android_index.png',class: "featurette-image img-responsive"),"https://play.google.com/store/apps/details?id=com.kpmoney.android")
+      .col-md-5
+        %h2.text-danger
+          iPhone
+        %table.table.table-striped
+          %tbody
+            %tr
+              %td Expense Track
+              %td
+                %span.glyphicon.glyphicon-ok
+            %tr
+              %td Budget Management
+              %td
+                %span.glyphicon.glyphicon-ok
+            %tr
+              %td Transfer
+              %td
+                %span.glyphicon.glyphicon-ok
+            %tr
+              %td Multiple Accounts
+              %td
+                %span.glyphicon.glyphicon-ok
+            %tr
+              %td Dynamic Report Analysis
+              %td
+                %span.glyphicon.glyphicon-ok
+            %tr
+              %td CSV Import/Export
+              %td
+                %span.glyphicon.glyphicon-ok
+            %tr
+              %td iOS, Android Web Platform Support
+              %td
+                %span.glyphicon.glyphicon-ok
+        %p.lead
+          = link_to "http://itunes.apple.com/tw/app/li-cai-bang-shou-andromoney/id679044544?l=zh&mt=8", target: '_blank' do
+            = image_tag("/landing/badges/ios.#{I18n.locale}.svg")

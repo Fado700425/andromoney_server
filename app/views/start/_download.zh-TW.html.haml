@@ -1,0 +1,90 @@
+#myTabContent.tab-content
+  #android.tab-pane.fade.in.active
+    .row.featurette
+      .col-md-3.col-md-offset-3
+        = link_to(image_tag('android_index.png',class: "featurette-image img-responsive"),"https://play.google.com/store/apps/details?id=com.kpmoney.android")
+      .col-md-5
+        %b.text-danger
+          榮獲Google Play 首頁之效率排行工具之理財APP。
+        %br/
+        %b.text-danger
+          入圍App Next 2013應用程式創新大賽之理財工具。
+        %br/
+        %b.text-danger
+          【Android App達人評測網】精選之─AndroMoney(記帳理財)
+        %br/
+        知名網站推薦：
+        %br/
+        .text-success
+          PUNAPP :
+        【AndroMoney】雙平台資產管理記帳APP，好評如何得來
+        %br/
+        .text-success
+          電腦玩物 :
+        記帳 AndroMoney 免費記帳軟體貼心好用Android記帳本
+        %br/
+        .text-success
+          重灌狂人 :
+        超好用的記帳 APP] AndroMoney 收支分類清楚、圖表分析、直接匯出 excel…
+        %br/
+        .text-success
+          挨踢路人甲 :
+        相當符合我胃口，所以介紹大家試試。
+        %br/
+        .text-success
+          PDA魔王部落 :
+        讓人眼睛一亮的莫過於 AndroMoney，不僅美工精美，操作起來順手易學，很快地就擄獲魔王的心。
+        %br/
+        .text-success
+          Apphome-好玩的app :
+        聰明記帳幫手-理財、記帳 AndroMoney
+        %br/
+        .text-success
+          Freegroup 免費資源網路社群 :
+        [Android] AndroMoney 簡單又有質感的快速記帳，還可透過 Excel 匯入匯出！
+        %br
+        %br
+        %p.lead
+          = link_to "http://play.google.com/store/apps/details?id=com.kpmoney.android", target: '_blank' do
+            = image_tag("/landing/badges/android.#{I18n.locale}.png")
+
+  #iphone.tab-pane.fade
+    .row.featurette
+      .col-md-3.col-md-offset-3
+        = link_to(image_tag('android_index.png',class: "featurette-image img-responsive"),"https://play.google.com/store/apps/details?id=com.kpmoney.android")
+      .col-md-5
+        %h2.text-danger
+          iPhone 必備APP
+        %table.table.table-striped
+          %tbody
+            %tr
+              %td 單筆記帳
+              %td
+                %span.glyphicon.glyphicon-ok
+            %tr
+              %td 預算管理
+              %td
+                %span.glyphicon.glyphicon-ok
+            %tr
+              %td 消費類別管理
+              %td
+                %span.glyphicon.glyphicon-ok
+            %tr
+              %td 多帳戶功能
+              %td
+                %span.glyphicon.glyphicon-ok
+            %tr
+              %td 不同貨幣
+              %td
+                %span.glyphicon.glyphicon-ok
+            %tr
+              %td 統計圖表分析
+              %td
+                %span.glyphicon.glyphicon-ok
+            %tr
+              %td 多平台同步
+              %td
+                %span.glyphicon.glyphicon-ok
+        %p.lead
+          = link_to "http://itunes.apple.com/tw/app/li-cai-bang-shou-andromoney/id679044544?l=zh&mt=8", target: '_blank' do
+            = image_tag("/landing/badges/ios.#{I18n.locale}.svg")
