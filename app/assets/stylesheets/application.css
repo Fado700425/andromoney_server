@@ -15,4 +15,5 @@
  *= require_tree .
  *= require bootstrap-datetimepicker
  *= stub 'landing'
+ *= require ms-Dropdown/css/msdropdown/dd
  */

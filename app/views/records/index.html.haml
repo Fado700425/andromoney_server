@@ -7,7 +7,7 @@
         = link_to new_record_path(month_from_now: params[:month_from_now]), class: "btn btn-primary btn-lg add_new" do
           %span.glyphicon.glyphicon-plus
           = t('record.add') 
-      .btn-group.col-lg-3.ml-nav
+      .btn-group.col-lg-6.ml-nav
         = link_to t('last_month'), records_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
         = link_to t('next_month'), records_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
     .row  
@@ -38,19 +38,19 @@
                 - if( record.category )
                   - if( record.record_out_payment && record.record_in_payment)
                     %tr.item-transactions.success
-                      = render 'record', record: record
+                      = render 'index_record', record: record
                   - elsif record.record_out_payment
                     %tr.item-transactions.warning
-                      = render 'record', record: record
+                      = render 'index_record', record: record
                   - elsif record.record_in_payment
                     %tr.item-transactions.danger
-                      = render 'record', record: record
+                      = render 'index_record', record: record
     .row
       .pull-left
         = link_to new_record_path(month_from_now: params[:month_from_now]), class: "btn btn-primary btn-lg add_new" do
           %span.glyphicon.glyphicon-plus
           = t('record.add')  
-      .btn-group.col-lg-3.ml-nav
+      .btn-group.col-lg-6.ml-nav
         = link_to t('last_month'), records_path(month_from_now: params[:month_from_now].to_i - 1), class: "btn btn-primary btn-lg"
         = link_to t('next_month'), records_path(month_from_now: params[:month_from_now].to_i + 1), class: "btn btn-primary btn-lg"
 

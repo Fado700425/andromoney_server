@@ -16,6 +16,9 @@ zh-TW:
   edit: "修改"
   confirm_edit: "確定修改"
   confirm_add: "確定新增"
+  confirm_add: "確定新增"
+  save_and_back_to_the_list: "儲存並回到列表"
+  save_and_add_another_one: "儲存並新增下一筆"
   name: "名稱"
   confirm_q: "確定要刪除嗎?"
   no_data: "無資料"
@@ -111,6 +114,10 @@ zh-TW:
   payee:
     payee: "商家"
     choose: "選擇商家"
+
+  transfer:
+    in: "轉入帳戶"
+    out: "轉出帳戶"
 
   total: "總計"
   balance: "結餘"

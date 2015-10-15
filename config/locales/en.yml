@@ -16,6 +16,8 @@ en:
   edit: "Edit"
   confirm_edit: "Confirm"
   confirm_add: "Confirm"
+  save_and_back_to_the_list: "Save & back to the list"
+  save_and_add_another_one: "Save & add another one"
   name: "Name"
   confirm_q: "Are you sure to delete?"
   no_data: "No Data"
@@ -111,6 +113,10 @@ en:
   payee:
     payee: "Payee"
     choose: "Choose Payee"
+
+  transfer:
+    in: "Deposit Account"
+    out: "Withdrawal Account"
 
   total: "Total"
   balance: "Balance"
