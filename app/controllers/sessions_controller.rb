@@ -1,10 +1,6 @@
 class SessionsController < ApplicationController
   def create
-    if Rails.env.production?
-      auth = request.env["omniauth.auth"]
-    else
-      auth = OmniAuth.config.mock_auth[:google]
-    end
+    auth = request.env["omniauth.auth"]
     user = User.where(:email => auth["info"]["email"]).first_or_initialize(
       :refresh_token => auth["credentials"]["refresh_token"],
       :access_token => auth["credentials"]["token"],

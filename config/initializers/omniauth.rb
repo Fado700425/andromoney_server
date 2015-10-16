@@ -5,19 +5,20 @@ case Rails.env
       provider :google_oauth2,
                ENV['OAUTH_CLIENT_ID'],
                ENV['OAUTH_CLIENT_SECRET'],
-               { name: "google_login", approval_prompt: '' }
+               {name: "google_login", approval_prompt: ''}
     end
   when "development"
-    OmniAuth.config.test_mode = true
 
     Rails.application.config.middleware.use OmniAuth::Builder do
       provider :google_oauth2,
                'OAUTH_CLIENT_ID',
                'OAUTH_CLIENT_SECRET',
-               { name: "google_login", approval_prompt: '' }
+               {name: "google_login", approval_prompt: ''}
     end
 
-    OmniAuth.config.mock_auth[:google] = {
+    OmniAuth.config.test_mode = true
+
+    OmniAuth.config.mock_auth[:google_login] = {
         "provider" => "google_oauth2",
         "uid" => "123456789",
         "info" => {
