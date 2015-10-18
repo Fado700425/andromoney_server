@@ -13,7 +13,8 @@
       "fullcalendar" : "git@github.com:tilumi/fullcalendar.git#modify_slice_definition",
       "jquery-ujs": "git@github.com:rails/jquery-ujs.git",
       "spin-js": "git@github.com:fgnass/spin.js.git",
-      "moment-timezone":"latest"
+      "moment-timezone":"latest",
+      "ms-Dropdown": "git@github.com:JasonYCHuang/ms-Dropdown-bower.git#andromoney-record-table"
     }
   }
 }

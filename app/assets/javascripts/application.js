@@ -23,7 +23,7 @@
 //= require i18next/i18next.min
 //= require currency-symbol/currency
 //= require spin-js/spin
-
+//= require ms-Dropdown/js/msdropdown/jquery.dd
 
 $(document).ready(function() {
   $("a.fancybox").fancybox();

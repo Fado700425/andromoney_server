@@ -16,6 +16,8 @@
  *= require bootstrap-datetimepicker
  *= require font-awesome
  *= require fullcalendar/dist/fullcalendar
+ *= stub 'landing'
+ *= require ms-Dropdown/css/msdropdown/dd
  */
 
 

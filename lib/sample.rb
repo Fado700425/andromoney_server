@@ -15,7 +15,7 @@ subcategories = Hash.new { |h, k| h[k] = [] }
     category.type = type
     category.save
     categories[type] << category
-    subcategory = Fabricate(:subcategory, user: sample_user)
+    subcategory = Fabricate(:subcategory, user: sample_user, id_category: category.hash_key)
     subcategory.id_category = category.hash_key
     subcategory.save
     subcategories[type] << subcategory
@@ -34,20 +34,35 @@ end
 
 100.times do
   currency_code = Currency.all.to_a.sample.currency_code
-  record = Fabricate(:record, currency_code: currency_code, user: sample_user)
-  record.send [:in_payment=, :out_payment=].sample, Fabricate(:payment, user: sample_user).hash_key
-  unless record.in_payment.nil?
+  category = categories[20].sample
+  subcategory = Subcategory.where(id_category: category.hash_key).first
+  if [true, false].sample
+    in_payment = Fabricate(:payment, user: sample_user)
+  end
+  if in_payment.nil?
+    out_payment = Fabricate(:payment, user: sample_user)
+  elsif [true, false].sample
+    out_payment = Fabricate(:payment, user: sample_user)
+  end
+
+  if not in_payment.nil? and out_payment.nil?
     category = categories[10].sample
-    subcategory = Subcategory.where(id_category: category.hash_key).first
-    record.category = category.hash_key
-    record.subcategory = subcategory.hash_key
-  end
-  unless record.out_payment.nil?
+  elsif in_payment.nil? and not out_payment.nil?
     category = categories[20].sample
-    subcategory = Subcategory.where(id_category: category.hash_key).first
-    record.category = category.hash_key
-    record.subcategory = subcategory.hash_key
+  elsif not in_payment.nil? and not out_payment.nil?
+    category = categories[30].sample
   end
+
+  is_transfer = in_payment && out_payment
+  if is_transfer
+    in_amount = Faker::Number.between(100, 10000)
+    in_currency = [currency1, currency2, currency3].sample
+  end
+
+  subcategory = Subcategory.find_by(user: sample_user, id_category: category.hash_key)
+  record = Fabricate(:record, currency_code: currency_code, user: sample_user, category: category.hash_key \
+    , subcategory: subcategory.hash_key, in_payment: in_payment.nil? ? nil : in_payment.hash_key\
+    , out_payment: out_payment.nil? ? nil : out_payment.hash_key, in_amount: in_amount, in_currency: in_currency)
   record.payee = payees.sample.hash_key
   record.project = projects.sample.hash_key
   record.date = Faker::Time.between(DateTime.now - 10.days, DateTime.now + 10.days)

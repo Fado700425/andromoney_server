@@ -9,12 +9,11 @@ AndromoneyServer::Application.routes.draw do
   get 'download', controller: 'welcome', action: 'download'
   get 'about', controller: "welcome", action: 'about'
   get 'pricing', controller: "welcome", action: 'pricing'
-  
 
-  get "/" => 'welcome#front',  constraints: {subdomain: 'web'}
-  get "/" => 'welcome#front',  constraints: {subdomain: 'test'}
+  get "/" => 'welcome#index',  constraints: {subdomain: 'web'}
+  get "/" => 'welcome#index',  constraints: {subdomain: 'test'}
   #root to: redirect("http://www.andromoney.com")   #avoid force redirection to www.andromoney.com at developement mode.
-  root to: 'welcome#front'
+  root to: 'welcome#index'
 
   get 'start_use', controller: 'start', action: 'index'
   mount RailsAssetLocalization::Engine => "/locales"
@@ -25,13 +24,7 @@ AndromoneyServer::Application.routes.draw do
   get 'announcements/:category' => 'announcements#index'
   get 'announcements' => 'announcements#index'
 
-  resources :records do
-    get "transfer_edit"
-    patch "transfer_update"
-    collection do
-      post "transfer"
-    end
-  end
+  resources :records
   resources :budgets
   resources :reports do
     collection do
@@ -46,6 +39,7 @@ AndromoneyServer::Application.routes.draw do
     end
     member do
       get 'message'
+      post 'delete'
     end
   end
   resources :categories do

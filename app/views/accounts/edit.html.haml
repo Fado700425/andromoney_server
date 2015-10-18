@@ -1,0 +1,27 @@
+.row.row-offcanvas.row-offcanvas-right
+  = render 'shared/sidebar'
+  #data-setting.row
+    .col-xs-12.col-sm-10
+      .row
+        %h3
+          = t('setting.data_setting')
+        %table.table
+          %tbody.setting_table
+            %tr
+              %td
+                .option-head
+                  = t('setting.delete_account')
+              %td
+                %button.btn.btn-primary{"data-toggle" => 'modal', "data-target" => '#confirmModal', :type => "button"} #{t('delete')}
+#confirmModal.modal.fade
+  .modal-dialog
+    = form_tag delete_account_path(1) do |f|
+      .modal-content
+        .modal-header
+          %a.close{"data-dismiss" => "modal"} &times;
+          %span.reset_account_confirm.text-warning #{t('attention')}
+        .modal-body
+          %span.reset_account_confirm #{t('setting.delete_confirm')}
+        .modal-footer
+          = submit_tag t('confirm'), class: "btn btn-primary"
+          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button",id: "currency-dismiss"} #{t('cancel')}

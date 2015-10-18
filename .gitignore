@@ -19,10 +19,9 @@
 
 /config/database.yml
 /public/uploads
+/public/assets
 
-/app/.DS_Store
-
-/.DS_Store
+.DS_Store
 
 /.sass-cache/
 
@@ -37,5 +36,6 @@
 
 # Ignore application configuration
 /config/application.yml
-/config/deploy.rb
+
 /vendor/assets/bower_components/
+bower_components

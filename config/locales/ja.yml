@@ -2,307 +2,12 @@ ja:
   personal_message: "個人メッセージ"
   read: "(既読)"
   not_read: "(未読)"
-  email: "メールアドレス"
-  back_to_top: "トップに戻る"
-  quality: "品質保証"
-  recommend: "他方の承認を獲得"
-  more_pics: "その他アイコンを表示する"
   start_use: "トライアル開始"
-  cloud: "クラウドプラットフォーム"
   cancel: "取消"
+  search: "検索"
 
   start:
     start_message: "先ずは先に携帯にソフトウェアをダウンロードしてから、同期化を開始してください。 AndroMoney クラウドサービス!"
-
-  feature_multiple_platform: |
-    <h1>マルチプラットフォームサポート</h1>
-    <p>
-      Androidでも iPhoneでも、パソコンでも使用することができます。今すぐ、アンドロマネーをダウンロードし、全ての記帳サービスを体験しましょう！
-    </p>
-
-  feture_record: |
-    <h2>生活消費を記録</h2>
-    <p>Android でも iPhone ユーザーでもアンドロマネーモバイルアプリを通じて、簡単に一つ一つの出費、振込み、収入及び支出を記録することができます。</p>
-
-  feature_analysis: |
-    <h2>リアルタイムに消費を分析</h2>
-    <p>最大消費、平均出費を検索し、ダイナミックな統計グラフを作成し、パイグラフ(出費分布)、ランチャート(出費傾向)の機能があり、グラフや表とインタラクティブな操作が可能です。</p>
-
-  feature_asset: |
-    <h2>資産状況を把握</h2>
-    <p>マルチアカウント機能に対応し、異なるアカウントを設定することや専案管理もでき、各項目の出費と使い道が理解でき、確実に自分の資産を把握することができます。</p>
-
-  feature_track: |
-    <h2 class="text-primary">
-      完璧な記帳機能
-      <div class="small">
-        各出費記帳、予算管理、消費タイプ別管理、マルチアカウント機能、異なる貨幣、統計グラフ分析
-      </div>
-    </h2>
-    <p class="lead">
-      アンドロマネーはモバイルションの個人記帳財務管理ツールです。このツールを通じて、個人資産を良く管理します。
-      <br />
-      <br />
-      我々のソフトウエアの発展方向は：
-      1.簡単で使いやすく、直感的な操作。
-      2.強大な機能，単純な記帳だけでなく、違うアカウント、カテゴリー、更にはグラフ作成も軽かる簡単にできます。
-    </p>
-
-  feature_protect: |
-    <h2 class="text-primary">
-      ユーザーデーターの保護
-      <div class="small">
-        モバイル末端のバックアップ、クラウドバックアップ、コンピュータからデーターをインポート/エクスポート
-      </div>
-    </h2>
-    <p class="lead">
-      ユーザーがその他の記帳ソフトやアプリを使用している時に資料が無くなり、苦労して記帳した資料が台無しになってしまうことがよくあります。アンドロマネーはユーザーのデーターをプロテクトする為、バックアップ機能を開発しました。ユーザーはデーターをインポート/エクスポートする事ができ、データーの問題を心配する必要はありません。
-    </p>
-
-  feature_platform: |
-    <h2 class="text-primary">
-      マルチプラットフォームの同期化
-      <div class="small">
-        Android,、iPhone、Web に対応
-      </div>
-    </h2>
-    <p class="lead">
-      ユーザーは異なるデバイス、それはアンドロイドのモバイルフォン、iPad、或はデスクトップパソコンを所持している場合がありますが、これら全てアンドロマネーをダウンロードすることができます。また、アンドロマネーのクラウドサービスより、アカウント同期化機能を利用しし、マルチプラットフォームで記帳をすることができます。
-    </p>
-
-  feature_price: |
-    <h3 class="plan-name">フリートライアル</h3>
-    <h1 class="plan-price text-danger">$0</h1>
-    <table class="table table-striped">
-      <tbody>
-        <tr>
-          <td>各出費記帳</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>予算管理</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>消費タイプで管理</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>マルチアカウント機能</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>貨幣別</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>統計表（グラフ）解析</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>マルチプラットフォームの同期化</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-  web: |
-    <h2 class="text-danger">
-      一番機能がそろったクラウドサービス
-    </h2>
-    <table class="table table-striped">
-      <tbody>
-        <tr>
-          <td>各出費記帳</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>予算管理</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>消費タイプで管理</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>マルチアカウント機能</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>貨幣別</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>統計表（グラフ）解析</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>マルチプラットフォームの同期化</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-  ios: |
-    <h2 class="text-danger">
-      iPhone 必須のアプリ
-    </h2>
-    <table class="table table-striped">
-      <tbody>
-        <tr>
-          <td>各出費記帳</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>予算管理</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>消費タイプで管理</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>マルチアカウント機能</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>貨幣別</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>統計表（グラフ）解析</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>マルチプラットフォームの同期化</td>
-          <td>
-            <span class="glyphicon glyphicon-ok"></span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-  android: |
-    <b class="text-danger">
-      Google Play ホームページの効率ツールランキングの推薦記帳財務管理アプリにランクイン。
-    </b>
-    <br />
-    <b class="text-danger">
-      App Next 2013応用プログラム創新コンペの財務管理ツール。
-    </b>
-    <br />
-    <b class="text-danger">
-      【Android App達人実測評価サイト】厳選アプリの1つ、アンドロマネー（家計簿･財務管理)
-    </b>
-    <br />
-    知名ウェブサイトによる推薦：
-    <br />
-    <div class="text-success">
-      PUNAPP :
-    </div>
-    【AndroMoney】ダブルプラットフォームの資産管理記帳アプリ、好評の原因
-    <br />
-    <div class="text-success">
-      電腦（コンピュータプレイヤー）:
-    </div>
-    記帳 アンドロマネー　無料記帳ソフトウェア　心にいきわたる使いやすいアンドロイドブックキーピング
-    <br />
-    <div class="text-success">
-      重灌狂人（リインストール狂人）:
-    </div>
-    超使いやすい記帳アプリ　アンドローマネー 　収支と支出分類が明確に　グラフ･チャート分析、直接 excelにエクスポート…
-    <br />
-    <div class="text-success">
-      挨踢路人甲（アプリ紹介ウェブサイト）:
-    </div>
-    非常に好みにびったりです。なので皆さんに紹介します。
-    <br />
-    <div class="text-success">
-      PDA魔王ブログ :
-    </div>
-    目を輝かせるのが記帳アプリのアンドロマネー、きれいなレイアウトとデザイン。操作は簡単で習いやすい。直ぐに魔王の心を捕らえました。
-    <br />
-    <div class="text-success">
-      Apphome-面白いアプリ :
-    </div>
-    スマート記帳ヘルパー-財務管理、記帳アンドマネー
-    <br />
-    <div class="text-success">
-      Freegroup無料リソースソーシャルネットワーク :
-    </div>
-    [Android] アンドロマネー 簡単で質感のある快速記帳、Excelからインポート/エクスポートも可能！
-
-  about_text: |
-    <h1>
-      財務管理ヘルパー AndroMoney
-    </h1>
-    <p>
-      <br />
-      AndroMoney はモバイルフォン向けの個人財務管理ツールです,
-      <br />
-      このツールを利用することより、個人資産を管理して頂きたいと思います。
-      <br />
-      <br />
-      我々のアプリの発展方向は：
-      <br />
-      <span class="text-success">
-        1.簡単で使いやすい、直感的な操作
-      </span>
-      <br />
-      <span class="text-success">
-        2.強大な機能，単純な記帳だけでなく、違うアカウント、カテゴリー、更にはグラフ作成も軽かる簡単にできます。
-      </span>
-      <br />
-      <br />
-      今後は続々とその他機能を追加し、機能を豊富にそろえます。
-      <br />
-      アプリの名称通り、アンドロマネーはアンドロイドの中で、類似カテゴリーのアプリーのトップになれるよう期しています。
-      <br />
-      どんな使用上の問題でもEメールでの連絡を歓迎しております！ご使用ありがとうございます。
-    </p>
-
-
-
   share_email: "あなたと (%{account})アカウント情報をシェアします!"
   owner_delete_email: " %{email}のアカウント情報のシェアを取消しました。"
   sharer_receive_delete_email: "%{email} アカウント情報のシェアを取消しました"
@@ -311,6 +16,8 @@ ja:
   edit: "編集"
   confirm_edit: "編集確認"
   confirm_add: "新規追加確認"
+  save_and_back_to_the_list: "保存して、一覧に戻ります"
+  save_and_add_another_one: "保存して、次の追加"
   name: "名称"
   confirm_q: "削除しますか？"
   no_data: "データーがありません"
@@ -319,15 +26,18 @@ ja:
   logout: "ログアウト"
   message: "メッセージ"
   home: "ホーム"
-  download: "ソフトウェアダウンロード"
+  download: "ダウンロード"
   price: "価格プラン"
   about: "アンドロマネーについて"
   login: "ユーザーログイン"
   amount: "金額"
   note: "備考"
   edit: "エディタ"
-  delete: "削除"
   share: "シェア"
+  main_currency: "主な通貨"
+  reset: "リセット"
+  confirm: "確認します"
+  delete: "削除します"
 
   every_day: "(毎日)"
   every_week: "(每周)"
@@ -379,6 +89,8 @@ ja:
     bank: "銀行"
     amount_placeholder: "初期金額を入力して下さい"
     choose: "アカウント選択"
+    not_count: "カウントされません"
+    count_in: "合計でカウント"
 
   record:
     success_create: "新規記録追加成功！"
@@ -405,13 +117,33 @@ ja:
     payee: "販売者"
     choose: "店舗選択"
 
+  transfer:
+    in: "入金アカウント"
+    out: "出金アカウント"
+
   total: "合計"
   balance: "残額"
   other: "その他"
   rate: "レート"
+  attention: "注意"
 
   account:
     account: "アカウント"
+
+  setting:
+    setting: "設定します"
+    now_currency: "あなたの主な通貨になりました"
+    choose_currency: "自分のメイン通貨を選択してください"
+    update_currency_success: "成功の主な通貨を更新"
+    cannot_update_multi_in_one_day: "1日に複数回の主通貨を更新することはできません"
+    account_management: "アカウント管理"
+    data_setting: "データ設定"
+    delete_account: "このアカウントを削除します"
+    submit_currency: "本位貨幣を更新してに着かないでくださいかどうか"
+    update_currency_fail: "主な通貨の更新に失敗します"
+    delete_success: "アカウントの成功を削除します！!"
+    delete_fail: "アカウントを削除することができません"
+    delete_confirm: "後すべてのデータが消去されます削除する（元に戻すことはできません）とサインアウト！"
 
   date:
     abbr_day_names:
