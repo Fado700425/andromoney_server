@@ -45,7 +45,7 @@
           %span.label.label-primary.select-label.transfer-label
             %span.glyphicon.glyphicon-log-out
             #{t('transfer.out')}
-          = f.select(:out_payment, @payments.collect {|p| [ p.currency_code + "-" + p.payment_name, p.hash_key, :"data-image" => asset_path(payment_icon(p.kind)) ]}, {selected: default_selected(@record.out_payment || @record.in_payment, @payments.first.hash_key)}, {class: 'select-with-icon', size: 5 })
+          = f.select(:out_payment, @payments.collect {|p| [ "#{p.currency_code}-#{p.payment_name}", p.hash_key, :"data-image" => asset_path(payment_icon(p.kind)) ]}, {selected: default_selected(@record.out_payment || @record.in_payment, @payments.first.hash_key)}, {class: 'select-with-icon', size: 5 })
 
         .record-box.box-4
           %span.label.label-primary.select-label.nontrans-label
@@ -55,7 +55,7 @@
           %span.label.label-primary.select-label.transfer-label
             %span.glyphicon.glyphicon-log-in
             #{t('transfer.in')}
-          = f.select(:in_payment, @payments.collect {|p| [ p.currency_code + "-" + p.payment_name, p.hash_key, :"data-image" => asset_path(payment_icon(p.kind)) ]}, {selected: default_selected(@record.in_payment, @payments.second.hash_key)}, {class: 'receiver-select-with-icon', id: "transfer-receiver", size: 5 })
+          = f.select(:in_payment, @payments.collect {|p| [ "#{p.currency_code}-#{p.payment_name}", p.hash_key, :"data-image" => asset_path(payment_icon(p.kind)) ]}, {selected: default_selected(@record.in_payment, @payments.second.hash_key)}, {class: 'receiver-select-with-icon', id: "transfer-receiver", size: 5 })
 
         .record-box.box-5
           %span.label.label-primary.select-label
