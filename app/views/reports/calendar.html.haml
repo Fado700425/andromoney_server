@@ -1,0 +1,10 @@
+=stylesheet_link_tag 'reports/calendar'
+.row.row-offcanvas.row-offcanvas-right
+  = render 'shared/sidebar'
+  :javascript
+    var currencyCode="#{current_user.get_main_currency.currency_code}"
+  .row
+    .col-xs-12.col-sm-10
+      .row
+        #spinner
+        #calendar

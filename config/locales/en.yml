@@ -32,6 +32,8 @@ en:
   login: "Login"
   amount: "Amount"
   note: "Note"
+  edit: "Edit"
+  share: "Share"
   main_currency: "Main Currency"
   reset: "Reset"
   confirm: "Confirm"
@@ -48,6 +50,7 @@ en:
   sidebar:
     report: "Report"
     record: "Record"
+    calendar: "Calendar"
 
   category:
     category: "Category"

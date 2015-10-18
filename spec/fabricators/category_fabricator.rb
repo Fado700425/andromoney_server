@@ -1,6 +1,4 @@
 Fabricator(:category) do
-  transient user_id: nil
-  user { |attrs| attrs[:user_id].nil? ? nil : User.find(attrs[:user_id]) }
   hash_key { Faker::Lorem.characters(20) }
   device_uuid { Faker::Lorem.characters(20) }
   category { Faker::Lorem.characters(5) }

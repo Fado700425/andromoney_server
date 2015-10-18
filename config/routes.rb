@@ -16,6 +16,10 @@ AndromoneyServer::Application.routes.draw do
   root to: 'welcome#index'
 
   get 'start_use', controller: 'start', action: 'index'
+  mount RailsAssetLocalization::Engine => "/locales"
+
+  get 'announcements/:category' => 'announcements#index'
+  get 'announcements' => 'announcements#index'
 
   get 'announcements/:category' => 'announcements#index'
   get 'announcements' => 'announcements#index'
@@ -49,6 +53,8 @@ AndromoneyServer::Application.routes.draw do
   resources :subcategories, only: [:destroy]
   # get 'home', controller: 'accounts', action: 'info'
   get 'home', controller: 'reports', action: 'index'
+  get 'calendar', controller: 'reports', action: 'calendar'
+  get 'test', controller: 'reports', action: 'test'
 
 
   get 'share_confirm', controller: 'api/v1/sync', action: 'confirm_share'

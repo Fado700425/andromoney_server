@@ -119,21 +119,25 @@ class Record < ActiveRecord::Base
 
   # ===== json =====
   def as_json(options)
-    json = super(:only => [:id,:mount,:category,:subcategory, :in_payment,:out_payment,:remark,:currency_code,:amount_to_main,:period,
-                              :payee,:project,:fee,:in_amount,:out_amount,:in_currency,:out_currency,:hash_key,:update_time, :is_delete,:status,:receipt_num])
+    if options[:platform] == :web
+      json =super(only: [:id, :date, :mount, :amount_to_main, :currency_code, :in_payment, :out_payment, :in_amount, :out_amount, :in_currency, :out_currency, :remark], methods: [:record_category, :record_subcategory, :record_in_payment, :record_out_payment, :record_project, :record_payee])
+      json
+    else
+      json = super(:only => [:id, :mount, :category, :subcategory, :in_payment, :out_payment, :remark, :currency_code, :amount_to_main, :period,
+                             :payee, :project, :fee, :in_amount, :out_amount, :in_currency, :out_currency, :hash_key, :update_time, :is_delete, :status, :receipt_num])
 
-    json["subcategory"] = json.delete "subcategory"
+      json["sub_category"] = json.delete "subcategory"
 
-    if attributes.include? "date"
-      if(date)
-        json.merge!(date: date.strftime("%Y%m%d")) 
-        record_time=date.strftime("%H%M")
-        json.merge!(record_time: record_time) if record_time!="0000" 
-      else
-         json.merge!(date: nil) if attributes.include? "date"
+      if attributes.include? "date"
+        if (date)
+          json.merge!(date: date.strftime("%Y%m%d"))
+          record_time=date.strftime("%H%M")
+          json.merge!(record_time: record_time) if record_time!="0000"
+        else
+          json.merge!(date: nil) if attributes.include? "date"
+        end
       end
+      json
     end
-
-    json
   end
 end

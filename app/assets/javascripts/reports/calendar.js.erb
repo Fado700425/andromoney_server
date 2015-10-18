@@ -1,0 +1,318 @@
+function groupBy(array, f) {
+    var groups = {};
+    array.forEach(function (o) {
+        var group = JSON.stringify(f(o));
+        groups[group] = groups[group] || [];
+        groups[group].push(o);
+    });
+    return Object.keys(groups).map(function (group) {
+        return groups[group];
+    })
+}
+
+function getRequestParam(name) {
+    if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search))
+        return decodeURIComponent(name[1]);
+    return null;
+}
+
+
+
+$(document).ready(function () {
+    var currencyCodeStr = '';
+    var locale = getRequestParam('locale') || 'en';
+    // page is now ready, initialize the calendar...
+    i18n.init({
+        interpolationPrefix: '%{',
+        interpolationSuffix: '}',
+        lng: locale,
+        resGetPath: '/locales/%{lng}.json',
+        useLocalStorage: true,
+        localStorageExpirationTime: 60 * 60 * 24 * 1000
+    });
+    var opts = {
+        lines: 11 // The number of lines to draw
+        , length: 36 // The length of each line
+        , width: 9 // The line thickness
+        , radius: 25 // The radius of the inner circle
+        , scale: 1 // Scales overall size of the spinner
+        , corners: 1 // Corner roundness (0..1)
+        , color: '#000' // #rgb or #rrggbb or array of colors
+        , opacity: 0.25 // Opacity of the lines
+        , rotate: 0 // The rotation offset
+        , direction: 1 // 1: clockwise, -1: counterclockwise
+        , speed: 1 // Rounds per second
+        , trail: 60 // Afterglow percentage
+        , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+        , zIndex: 2e9 // The z-index (defaults to 2000000000)
+        , className: 'spinner' // The CSS class to assign to the spinner
+        , top: '50%' // Top position relative to parent
+        , left: '50%' // Left position relative to parent
+        , shadow: false // Whether to render a shadow
+        , hwaccel: false // Whether to use hardware acceleration
+        , position: 'absolute' // Element positioning
+    }
+    var spinner = new Spinner(opts).spin();
+    $spinner = $('#spinner');
+    $spinner.append($(spinner.el));
+    $spinner.hide();
+
+
+    var current_view = 'month';
+    $('#calendar').fullCalendar({
+        defaultView: current_view,
+        header: {
+            left: 'title',
+            center: '',
+            right: 'today,prev,next month,agendaWeek,basicDay'
+        },
+        eventLimit: true,
+        /*
+         * Default is 2 hours, makes events that start after 10:00 p.m. elapsed cross days.
+         * Fullcalendar will duplicate event object for displaying two blocks on each days.
+         * However, it's not necessary for our case. Hence, we change it to 0 second.
+         */
+        defaultTimedEventDuration: '00:00:00',
+        loading: function (bool) {
+            if (bool)
+                $spinner.show();
+            else
+                $spinner.hide();
+        },
+        selectedCellClass: 'calendar-selected-date',
+        onToday: function () {
+            this.calendar.options.dayClick(this.calendar.getNow(), null, this);
+        },
+        dayRender: function (date, cell) {
+            var currentDay = $('#calendar').fullCalendar('getDate');
+            var isCurrentDay = (date.format('YYYYMMDD') == currentDay.format('YYYYMMDD'));
+            if (isCurrentDay) {
+                cell.addClass('calendar-selected-date');
+                var view = $('#calendar').fullCalendar('getView')
+                if (view.type == 'agendaWeek') {
+                    var index = cell.index();
+                    $('.fc-time-grid').find('td').removeClass('calendar-selected-date');
+                    $('.fc-time-grid').find('td:nth-child(' + (index + 1) + ')').addClass('calendar-selected-date');
+                }
+            } else {
+                cell.removeClass('calendar-selected-date');
+            }
+        },
+
+        dayClick: function (date, jsEvent, view) {
+            var currentDay = $('#calendar').fullCalendar('getDate');
+            var currentDayIndex = currentDay.diff(view.start, 'days');
+            var dayIndex = date.diff(view.start, 'days');
+            if (view.type == 'month') {
+                $('.fc-bg').find('td').removeClass('calendar-selected-date');
+                $($('.fc-bg').find('td').get(dayIndex)).addClass('calendar-selected-date');
+            } else if (view.type == 'agendaWeek') {
+                $('.fc-day-grid').find('td').removeClass('calendar-selected-date');
+                $('.fc-time-grid').find('td').removeClass('calendar-selected-date');
+                $('.fc-day-grid').find('tr td:nth-child(' + (dayIndex + 2 ) + ')').addClass('calendar-selected-date');
+                $('.fc-time-grid').find('tr td:nth-child(' + (dayIndex + 2) + ')').addClass('calendar-selected-date');
+            }
+            $('#calendar').fullCalendar('gotoDateWithoutRender', date);
+            $('#calendar').fullCalendar('updateTodayButton', date);
+        },
+        viewRender: function (view, element) {
+            if (view.type == 'basicDay') {
+                element.find('.fc-widget-content').attr("id", "timeline");
+                element.find('.fc-widget-content').addClass("timeline-container");
+                element.find('.fc-widget-content').empty();
+            } else {
+                if (view.type == 'agendaWeek') {
+                    for (var i = 0; i < 6; i++) {
+                        $('.fc-slats').find('tr').append($('<td class="fc-widget-content"></td>'));
+                    }
+                }
+                element.find('.fc-widget-content').removeAttr("id");
+                element.find('.fc-widget-content').removeClass("timeline-container");
+            }
+        },
+
+        eventRender: function (event, element, view) {
+            if (view.type == 'basicDay') {
+                if (!event.isSummary) {
+                    $content = view.el.find('.fc-widget-content');
+                    var record = event.event;
+                    var amount = parseInt(record.mount);
+                    var categroy = record.record_category ? record.record_category.category : '';
+                    var subcategroy = record.record_subcategory ? record.record_subcategory.subcategory : '';
+                    var isIn = record.record_in_payment != null;
+                    var payment_name = record.record_in_payment ? record.record_in_payment.payment_name : record.record_out_payment.payment_name;
+                    var currencyCode = record.currency_code;
+                    var projectName = record.record_project == null ? '' : record.record_project.project_name;
+                    var payeeName = record.record_payee == null ? '' : record.record_payee.payee_name;
+                    var time = moment(record.date).format('HH:mm');
+                    var currencySymbol = currency.symbolize(currencyCode);
+                    var remark = record.remark == null ? '' : record.remark;
+                    $recordElement = $('<div class="timeline-block"> ' +
+                            '<div class="timeline-img picture"> <img src="assets/' + record.record_category.photo_path
+                            + '" alt="Picture"> </div> <div class="timeline-content"> <div class="timeline-content-container" style="padding: 1.5em 1.5em 0em 1.5em;"></div></div> </div>');
+                    $title = $('<div><span>' + currencySymbol + currencyCode + ' ' + amount + '</span><p class="calendar-event-day-time">' + time + '</p><div><div style="clear: both;"></div>');
+                    $title.find('span').addClass(isIn ? 'calendar-event-day-amount-in' : 'calendar-event-day-amount-out');
+                    $categoriesAndAccount = $('<div><p class="calendar-event-day-categories">' + categroy + '-' + subcategroy + '</p><p class="calendar-event-day-account">' + payment_name + '</p></div><div style="clear: both;"></div>');
+                    $projectAndPayee = $('<div><p class="calendar-event-day-project">' + projectName + '</p><p class="calendar-event-day-payee">' + payeeName + '</p></div><div style="clear: both;"></div>');
+                    $recordContent = $('<p class="calendar-event-day-remark">' + remark + '</p>');
+                    $footer = $('<div class="calendar-event-day-footer btn-group btn-group-justified" role="group" aria-label="...">' +
+                            ' <div class="btn-group" role="group"> <button type="button" style="border: none; color: #777777;" class="btn btn-default"><i class="fa fa-edit"></i> ' + i18n.t('edit') + '</button> </div>' +
+                            ' <div class="btn-group" role="group"> <button type="button" style="border-top: none; border-bottom: none;color: #777777;" class="btn btn-default"><i class="fa fa-trash"></i> ' + i18n.t('delete') + '</button> </div>' +
+                            ' <div class="btn-group" role="group"> <button type="button" style="border: none;color: #777777;" class="btn btn-default"><i class="fa fa-share-alt"></i> ' + i18n.t('share') + '</button> </div> </div>');
+                    $timelineContent = $recordElement.find('.timeline-content');
+                    $timelineContentContainer = $recordElement.find('.timeline-content-container');
+                    $timelineContentContainer.append($title);
+                    $timelineContentContainer.append($categoriesAndAccount);
+                    $timelineContentContainer.append($projectAndPayee);
+                    $timelineContentContainer.append($recordContent);
+                    $timelineContent.append($footer);
+                    $content.append($recordElement);
+                }
+
+            } else {
+                if (event.isSummary) {
+                    var eventsInDay = event.eventsInDay;
+                    var total = 0;
+                    eventsInDay.forEach(function (entry) {
+                        if (entry.in_payment != null && entry.in_payment != 0) {
+                            total += parseInt(entry.amount_to_main);
+                        }
+                        if (entry.out_payment != null && entry.out_payment != 0) {
+                            total -= parseInt(entry.amount_to_main);
+                        }
+                    });
+
+                    var $content = $(
+                            '<div class="calendar-event-summary"><div>' + i18n.t('total') + '<span class="amount">' + currencyCodeStr + total.toString() + '</span></div><div style="clear: both;"></div>' +
+                            '</div>'
+                    );
+                    var $element = $(element);
+                    $element.addClass(total >= 0 ? 'calendar-event-summary-in' : 'calendar-event-summary-out');
+                    $element.empty().append($content);
+                    return $element;
+                } else {
+                    var record = event.event;
+                    var amount = parseInt(record.mount);
+                    var type = record.record_category.type;
+                    var categroy = record.record_category ? record.record_category.category : '';
+                    var subcategroy = record.record_subcategory ? record.record_subcategory.subcategory : '';
+                    var category_id = record.record_category.id;
+                    var isIn = record.record_in_payment != null
+                    var isTransfer = record.record_in_payment != null && record.record_out_payment != null;
+                    var payment_name = record.record_in_payment ? record.record_in_payment.payment_name : record.record_out_payment.payment_name;
+                    var currencyCode = record.currency_code;
+                    var projectName = record.record_project == null ? '' : record.record_project.project_name;
+                    var payeeName = record.record_payee == null ? '' : record.record_payee.payee_name;
+                    var time = moment(record.date).utc().format('HH:mm');
+                    var currencySymbol = currency.symbolize(currencyCode);
+                    var remark = record.remark == null ? '' : record.remark;
+                    if (view.type == 'month') {
+                        var $content = $('<div class="detail"><span class="detail-icon"><i class="fa fa-circle ' + (isTransfer? 'bulletin-point-transfer' :isIn ? 'bulletin-point-income' : 'bulletin-point-expense') + '"></i></span><span class="time">' + time + '</span><span class="subcategory">&nbsp;'
+                                + subcategroy + '</span><span class="amount">'
+                                + currencySymbol + Math.round(amount) + '</span></div>');
+                        var $element = $(element);
+                        $element.empty().append($content);
+                        return $element;
+                    } else if (view.type == 'agendaWeek') {
+                        var recordColors = function () {
+                            var colors = {
+                                10: 'income_week',
+                                20: 'expense_week',
+                                30: 'transfer_week'
+                            }
+
+                            return {
+                                get: function (type) {
+                                    var color = colors[type];
+                                    if (color) {
+                                        return color;
+                                    }
+                                    return 'default';
+                                }
+                            }
+
+                        }();
+
+                        var eventMoment = moment(record.date).utc();
+                        var nthHalfHour = eventMoment.hours() * 2 + (eventMoment.minutes() >= 30 ? 1 : 0);
+                        var nthDay = eventMoment.diff(moment(view.start), 'days');
+                        var $halfHourRow = $($('.fc-slats').find('tr').get(nthHalfHour));
+                        var $dayCol = $($halfHourRow.find('td').get(nthDay + 1));
+                        var $content = $('<div class="detail ' + recordColors.get(type) + '">' +
+                                '<div class="content">' +
+                                '<div style="position: absolute;"><i class="fa fa-circle ' + (isTransfer? 'bulletin-point-transfer' :isIn ? 'bulletin-point-income' : 'bulletin-point-expense') + '"></i>' + '</div>' +
+                                '<div style="padding: 2px 10px 2px 12px; "><span class="time">' + time + '</span>' +
+                                '<div >' + currencySymbol + Math.round(amount) + '</div>' +
+                                '<div >' + subcategroy + '</div></div>' +
+                                '</div></div>');
+                        $dayCol.append($content);
+                        return false;
+
+                    }
+                }
+            }
+        },
+        events: function (start, end, timezone, callback) {
+            $.ajax({
+                url: Routes.records_path(),
+                data: {
+                    view: current_view,
+                    start: start.format('YYYY-MM-DD'),
+                    end: end.format('YYYY-MM-DD')
+                },
+                success: function (data) {
+//                    console.log(data);
+                    var events = [];
+                    var records = data.records;
+                    currencyCodeStr = currency.symbolize(data.currencyCode);
+                    var eventsGroupByDate = groupBy(records, function (entry) {
+                        return moment(entry.date).utc().format('YYYYMMDD');
+                    });
+                    for (var key in eventsGroupByDate) {
+                        if (eventsGroupByDate.hasOwnProperty(key)) {
+                            var total = 0;
+                            var eventsInDay = eventsGroupByDate[key];
+                            eventsInDay.forEach(function (entry, index) {
+                                var isIn = false;
+                                var isOut = false;
+                                if (entry.in_payment != null && entry.in_payment != 0) {
+                                    isIn = true;
+                                    total += parseInt(entry.amount_to_main);
+                                }
+                                if (entry.out_payment != null && entry.out_payment != 0) {
+                                    isOut = true;
+                                    total -= parseInt(entry.amount_to_main);
+                                }
+                                events.push({
+                                    start: moment(entry.date).utc(),
+                                    order: index + 1,
+                                    className: 'calendar-event',
+                                    event: entry,
+                                    isIn: isIn
+                                });
+                            });
+
+                            if (eventsInDay.length > 0) {
+                                events.push({
+                                    order: 0,
+                                    start: moment(eventsInDay[0].date).utc(),
+                                    eventsInDay: eventsInDay,
+                                    allDay: true,
+                                    isSummary: true
+                                });
+                            }
+                        }
+                    }
+                    callback(events);
+                }
+            });
+        }
+        ,
+
+        eventClick: function (calEvent, jsEvent, view) {
+//            console.log(calEvent);
+            view.calendar.options.dayClick(calEvent.start, null, view);
+        }
+    });
+
+});

@@ -4,6 +4,7 @@ gem 'rails', '4.0.0'
 gem 'mysql2', '~> 0.3.18'
 gem 'bundler', '>= 1.8.4'
 
+gem 'bootstrap-sass'
 gem 'capistrano-bundler' # for capistrano/bundler
 gem 'capistrano-rails','~> 1.1.0'# for capistrano/rails/*
 gem 'capistrano', '~> 3.4.0'

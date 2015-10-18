@@ -33,11 +33,12 @@ zh-TW:
   login: "用戶登入"
   amount: "金額"
   note: "備註"
+  edit: "編輯"
+  delete: "刪除"
+  share: "分享"
   main_currency: "主幣別"
   reset: "重置"
   confirm: "確定"
-  delete: "刪除"
-
   every_day: "(每天)"
   every_week: "(每周)"
   every_month: "(每月)"
@@ -49,6 +50,7 @@ zh-TW:
   sidebar:
     report: "報表"
     record: "明細"
+    calendar: "日曆"
 
   category:
     category: "類別"

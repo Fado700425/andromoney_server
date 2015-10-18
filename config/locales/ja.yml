@@ -32,6 +32,8 @@ ja:
   login: "ユーザーログイン"
   amount: "金額"
   note: "備考"
+  edit: "エディタ"
+  share: "シェア"
   main_currency: "主な通貨"
   reset: "リセット"
   confirm: "確認します"
@@ -48,6 +50,7 @@ ja:
   sidebar:
     report: "レポート"
     record: "明細"
+    calendar: "カレンダー"
 
   category:
     category: "タイプ"
