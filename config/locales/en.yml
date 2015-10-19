@@ -79,7 +79,7 @@ en:
     fail_create: "Create fail, please fill in the correct info!(account cannot have the same name)"
     add: "Add Account"
     overview: "Account Overview"
-    include: "(Include Feature Records)"
+    include: "(Include Future Records)"
     total_income: "Total Income(Include Init Amount)"
     liability: "Liability"
     init_amount: "Init Amount"
