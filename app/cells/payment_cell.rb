@@ -25,7 +25,7 @@ class PaymentCell < Cell::ViewModel
     else
       recordKey = 'RECORD_EMPTY'
     end
-    user.id.to_s + paymentKey + recordKey + user.get_main_currency.currency_code + (countIn ? 'CountIn' : 'NotCount')
+    user.id.to_s + paymentKey + recordKey + user.get_main_currency.currency_code + (countIn ? 'CountIn' : 'NotCount') + I18n.locale.to_s
   end
 
   def show(user, icon_path, countIn)
