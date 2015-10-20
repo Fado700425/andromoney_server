@@ -6,7 +6,7 @@ set :repo_url, 'git@github.com:timeflying/andromoney_server.git'
 
 set :deploy_to, '/home/apps/andromoney_server'
 set :scm, :git
-set :branch, 'staging'
+set :branch, 'dev'
 
 # Default value for :format is :pretty
 # set :format, :pretty
