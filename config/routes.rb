@@ -1,4 +1,3 @@
-require 'sidekiq/web'
 AndromoneyServer::Application.routes.draw do
   mount Sidekiq::Web, at: '/sidekiq'
 
