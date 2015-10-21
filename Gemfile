@@ -47,7 +47,7 @@ group :doc do
 end
 
 group :development do
-  gem 'pry-rails'
+  gem 'pry-byebug'
   gem 'letter_opener'
   gem 'launchy'
   gem 'guard-livereload'
