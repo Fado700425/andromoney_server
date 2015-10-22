@@ -38,27 +38,29 @@ gem 'cells-haml'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+gem 'js-routes'
+gem 'font-awesome-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
-gem 'js-routes'
-gem 'font-awesome-rails'
+
+group :development do
+  gem 'pry-byebug'
+  gem 'letter_opener'
+  gem 'launchy'
+  gem 'guard-livereload'
+  gem 'rails-erd'
+end
 
 group :development, :test do
-  gem 'pry-nav'
   gem 'rspec-rails'
-  gem 'pry'
-  gem 'letter_opener'
   gem 'capybara'
-  gem 'launchy'
   gem 'fabrication'
   gem 'faker'
   gem 'capybara-email'
-  gem 'guard-livereload'
   gem 'capistrano-local-precompile', require: false
-  gem 'rails-erd'
 end
 
 group :test do
@@ -68,5 +70,4 @@ group :test do
   gem 'webmock', '1.15.0'
   gem 'selenium-webdriver'
   gem 'database_cleaner'
-
 end
