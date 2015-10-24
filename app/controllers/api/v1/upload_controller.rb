@@ -119,7 +119,10 @@ private
       rescue Exception => e
         logger.info "fail dddddddddddddddd"
         logger.info e
-        logger.info e.backtrace
+        logger.info class_name
+        logger.info key
+        logger.info user.to_json
+        logger.info device_uuid
         logger.info param.to_json
         raise
       end
