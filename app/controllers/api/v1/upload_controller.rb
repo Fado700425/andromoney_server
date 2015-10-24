@@ -118,6 +118,7 @@ private
         update_existed_data(param,class_name,key,user,device_uuid) if data.new_record?
       rescue Exception => e
         logger.info "fail dddddddddddddddd"
+        logger.info e
         logger.info e.backtrace
         logger.info param.to_json
         raise
