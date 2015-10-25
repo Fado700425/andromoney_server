@@ -7,6 +7,7 @@
 
 
 server 'dev.andromoney.com', user: 'apps', port: 22, password: 'test010888', roles: %w{web app db}
+# server 'lucas_andromoney', roles: %w{web app db}
 
 # Extended Server Syntax
 # ======================

@@ -3,10 +3,12 @@ lock '3.4.0'
 
 set :application, "andromoney_server"
 set :repo_url, 'git@github.com:timeflying/andromoney_server.git'
+# set :repo_url, 'andromoney-tilumi:tilumi/andromoney_server.git'
 
 set :deploy_to, '/home/apps/andromoney_server'
 set :scm, :git
 set :branch, 'dev'
+# set :branch, 'debug_deploy_errors'
 
 # Default value for :format is :pretty
 # set :format, :pretty
