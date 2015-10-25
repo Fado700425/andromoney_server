@@ -1,0 +1,60 @@
+.row.row-offcanvas.row-offcanvas-right
+  = render 'shared/sidebar'
+
+  .row
+    .col-xs-12.col-sm-10
+      .row
+        .panel.panel-success  
+          .panel-heading
+            .panel-title
+              = t('account.now_currency')
+          .panel-body
+            .col-sm-10
+              .content_chart
+                %p
+                  - currency = current_user.get_main_currency
+                  .main_currency_flag
+                    %div{class: "flag_#{currency.flag_path[0..((currency.flag_path.index '.') - 1)].downcase.gsub /([ &()])/, '_'}"}
+                  .main_currency
+                    %span.main_currency_code
+                      = currency.currency_code
+                    %span.main_currency_remark
+                      = currency.currency_remark
+      .row
+        - if(@currencies.size > 0)
+          .choose_heading
+            .account.search_addon
+              %i.glyphicon.glyphicon-search
+              %input#search_box.form-control{placeholder: "#{t('search')}", type: "search"}
+            %h4.account.choose_text
+              = t('account.choose_currency')
+          .currencyForm.clearfix
+            #my-tab-content.tab-content
+              .mltab-type.tab-pane.active.in
+                %table.table.table-bordered
+                  %tbody.currency_grid
+                    = render 'currencies_table', currencies: @currencies
+
+#confirmModal.modal.fade
+  .modal-dialog
+    = form_tag({controller: 'accounts', action: 'update_main_currency'}, onkeypress: 'return event.keyCode != 13;') do |f|
+      .modal-content
+        .modal-header
+          %a.close{"data-dismiss" => "modal"} &times;
+          %span.account.modal_header #{t('account.submit_currency')}
+          %span#modal_code.account.modal_header #{currency.currency_code} ?
+          %br
+          %span.account.attention #{t('attention') + ':' + t('account.cannot_update_multi_in_one_day')}
+        .modal-body
+          .currency_cell
+            %div.currency_flag{id: 'selected_flag'}
+            %br
+            %span.currency_code{id: 'selected_code'}
+              = currency.currency_code
+            %br
+            %span.currency_remark{id: 'selected_remark'}
+              = currency.currency_remark
+        .modal-footer
+          = hidden_field_tag :selected_currency, currency.currency_code
+          = submit_tag t('confirm_edit'), class: "btn btn-primary"
+          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button",id: "currency-dismiss"} #{t('cancel')}

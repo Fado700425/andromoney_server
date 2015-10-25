@@ -137,8 +137,6 @@ ja:
 
   account:
     account: "アカウント"
-
-  setting:
     setting: "設定します"
     now_currency: "あなたの主な通貨になりました"
     choose_currency: "自分のメイン通貨を選択してください"

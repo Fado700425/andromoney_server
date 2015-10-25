@@ -137,8 +137,6 @@ en:
 
   account:
     account: "Account"
-
-  setting:
     setting: "Setting"
     now_currency: "Your current main currency"
     choose_currency: "Please choose your Main Currency"
