@@ -264,6 +264,7 @@ $(document).ready(function () {
 //                    console.log(data);
                     var events = [];
                     var records = data.records;
+                    console.log(data);
                     currencyCodeStr = currency.symbolize(data.currencyCode);
                     var eventsGroupByDate = groupBy(records, function (entry) {
                         return moment(entry.date).utc().format('YYYYMMDD');
