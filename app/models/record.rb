@@ -3,18 +3,19 @@ class Record < ActiveRecord::Base
   belongs_to :user
 
   # ===== validation =====
-  validates :mount, presence: true, numericality: true
-  validates :date, presence: true
-  validates :category, presence: true
-  validates :subcategory, presence: true
-  validates :currency_code, presence: true
-  validates :user_id, presence: true
   validates_uniqueness_of :hash_key,  scope: [ :user_id ]
-  validate  :categoy_belongs_to_user
-  validate  :category_type_fits_in_out_payment
-  validate  :subcategory_belongs_to_category
-  validate  :only_transfer_has_in_amount_currecny
-  validate  :transfer_in_payment_out_payment_are_different
+  validates :date, presence: true
+
+  # validates :mount, presence: true, numericality: true
+  # validates :category, presence: true
+  # validates :subcategory, presence: true
+  # validates :currency_code, presence: true
+  # validates :user_id, presence: true
+  # validate  :categoy_belongs_to_user
+  # validate  :category_type_fits_in_out_payment
+  # validate  :subcategory_belongs_to_category
+  # validate  :only_transfer_has_in_amount_currecny
+  # validate  :transfer_in_payment_out_payment_are_different
 
   # ===== scope =====
   scope :api_select, -> { where(is_delete: false).select("id,mount,category,subcategory,date, in_payment,out_payment,remark,currency_code,amount_to_main,period,
