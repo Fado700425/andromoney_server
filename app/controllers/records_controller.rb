@@ -61,33 +61,33 @@ class RecordsController < ApplicationController
   end
 
   def index
-    if current_user.categories.size > 0
-      if request.xhr?
-        if params[:start].nil?
-          if params[:view].downcase.include? 'month'
-            start_date = Time.zone.now.at_beginning_of_month
-          elsif params[:view].downcase.include? 'week'
-            start_date = Time.zone.now.at_beginning_of_week
-          elsif params[:view].downcase.include? 'day'
-            start_date = Time.zone.now.at_beginning_of_day
-          end
-        else
-          start_date = params[:start].to_time().at_beginning_of_day
+    if request.xhr?
+      if params[:start].nil?
+        if params[:view].downcase.include? 'month'
+          start_date = Time.zone.now.at_beginning_of_month
+        elsif params[:view].downcase.include? 'week'
+          start_date = Time.zone.now.at_beginning_of_week
+        elsif params[:view].downcase.include? 'day'
+          start_date = Time.zone.now.at_beginning_of_day
         end
-        if params[:end].nil?
-          if params[:view].downcase.include? 'month'
-            start_date = Time.zone.now.at_end_of_month
-          elsif params[:view].downcase.include? 'week'
-            start_date = Time.zone.now.at_end_of_week
-          elsif params[:view].downcase.include? 'day'
-            start_date = Time.zone.now.at_end_of_day
-          end
-        else
-          end_date = params[:end].to_time().at_end_of_day
-        end
-        @records = current_user.records.where(date: start_date..end_date).order(:date)
-        render :json => {records: @records.as_json(:platform => :web), currencyCode: current_user.get_main_currency.currency_code}
+      else
+        start_date = params[:start].to_time().at_beginning_of_day
       end
+      if params[:end].nil?
+        if params[:view].downcase.include? 'month'
+          start_date = Time.zone.now.at_end_of_month
+        elsif params[:view].downcase.include? 'week'
+          start_date = Time.zone.now.at_end_of_week
+        elsif params[:view].downcase.include? 'day'
+          start_date = Time.zone.now.at_end_of_day
+        end
+      else
+        end_date = params[:end].to_time().at_end_of_day
+      end
+      @records = current_user.records.where(date: start_date..end_date).order(:date)
+      render :json => {records: @records.as_json(:platform => :web), currencyCode: current_user.get_main_currency.currency_code}
+    end
+    if current_user.categories.size > 0
       if params[:month_from_now]
         if params[:sort] == "payment"
           @records = current_user.records.not_delete.month_from_now(params[:month_from_now].to_i).order("in_payment,out_payment " + sort_direction)

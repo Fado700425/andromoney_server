@@ -260,11 +260,11 @@ $(document).ready(function () {
                     start: start.format('YYYY-MM-DD'),
                     end: end.format('YYYY-MM-DD')
                 },
-                success: function (responseJsonXDD) {
-                    console.log(responseJsonXDD);
+                success: function (data) {
+//                    console.log(data);
                     var events = [];
-                    var records = responseJsonXDD.records;
-                    currencyCodeStr = currency.symbolize(responseJsonXDD.currencyCode);
+                    var records = data.records;
+                    currencyCodeStr = currency.symbolize(data.currencyCode);
                     var eventsGroupByDate = groupBy(records, function (entry) {
                         return moment(entry.date).utc().format('YYYYMMDD');
                     });
