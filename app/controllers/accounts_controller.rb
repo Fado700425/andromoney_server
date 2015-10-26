@@ -26,7 +26,7 @@ class AccountsController < ApplicationController
       ActiveRecord::Base.transaction do
         max = Currency.maximum(:sequence_status, :conditions => ['user_id = ?', current_user.id])
         current_user.get_main_currency.update(sequence_status: max + 1)
-        selectedCurrency = Currency.where('user_id = ? AND currency_code = ?', current_user.id, selectedCode)[0]
+        selectedCurrency = Currency.find_by('user_id = ? AND currency_code = ?', current_user.id, selectedCode)
         selectedCurrency.update(sequence_status: 0)
 
         updateRecordsAmount(selectedCurrency.rate) 
@@ -92,14 +92,16 @@ class AccountsController < ApplicationController
     codes = current_user.records.select(:currency_code).uniq.pluck(:currency_code)
 
     codes.each { |code| 
-      rateHash[code] = current_user.currencies.select(:rate).where(currency_code: code).pluck(:rate)[0]
+      rateHash[code] = current_user.currencies.select(:rate).find_by(currency_code: code).rate
     }
 
-    sql = "Update record_table SET amount_to_main = (CASE currency_code "
-    rateHash.each do |key, rate| 
-      sql += "when '#{key}' THEN mount / #{rate} * #{nowRate} "
+    if(rateHash.size > 0)
+      sql = "Update record_table SET amount_to_main = (CASE currency_code "
+      rateHash.each do |key, rate| 
+        sql += "when '#{key}' THEN mount / #{rate} * #{nowRate} "
+      end
+      sql += " END) where user_id = #{current_user.id}"
+      ActiveRecord::Base.connection.execute(sql)
     end
-    sql += " END) where user_id = #{current_user.id}"
-    ActiveRecord::Base.connection.execute(sql)
   end
 end
