@@ -114,16 +114,12 @@ private
         param[:update_time] = DateTime.parse(param[:update_time]) if param[:update_time]
         param[:user_id] = user.id
         param[:device_uuid] = device_uuid
-        data = eval(class_name.classify).create!(param)
+        data = eval(class_name.classify).create(param)
         logger.info data
         update_existed_data(param,class_name,key,user,device_uuid) if data.new_record?
       rescue Exception => e
         logger.info "fail dddddddddddddddd"
-        logger.info e
-        logger.info class_name
-        logger.info key
-        logger.info user.to_json
-        logger.info device_uuid
+        logger.info e.backtrace
         logger.info param.to_json
         raise
       end
