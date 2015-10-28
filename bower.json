@@ -1,20 +1,12 @@
 {
-  "lib": {
-    "name": "bower-rails generated lib assets",
-    "dependencies": {
-
-    }
-  },
-  "vendor": {
-    "name": "bower-rails generated vendor assets",
-    "dependencies": {
-      "i18next"    : "git@github.com:i18next/i18next.git",
-      "currency-symbol": "git@github.com:dulaccc/currency-symbol.js.git",
-      "fullcalendar" : "git@github.com:tilumi/fullcalendar.git#modify_slice_definition",
-      "jquery-ujs": "git@github.com:rails/jquery-ujs.git",
-      "spin-js": "git@github.com:fgnass/spin.js.git",
-      "moment-timezone":"latest",
-      "ms-Dropdown": "git@github.com:JasonYCHuang/ms-Dropdown-bower.git#andromoney-record-table"
-    }
+  "name": "bower-rails generated vendor assets",
+  "dependencies": {
+    "i18next": "git@github.com:i18next/i18next.git",
+    "currency-symbol": "git@github.com:dulaccc/currency-symbol.js.git",
+    "fullcalendar": "git@github.com:tilumi/fullcalendar.git#modify_slice_definition",
+    "jquery-ujs": "git@github.com:rails/jquery-ujs.git",
+    "spin-js": "git@github.com:fgnass/spin.js.git",
+    "moment-timezone": "latest",
+    "ms-Dropdown": "git@github.com:JasonYCHuang/ms-Dropdown-bower.git#andromoney-record-table"
   }
 }

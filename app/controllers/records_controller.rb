@@ -6,7 +6,7 @@ class RecordsController < ApplicationController
   def new
     @record = Record.new
     fetch_variables_for_records
-    @record.date ||= DateTime.now.utc.strftime("%Y/%m/%d/ %H:%M")   # if user didn't input :date, this will set default value.
+    @record.date ||= DateTime.now.utc.strftime("%Y/%m/%d/ %H:%M") # if user didn't input :date, this will set default value.
   end
 
   def edit
@@ -18,7 +18,7 @@ class RecordsController < ApplicationController
     @record = Record.new(record_param)
     @record.user_id = current_user.id
     @record.hash_key = SecureRandom.urlsafe_base64
-    @record.date ||= DateTime.now.utc.strftime("%Y/%m/%d/ %H:%M")   # if user didn't input :date, this will set default value.
+    @record.date ||= DateTime.now.utc.strftime("%Y/%m/%d/ %H:%M") # if user didn't input :date, this will set default value.
     set_record_submit_value(@record)
 
     if @record.save
@@ -29,7 +29,7 @@ class RecordsController < ApplicationController
         fetch_variables_for_records
         redirect_to new_record_path
       else
-        redirect_to records_path(month_from_now: params[:month_from_now])  
+        redirect_to records_path(month_from_now: params[:month_from_now])
       end
     else
       flash.now["danger"] = t('record.fail_create')
@@ -42,7 +42,7 @@ class RecordsController < ApplicationController
     @record = Record.find(params[:id])
     @record.update(record_param)
     set_record_submit_value(@record)
-    
+
     if @record.save
       flash["success"] = t('record.success_create')
       @array = params[:submit_type]
@@ -51,7 +51,7 @@ class RecordsController < ApplicationController
         fetch_variables_for_records
         redirect_to new_record_path
       else
-        redirect_to records_path(month_from_now: params[:month_from_now])  
+        redirect_to records_path(month_from_now: params[:month_from_now])
       end
     else
       flash.now["danger"] = t('record.fail_create')
@@ -61,55 +61,55 @@ class RecordsController < ApplicationController
   end
 
   def index
-    if current_user.categories.size > 0
-      if request.xhr?
-        if params[:start].nil?
-          if params[:view].downcase.include? 'month'
-            start_date = Time.zone.now.at_beginning_of_month
-          elsif params[:view].downcase.include? 'week'
-            start_date = Time.zone.now.at_beginning_of_week
-          elsif params[:view].downcase.include? 'day'
-            start_date = Time.zone.now.at_beginning_of_day
-          end
-        else
-          start_date = params[:start].to_time().at_beginning_of_day
-        end
-        if params[:end].nil?
-          if params[:view].downcase.include? 'month'
-            start_date = Time.zone.now.at_end_of_month
-          elsif params[:view].downcase.include? 'week'
-            start_date = Time.zone.now.at_end_of_week
-          elsif params[:view].downcase.include? 'day'
-            start_date = Time.zone.now.at_end_of_day
-          end
-        else
-          end_date = params[:end].to_time().at_end_of_day
-        end
-        @records = current_user.records.where(date: start_date..end_date).order(:date)
-        render :json => {records: @records.as_json(:platform => :web), currencyCode: current_user.get_main_currency.currency_code}
-      end
-      if params[:month_from_now]
-        if params[:sort] == "payment"
-          @records = current_user.records.not_delete.month_from_now(params[:month_from_now].to_i).order("in_payment,out_payment " + sort_direction)
-        else
-          @records = current_user.records.not_delete.month_from_now(params[:month_from_now].to_i).order(sort_column + " " + sort_direction)
+    if request.xhr?
+      if params[:start].nil?
+        if params[:view].downcase.include? 'month'
+          start_date = Time.zone.now.at_beginning_of_month
+        elsif params[:view].downcase.include? 'week'
+          start_date = Time.zone.now.at_beginning_of_week
+        elsif params[:view].downcase.include? 'day'
+          start_date = Time.zone.now.at_beginning_of_day
         end
       else
-        if params[:sort] == "payment"
-          @records = current_user.records.not_delete.month_from_now(0).order("in_payment,out_payment " + sort_direction)
-        else
-          @records = current_user.records.not_delete.month_from_now(0).order(sort_column + " " + sort_direction)
+        start_date = params[:start].to_time().at_beginning_of_day
+      end
+      if params[:end].nil?
+        if params[:view].downcase.include? 'month'
+          start_date = Time.zone.now.at_end_of_month
+        elsif params[:view].downcase.include? 'week'
+          start_date = Time.zone.now.at_end_of_week
+        elsif params[:view].downcase.include? 'day'
+          start_date = Time.zone.now.at_end_of_day
         end
+      else
+        end_date = params[:end].to_time().at_end_of_day
       end
-      if params[:sort] == "category" && params[:direction] == "asc"
-        @records = @records.sort { |x, y| x.category_order_num <=> y.category_order_num }
-      elsif params[:sort] == "category" && params[:direction] == "desc"
-        @records = @records.sort { |x, y| y.category_order_num <=> x.category_order_num }
-      end
+      @records = current_user.records.where(date: start_date..end_date).order(:date)
+      render :json => {records: @records.as_json(:platform => :web), currencyCode: current_user.get_main_currency.currency_code}
     else
-      redirect_to start_use_path
+      if current_user.categories.size > 0
+        if params[:month_from_now]
+          if params[:sort] == "payment"
+            @records = current_user.records.not_delete.month_from_now(params[:month_from_now].to_i).order("in_payment,out_payment " + sort_direction)
+          else
+            @records = current_user.records.not_delete.month_from_now(params[:month_from_now].to_i).order(sort_column + " " + sort_direction)
+          end
+        else
+          if params[:sort] == "payment"
+            @records = current_user.records.not_delete.month_from_now(0).order("in_payment,out_payment " + sort_direction)
+          else
+            @records = current_user.records.not_delete.month_from_now(0).order(sort_column + " " + sort_direction)
+          end
+        end
+        if params[:sort] == "category" && params[:direction] == "asc"
+          @records = @records.sort { |x, y| x.category_order_num <=> y.category_order_num }
+        elsif params[:sort] == "category" && params[:direction] == "desc"
+          @records = @records.sort { |x, y| y.category_order_num <=> x.category_order_num }
+        end
+      else
+        redirect_to start_use_path
+      end
     end
-
   end
 
   def destroy
@@ -188,17 +188,17 @@ class RecordsController < ApplicationController
     # get hash_key from select form directly and skip find hash_key base on name.
     #record.project = Project.find_by(project_name: record.project, user_id: current_user.id).hash_key 
     #record.payee = Payee.find_by(payee_name: record.payee, user_id: current_user.id).hash_key if record.payee.present?
-    
+
     record.device_uuid = "computer"
     record.update_time = DateTime.now.utc
   end
 
   def fetch_variables_for_records
-    @expense_category   = Category.where(user_id: current_user.id, type: 20).not_hidden.order(:order_no)
-    @income_category    = Category.where(user_id: current_user.id, type: 10).where.not(hash_key:"SYSTEM").not_hidden.order(:order_no)
-    @transfer_category  = Category.where(user_id: current_user.id, type: 30).not_hidden.order(:order_no)
-    @payments   = Payment.where(user_id: current_user.id).not_hidden.order(:order_no)
-    @payees     = Payee.where(user_id: current_user.id).not_hidden.order(:order_no)
-    @projects   = Project.where(user_id: current_user.id).not_hidden.order(:order_no)
+    @expense_category = Category.where(user_id: current_user.id, type: 20).not_hidden.order(:order_no)
+    @income_category = Category.where(user_id: current_user.id, type: 10).where.not(hash_key: "SYSTEM").not_hidden.order(:order_no)
+    @transfer_category = Category.where(user_id: current_user.id, type: 30).not_hidden.order(:order_no)
+    @payments = Payment.where(user_id: current_user.id).not_hidden.order(:order_no)
+    @payees = Payee.where(user_id: current_user.id).not_hidden.order(:order_no)
+    @projects = Project.where(user_id: current_user.id).not_hidden.order(:order_no)
   end
 end
