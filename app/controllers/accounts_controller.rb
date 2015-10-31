@@ -16,18 +16,18 @@ class AccountsController < ApplicationController
   end
 
   def update_main_currency
-    if(!checkCanUpdate)
-      flash[:danger] = t('account.cannot_update_multi_in_one_day')
-      redirect_to :controller => 'accounts', :action => 'main_currency'
-      return
-    end
+    #if(!checkCanUpdate)
+    #  flash[:danger] = t('account.cannot_update_multi_in_one_day')
+    #  redirect_to :controller => 'accounts', :action => 'main_currency'
+    #  return
+    #end
     selectedCode = params[:selected_currency]
     begin
       ActiveRecord::Base.transaction do
         max = Currency.maximum(:sequence_status, :conditions => ['user_id = ?', current_user.id])
-        current_user.get_main_currency.update(sequence_status: max + 1)
+        current_user.get_main_currency.update(sequence_status: max + 1, device_uuid: "computer")
         selectedCurrency = Currency.find_by('user_id = ? AND currency_code = ?', current_user.id, selectedCode)
-        selectedCurrency.update(sequence_status: 0)
+        selectedCurrency.update(sequence_status: 0, device_uuid: "computer")
 
         updateRecordsAmount(selectedCurrency.rate) 
       end
@@ -100,7 +100,7 @@ class AccountsController < ApplicationController
       rateHash.each do |key, rate| 
         sql += "when '#{key}' THEN mount / #{rate} * #{nowRate} "
       end
-      sql += " END) where user_id = #{current_user.id}"
+      sql += " END), device_uuid = 'computer', updated_at = '#{Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")}' where user_id = #{current_user.id}"
       ActiveRecord::Base.connection.execute(sql)
     end
   end
