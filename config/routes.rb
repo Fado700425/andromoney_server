@@ -1,3 +1,7 @@
+# Disable autoloading constant RailsAssetLocalization::LocalesController
+# to avoid 'Circular dependency error'
+require 'rails_asset_localization/locales_controller'
+
 AndromoneyServer::Application.routes.draw do
   mount Sidekiq::Web, at: '/sidekiq'
 

@@ -36,5 +36,10 @@ case Rails.env
         }
     }
   else
-    # 保留給測試環境
+    Rails.application.config.middleware.use OmniAuth::Builder do
+      provider :google_oauth2,
+               'OAUTH_CLIENT_ID',
+               'OAUTH_CLIENT_SECRET',
+               {name: "google_login", approval_prompt: ''}
+    end
 end
