@@ -146,7 +146,7 @@ en:
     data_setting: "Data Setting"
     delete_account: "Delete this account (all data will be cleared and cannot be restored)"
     submit_currency: "Update your main currency to"
-    update_currency_fail: "Fail to delete main currency"
+    update_currency_fail: "Fail to update main currency"
     delete_success: "Delete account Success!!"
     delete_fail: "Fail to delete account"
     delete_confirm: "After delete all data will be cleared(cannot revert) and sign out!!"

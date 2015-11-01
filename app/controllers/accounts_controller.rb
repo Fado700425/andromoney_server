@@ -16,11 +16,11 @@ class AccountsController < ApplicationController
   end
 
   def update_main_currency
-    #if(!checkCanUpdate)
-    #  flash[:danger] = t('account.cannot_update_multi_in_one_day')
-    #  redirect_to :controller => 'accounts', :action => 'main_currency'
-    #  return
-    #end
+    if(Rails.env == 'production' && !checkCanUpdate)
+      flash[:danger] = t('account.cannot_update_multi_in_one_day')
+      redirect_to :controller => 'accounts', :action => 'main_currency'
+      return
+    end
     selectedCode = params[:selected_currency]
     begin
       ActiveRecord::Base.transaction do
