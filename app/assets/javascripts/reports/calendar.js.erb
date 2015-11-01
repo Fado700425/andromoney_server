@@ -60,11 +60,19 @@ $(document).ready(function () {
 
     var current_view = 'month';
     $('#calendar').fullCalendar({
+        customButtons: {
+            addRecordBtn: {
+                text: i18n.t('record.add'),
+                click: function() {
+                    window.location.href = "/records/new?locale=" + locale;
+                }
+            }
+        },
         defaultView: current_view,
         header: {
             left: 'title',
             center: '',
-            right: 'today,prev,next month,agendaWeek,basicDay'
+            right: 'addRecordBtn, today,prev,next month,agendaWeek,basicDay'
         },
         eventLimit: true,
         /*
@@ -156,9 +164,8 @@ $(document).ready(function () {
                     $projectAndPayee = $('<div><p class="calendar-event-day-project">' + projectName + '</p><p class="calendar-event-day-payee">' + payeeName + '</p></div><div style="clear: both;"></div>');
                     $recordContent = $('<p class="calendar-event-day-remark">' + remark + '</p>');
                     $footer = $('<div class="calendar-event-day-footer btn-group btn-group-justified" role="group" aria-label="...">' +
-                            ' <div class="btn-group" role="group"> <button type="button" style="border: none; color: #777777;" class="btn btn-default"><i class="fa fa-edit"></i> ' + i18n.t('edit') + '</button> </div>' +
-                            ' <div class="btn-group" role="group"> <button type="button" style="border-top: none; border-bottom: none;color: #777777;" class="btn btn-default"><i class="fa fa-trash"></i> ' + i18n.t('delete') + '</button> </div>' +
-                            ' <div class="btn-group" role="group"> <button type="button" style="border: none;color: #777777;" class="btn btn-default"><i class="fa fa-share-alt"></i> ' + i18n.t('share') + '</button> </div> </div>');
+                            ' <div class="btn-group" role="group"> <a type="button" style="border: none;color: #777777; width: 85%;"                                              class="btn btn-default" href="/records/' + record.id + '/edit?locale=' + locale + '"><i class="fa fa-edit"></i> ' + i18n.t('edit') + '</a> </div>' +
+                            ' <div class="btn-group" role="group"> <a type="button" style="border-top: none; border-bottom: none; border-right: none;color: #777777; width: 85%;" class="btn btn-default" href="/records/' + record.id + '" data-method="delete" name="delete_type" value="calendar" data-confirm="' + i18n.t('confirm_q') + '"><i class="fa fa-trash"></i> ' + i18n.t('delete') + '</a> </div>');
                     $timelineContent = $recordElement.find('.timeline-content');
                     $timelineContentContainer = $recordElement.find('.timeline-content-container');
                     $timelineContentContainer.append($title);
