@@ -21,7 +21,7 @@ feature Record, :omniauth, js: true do
 	given(:project)	   { Project.find_by(project_name: "Business", user_id: john.id)}
 
 	describe 'New page' do
-		before { visit '/records/new' }
+		before { visit '/records/new?locale=zh-TW' }
 
 		scenario 'users save a record, and get record#new by clicking save_&_add_another_one.' do
 			expect { click_button I18n.t('save_and_add_another_one') }.to change(Record, :count).by(1)
