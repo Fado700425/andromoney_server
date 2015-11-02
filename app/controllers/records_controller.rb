@@ -125,13 +125,11 @@ class RecordsController < ApplicationController
     if record.save
       @array = params[:delete_type]
       flash["success"] = t('record.delete')
-
-      if !@array.blank? && (@array == "calendar")
+      if !@array.blank? && (@array == "calendar") # request from calendar view.
         redirect_to calendar_path
        else 
         redirect_to records_path(month_from_now: params[:month_from_now])
       end
-
     end
   end
 

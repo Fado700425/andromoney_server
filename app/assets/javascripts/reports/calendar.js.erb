@@ -165,7 +165,7 @@ $(document).ready(function () {
                     $recordContent = $('<p class="calendar-event-day-remark">' + remark + '</p>');
                     $footer = $('<div class="calendar-event-day-footer btn-group btn-group-justified" role="group" aria-label="...">' +
                             ' <div class="btn-group" role="group"> <a type="button" style="border: none;color: #777777; width: 85%;"                                              class="btn btn-default" href="/records/' + record.id + '/edit?locale=' + locale + '"><i class="fa fa-edit"></i> ' + i18n.t('edit') + '</a> </div>' +
-                            ' <div class="btn-group" role="group"> <a type="button" style="border-top: none; border-bottom: none; border-right: none;color: #777777; width: 85%;" class="btn btn-default" href="/records/' + record.id + '" data-method="delete" name="delete_type" value="calendar" data-confirm="' + i18n.t('confirm_q') + '"><i class="fa fa-trash"></i> ' + i18n.t('delete') + '</a> </div>');
+                            ' <div class="btn-group" role="group"> <a type="button" style="border-top: none; border-bottom: none; border-right: none;color: #777777; width: 85%;" class="btn btn-default" href="/records/' + record.id + '?delete_type=calendar" data-method="delete" data-confirm="' + i18n.t('confirm_q') + '"><i class="fa fa-trash"></i> ' + i18n.t('delete') + '</a> </div>');
                     $timelineContent = $recordElement.find('.timeline-content');
                     $timelineContentContainer = $recordElement.find('.timeline-content-container');
                     $timelineContentContainer.append($title);
