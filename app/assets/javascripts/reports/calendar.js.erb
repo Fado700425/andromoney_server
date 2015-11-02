@@ -148,7 +148,7 @@ $(document).ready(function () {
                     var currencySymbol = currency.symbolize(currencyCode);
                     var remark = record.remark == null ? '' : record.remark;
                     $recordElement = $('<div class="timeline-block"> ' +
-                            '<div class="timeline-img picture"> <img src="assets/' + record.record_category.photo_path
+                            '<div class="timeline-img picture"> <img src="' + record.record_category.photo_path
                             + '" alt="Picture"> </div> <div class="timeline-content"> <div class="timeline-content-container" style="padding: 1.5em 1.5em 0em 1.5em;"></div></div> </div>');
                     $title = $('<div><span>' + currencySymbol + currencyCode + ' ' + amount + '</span><p class="calendar-event-day-time">' + time + '</p><div><div style="clear: both;"></div>');
                     $title.find('span').addClass(isIn ? 'calendar-event-day-amount-in' : 'calendar-event-day-amount-out');

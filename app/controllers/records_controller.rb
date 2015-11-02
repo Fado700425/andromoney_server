@@ -85,7 +85,11 @@ class RecordsController < ApplicationController
         end_date = params[:end].to_time().at_end_of_day
       end
       @records = current_user.records.where(date: start_date..end_date).order(:date)
-      render :json => {records: @records.as_json(:platform => :web), currencyCode: current_user.get_main_currency.currency_code}
+      records_json =  @records.as_json(:platform => :web)
+      records_json.each do |record|
+        record['record_category']['photo_path'] = view_context.asset_path(record['record_category']['photo_path'])
+      end
+      render :json => {records: records_json, currencyCode: current_user.get_main_currency.currency_code}
     else
       if current_user.categories.size > 0
         if params[:month_from_now]
