@@ -21,7 +21,7 @@
 .flag_uruguay, .flag_uzbekistan, .flag_venezuela, .flag_viet_nam, .flag_yemen, 
 .flag_zambia, .flag_armenia, .flag_azerbaijan, .flag_barbados, .flag_bitcoin, 
 .flag_iceland, .flag_iraq, .flag_kenya, .flag_litecoin, .flag_world
-{ display: inline-block; background: url('flags.png') no-repeat; overflow: hidden; text-indent: -9999px; text-align: left; }
+{ display: inline-block; background: image-url("flags.png") no-repeat; overflow: hidden; text-indent: -9999px; text-align: left; }
  
 .flag_algeria { background-position: -0px -0px; width: 48px; height: 48px; }
 .flag_america { background-position: -48px -0px; width: 48px; height: 48px; }
