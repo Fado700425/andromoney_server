@@ -24,16 +24,16 @@ class ApplicationController < ActionController::Base
 
   def default_url_options(options={})
     logger.debug "default_url_options is passed options: #{options.inspect}\n"
-    {locale: I18n.locale}
+    {locale: I18n.locale}.merge options
   end
 
   private
 
   def set_locale
     if params[:locale] && ["en", "zh-TW", "zh", "ja"].include?(params[:locale])
-      session[:locale] = params[:locale]
+      I18n.locale = params[:locale]
     end
-    I18n.locale = session[:locale] || extract_locale_from_accept_language_header
+    I18n.locale ||= extract_locale_from_accept_language_header
   end
 
   def extract_locale_from_accept_language_header

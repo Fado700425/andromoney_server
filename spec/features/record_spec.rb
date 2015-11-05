@@ -21,7 +21,7 @@ feature Record, :omniauth, js: true do
 	given(:project)	   { Project.find_by(project_name: "Business", user_id: john.id)}
 
 	describe 'New page' do
-		before { visit '/records/new' }
+		before { visit new_record_path(:locale => I18n.locale) }
 
 		scenario 'users save a record, and get record#new by clicking save_&_add_another_one.' do
 			expect { click_button I18n.t('save_and_add_another_one') }.to change(Record, :count).by(1)
@@ -34,7 +34,7 @@ feature Record, :omniauth, js: true do
 		end
 
 		scenario 'users save a record, and get record#index by clicking save_&_back_to_the_list.' do
-			expect { click_button I18n.t('save_and_back_to_the_list') }.to change(Record, :count).by(1)				
+			expect { click_button I18n.t('save_and_back_to_the_list') }.to change(Record, :count).by(1)
 			expect(current_path).to eq '/records'
 		end
 
