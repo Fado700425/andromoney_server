@@ -1,6 +1,7 @@
 require 'spec_helper'
 
-ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
+# Reduce log output on screen, uncomment when needed, or `tail -f log/test.log`
+# ActiveRecord::Base.logger = Logger.new(STDOUT) if defined?(ActiveRecord::Base)
 
 describe RecordsController do
 
