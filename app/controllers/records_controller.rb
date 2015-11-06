@@ -84,7 +84,7 @@ class RecordsController < ApplicationController
       else
         end_date = params[:end].to_time().at_end_of_day
       end
-      @records = current_user.records.where(date: start_date..end_date).order(:date)
+      @records = current_user.records.where(date: start_date..end_date).not_delete.order(:date)
       records_json =  @records.as_json(:platform => :web)
       records_json.each do |record|
         record['record_category']['photo_path'] = view_context.asset_path(record['record_category']['photo_path'])
@@ -121,10 +121,16 @@ class RecordsController < ApplicationController
     record.is_delete = true
     record.device_uuid = "computer"
     record.update_time = DateTime.now.utc
-    record.save
 
-    flash["success"] = t('record.delete')
-    redirect_to records_path(month_from_now: params[:month_from_now])
+    if record.save
+      @array = params[:delete_type]
+      flash["success"] = t('record.delete')
+      if !@array.blank? && (@array == "calendar") # request from calendar view.
+        redirect_to calendar_path
+       else 
+        redirect_to records_path(month_from_now: params[:month_from_now])
+      end
+    end
   end
 
   private
