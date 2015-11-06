@@ -3,13 +3,11 @@ require 'spec_helper'
 describe AnnouncementsController do
   let!(:announcement) do
     Announcement.create([
-      { title: "Taiwan", category: 'Web', locale: 'zh-TW' },
-      { title: "America", category: 'Web', locale: 'en' },
-      { title: "Japan", category: 'Web', locale: 'ja' },
+      { title: "Taiwan", content: "Taiwan", category: 'Web', locale: 'zh-TW' },
+      { title: "America", content: "America", category: 'Web', locale: 'en' },
+      { title: "Japan", content: "Japan", category: 'Web', locale: 'ja' },
     ])
   end
-
-  before (:all) { I18n.locale = nil }
 
   context 'GET #index' do
     render_views
