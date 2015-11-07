@@ -54,7 +54,7 @@ describe Api::V1::SyncController do
         john = Fabricate(:user)
         share_payment = Fabricate(:payment, user_id: bob.id)
         post :owner_share_user_payment, {body: {owner_user: bob.email, share_user: john.email, payment_hash_key: share_payment.hash_key}}
-        expect(UserSharePaymentRelation.first.is_approved).to be_false
+        expect(UserSharePaymentRelation.first.is_approved).to be false
       end
       it "sync request should have unique invite token" do
         bob = Fabricate(:user)
@@ -132,7 +132,7 @@ describe Api::V1::SyncController do
       share_payment = Fabricate(:payment, user_id: bob.id)
       relation = Fabricate(:user_share_payment_relation, share_user_id: john.id, owner_user_id: bob.id, payment_hash_key: share_payment.hash_key, token: SecureRandom.urlsafe_base64)
       get :confirm_share, token: relation.token
-      expect(relation.reload.is_approved).to be_true
+      expect(relation.reload.is_approved).to be true
     end
 
     it "return fail if do not find the relation" do
