@@ -53,8 +53,8 @@ describe Api::V1::UploadController do
       it "delete the record data" do
         user1 = Fabricate(:user)
         device = Fabricate(:device, user_id: user1.id)
-        record1 = Fabricate(:record, user_id: user1.id, update_time: Time.now - 100.hour)
-        record2 = Fabricate(:record, user_id: user1.id, update_time: Time.now - 100.hour)
+        record1 = Fabricate(:record, user_id: user1.id, update_time: Time.now - 1.hour)
+        record2 = Fabricate(:record, user_id: user1.id, update_time: Time.now - 1.hour)
         post :record_table, body: {user: user1.email, device: device.uuid, delete: [{hash_key: record1.hash_key, update_time: Time.now},{hash_key: record2.hash_key, update_time: Time.now}]}
         expect(record1.reload.is_delete).to be true
         expect(record2.reload.is_delete).to be true
