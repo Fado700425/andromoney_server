@@ -88,20 +88,21 @@ class AccountsController < ApplicationController
   end
 
   def updateRecordsAmount(nowRate)
-    rateHash = Hash.new
-    codes = current_user.records.select(:currency_code).uniq.pluck(:currency_code)
+    # update amount_to_main
+    sql = "update record_table a join currency_table b on (a.currency_code = b.currency_code) and (a.user_id = b.user_id) set amount_to_main = mount / rate * #{nowRate}, " + 
+          "a.device_uuid = 'computer', a.updated_at = NOW(), a.update_time = NOW() where a.user_id = #{current_user.id}"
+    ActiveRecord::Base.connection.execute(sql)
+    # update in_amount, in_currency, out_amount, out_currency
+    sql = "update record_table a join payment_table b on (a.in_payment = b.hash_key) and (a.user_id = b.user_id) " + 
+          "join currency_table c on (b.currency_code = c.currency_code) and (b.user_id = c.user_id) join currency_table d on (a.currency_code = d.currency_code) " + 
+          "and  (c.user_id = d.user_id) set a.in_amount = (a.mount / d.rate * c.rate), a.in_currency = b.currency_code, a.device_uuid = 'computer', " + 
+          "a.updated_at = NOW(), a.update_time = NOW() where a.user_id = #{current_user.id} and a.in_payment is not null and a.currency_code != b.currency_code"
+    ActiveRecord::Base.connection.execute(sql)
 
-    codes.each { |code| 
-      rateHash[code] = current_user.currencies.select(:rate).find_by(currency_code: code).rate
-    }
-
-    if(rateHash.size > 0)
-      sql = "Update record_table SET amount_to_main = (CASE currency_code "
-      rateHash.each do |key, rate| 
-        sql += "when '#{key}' THEN mount / #{rate} * #{nowRate} "
-      end
-      sql += " END), device_uuid = 'computer', updated_at = '#{Time.now.utc.strftime("%Y-%m-%d %H:%M:%S")}' where user_id = #{current_user.id}"
-      ActiveRecord::Base.connection.execute(sql)
-    end
+    sql = "update record_table a join payment_table b on (a.out_payment = b.hash_key) and (a.user_id = b.user_id) " + 
+          "join currency_table c on (b.currency_code = c.currency_code) and (b.user_id = c.user_id) join currency_table d on (a.currency_code = d.currency_code) " + 
+          "and  (c.user_id = d.user_id) set a.out_amount = (a.mount / d.rate * c.rate), a.out_currency = b.currency_code, a.device_uuid = 'computer', " + 
+          "a.updated_at = NOW(), a.update_time = NOW() where a.user_id = #{current_user.id} and a.out_payment is not null and a.currency_code != b.currency_code"
+    ActiveRecord::Base.connection.execute(sql)
   end
 end
