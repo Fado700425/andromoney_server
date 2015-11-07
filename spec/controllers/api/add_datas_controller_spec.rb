@@ -7,21 +7,24 @@ describe Api::V1::AddDatasController do
     it "create the record data" do
       user1 = Fabricate(:user)
       device = Fabricate(:device, user_id: user1.id)
-      post :create, {body: {user: user1.email,device: device.uuid, record_table: [{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5},{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5}]}}
+      rightNow = DateTime.now.utc.strftime("%Y/%m/%d/ %H:%M")
+      post :create, {body: {user: user1.email,device: device.uuid, record_table: [{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5, date: rightNow },{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5, date: rightNow}]}}
       expect(Record.all.size).to eq(2)
     end
 
     it "the created record data belongs to post user" do
       user1 = Fabricate(:user)
       device = Fabricate(:device, user_id: user1.id)
-      post :create, {body:{user: user1.email,device: device.uuid, record_table: [{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5},{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5}]}}
+      rightNow = DateTime.now.utc.strftime("%Y/%m/%d/ %H:%M")
+      post :create, {body:{user: user1.email,device: device.uuid, record_table: [{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5, date: rightNow },{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5, date: rightNow }]}}
       expect(Record.first.user_id).to eq(user1.id)
     end
 
     it "set the created record data's device id" do
       user1 = Fabricate(:user)
       device = Fabricate(:device, user_id: user1.id)
-      post :create, {body:{user: user1.email,device: device.uuid, record_table: [{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5},{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5}]}}
+      rightNow = DateTime.now.utc.strftime("%Y/%m/%d/ %H:%M")
+      post :create, {body:{user: user1.email,device: device.uuid, record_table: [{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5, date: rightNow },{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5, date: rightNow }]}}
       expect(Record.first.device_uuid).to eq(device.uuid)
     end
 
