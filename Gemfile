@@ -65,6 +65,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'rspec_junit_formatter'
   gem 'sqlite3'
   gem 'shoulda-matchers'
   gem 'vcr'

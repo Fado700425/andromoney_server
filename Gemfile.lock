@@ -263,6 +263,9 @@ GEM
       rspec-mocks (~> 3.3.0)
       rspec-support (~> 3.3.0)
     rspec-support (3.3.0)
+    rspec_junit_formatter (0.2.3)
+      builder (< 4)
+      rspec-core (>= 2, < 4, != 2.12.0)
     rubyzip (1.1.7)
     safe_yaml (1.0.4)
     sass (3.2.12)
@@ -370,6 +373,7 @@ DEPENDENCIES
   rails-asset-localization!
   rails-i18n
   rspec-rails
+  rspec_junit_formatter
   sass-rails (~> 4.0.0)
   sdoc
   selenium-webdriver

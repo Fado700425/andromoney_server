@@ -1,0 +1,6 @@
+machine:
+  environment:
+    SECRET_TOKEN: 6a2a6bb65ff54ea0f2b1b55d5eb4c686140d884e1559f8eabbafdf9982c9f
+dependencies:
+  post:
+    - bundle exec rake bower:install
