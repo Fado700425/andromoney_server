@@ -96,13 +96,13 @@ class AccountsController < ApplicationController
     sql = "update record_table a join payment_table b on (a.in_payment = b.hash_key) and (a.user_id = b.user_id) " + 
           "join currency_table c on (b.currency_code = c.currency_code) and (b.user_id = c.user_id) join currency_table d on (a.currency_code = d.currency_code) " + 
           "and  (c.user_id = d.user_id) set a.in_amount = (a.mount / d.rate * c.rate), a.in_currency = b.currency_code, a.device_uuid = 'computer', " + 
-          "a.updated_at = NOW(), a.update_time = NOW() where a.user_id = #{current_user.id} and a.in_payment is not null and a.currency_code != b.currency_code"
+          "a.updated_at = NOW(), a.update_time = NOW() where a.user_id = #{current_user.id} and a.in_payment is not null and a.currency_code != b.currency_code and b.currency_code is not null"
     ActiveRecord::Base.connection.execute(sql)
 
     sql = "update record_table a join payment_table b on (a.out_payment = b.hash_key) and (a.user_id = b.user_id) " + 
           "join currency_table c on (b.currency_code = c.currency_code) and (b.user_id = c.user_id) join currency_table d on (a.currency_code = d.currency_code) " + 
           "and  (c.user_id = d.user_id) set a.out_amount = (a.mount / d.rate * c.rate), a.out_currency = b.currency_code, a.device_uuid = 'computer', " + 
-          "a.updated_at = NOW(), a.update_time = NOW() where a.user_id = #{current_user.id} and a.out_payment is not null and a.currency_code != b.currency_code"
+          "a.updated_at = NOW(), a.update_time = NOW() where a.user_id = #{current_user.id} and a.out_payment is not null and a.currency_code != b.currency_code and b.currency_code is not null"
     ActiveRecord::Base.connection.execute(sql)
   end
 end
