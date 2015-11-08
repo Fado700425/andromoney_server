@@ -55,7 +55,7 @@ describe Api::V1::UpdateDatasController do
           device = Fabricate(:device, user_id: user1.id)
           record1 = Fabricate(:record, user_id: user1.id, amount_to_main: 25, update_time: Time.now - 1.hour, is_delete: true)
           post :update_all, body: {user: user1.email,device: device.uuid, record_table: [{hash_key: record1.hash_key, amount_to_main: 50.5,update_time: Time.now}]}
-          expect(record1.reload.is_delete).to be_false
+          expect(record1.reload.is_delete).to be false
         end
 
         it "update the category data" do
