@@ -29,5 +29,9 @@ describe AnnouncementsController do
       expect(response.body).to include('Taiwan')
       expect(response.body).to_not include('America', 'Japan')
     end
+
+    after(:all) do
+      I18n.locale = I18n.default_locale
+    end
   end
 end
