@@ -38,7 +38,6 @@ describe RecordsController do
       record.save
 
       xhr :get, :index, {start: record.date.at_beginning_of_day.strftime('%Y-%m-%d'), end: record.date.at_end_of_day.strftime('%Y-%m-%d'), view: 'month'}, {user_id: @user.id}
-      p response.body
       json_response = JSON.parse(response.body)
       expect(json_response['records'][0]['id']).not_to be_nil
       expect(json_response['records'][0]['date']).not_to be_empty
