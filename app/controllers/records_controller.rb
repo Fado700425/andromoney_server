@@ -88,6 +88,7 @@ class RecordsController < ApplicationController
       records_json =  @records.as_json(:platform => :web)
       records_json.each do |record|
         record['record_category']['photo_path'] = view_context.asset_path(record['record_category']['photo_path'])
+        record['date'] = record['date'].to_s('%Y-%m-%d %H:%M:%S %z') unless record['date'].nil?
       end
       render :json => {records: records_json, currencyCode: current_user.get_main_currency.currency_code}
     else
