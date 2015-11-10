@@ -1,30 +1,3 @@
-%nav.landing.navbar.navbar-default.navbar-fixed-top
-  .container
-    .navbar-header
-      %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#navbar-collapse", "data-toggle" => "collapse", :type => "button"}
-        %span.sr-only Toggle navigation
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      = link_to root_path, class: "landing navbar-brand" do
-        = image_tag("/landing/logo.png")
-        AndroMoney
-    #navbar-collapse.collapse.navbar-collapse
-      %ul.nav.navbar-nav.navbar-right
-        %li
-          = link_to 'Feature', root_path(anchor: "feature")
-        %li
-          = link_to 'Announcement', announcements_path
-        %li
-          = link_to 'Contact us', root_path(anchor: "contact")
-        %li
-          = link_to 'Sign in', "/auth/google_login"
-.container
-  - flash.each do |name, msg|
-    - if msg.is_a?(String)
-      %div{:class => "landing alert alert-#{name}", style: 'margin-top: 50px;'}
-        %a.close{"data-dismiss" => "alert"} ×
-        = content_tag :div, msg, :id => "flash_#{name}"
 %section.landing#hero
   .slogan
     %h1 Know your money more to make better life!
