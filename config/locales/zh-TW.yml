@@ -1,4 +1,12 @@
 zh-TW:
+  landing:
+    navbar:
+      andromoney: 理財幫手 AndroMoney
+      feature: 功能
+      announcement: 公告
+      contact_us: 聯絡我們
+      sign_in: 登入
+
   personal_message: "個人訊息"
   read: "(已讀)"
   not_read: "(未讀)"

@@ -1,4 +1,12 @@
 en:
+  landing:
+    navbar:
+      andromoney: AndroMoney
+      feature: Feature
+      announcement: Announcement
+      contact_us: Contact us
+      sign_in: Sign in
+
   personal_message: "Personal Message"
   read: "(Already Read)"
   not_read: "(Not Read)"

@@ -1,4 +1,12 @@
 ja:
+  landing:
+    navbar:
+      andromoney: 家計簿 AndroMoney
+      feature: フィーチャー
+      announcement: お知らせ
+      contact_us: コンタクト
+      sign_in: ユーザーログイン
+
   personal_message: "個人メッセージ"
   read: "(既読)"
   not_read: "(未読)"
