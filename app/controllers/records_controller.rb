@@ -13,6 +13,7 @@ class RecordsController < ApplicationController
   def edit
     @record = Record.find(params[:id])
     fetch_variables_for_records
+    session[:previous_page] = request.env['HTTP_REFERER'] || records_path
   end
 
   def create
@@ -30,17 +31,7 @@ class RecordsController < ApplicationController
         fetch_variables_for_records
         redirect_to new_record_path
       else
-
-        delta_month = @record.date.year*12 + @record.date.month - Time.now.month - Time.now.year*12
-        if session[:previous_page] =~ /\brecords\b/               # back to records list
-          redirect_to records_path(month_from_now: delta_month)
-        elsif session[:previous_page] =~ /\bcalendar\b/           # back to calendar
-          session[:record_date] = @record.date.strftime("%Y-%m-%d")
-          redirect_to session[:previous_page]
-        else
-          records_path
-        end
-
+        direct_to_path_base_on_session
       end
     else
       flash.now["danger"] = t('record.fail_create')
@@ -62,7 +53,7 @@ class RecordsController < ApplicationController
         fetch_variables_for_records
         redirect_to new_record_path
       else
-        redirect_to records_path(month_from_now: params[:month_from_now])
+        direct_to_path_base_on_session
       end
     else
       flash.now["danger"] = t('record.fail_create')
@@ -138,6 +129,7 @@ class RecordsController < ApplicationController
       @array = params[:delete_type]
       flash["success"] = t('record.delete')
       if !@array.blank? && (@array == "calendar") # request from calendar view.
+        session[:record_date] = record.date.strftime("%Y-%m-%d")  # go to a specific month
         redirect_to calendar_path
        else 
         redirect_to records_path(month_from_now: params[:month_from_now])
@@ -223,4 +215,17 @@ class RecordsController < ApplicationController
     @payees = Payee.where(user_id: current_user.id).not_hidden.order(:order_no)
     @projects = Project.where(user_id: current_user.id).not_hidden.order(:order_no)
   end
+
+  def direct_to_path_base_on_session
+    delta_month = @record.date.year*12 + @record.date.month - Time.now.month - Time.now.year*12
+    if session[:previous_page] =~ /\brecords\b/               # back to records list
+      redirect_to records_path(month_from_now: delta_month)
+    elsif session[:previous_page] =~ /\bcalendar\b/           # back to calendar
+      session[:record_date] = @record.date.strftime("%Y-%m-%d") # go to a specific month
+      redirect_to session[:previous_page]
+    else
+      records_path
+    end
+  end
+
 end
