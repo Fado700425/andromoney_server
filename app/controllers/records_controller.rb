@@ -7,6 +7,7 @@ class RecordsController < ApplicationController
     @record = Record.new
     fetch_variables_for_records
     @record.date ||= DateTime.now.utc.strftime("%Y/%m/%d/ %H:%M") # if user didn't input :date, this will set default value.
+    session[:previous_page] = request.env['HTTP_REFERER'] || records_path
   end
 
   def edit
@@ -29,7 +30,17 @@ class RecordsController < ApplicationController
         fetch_variables_for_records
         redirect_to new_record_path
       else
-        redirect_to records_path(month_from_now: params[:month_from_now])
+
+        delta_month = @record.date.year*12 + @record.date.month - Time.now.month - Time.now.year*12
+        if session[:previous_page] =~ /\brecords\b/               # back to records list
+          redirect_to records_path(month_from_now: delta_month)
+        elsif session[:previous_page] =~ /\bcalendar\b/           # back to calendar
+          session[:record_date] = @record.date.strftime("%Y-%m-%d")
+          redirect_to session[:previous_page]
+        else
+          records_path
+        end
+
       end
     else
       flash.now["danger"] = t('record.fail_create')

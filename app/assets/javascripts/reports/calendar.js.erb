@@ -322,4 +322,11 @@ $(document).ready(function () {
         }
     });
 
+    // read controller data.
+    var specificRecordDate = $('#recordTime').data('date');
+    // go to a specific day when we are back from creating a record.
+    if ( specificRecordDate ) {
+        $('#calendar').fullCalendar( 'gotoDate', moment(specificRecordDate) );
+    }
+
 });
