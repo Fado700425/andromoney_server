@@ -5,7 +5,7 @@ describe Api::V1::GetDeviceAddDatasController do
   describe "get Index" do
 
     context "with valid user data" do
-      
+
       it "return user need data(record)" do
         user1 = Fabricate(:user)
         record1 = Fabricate(:record, user_id: user1.id, device_uuid: Faker::Lorem.characters(20))
@@ -117,7 +117,7 @@ describe Api::V1::GetDeviceAddDatasController do
         body = ActiveSupport::JSON.decode(response.body)
         expect(body["datas"].size).to eq(1)
       end
-      
+
       it "return status 200 after get" do
         user1 = Fabricate(:user)
         subcategory1 = Fabricate(:subcategory, user_id: user1.id, subcategory: "bag", device_uuid: Faker::Lorem.characters(20))
@@ -131,7 +131,7 @@ describe Api::V1::GetDeviceAddDatasController do
     context "with invalid user data" do
       it "return status 404" do
         get :index
-        response.response_code.should == 404
+        expect(response.response_code).to eq(404)
       end
     end
 

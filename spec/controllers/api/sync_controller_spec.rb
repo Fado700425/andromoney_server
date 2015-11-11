@@ -3,20 +3,20 @@ require 'spec_helper'
 describe Api::V1::SyncController do
 
   describe "Post start" do
-    
+
     context "with valid inputs" do
       it "return start_sync_time" do
         user = Fabricate(:user, is_syncing: true, sync_time: Time.now - 1.hour)
         device1 = Fabricate(:device, user_id: user.id)
         post :start, {body: {user: user.email,device: device1.uuid}}
-        response.response_code.should == 200
+        expect(response.response_code).to eq(200)
       end
     end
 
     context "with invalid inputs" do
       it "return status 404" do
         post :start, {body: {user: "test",device: "fake_id"}}
-        response.response_code.should == 404
+        expect(response.response_code).to eq(404)
       end
     end
   end
@@ -27,7 +27,7 @@ describe Api::V1::SyncController do
       device = Fabricate(:device, user_id: user.id, is_syncing: true)
       sync_time = Time.now.utc
       post :end, {body: {user: user.email,device: device.uuid, sync_time: sync_time}}
-      device.reload.last_sync_time.utc.to_i.should == sync_time.to_i
+      expect(device.reload.last_sync_time.utc.to_i).to eq(sync_time.to_i)
     end
   end
 
@@ -83,7 +83,7 @@ describe Api::V1::SyncController do
         john = Fabricate(:user)
         share_payment = Fabricate(:payment, user_id: bob.id)
         post :owner_share_user_payment, {body: {owner_user: bob.email, share_user: john.email, payment_hash_key: share_payment.hash_key}}
-        ActionMailer::Base.deliveries.should_not be_empty
+        expect(ActionMailer::Base.deliveries).not_to be_empty
       end
 
       it "send out sync payment request email to share user who not register" do
@@ -91,7 +91,7 @@ describe Api::V1::SyncController do
         bob = Fabricate(:user)
         share_payment = Fabricate(:payment, user_id: bob.id)
         post :owner_share_user_payment, {body: {owner_user: bob.email, share_user: "test@gmail.com", payment_hash_key: share_payment.hash_key}}
-        ActionMailer::Base.deliveries.should_not be_empty
+        expect(ActionMailer::Base.deliveries).not_to be_empty
       end
     end
     context "with invalid input" do
@@ -100,7 +100,7 @@ describe Api::V1::SyncController do
         john = Fabricate(:user)
         share_payment = Fabricate(:payment)
         post :owner_share_user_payment, {body: {owner_user: bob.email, share_user: john.email, payment_hash_key: share_payment.hash_key}}
-        response.response_code.should == 404
+        expect(response.response_code).to eq(404)
       end
     end
   end
@@ -121,7 +121,7 @@ describe Api::V1::SyncController do
       share_payment = Fabricate(:payment, user_id: bob.id)
       Fabricate(:user_share_payment_relation, share_user_id: john.id, owner_user_id: bob.id, payment_hash_key: share_payment.hash_key, token: SecureRandom.urlsafe_base64)
       post :delete_share, {body: {owner_user: bob.email, share_user: john.email, payment_hash_key: share_payment.hash_key, locale: "en"}}
-      ActionMailer::Base.deliveries.should_not be_empty
+      expect(ActionMailer::Base.deliveries).not_to be_empty
     end
   end
 
@@ -141,7 +141,7 @@ describe Api::V1::SyncController do
       share_payment = Fabricate(:payment, user_id: bob.id)
       relation = Fabricate(:user_share_payment_relation, share_user_id: john.id, owner_user_id: bob.id, payment_hash_key: share_payment.hash_key, token: SecureRandom.urlsafe_base64)
       get :confirm_share, token: nil
-      response.response_code.should == 404
+      expect(response.response_code).to eq(404)
     end
   end
 

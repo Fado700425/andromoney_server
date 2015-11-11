@@ -154,7 +154,7 @@ describe Api::V1::UpdateDatasController do
           record1 = Fabricate(:record, user_id: user1.id, amount_to_main: 25, update_time: Time.now - 1.hour)
           record2 = Fabricate(:record, user_id: user1.id, amount_to_main: 25, update_time: Time.now - 1.hour)
           post :update_all, body: {user: user1.email,device: device.uuid, record_table: [{hash_key: record1.hash_key, amount_to_main: 50.5, update_time: Time.now},{hash_key: record2.hash_key, amount_to_main: 50.5, update_time: Time.now}]}
-          response.response_code.should == 200
+          expect(response.response_code).to eq(200)
         end
       end
 
@@ -166,7 +166,7 @@ describe Api::V1::UpdateDatasController do
         record1 = Fabricate(:record)
         record2 = Fabricate(:record)
         post :update_all, body: {user: "bad_id"}
-        response.response_code.should == 404
+        expect(response.response_code).to eq(404)
       end
 
       it "do not update data" do

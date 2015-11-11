@@ -30,7 +30,7 @@ describe Api::V1::DeleteDatasController do
         device = Fabricate(:device, user_id: user1.id)
         record1 = Fabricate(:record, user_id: user1.id, updated_at: Time.now - 2.hours, update_time: Time.now - 2.hours)
         post :delete_all, body: {user: user1.email, device: device.uuid, record_table: [{hash_key: record1.hash_key, update_time: Time.now}]}
-        
+
         expect(record1.reload.updated_at > Time.now - 1.hour).to be_truthy
       end
 
@@ -140,19 +140,19 @@ describe Api::V1::DeleteDatasController do
         record1 = Fabricate(:record, user_id: user1.id, update_time: Time.now - 1.hour)
         record2 = Fabricate(:record, user_id: user1.id, update_time: Time.now - 1.hour)
         post :delete_all, body: {user: user1.email, device: device.uuid, record_table: [{hash_key: record1.hash_key, update_time: Time.now},{hash_key: record2.hash_key, update_time: Time.now}]}
-        response.response_code.should == 200
+        expect(response.response_code).to eq(200)
       end
 
     end
 
     context "with invalid input" do
-      
+
       it "return status 404" do
         device = Fabricate(:device)
         record1 = Fabricate(:record)
         record2 = Fabricate(:record)
         post :delete_all, body: {user: "bad_id"}
-        response.response_code.should == 404
+        expect(response.response_code).to eq(404)
       end
 
       it "do not delete data" do
