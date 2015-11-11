@@ -26,7 +26,7 @@ module Omniauth
   module SessionHelpers
     def signin(usr)
         visit '/'
-        expect(page).to have_content('Sign in')
+        expect(page).to have_content(I18n.t('landing.navbar.sign_in'))
         auth_mock(usr)
         visit '/auth/google_login/callback'
     end
