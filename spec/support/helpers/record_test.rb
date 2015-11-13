@@ -4,7 +4,7 @@ module RecordTest
 		expect(page).to have_content(I18n.t('subcategory.subcategory'))
 		expect(page).to have_content(I18n.t('project.project'))
 		expect(page).to have_button(I18n.t('save_and_add_another_one'))
-		expect(page).to have_button(I18n.t('save_and_back_to_the_list'))
+		expect(page).to have_button(I18n.t('save_and_return'))
 		expect(page).to have_content(project.project_name)
 		expect(page).to have_content(tw_account.payment_name)
 	end

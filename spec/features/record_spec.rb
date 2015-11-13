@@ -34,7 +34,7 @@ feature Record, :omniauth, js: true do
 		end
 
 		scenario 'users save a record, and get record#index by clicking save_&_back_to_the_list.' do
-			expect { click_button I18n.t('save_and_back_to_the_list') }.to change(Record, :count).by(1)
+			expect { click_button I18n.t('save_and_return') }.to change(Record, :count).by(1)
 			expect(current_path).to eq '/records'
 		end
 
@@ -80,7 +80,7 @@ describe Record, :omniauth, js: true do
 		it { should have_content(I18n.t('subcategory.subcategory')) }
 		it { should have_content(I18n.t('project.project')) }
 		it { should have_button(I18n.t('save_and_add_another_one')) }
-		it { should have_button(I18n.t('save_and_back_to_the_list')) }
+		it { should have_button(I18n.t('save_and_return')) }
 	end
 	shared_examples 'expense/income page' do
 		it { should have_content(I18n.t('payment.payment')) }
