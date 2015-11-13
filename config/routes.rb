@@ -39,6 +39,8 @@ AndromoneyServer::Application.routes.draw do
   resources :accounts do
     collection do
       get 'info'
+      get 'main_currency'
+      post 'update_main_currency'
     end
     member do
       get 'message'

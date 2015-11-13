@@ -24,9 +24,15 @@ module NewTestUser
     Fabricate.times(10, :project, user: usr)
     Fabricate.times(2, :payment, user: usr, currency_code: 'TWD')
 
-    Fabricate(:currency, currency_code: 'TWD', rate: 28.5, currency_remark: 'New Taiwan Dollar', sequence_status: 0, flag_path: 'Taiwan.png', user: usr)
-    Fabricate(:currency, currency_code: 'USD', rate: 1, currency_remark: 'US Dollar', sequence_status: 2, flag_path: 'America.png', user: usr)
-    Fabricate(:currency, currency_code: 'EUR', rate: 0.75, currency_remark: 'Euro', sequence_status: 1, flag_path: 'Europe.png', user: usr)
+    Fabricate(:currency, currency_code: 'AED', rate: 3.674140127, currency_remark: 'UAE dirham ', sequence_status: -1, flag_path: 'UAE.png', user: usr)
+    Fabricate(:currency, currency_code: 'ARS', rate: 4.215, currency_remark: ' Argentinian Peso', sequence_status: -1, flag_path: 'Argentina.png', user: usr)
+    Fabricate(:currency, currency_code: 'BDT', rate: 77.17, currency_remark: 'Bangladeshi Taka', sequence_status: -1, flag_path: 'Bangladesh.png', user: usr)
+    Fabricate(:currency, currency_code: 'EUR', rate: 0.75, currency_remark: 'Euro', sequence_status: -1, flag_path: 'Europe.png', user: usr)
+    Fabricate(:currency, currency_code: "JMD", rate:85.65, currency_remark: "Jamaican Dollar", sequence_status:-1, flag_path: "Jamaica.png", user: usr)
+    Fabricate(:currency, currency_code: "TWD", rate:28.842, currency_remark: "New Taiwan Dollar", sequence_status:0, flag_path: "Taiwan.png", user: usr)
+    Fabricate(:currency, currency_code: "USD", rate:1, currency_remark: "US Dollar", sequence_status:-1, flag_path: "America.png", user: usr)
+    Fabricate(:currency, currency_code: "VND", rate:21010, currency_remark: "Vietnamese Dong", sequence_status:-1, flag_path: "Viet Nam.png", user: usr)
+    Fabricate(:currency, currency_code: "YER", rate:217.87, currency_remark: "Yemeni Rial", sequence_status:-1, flag_path: "Yemen.png", user: usr)
 
     # * * * * * generated targets * * * * *
     Fabricate(:payment, user: usr, currency_code: 'TWD', kind: 2, payment_name: 'Taishin Bank')

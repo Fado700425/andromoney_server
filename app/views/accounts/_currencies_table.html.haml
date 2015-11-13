@@ -1,0 +1,13 @@
+- @currencies.each_slice(5).to_a.each do |currency_group|
+  %tr
+    - currency_group.each do |currency|
+      - selected = currency.sequence_status == 0
+      %td{class: ('warning' if selected)}
+        .currency_cell{"data-toggle" => "#{selected ? '' : 'modal'}", "data-target" => "#{selected ? '' : '#confirmModal'}"}
+          %div.currency_flag{class: "flag_#{currency.flag_path[0..((currency.flag_path.index '.') - 1)].downcase.gsub /([ &()])/, '_'}"}
+          %br
+          %span.currency_code
+            = currency.currency_code
+          %br
+          %span.currency_remark
+            = currency.currency_remark
