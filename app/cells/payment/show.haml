@@ -41,7 +41,10 @@
         %th
           1:
           - exchange_rate = payment.exchange_rate
-          = exchange_rate
+          - if(exchange_rate.to_s.length > 8)
+            = exchange_rate.to_s[0..7] + '...'
+          - else
+            = exchange_rate
         %td
           %span.text-success
             #{@user.get_main_currency.currency_code}

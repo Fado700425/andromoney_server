@@ -85,7 +85,7 @@ class Payment < ActiveRecord::Base
       payment_currency = User.find(user_id).get_main_currency
     end
     main_currency = User.find(user_id).get_main_currency
-    (main_currency.rate / payment_currency.rate).round(6)
+    (main_currency.rate / payment_currency.rate)
   end
 
   def balance
