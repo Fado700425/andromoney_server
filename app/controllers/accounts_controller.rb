@@ -24,7 +24,7 @@ class AccountsController < ApplicationController
     selectedCode = params[:selected_currency]
     begin
       ActiveRecord::Base.transaction do
-        max = Currency.maximum(:sequence_status, :conditions => ['user_id = ?', current_user.id])
+        max = Currency.select(:sequence_status).where('user_id = ?', current_user.id).order(sequence_status: :desc).limit(1).first.sequence_status
         current_user.get_main_currency.update(sequence_status: max + 1, device_uuid: "computer")
         selectedCurrency = Currency.find_by('user_id = ? AND currency_code = ?', current_user.id, selectedCode)
         selectedCurrency.update(sequence_status: 0, device_uuid: "computer")
