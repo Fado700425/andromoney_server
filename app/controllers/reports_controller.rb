@@ -12,7 +12,8 @@ class ReportsController < ApplicationController
 
 
   def calendar
-
+    @specific_record_date = session[:record_date] ? session[:record_date] : nil
+    session[:record_date] = nil
   end
 
   def test

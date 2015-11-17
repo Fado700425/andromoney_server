@@ -9,7 +9,7 @@ describe RecordsController do
     it "delete the record" do
       record = Fabricate(:record)
       delete :destroy, id: record, month_from_now: 2
-      Record.first.is_delete.should == true
+      expect(Record.first.is_delete).to be true
     end
     # it "ask whether to delete the period record"
   end

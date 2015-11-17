@@ -1,4 +1,12 @@
 zh:
+  landing:
+    navbar:
+      andromoney: 理財幫手 AndroMoney
+      feature: 功能
+      announcement: 公告
+      contact_us: 聯絡我們
+      sign_in: 登入
+
   personal_message: "個人訊息"
   read: "(已讀)"
   not_read: "(未讀)"
@@ -16,7 +24,7 @@ zh:
   edit: "修改"
   confirm_edit: "確定修改"
   confirm_add: "確定新增"
-  save_and_back_to_the_list: "儲存並回到列表"
+  save_and_return: "儲存並返回"
   save_and_add_another_one: "儲存並新增下一筆"
   name: "名稱"
   confirm_q: "確定要刪除嗎?"
@@ -129,8 +137,6 @@ zh:
 
   account:
     account: "帳戶"
-
-  setting:
     setting: "設定"
     now_currency: "您現在的主幣別"
     choose_currency: "請選擇您要使用的主幣別"

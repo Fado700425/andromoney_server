@@ -2,18 +2,6 @@
   height: 100%;
 }
 
-.flag_zoom {
-  -webkit-transform: scale(0.4); 
-  -moz-transform: scale(0.4);
-  -ms-transform: scale(0.4);
-  -o-transform: scale(0.4);
-  transform: scale(0.4);
-  -moz-transform-origin: 10px 0px;
-  -webkit-transform-origin: 10px 0px;
-  transform-origin: 10px 0px;
-  position: absolute;
-}
-
-.currency_dropdown {
-  padding-left: 20px;
+body.modal-open {
+    overflow: visible;
 }

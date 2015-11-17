@@ -1,4 +1,12 @@
 en:
+  landing:
+    navbar:
+      andromoney: AndroMoney
+      feature: Feature
+      announcement: Announcement
+      contact_us: Contact us
+      sign_in: Sign in
+
   personal_message: "Personal Message"
   read: "(Already Read)"
   not_read: "(Not Read)"
@@ -16,7 +24,7 @@ en:
   edit: "Edit"
   confirm_edit: "Confirm"
   confirm_add: "Confirm"
-  save_and_back_to_the_list: "Save & back to the list"
+  save_and_return: "Save & return"
   save_and_add_another_one: "Save & add another one"
   name: "Name"
   confirm_q: "Are you sure to delete?"
@@ -129,8 +137,6 @@ en:
 
   account:
     account: "Account"
-
-  setting:
     setting: "Setting"
     now_currency: "Your current main currency"
     choose_currency: "Please choose your Main Currency"
@@ -140,7 +146,7 @@ en:
     data_setting: "Data Setting"
     delete_account: "Delete this account (all data will be cleared and cannot be restored)"
     submit_currency: "Update your main currency to"
-    update_currency_fail: "Fail to delete main currency"
+    update_currency_fail: "Fail to update main currency"
     delete_success: "Delete account Success!!"
     delete_fail: "Fail to delete account"
     delete_confirm: "After delete all data will be cleared(cannot revert) and sign out!!"
