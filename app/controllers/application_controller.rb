@@ -2,11 +2,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   helper_method :current_user
-  
+
   before_action :set_locale
-  
+
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    begin
+      @current_user ||= User.find(session[:user_id]) if session[:user_id]
+        #@current_user = User.find(40424) if Rails.env == "development"
+        #@current_user = User.find(4) if Rails.env == "development"
+    rescue
+      reset_session
+    end
   end
 
   def require_user
@@ -18,22 +24,24 @@ class ApplicationController < ActionController::Base
 
   def default_url_options(options={})
     logger.debug "default_url_options is passed options: #{options.inspect}\n"
-    { locale: I18n.locale }
+    {locale: I18n.locale}.merge options
   end
 
-private
-  
+  private
+
   def set_locale
-    if params[:locale] && ["en", "zh-TW","zh","ja"].include?( params[:locale] )
-      session[:locale] = params[:locale]
+    if params[:locale] && ["en", "zh-TW", "zh", "ja"].include?(params[:locale])
+      I18n.locale = params[:locale]
+    else 
+      I18n.locale = extract_locale_from_accept_language_header
     end
-    I18n.locale = session[:locale] || extract_locale_from_accept_language_header
   end
 
   def extract_locale_from_accept_language_header
     if request.env['HTTP_ACCEPT_LANGUAGE']
       locale = request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
-      (["zh-TW","zh","en","ja"].include? locale)? locale : "en"
+      (["zh-TW", "zh", "en", "ja"].include? locale) ? locale : "en"
     end
   end
+
 end

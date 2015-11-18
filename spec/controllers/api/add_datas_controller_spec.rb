@@ -1,27 +1,30 @@
 require 'spec_helper'
 
 describe Api::V1::AddDatasController do
-  
+
   context "with valid input" do
 
     it "create the record data" do
       user1 = Fabricate(:user)
       device = Fabricate(:device, user_id: user1.id)
-      post :create, {body: {user: user1.email,device: device.uuid, record_table: [{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5},{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5}]}}
+      rightNow = DateTime.now.utc.strftime("%Y/%m/%d/ %H:%M")
+      post :create, {body: {user: user1.email,device: device.uuid, record_table: [{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5, date: rightNow },{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5, date: rightNow}]}}
       expect(Record.all.size).to eq(2)
     end
 
     it "the created record data belongs to post user" do
       user1 = Fabricate(:user)
       device = Fabricate(:device, user_id: user1.id)
-      post :create, {body:{user: user1.email,device: device.uuid, record_table: [{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5},{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5}]}}
+      rightNow = DateTime.now.utc.strftime("%Y/%m/%d/ %H:%M")
+      post :create, {body:{user: user1.email,device: device.uuid, record_table: [{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5, date: rightNow },{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5, date: rightNow }]}}
       expect(Record.first.user_id).to eq(user1.id)
     end
 
     it "set the created record data's device id" do
       user1 = Fabricate(:user)
       device = Fabricate(:device, user_id: user1.id)
-      post :create, {body:{user: user1.email,device: device.uuid, record_table: [{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5},{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5}]}}
+      rightNow = DateTime.now.utc.strftime("%Y/%m/%d/ %H:%M")
+      post :create, {body:{user: user1.email,device: device.uuid, record_table: [{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5, date: rightNow },{hash_key: Faker::Lorem.characters(20), amount_to_main: 50.5, date: rightNow }]}}
       expect(Record.first.device_uuid).to eq(device.uuid)
     end
 
@@ -110,7 +113,7 @@ describe Api::V1::AddDatasController do
       user1 = Fabricate(:user)
       device = Fabricate(:device, user_id: user1.id)
       post :create, {body: {user: user1.email, device: device.uuid, subcategory_table: [{hash_key: Faker::Lorem.characters(20), subcategory: "shoe",hidden: 1,update_time: Time.now}]}}
-      response.response_code.should == 200
+      expect(response.response_code).to eq(200)
     end
 
   end
@@ -118,7 +121,7 @@ describe Api::V1::AddDatasController do
   context "with invalid input" do
     it "return status 404" do
       post :create, {id: "bad_id"}
-      response.response_code.should == 404
+      expect(response.response_code).to eq(404)
     end
 
     it "do not update data" do

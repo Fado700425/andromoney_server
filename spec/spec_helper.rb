@@ -3,7 +3,6 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 
 require 'rspec/rails'
-require 'rspec/autorun'
 
 require 'capybara/rails'
 require 'capybara/rspec'
@@ -17,6 +16,8 @@ require 'vcr'
 
 require 'sidekiq/testing'
 Sidekiq::Testing.inline!
+
+
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
@@ -33,11 +34,18 @@ RSpec.configure do |config|
   # config.include FactoryGirl::Syntax::Methods
 
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.infer_spec_type_from_file_location!
 
   config.use_transactional_fixtures = false
   config.infer_base_class_for_anonymous_controllers = false
   config.order = "random"
-  config.treat_symbols_as_metadata_keys_with_true_values = true
+
+  # omniauth
+  config.include Omniauth::Mock
+  config.include Omniauth::SessionHelpers, type: :feature
+  config.include NewTestUser, type: :feature
+  config.include RecordTest, type: :feature
+  #config.include Capybara::DSL
 
   config.before(:suite) do
     #DatabaseCleaner.strategy = :transaction
@@ -54,3 +62,4 @@ RSpec.configure do |config|
   end
 
 end
+OmniAuth.config.test_mode = true

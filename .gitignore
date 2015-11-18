@@ -6,6 +6,7 @@
 
 # Ignore bundler config.
 /.bundle
+/.idea
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -14,13 +15,13 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/erd.pdf
 
 /config/database.yml
 /public/uploads
+/public/assets
 
-/app/.DS_Store
-
-/.DS_Store
+.DS_Store
 
 /.sass-cache/
 
@@ -30,6 +31,12 @@
 
 /app/views/.DS_Store
 
+#Ignore bower components
+/vendor/assets/bower_components/
 
 # Ignore application configuration
 /config/application.yml
+
+/vendor/assets/bower_components/
+bower_components
+erd.pdf

@@ -1,4 +1,7 @@
-require 'sidekiq/web'
+# Disable autoloading constant RailsAssetLocalization::LocalesController
+# to avoid 'Circular dependency error'
+require 'rails_asset_localization/locales_controller'
+
 AndromoneyServer::Application.routes.draw do
   mount Sidekiq::Web, at: '/sidekiq'
 
@@ -9,20 +12,22 @@ AndromoneyServer::Application.routes.draw do
   get 'download', controller: 'welcome', action: 'download'
   get 'about', controller: "welcome", action: 'about'
   get 'pricing', controller: "welcome", action: 'pricing'
-  
-  get "/" => 'welcome#front',  constraints: {subdomain: 'web'}
-  get "/" => 'welcome#front',  constraints: {subdomain: 'test'}
-  root to: redirect("http://www.andromoney.com")
+
+  get "/" => 'welcome#index',  constraints: {subdomain: 'web'}
+  get "/" => 'welcome#index',  constraints: {subdomain: 'test'}
+  #root to: redirect("http://www.andromoney.com")   #avoid force redirection to www.andromoney.com at developement mode.
+  root to: 'welcome#index'
 
   get 'start_use', controller: 'start', action: 'index'
+  mount RailsAssetLocalization::Engine => "/locales"
 
-  resources :records do
-    get "transfer_edit"
-    patch "transfer_update"
-    collection do
-      post "transfer"
-    end
-  end
+  get 'announcements/:category' => 'announcements#index'
+  get 'announcements' => 'announcements#index'
+
+  get 'announcements/:category' => 'announcements#index'
+  get 'announcements' => 'announcements#index'
+
+  resources :records
   resources :budgets
   resources :reports do
     collection do
@@ -34,9 +39,12 @@ AndromoneyServer::Application.routes.draw do
   resources :accounts do
     collection do
       get 'info'
+      get 'main_currency'
+      post 'update_main_currency'
     end
     member do
       get 'message'
+      post 'delete'
     end
   end
   resources :categories do
@@ -50,6 +58,8 @@ AndromoneyServer::Application.routes.draw do
   resources :subcategories, only: [:destroy]
   # get 'home', controller: 'accounts', action: 'info'
   get 'home', controller: 'reports', action: 'index'
+  get 'calendar', controller: 'reports', action: 'calendar'
+  get 'test', controller: 'reports', action: 'test'
 
 
   get 'share_confirm', controller: 'api/v1/sync', action: 'confirm_share'

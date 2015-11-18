@@ -22,10 +22,11 @@ class Api::V1::UpdateDatasController < ApplicationController
 
   def update_datas(params,class_name,key,user,device_uuid)
     params.each do |param|
-      data = eval(class_name.classify).find_by(key => param[key], user_id: user.id)
+      param[:subcategory] = param.delete :sub_category if param.key?(:sub_category)
       param[:update_time] = DateTime.parse(param[:update_time]) if param[:update_time]
       param[:is_delete] = false
       param[:device_uuid] = device_uuid
+      data = eval(class_name.classify).find_by(key => param[key], user_id: user.id)
       data.update_attributes(param) if (data && data.update_time < param[:update_time])
     end
   end

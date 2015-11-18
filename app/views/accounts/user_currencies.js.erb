@@ -1,0 +1,12 @@
+$(".currency_grid").html("<%=j(render 'accounts/currencies_table', currencies: @currencies) %> ");
+
+$('tbody.currency_grid tr td').bind("click", function(event) {
+    selected_code = $(this).find('.currency_code').text().trim()
+    $('tbody.currency_grid tr td.warning').attr('class','')
+    $(this).attr('class','warning')
+    $('#selected_code').text(selected_code)
+    $('#selected_remark').text($(this).find('.currency_remark').text().trim())
+    $('#selected_flag').attr('class', $(this).find('.currency_flag').attr('class'))
+    $('#selected_currency').val(selected_code)
+    $('#modal_code').html(selected_code + " ?")
+});

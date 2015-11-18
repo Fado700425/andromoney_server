@@ -2,12 +2,13 @@ class Payment < ActiveRecord::Base
   self.table_name = "payment_table"
   belongs_to :user
   validates_uniqueness_of :hash_key, scope: [ :user_id ]
-  validates_presence_of :payment_name
+  #validates_presence_of :payment_name
 
   default_scope { order('order_no desc') } 
-  scope :not_hidden, ->{where("hidden = 0 and is_delete = 0")} 
+  #scope :not_hidden, ->{where("hidden = 0 and is_delete = 0")} 
+  scope :not_hidden, ->{where(is_delete: false, hidden: 0)} 
 
-  scope :api_select, -> { where(is_delete: false).select("id,kind,payment_name,total,currency_code,rate,out_total,hidden,order_no,hash_key,update_time"
+  scope :api_select, -> { where(is_delete: false).select("id,kind,payment_name,total,currency_code,rate,out_total,hidden,order_no,hash_key,update_time,bill_date,pay_date,remark"
                         ) }
 
   table_mapping =  {"record_table" => "Record", "category_table" => "Category", "payee_table" => "Payee", "currency_table" => "Currency", "payment_table" => "Payment", "period_table" => "Period", "pref_table" => "Pref", "project_table" => "Project", "subcategory_table" => "Subcategory"}
@@ -16,7 +17,7 @@ class Payment < ActiveRecord::Base
   def payment_related_datas(user_id, last_sync_time, page, per_page)
     records = Record.where("user_id = ? and (in_payment = ? or out_payment = ?) and updated_at > ?", user_id, hash_key, hash_key, last_sync_time).paginate(:page => page, :per_page => per_page)
     categories = Category.where("user_id = ? and hash_key in (?)", user_id, records.map(&:category))
-    subcategories = Subcategory.where("user_id = ? and hash_key in (?)", user_id, records.map(&:sub_category))
+    subcategories = Subcategory.where("user_id = ? and hash_key in (?)", user_id, records.map(&:subcategory))
     currencies = Currency.where("user_id = ? and (currency_code in (?) or sequence_status = 0)", user_id, records.map(&:currency_code))
     payees = Payee.where("user_id = ? and hash_key in (?)", user_id, records.map(&:payee))
     projects = Project.where("user_id = ? and hash_key in (?)", user_id, records.map(&:project))
@@ -45,7 +46,7 @@ class Payment < ActiveRecord::Base
   end
 
   def init_record
-    record = Record.find_by(in_payment: hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: user_id, is_delete: 0)
+    record = Record.find_by(in_payment: hash_key, category: "SYSTEM", subcategory: "INIT_AMOUNT", user_id: user_id, is_delete: 0)
   end
 
   def init_amount
@@ -84,7 +85,7 @@ class Payment < ActiveRecord::Base
       payment_currency = User.find(user_id).get_main_currency
     end
     main_currency = User.find(user_id).get_main_currency
-    (main_currency.rate / payment_currency.rate).round(6)
+    (main_currency.rate / payment_currency.rate)
   end
 
   def balance

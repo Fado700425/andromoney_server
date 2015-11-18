@@ -1,83 +1,66 @@
-require 'bundler/capistrano'
-require 'capistrano/local_precompile'
-# require 'hoptoad_notifier/capistrano'
+# config valid only for Capistrano 3.1
+lock '3.4.0'
 
 set :application, "andromoney_server"
-set :rails_env, "production"
-set :branch, "dev"  #dev branch 名字
+set :repo_url, 'git@github.com:timeflying/andromoney_server.git'
 
-#set :branch, "master"
-set :branch, "dev"
-set :repository,  "https://github.com/StevenKo/andromoney_server.git"
-set :scm, "git"
-set :user, "apps" # 一個伺服器上的帳戶用來放你的應用程式，不需要有sudo權限，但是需要有權限可以讀取Git repository拿到原始碼
-set :port, "22"
+set :deploy_to, '/home/apps/andromoney_server'
+set :scm, :git
+set :branch, 'staging'
 
-set :deploy_to, "/home/apps/andromoney_server"
-set :deploy_via, :remote_cache
-set :use_sudo, false
+# Default value for :format is :pretty
+# set :format, :pretty
 
+# Default value for :log_level is :debug
+# set :log_level, :debug
 
-#測試的
-role :web, "106.186.122.183" 
-role :app, "106.186.122.183"
-role :db,  "106.186.122.183", :primary => true
+# Default value for :pty is false
+# set :pty, true
 
-set :bundle_cmd, "RAILS_ENV=production bundle"
+# Default value for :linked_files is []
+set :linked_files, %w{config/database.yml config/application.yml}
 
-# 正式的
-#set :branch, "master"
+# Default value for linked_dirs is []
+# set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
-#role :web, "106.186.22.13"
-#role :app, "106.186.22.13"
-#role :db,  "106.186.22.13", :primary => true
+# Default value for default_env is {}
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
+# Default value for keep_releases is 5
+set :keep_releases, 5
+
+namespace :bower do
+ desc 'Install bower'
+ task :install do
+   on roles(:web) do
+     within release_path do
+       execute :rake, 'bower:install CI=true'
+     end
+   end
+ end
+end
+before 'deploy:compile_assets', 'bower:install'
 
 namespace :deploy do
 
-  task :copy_config_files, :roles => [:app] do
-    db_config = "#{shared_path}/config/database.yml"
-    run "cp #{db_config} #{release_path}/config/database.yml"
-    local_config = "#{shared_path}/config/application.yml"
-    run "cp #{local_config} #{release_path}/config/application.yml"
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      # Your restart mechanism here, for example:
+      execute :touch, release_path.join('tmp/restart.txt')
+    end
   end
-  
-  task :start do ; end
-  task :stop do ; end
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+
+  after :publishing, :restart
+
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      # within release_path do
+      #   execute :rake, 'cache:clear'
+      # end
+    end
   end
+  #after :restart, 'deploy:sitemap:refresh'
+
 end
-
-set :assets_dependencies, %w(app/assets lib/assets vendor/assets Gemfile.lock config/routes.rb)
- 
-# namespace :deploy do
-#   namespace :assets do
- 
-#     desc <<-DESC
-#       Run the asset precompilation rake task. You can specify the full path \
-#       to the rake executable by setting the rake variable. You can also \
-#       specify additional environment variables to pass to rake via the \
-#       asset_env variable. The defaults are:
- 
-#         set :rake,      "rake"
-#         set :rails_env, "production"
-#         set :asset_env, "RAILS_GROUPS=assets"
-#         set :assets_dependencies, fetch(:assets_dependencies) + %w(config/locales/js)
-#     DESC
-#     task :precompile, :roles => :web, :except => { :no_release => true } do
-#       from = source.next_revision(current_revision)
-#       if capture("cd #{latest_release} && #{source.local.log(from)} #{assets_dependencies.join ' '} | wc -l").to_i > 0
-#         run %Q{cd #{latest_release} && #{rake} RAILS_ENV=#{rails_env} #{asset_env} assets:precompile}
-#       else
-#         logger.info "Skipping asset pre-compilation because there were no asset changes"
-#       end
-#     end
- 
-#   end
-# end
-
-
-before "deploy:assets:precompile", "deploy:copy_config_files" # 如果將database.yml放在shared下，請打開
-after "deploy:update_code", "deploy:copy_config_files" # 如果將database.yml放在shared下，請打開
-# after "deploy:finalize_update", "deploy:update_symlink" # 如果有實作使用者上傳檔案到public/system，請打開

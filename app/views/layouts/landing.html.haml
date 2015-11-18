@@ -1,0 +1,39 @@
+!!! 5
+%html(lang="en-US")
+  %head
+    %title AndroMoney
+    %meta(charset="UTF-8")
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    = csrf_meta_tag
+    = stylesheet_link_tag "landing"
+    = javascript_include_tag "application"
+    = favicon_link_tag "icon.png"
+    :javascript
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-43279253-2', 'andromoney.com');
+      ga('send', 'pageview');
+  %body
+    :javascript
+      // Include the UserVoice JavaScript SDK (only needed once on a page)
+      UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/SqqP7YIHDEu93z1kwj5F5w.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
+
+      // Set colors
+      UserVoice.push(['set', {
+        accent_color: '#448dd6',
+        trigger_color: 'white',
+        trigger_background_color: 'rgba(46, 49, 51, 0.6)',
+        locale: "zh-TW"
+      }]);
+
+      // Add default trigger to the bottom-right corner of the window:
+      UserVoice.push(['addTrigger', { mode: 'contact', trigger_position: 'bottom-right' }]);
+
+      // Autoprompt for Satisfaction and SmartVote (only displayed under certain conditions)
+      UserVoice.push(['autoprompt', {}]);
+    = render 'welcome/navbar'
+    = render 'welcome/flash'
+    = yield

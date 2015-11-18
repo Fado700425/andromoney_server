@@ -9,7 +9,7 @@ class Api::V1::UploadController < ApplicationController
     if user && device
       begin
         ActiveRecord::Base.transaction do
-          insert_datas(body_params[:insert],user,"record", :hash_key,body_params[:device]) if body_params[:insert]
+          insert_datas(body_params[:insert],"record",:hash_key,user,body_params[:device]) if body_params[:insert]
           update_datas(body_params[:update],"record",:hash_key,user,body_params[:device]) if body_params[:update]
           delete_datas(body_params[:delete],'record',:hash_key,user,body_params[:device]) if body_params[:delete]
         end
@@ -50,14 +50,14 @@ private
 
     begin
       ActiveRecord::Base.transaction do
-        insert_datas(params[:category_table][:insert],user,"category", :hash_key,params[:device]) if params[:category_table]
-        insert_datas(params[:payee_table][:insert],user,"payee", :hash_key,params[:device]) if params[:payee_table]
-        insert_datas(params[:currency_table][:insert],user,"currency", :currency_code,params[:device]) if params[:currency_table]
-        insert_datas(params[:payment_table][:insert],user,"payment", :hash_key,params[:device]) if params[:payment_table]
-        insert_datas(params[:period_table][:insert],user,"period", :hash_key,params[:device]) if params[:period_table]
-        insert_datas(params[:pref_table][:insert],user,"pref", :key,params[:device]) if params[:pref_table]
-        insert_datas(params[:project_table][:insert],user,"project", :hash_key,params[:device]) if params[:project_table]
-        insert_datas(params[:subcategory_table][:insert],user,"subcategory", :hash_key,params[:device]) if params[:subcategory_table]
+        insert_datas(params[:category_table][:insert],"category", :hash_key,user,params[:device]) if params[:category_table]
+        insert_datas(params[:payee_table][:insert],"payee", :hash_key,user,params[:device]) if params[:payee_table]
+        insert_datas(params[:currency_table][:insert],"currency", :currency_code,user,params[:device]) if params[:currency_table]
+        insert_datas(params[:payment_table][:insert],"payment", :hash_key,user,params[:device]) if params[:payment_table]
+        insert_datas(params[:period_table][:insert],"period", :hash_key,user,params[:device]) if params[:period_table]
+        insert_datas(params[:pref_table][:insert],"pref", :key,user,params[:device]) if params[:pref_table]
+        insert_datas(params[:project_table][:insert],"project", :hash_key,user,params[:device]) if params[:project_table]
+        insert_datas(params[:subcategory_table][:insert],"subcategory", :hash_key,user,params[:device]) if params[:subcategory_table]
       end
     rescue
       render :status=>404, :json=>{:message=>"Create Fail"}
@@ -68,6 +68,9 @@ private
 
   def update_all_data(user,params)
     device_uuid = params[:device]
+
+    #logger.info "**************************************************************************************************************************************************************************************************************fail dddddddddddddddd****************" 
+
     begin
       ActiveRecord::Base.transaction do
         update_datas(params[:category_table][:update],"category",:hash_key,user,device_uuid) if params[:category_table]
@@ -103,10 +106,11 @@ private
     return true
   end
 
-  def insert_datas(params,user,class_name,key,device_uuid)
+  def insert_datas(params,class_name,key,user,device_uuid)
     return unless params
     params.each do |param|
       begin
+        param[:subcategory] = param.delete :sub_category if param.key?(:sub_category)
         param[:update_time] = DateTime.parse(param[:update_time]) if param[:update_time]
         param[:user_id] = user.id
         param[:device_uuid] = device_uuid
@@ -130,10 +134,17 @@ private
   def update_datas(params,class_name,key,user,device_uuid)
     return unless params
     params.each do |param|
-      data = eval(class_name.classify).find_by(key => param[key], user_id: user.id)
+      # logger.info "**************************************************************************************************************************************************************************************************************fail dddddddddddddddd****************" 
+      # Rails.logger.debug param.inspect
+      # logger.info "**************************************************************************************************************************************************************************************************************fail dddddddddddddddd****************" 
+      # Rails.logger.debug data.inspect
+      # logger.info "－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－"
+      # Rails.logger.debug param.inspect
       param[:update_time] = DateTime.parse(param[:update_time]) if param[:update_time]
       param[:is_delete] = false
       param[:device_uuid] = device_uuid
+      param[:subcategory] = param.delete :sub_category if param.key?(:sub_category)
+      data = eval(class_name.classify).find_by(key => param[key], user_id: user.id)
       data.update_attributes(param) if (data && data.update_time < param[:update_time])
     end
   end

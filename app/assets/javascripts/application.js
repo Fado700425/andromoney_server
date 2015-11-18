@@ -10,13 +10,20 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
+//= require jquery/dist/jquery
+//= require jquery-ujs/src/rails
 //= require fancybox
-//= require twitter/bootstrap
+//= require bootstrap
 //= require bootstrap-datepicker
 //= require_tree .
-
+//= require moment/moment
+//= require fullcalendar/dist/fullcalendar
+//= require bootstrap-datetimepicker
+//= require js-routes
+//= require i18next/i18next.min
+//= require currency-symbol/currency
+//= require spin-js/spin
+//= require ms-Dropdown/js/msdropdown/jquery.dd
 
 $(document).ready(function() {
   $("a.fancybox").fancybox();

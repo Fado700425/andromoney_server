@@ -5,120 +5,118 @@ class RecordsController < ApplicationController
 
   def new
     @record = Record.new
-    @expense_category = Category.where(user_id: current_user.id,type: 20, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).not_hidden.each_slice(3).to_a
-    @income_category = Category.where(user_id: current_user.id,type: 10, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).where.not(hash_key:"SYSTEM").not_hidden.each_slice(3).to_a
-    @transfer_category = Category.where(type: 30, user_id: current_user.id, hash_key:Subcategory.select("id_category").where(user_id: current_user.id)).not_hidden.each_slice(3).to_a
-    @payments = Payment.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @payees = Payee.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @projects = Project.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @subcategories = Subcategory.where(id_category: @expense_category.first[0].hash_key, user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @income_subcategories = Subcategory.where(id_category: @income_category.first[0].hash_key, user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @transfer_subcategories = Subcategory.where(id_category: @transfer_category.first[0].hash_key, user_id: current_user.id).not_hidden.each_slice(3).to_a
+    fetch_variables_for_records
+    @record.date ||= DateTime.now.utc.strftime("%Y/%m/%d/ %H:%M") # if user didn't input :date, this will set default value.
+    session[:previous_page] = request.env['HTTP_REFERER'] || records_path
+  end
+
+  def edit
+    @record = Record.find(params[:id])
+    fetch_variables_for_records
+    session[:previous_page] = request.env['HTTP_REFERER'] || records_path
   end
 
   def create
     @record = Record.new(record_param)
     @record.user_id = current_user.id
     @record.hash_key = SecureRandom.urlsafe_base64
+    @record.date ||= DateTime.now.utc.strftime("%Y/%m/%d/ %H:%M") # if user didn't input :date, this will set default value.
     set_record_submit_value(@record)
 
     if @record.save
-      flash["success"] = t('record.success_create')     
+      flash["success"] = t('record.success_create')
+      @array = params[:submit_type]
+      if !@array.blank? && (@array == "to_new")
+        @record = Record.new
+        fetch_variables_for_records
+        redirect_to new_record_path
+      else
+        direct_to_path_base_on_session
+      end
     else
-      flash["danger"] = t('record.fail_create')
+      flash.now["danger"] = t('record.fail_create')
+      fetch_variables_for_records
+      render 'records/new'
     end
-    redirect_to records_path(month_from_now: params[:month_from_now])
-  end
-
-  def transfer
-    record = Record.new(record_param)
-    record.user_id = current_user.id
-    record.hash_key = SecureRandom.urlsafe_base64
-
-    set_tranfer_record_value(record)
-    
-
-    if record.save
-      flash["success"] = t('record.success_create')   
-    else
-      flash["danger"] = t('record.fail_create')
-    end
-    redirect_to records_path(month_from_now: params[:month_from_now])
-    
-  end
-
-  def transfer_edit
-    @record = Record.find(params[:record_id])
-    @payments = Payment.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @projects = Project.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @transfer_category = Category.where(type: 30, user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @transfer_subcategories = Subcategory.where(id_category: @transfer_category.first[0].hash_key, user_id: current_user.id).not_hidden.each_slice(3).to_a
-  end
-
-  def transfer_update
-    record = Record.find(params[:record_id])
-    if record.update(record_param)
-      set_tranfer_record_value(record)
-      record.save
-    end
-    redirect_to records_path(month_from_now: params[:month_from_now])
   end
 
   def update
-    record = Record.find(params[:id])
-    
-    record.in_amount = nil
-    record.out_amount = nil
-    record.in_currency = nil
-    record.out_currency = nil
+    @record = Record.find(params[:id])
+    @record.update(record_param)
+    set_record_submit_value(@record)
 
-    if record.update(record_param)
-      set_record_submit_value(record)
-      record.save
+    if @record.save
+      flash["success"] = t('record.success_create')
+      @array = params[:submit_type]
+      if !@array.blank? && (@array == "to_new")
+        @record = Record.new
+        fetch_variables_for_records
+        redirect_to new_record_path
+      else
+        direct_to_path_base_on_session
+      end
+    else
+      flash.now["danger"] = t('record.fail_create')
+      fetch_variables_for_records
+      render 'edit'
     end
-    redirect_to records_path(month_from_now: params[:month_from_now])
   end
 
   def index
-
-    if current_user.categories.size > 0
-
-      if params[:month_from_now]
-        if params[:sort] == "payment"
-          @records = current_user.records.not_delete.month_from_now(params[:month_from_now].to_i).order("in_payment,out_payment " + sort_direction)
-        else
-          @records = current_user.records.not_delete.month_from_now(params[:month_from_now].to_i).order(sort_column + " " + sort_direction)
+    if request.xhr?
+      if params[:start].nil?
+        if params[:view].downcase.include? 'month'
+          start_date = Time.zone.now.at_beginning_of_month
+        elsif params[:view].downcase.include? 'week'
+          start_date = Time.zone.now.at_beginning_of_week
+        elsif params[:view].downcase.include? 'day'
+          start_date = Time.zone.now.at_beginning_of_day
         end
       else
-        if params[:sort] == "payment"
-          @records = current_user.records.not_delete.month_from_now(0).order("in_payment,out_payment " + sort_direction)
-        else
-          @records = current_user.records.not_delete.month_from_now(0).order(sort_column + " " + sort_direction)
+        start_date = params[:start].to_time().at_beginning_of_day
+      end
+      if params[:end].nil?
+        if params[:view].downcase.include? 'month'
+          start_date = Time.zone.now.at_end_of_month
+        elsif params[:view].downcase.include? 'week'
+          start_date = Time.zone.now.at_end_of_week
+        elsif params[:view].downcase.include? 'day'
+          start_date = Time.zone.now.at_end_of_day
         end
+      else
+        end_date = params[:end].to_time().at_end_of_day
       end
-
-      if params[:sort] == "category" && params[:direction] == "asc"
-        @records = @records.sort{ |x,y| x.category_order_num <=> y.category_order_num }
-      elsif params[:sort] == "category" && params[:direction] == "desc"
-        @records = @records.sort{ |x,y| y.category_order_num <=> x.category_order_num }
+      @records = current_user.records.where(date: start_date..end_date).not_delete.order(:date)
+      records_json =  @records.as_json(:platform => :web)
+      records_json.each do |record|
+        record['record_category']['photo_path'] = view_context.asset_path(record['record_category']['photo_path'])
+        record['date'] = record['date'].to_s('%Y-%m-%d %H:%M:%S %z') unless record['date'].nil?
       end
-
-
+      render :json => {records: records_json, currencyCode: current_user.get_main_currency.currency_code}
     else
-      redirect_to start_use_path
+      if current_user.categories.size > 0
+        if params[:month_from_now]
+          if params[:sort] == "payment"
+            @records = current_user.records.not_delete.month_from_now(params[:month_from_now].to_i).order("in_payment,out_payment " + sort_direction)
+          else
+            @records = current_user.records.not_delete.month_from_now(params[:month_from_now].to_i).order(sort_column + " " + sort_direction)
+          end
+        else
+          if params[:sort] == "payment"
+            @records = current_user.records.not_delete.month_from_now(0).order("in_payment,out_payment " + sort_direction)
+          else
+            @records = current_user.records.not_delete.month_from_now(0).order(sort_column + " " + sort_direction)
+          end
+        end
+        if params[:sort] == "category" && params[:direction] == "asc"
+          @records = @records.sort { |x, y| x.category_order_num <=> y.category_order_num }
+        elsif params[:sort] == "category" && params[:direction] == "desc"
+          @records = @records.sort { |x, y| y.category_order_num <=> x.category_order_num }
+        end
+      else
+        redirect_to start_use_path
+      end
     end
-
-  end
-
-  def edit
-    @record = Record.find(params[:id])
-    @expense_category = Category.where(type: 20, user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @income_category = Category.where("type = 10 and hash_key != 'SYSTEM' and user_id = #{current_user.id}").not_hidden.each_slice(3).to_a
-    @payments = Payment.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @payees = Payee.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @projects = Project.where(user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @subcategories = Subcategory.where(id_category: @record.category, user_id: current_user.id).not_hidden.each_slice(3).to_a
-    @income_subcategories = Subcategory.where(id_category: @record.category, user_id: current_user.id).not_hidden.each_slice(3).to_a
   end
 
   def destroy
@@ -126,67 +124,43 @@ class RecordsController < ApplicationController
     record.is_delete = true
     record.device_uuid = "computer"
     record.update_time = DateTime.now.utc
-    record.save
 
-    flash["success"] = t('record.delete')
-    redirect_to records_path(month_from_now: params[:month_from_now])
+    if record.save
+      @array = params[:delete_type]
+      flash["success"] = t('record.delete')
+      if !@array.blank? && (@array == "calendar") # request from calendar view.
+        session[:record_date] = record.date.strftime("%Y-%m-%d")  # go to a specific month
+        redirect_to calendar_path
+       else 
+        redirect_to records_path(month_from_now: params[:month_from_now])
+      end
+    end
   end
 
-private
-  
+  private
+
   def sort_column
     column_name = Record.column_names.include?(params[:sort]) ? params[:sort] : "date"
     column_name = "payment" if params[:sort] == "payment"
     column_name
   end
-  
+
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
   def record_param
-    params.require(:record).permit(:mount,:date,:in_payment,:out_payment,:payee,:project,:category,:sub_category,:remark,:in_amount,:out_amount,:fee)
-  end
-
-  def set_tranfer_record_value(record)
-    record.mount = 0 unless record.mount
-
-    record.device_uuid = "computer"
-    record.update_time = DateTime.now.utc
-    record.project = Project.find_by(project_name: record.project, user_id: current_user.id).hash_key if record.project.present?
-
-    out_payment_name = record.out_payment.split('(')[0]
-    payment = Payment.find_by(payment_name: out_payment_name, user_id: current_user.id)
-    record.out_payment = payment.hash_key
-    init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: current_user.id)
-    record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
-    record.amount_to_main = record.calculate_record_amount(current_user.get_main_currency)
-
-    if record.currency_code != record.record_out_payment.display_currency_code(current_user)
-      record.out_currency = record.record_out_payment.display_currency_code(current_user)
-      record.out_amount = record.calculate_record_amount(Currency.find_by(currency_code: record.record_out_payment.display_currency_code(current_user), user_id: current_user.id))
-    end
-
-    if record.in_payment
-      in_payment_name = record.in_payment.split('(')[0]
-      payment = Payment.find_by(payment_name: in_payment_name, user_id: current_user.id) 
-      record.in_payment = payment.hash_key
-    end
-
-    if record.currency_code != record.record_in_payment.display_currency_code(current_user)
-      record.in_currency = record.record_in_payment.display_currency_code(current_user)
-      record.in_amount = record.calculate_record_amount(Currency.find_by(currency_code: record.record_in_payment.display_currency_code(current_user), user_id: current_user.id)) unless record.in_amount
-    end
+    params.require(:record).permit(:mount, :date, :in_payment, :out_payment, :payee, :project, :category, :subcategory, :remark, :in_amount, :out_amount, :fee)
   end
 
   def set_record_submit_value(record)
     record.mount = 0 unless record.mount
-
-    if record.out_payment
-      out_payment_name = record.out_payment.split('(')[0]
-      payment = Payment.find_by(payment_name: out_payment_name, user_id: current_user.id)
-      record.out_payment = payment.hash_key
-      init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: current_user.id)
+    # ===expense===
+    if (record.out_payment && !record.in_payment)
+      #out_payment_name = record.out_payment.split('(')[0]          # get hash_key from select form directly
+      payment = Payment.find_by(hash_key: record.out_payment, user_id: current_user.id)
+      #record.out_payment = payment.hash_key                        # get hash_key from select form directly
+      init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", subcategory: "INIT_AMOUNT", user_id: current_user.id)
       record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
       record.amount_to_main = record.calculate_record_amount(current_user.get_main_currency)
 
@@ -195,12 +169,11 @@ private
         record.out_amount = record.calculate_record_amount(Currency.find_by(currency_code: record.record_out_payment.display_currency_code(current_user), user_id: current_user.id))
       end
     end
-
-    if record.in_payment
-      in_payment_name = record.in_payment.split('(')[0]
-      payment = Payment.find_by(payment_name: in_payment_name, user_id: current_user.id) 
-      record.in_payment = payment.hash_key if record.in_payment
-      init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", sub_category: "INIT_AMOUNT", user_id: current_user.id)
+    # ===income===
+    if (!record.out_payment && record.in_payment)
+      #in_payment_name = record.in_payment.split('(')[0]          # get hash_key from select form directly
+      payment = Payment.find_by(hash_key: record.in_payment, user_id: current_user.id)
+      init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", subcategory: "INIT_AMOUNT", user_id: current_user.id)
       record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
       record.amount_to_main = record.calculate_record_amount(current_user.get_main_currency)
 
@@ -209,12 +182,50 @@ private
         record.in_amount = record.calculate_record_amount(Currency.find_by(currency_code: record.record_in_payment.display_currency_code(current_user), user_id: current_user.id))
       end
     end
-    
-    record.project = Project.find_by(project_name: record.project, user_id: current_user.id).hash_key if record.project.present?
-    record.payee = Payee.find_by(payee_name: record.payee, user_id: current_user.id).hash_key if record.payee.present?
-    
+
+    # ===transfer===
+    if (record.out_payment && record.in_payment)
+      payment = Payment.find_by(hash_key: record.out_payment, user_id: current_user.id)
+      #record.out_payment = payment.hash_key       # get hash_key from select form directly
+      init_record = Record.find_by(in_payment: payment.hash_key, category: "SYSTEM", subcategory: "INIT_AMOUNT", user_id: current_user.id)
+      record.currency_code = (init_record) ? init_record.currency_code : current_user.get_main_currency.currency_code
+      record.amount_to_main = record.calculate_record_amount(current_user.get_main_currency)
+
+      if record.currency_code != record.record_out_payment.display_currency_code(current_user)
+        record.out_currency = record.record_out_payment.display_currency_code(current_user)
+        record.out_amount = record.calculate_record_amount(Currency.find_by(currency_code: record.record_out_payment.display_currency_code(current_user), user_id: current_user.id))
+      end
+
+      record.in_currency = record.record_in_payment.display_currency_code(current_user)
+      record.in_amount = record.calculate_record_amount(Currency.find_by(currency_code: record.record_in_payment.display_currency_code(current_user), user_id: current_user.id))
+    end
+    # get hash_key from select form directly and skip find hash_key base on name.
+    #record.project = Project.find_by(project_name: record.project, user_id: current_user.id).hash_key 
+    #record.payee = Payee.find_by(payee_name: record.payee, user_id: current_user.id).hash_key if record.payee.present?
+
     record.device_uuid = "computer"
     record.update_time = DateTime.now.utc
-    
   end
+
+  def fetch_variables_for_records
+    @expense_category = Category.where(user_id: current_user.id, type: 20).not_hidden.order(:order_no)
+    @income_category = Category.where(user_id: current_user.id, type: 10).where.not(hash_key: "SYSTEM").not_hidden.order(:order_no)
+    @transfer_category = Category.where(user_id: current_user.id, type: 30).not_hidden.order(:order_no)
+    @payments = Payment.where(user_id: current_user.id).not_hidden.order(:order_no)
+    @payees = Payee.where(user_id: current_user.id).not_hidden.order(:order_no)
+    @projects = Project.where(user_id: current_user.id).not_hidden.order(:order_no)
+  end
+
+  def direct_to_path_base_on_session
+    delta_month = @record.date.year*12 + @record.date.month - Time.now.month - Time.now.year*12
+    if session[:previous_page] =~ /\brecords\b/               # back to records list
+      redirect_to records_path(month_from_now: delta_month)
+    elsif session[:previous_page] =~ /\bcalendar\b/           # back to calendar
+      session[:record_date] = @record.date.strftime("%Y-%m-%d") # go to a specific month
+      redirect_to session[:previous_page]
+    else
+      records_path
+    end
+  end
+
 end
